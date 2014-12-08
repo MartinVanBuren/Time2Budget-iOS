@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9368763D1A358504006CB1EE /* BudgetEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9368763C1A358504006CB1EE /* BudgetEditorViewController.swift */; };
 		93AFA5CD1A34DB8900932A99 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AFA5CC1A34DB8900932A99 /* AppDelegate.swift */; };
 		93AFA5D01A34DB8900932A99 /* Time_to_Budget.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 93AFA5CE1A34DB8900932A99 /* Time_to_Budget.xcdatamodeld */; };
 		93AFA5D21A34DB8900932A99 /* BudgetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AFA5D11A34DB8900932A99 /* BudgetViewController.swift */; };
@@ -27,6 +28,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9368763C1A358504006CB1EE /* BudgetEditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BudgetEditorViewController.swift; sourceTree = "<group>"; };
 		93AFA5C71A34DB8900932A99 /* Time to Budget.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Time to Budget.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		93AFA5CB1A34DB8900932A99 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		93AFA5CC1A34DB8900932A99 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -82,6 +84,7 @@
 				93AFA5CC1A34DB8900932A99 /* AppDelegate.swift */,
 				93AFA5D11A34DB8900932A99 /* BudgetViewController.swift */,
 				93AFA5D31A34DB8900932A99 /* Main.storyboard */,
+				9368763C1A358504006CB1EE /* BudgetEditorViewController.swift */,
 				93AFA5D61A34DB8900932A99 /* Images.xcassets */,
 				93AFA5D81A34DB8900932A99 /* LaunchScreen.xib */,
 				93AFA5CE1A34DB8900932A99 /* Time_to_Budget.xcdatamodeld */,
@@ -215,6 +218,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9368763D1A358504006CB1EE /* BudgetEditorViewController.swift in Sources */,
 				93AFA5D21A34DB8900932A99 /* BudgetViewController.swift in Sources */,
 				93AFA5D01A34DB8900932A99 /* Time_to_Budget.xcdatamodeld in Sources */,
 				93AFA5CD1A34DB8900932A99 /* AppDelegate.swift in Sources */,
@@ -411,6 +415,7 @@
 				93AFA5EB1A34DB8A00932A99 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		93AFA5EC1A34DB8A00932A99 /* Build configuration list for PBXNativeTarget "Time to BudgetTests" */ = {
 			isa = XCConfigurationList;
@@ -419,6 +424,7 @@
 				93AFA5EE1A34DB8A00932A99 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
