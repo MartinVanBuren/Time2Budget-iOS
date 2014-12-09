@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		931FE51D1A36921700917698 /* TaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931FE51C1A36921700917698 /* TaskCell.swift */; };
+		931FE51F1A36968000917698 /* RecordsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931FE51E1A36967F00917698 /* RecordsViewController.swift */; };
 		9368763D1A358504006CB1EE /* BudgetEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9368763C1A358504006CB1EE /* BudgetEditorViewController.swift */; };
 		93AFA5CD1A34DB8900932A99 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AFA5CC1A34DB8900932A99 /* AppDelegate.swift */; };
 		93AFA5D01A34DB8900932A99 /* Time_to_Budget.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 93AFA5CE1A34DB8900932A99 /* Time_to_Budget.xcdatamodeld */; };
@@ -28,6 +30,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		931FE51C1A36921700917698 /* TaskCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskCell.swift; sourceTree = "<group>"; };
+		931FE51E1A36967F00917698 /* RecordsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordsViewController.swift; sourceTree = "<group>"; };
 		9368763C1A358504006CB1EE /* BudgetEditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BudgetEditorViewController.swift; sourceTree = "<group>"; };
 		93AFA5C71A34DB8900932A99 /* Time to Budget.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Time to Budget.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		93AFA5CB1A34DB8900932A99 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -83,8 +87,10 @@
 			children = (
 				93AFA5CC1A34DB8900932A99 /* AppDelegate.swift */,
 				93AFA5D11A34DB8900932A99 /* BudgetViewController.swift */,
-				93AFA5D31A34DB8900932A99 /* Main.storyboard */,
 				9368763C1A358504006CB1EE /* BudgetEditorViewController.swift */,
+				931FE51E1A36967F00917698 /* RecordsViewController.swift */,
+				931FE51C1A36921700917698 /* TaskCell.swift */,
+				93AFA5D31A34DB8900932A99 /* Main.storyboard */,
 				93AFA5D61A34DB8900932A99 /* Images.xcassets */,
 				93AFA5D81A34DB8900932A99 /* LaunchScreen.xib */,
 				93AFA5CE1A34DB8900932A99 /* Time_to_Budget.xcdatamodeld */,
@@ -221,7 +227,9 @@
 				9368763D1A358504006CB1EE /* BudgetEditorViewController.swift in Sources */,
 				93AFA5D21A34DB8900932A99 /* BudgetViewController.swift in Sources */,
 				93AFA5D01A34DB8900932A99 /* Time_to_Budget.xcdatamodeld in Sources */,
+				931FE51F1A36968000917698 /* RecordsViewController.swift in Sources */,
 				93AFA5CD1A34DB8900932A99 /* AppDelegate.swift in Sources */,
+				931FE51D1A36921700917698 /* TaskCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
