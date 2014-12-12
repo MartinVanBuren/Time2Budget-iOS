@@ -25,6 +25,8 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
         fetchedResultsController = getFetchedResultsController()
         fetchedResultsController.delegate = self
         fetchedResultsController.performFetch(nil)
+        
+        //self.testCoreData()
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -89,7 +91,9 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "App Development"
+        let thisBudgetItem = fetchedResultsController.objectAtIndexPath(NSIndexPath(forRow: 0, inSection: section)) as BudgetItem
+        
+        return thisBudgetItem.category
     }
     
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
@@ -114,9 +118,32 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
     
     func getFetchedResultsController() -> NSFetchedResultsController {
         
-        var localFetchedResultsController = NSFetchedResultsController(fetchRequest: taskFetchRequest(), managedObjectContext: managedObjectContext, sectionNameKeyPath: "isCompleted", cacheName: nil)
+        var localFetchedResultsController = NSFetchedResultsController(fetchRequest: taskFetchRequest(), managedObjectContext: managedObjectContext, sectionNameKeyPath: "category", cacheName: nil)
         
         return localFetchedResultsController
+    }
+    
+    func testCoreData() {
+        let appDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
+        let entityDescription = NSEntityDescription.entityForName("BudgetItem", inManagedObjectContext: self.managedObjectContext)
+        let testBudgetItem = BudgetItem(entity: entityDescription!, insertIntoManagedObjectContext: self.managedObjectContext)
+        
+        testBudgetItem.name = "Test Budget Item"
+        testBudgetItem.descript = "This is a Test"
+        testBudgetItem.category = "Test Category 2"
+        testBudgetItem.timeHrsRemain = 5
+        testBudgetItem.timeMinsRemain = 15
+        testBudgetItem.isVisible = true
+        
+        appDelegate.saveContext()
+        
+        var request = NSFetchRequest(entityName: "BudgetItem")
+        var error:NSError? = nil
+        var results:NSArray = self.managedObjectContext.executeFetchRequest(request, error: &error)!
+        
+        for res in results {
+            println(res)
+        }
     }
 }
 

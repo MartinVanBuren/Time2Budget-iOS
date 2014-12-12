@@ -85,7 +85,6 @@
 			isa = PBXGroup;
 			children = (
 				93AFA5D11A34DB8900932A99 /* BudgetViewController.swift */,
-				931FE51C1A36921700917698 /* BudgetItemCell.swift */,
 			);
 			name = "Budget View";
 			sourceTree = "<group>";
@@ -104,6 +103,14 @@
 				931FE51E1A36967F00917698 /* RecordsViewController.swift */,
 			);
 			name = "Records View";
+			sourceTree = "<group>";
+		};
+		931FE52A1A3A994000917698 /* UI Support Classes */ = {
+			isa = PBXGroup;
+			children = (
+				931FE51C1A36921700917698 /* BudgetItemCell.swift */,
+			);
+			name = "UI Support Classes";
 			sourceTree = "<group>";
 		};
 		93AFA5BE1A34DB8900932A99 = {
@@ -131,6 +138,7 @@
 				931FE5271A3A8CB900917698 /* Budget View */,
 				931FE5281A3A8CC700917698 /* Budget Editor */,
 				931FE5291A3A8CCF00917698 /* Records View */,
+				931FE52A1A3A994000917698 /* UI Support Classes */,
 				931FE5241A3A82A800917698 /* Database */,
 				93AFA5D31A34DB8900932A99 /* Main.storyboard */,
 				93AFA5D61A34DB8900932A99 /* Images.xcassets */,
