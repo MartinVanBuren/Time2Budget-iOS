@@ -14,16 +14,21 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
     //==================== IBOutlets ====================
     @IBOutlet weak var tableView: UITableView!
 
-    //==================== Variables ====================
-    
-    //==================== Constants ====================
-
+    //==================== CoreData Properties ====================
+    let managedObjectContext = (UIApplication.sharedApplication().delegate as AppDelegate).managedObjectContext!
+    var fetchedResultsController:NSFetchedResultsController = NSFetchedResultsController()
     
     //==================== Pre-Generated Methods ====================
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        
+        fetchedResultsController = getFetchedResultsController()
+        fetchedResultsController.delegate = self
+        fetchedResultsController.performFetch(nil)
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
     }
 
     override func didReceiveMemoryWarning() {
@@ -35,9 +40,10 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "showRecordsView" {
             let recordsVC:RecordsViewController = segue.destinationViewController as RecordsViewController
+            
             //let indexPath = self.tableView.indexPathForSelectedRow()
-            //let thisTask = fetchedResultsController.objectAtIndexPath(indexPath!) as TaskModel
-            //detailVC.detailTaskModel = thisTask
+            //let thisBudgetItem = fetchedResultsController.objectAtIndexPath(indexPath!) as BudgetItem
+            //recordsVC.recordsBudgetItem = thisBudgetItem
         }
         else if segue.identifier == "showBudgetEditor" {
             let budgetEditorVC:BudgetEditorViewController = segue.destinationViewController as BudgetEditorViewController
@@ -52,19 +58,23 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
     //==================== UITableViewDataSource Methods ====================
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         
-        return 1
+        return fetchedResultsController.sections!.count
     }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return 5
+        return fetchedResultsController.sections![section].numberOfObjects
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        var cell:TaskCell = tableView.dequeueReusableCellWithIdentifier("TaskCell") as TaskCell
-        cell.taskNameLabel.text = "Task Name"
-        cell.remainingTimeLabel.text = "7:45"
+        let thisBudgetItem = fetchedResultsController.objectAtIndexPath(indexPath) as BudgetItem
+        
+        var cell:BudgetItemCell = tableView.dequeueReusableCellWithIdentifier("BudgetItemCell") as BudgetItemCell
+        
+        cell.itemNameLabel.text = thisBudgetItem.name
+        cell.remainingTimeLabel.text = thisBudgetItem.remaingTimeAsString()
+        
         return cell
     }
     
@@ -79,7 +89,7 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "Default"
+        return "App Development"
     }
     
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
@@ -92,6 +102,21 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     //==================== Helper Methods ====================
+    func taskFetchRequest() -> NSFetchRequest {
+        let fetchRequest = NSFetchRequest(entityName: "BudgetItem")
+        let sortDescriptor = NSSortDescriptor(key: "category", ascending: true)
+        let sortDescriptor2 = NSSortDescriptor(key: "name", ascending: false)
+        
+        fetchRequest.sortDescriptors = [sortDescriptor, sortDescriptor2]
+        
+        return fetchRequest
+    }
     
+    func getFetchedResultsController() -> NSFetchedResultsController {
+        
+        var localFetchedResultsController = NSFetchedResultsController(fetchRequest: taskFetchRequest(), managedObjectContext: managedObjectContext, sectionNameKeyPath: "isCompleted", cacheName: nil)
+        
+        return localFetchedResultsController
+    }
 }
 

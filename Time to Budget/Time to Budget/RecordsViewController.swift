@@ -10,6 +10,8 @@ import UIKit
 
 class RecordsViewController: UIViewController {
 
+    var recordsBudgetItem:BudgetItem!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 

@@ -8,9 +8,9 @@
 
 import UIKit
 
-class TaskCell: UITableViewCell {
+class BudgetItemCell: UITableViewCell {
     
-    @IBOutlet weak var taskNameLabel: UILabel!
+    @IBOutlet weak var itemNameLabel: UILabel!
     @IBOutlet weak var remainingTimeLabel: UILabel!
     
 

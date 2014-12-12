@@ -7,8 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		931FE51D1A36921700917698 /* TaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931FE51C1A36921700917698 /* TaskCell.swift */; };
+		931FE51D1A36921700917698 /* BudgetItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931FE51C1A36921700917698 /* BudgetItemCell.swift */; };
 		931FE51F1A36968000917698 /* RecordsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931FE51E1A36967F00917698 /* RecordsViewController.swift */; };
+		931FE5211A3A815200917698 /* BudgetItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931FE5201A3A815100917698 /* BudgetItem.swift */; };
+		931FE5231A3A816700917698 /* ItemRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931FE5221A3A816700917698 /* ItemRecord.swift */; };
+		931FE5261A3A837A00917698 /* CategoryItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931FE5251A3A837A00917698 /* CategoryItem.swift */; };
 		9368763D1A358504006CB1EE /* BudgetEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9368763C1A358504006CB1EE /* BudgetEditorViewController.swift */; };
 		93AFA5CD1A34DB8900932A99 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AFA5CC1A34DB8900932A99 /* AppDelegate.swift */; };
 		93AFA5D01A34DB8900932A99 /* Time_to_Budget.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 93AFA5CE1A34DB8900932A99 /* Time_to_Budget.xcdatamodeld */; };
@@ -30,8 +33,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		931FE51C1A36921700917698 /* TaskCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskCell.swift; sourceTree = "<group>"; };
+		931FE51C1A36921700917698 /* BudgetItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BudgetItemCell.swift; sourceTree = "<group>"; };
 		931FE51E1A36967F00917698 /* RecordsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordsViewController.swift; sourceTree = "<group>"; };
+		931FE5201A3A815100917698 /* BudgetItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BudgetItem.swift; sourceTree = "<group>"; };
+		931FE5221A3A816700917698 /* ItemRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemRecord.swift; sourceTree = "<group>"; };
+		931FE5251A3A837A00917698 /* CategoryItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryItem.swift; sourceTree = "<group>"; };
 		9368763C1A358504006CB1EE /* BudgetEditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BudgetEditorViewController.swift; sourceTree = "<group>"; };
 		93AFA5C71A34DB8900932A99 /* Time to Budget.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Time to Budget.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		93AFA5CB1A34DB8900932A99 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -64,6 +70,42 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		931FE5241A3A82A800917698 /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				931FE5201A3A815100917698 /* BudgetItem.swift */,
+				931FE5221A3A816700917698 /* ItemRecord.swift */,
+				931FE5251A3A837A00917698 /* CategoryItem.swift */,
+				93AFA5CE1A34DB8900932A99 /* Time_to_Budget.xcdatamodeld */,
+			);
+			name = Database;
+			sourceTree = "<group>";
+		};
+		931FE5271A3A8CB900917698 /* Budget View */ = {
+			isa = PBXGroup;
+			children = (
+				93AFA5D11A34DB8900932A99 /* BudgetViewController.swift */,
+				931FE51C1A36921700917698 /* BudgetItemCell.swift */,
+			);
+			name = "Budget View";
+			sourceTree = "<group>";
+		};
+		931FE5281A3A8CC700917698 /* Budget Editor */ = {
+			isa = PBXGroup;
+			children = (
+				9368763C1A358504006CB1EE /* BudgetEditorViewController.swift */,
+			);
+			name = "Budget Editor";
+			sourceTree = "<group>";
+		};
+		931FE5291A3A8CCF00917698 /* Records View */ = {
+			isa = PBXGroup;
+			children = (
+				931FE51E1A36967F00917698 /* RecordsViewController.swift */,
+			);
+			name = "Records View";
+			sourceTree = "<group>";
+		};
 		93AFA5BE1A34DB8900932A99 = {
 			isa = PBXGroup;
 			children = (
@@ -86,14 +128,13 @@
 			isa = PBXGroup;
 			children = (
 				93AFA5CC1A34DB8900932A99 /* AppDelegate.swift */,
-				93AFA5D11A34DB8900932A99 /* BudgetViewController.swift */,
-				9368763C1A358504006CB1EE /* BudgetEditorViewController.swift */,
-				931FE51E1A36967F00917698 /* RecordsViewController.swift */,
-				931FE51C1A36921700917698 /* TaskCell.swift */,
+				931FE5271A3A8CB900917698 /* Budget View */,
+				931FE5281A3A8CC700917698 /* Budget Editor */,
+				931FE5291A3A8CCF00917698 /* Records View */,
+				931FE5241A3A82A800917698 /* Database */,
 				93AFA5D31A34DB8900932A99 /* Main.storyboard */,
 				93AFA5D61A34DB8900932A99 /* Images.xcassets */,
 				93AFA5D81A34DB8900932A99 /* LaunchScreen.xib */,
-				93AFA5CE1A34DB8900932A99 /* Time_to_Budget.xcdatamodeld */,
 				93AFA5CA1A34DB8900932A99 /* Supporting Files */,
 			);
 			path = "Time to Budget";
@@ -225,11 +266,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				9368763D1A358504006CB1EE /* BudgetEditorViewController.swift in Sources */,
+				931FE5231A3A816700917698 /* ItemRecord.swift in Sources */,
 				93AFA5D21A34DB8900932A99 /* BudgetViewController.swift in Sources */,
 				93AFA5D01A34DB8900932A99 /* Time_to_Budget.xcdatamodeld in Sources */,
+				931FE5261A3A837A00917698 /* CategoryItem.swift in Sources */,
 				931FE51F1A36968000917698 /* RecordsViewController.swift in Sources */,
 				93AFA5CD1A34DB8900932A99 /* AppDelegate.swift in Sources */,
-				931FE51D1A36921700917698 /* TaskCell.swift in Sources */,
+				931FE51D1A36921700917698 /* BudgetItemCell.swift in Sources */,
+				931FE5211A3A815200917698 /* BudgetItem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
