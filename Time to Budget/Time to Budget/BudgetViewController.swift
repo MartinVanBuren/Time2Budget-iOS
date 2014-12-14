@@ -11,8 +11,13 @@ import CoreData
 
 class BudgetViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate {
     
+    //==================== Properties ====================
+    var editMode:Bool = false
+    var displayPrompt:Bool = false
+    
     //==================== IBOutlets ====================
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var editButton: UIBarButtonItem!
 
     //==================== CoreData Properties ====================
     let managedObjectContext = (UIApplication.sharedApplication().delegate as AppDelegate).managedObjectContext!
@@ -26,7 +31,7 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
         fetchedResultsController.delegate = self
         fetchedResultsController.performFetch(nil)
         
-        //self.testCoreData()
+        self.displayPromptControl()
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -41,20 +46,32 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
     //==================== Segue Preperation ====================
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "showRecordsView" {
+            clearPrompt()
             let recordsVC:RecordsViewController = segue.destinationViewController as RecordsViewController
             
             //let indexPath = self.tableView.indexPathForSelectedRow()
             //let thisBudgetItem = fetchedResultsController.objectAtIndexPath(indexPath!) as BudgetItem
             //recordsVC.recordsBudgetItem = thisBudgetItem
         }
-        else if segue.identifier == "showBudgetEditor" {
-            let budgetEditorVC:BudgetEditorViewController = segue.destinationViewController as BudgetEditorViewController
+        else if segue.identifier == "showBudgetItemEditor" {
+            let budgetItemEditorVC:BudgetItemEditorViewController = segue.destinationViewController as BudgetItemEditorViewController
+            let indexPath = self.tableView.indexPathForSelectedRow()
+            let thisBudgetItem = fetchedResultsController.objectAtIndexPath(indexPath!) as BudgetItem
+            budgetItemEditorVC.currentBudgetItem = thisBudgetItem
         }
     }
     
     //==================== IBAction Methods ====================
     @IBAction func editButtonPressed(sender: UIBarButtonItem) {
-        self.performSegueWithIdentifier("showBudgetEditor", sender: self)
+        if editMode == false {
+            editMode = true;
+            self.editButton.title = "Done"
+            self.navigationItem.title = "Edit Budget"
+        } else {
+            editMode = false;
+            self.editButton.title = "Edit"
+            self.navigationItem.title = "Budget"
+        }
     }
     
     @IBAction func debugButtonPressed(sender: UIBarButtonItem) {
@@ -85,20 +102,45 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
         return cell
     }
     
+    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let thisBudgetItem = fetchedResultsController.objectAtIndexPath(NSIndexPath(forRow: 0, inSection: section)) as BudgetItem
+        
+        var totalHours:Int = 0
+        var totalMinutes:Int = 0
+        
+        var cell:SectionHeaderCell = tableView.dequeueReusableCellWithIdentifier("SectionHeaderCell") as SectionHeaderCell
+        
+        let arraySize = fetchedResultsController.sections?[section].numberOfObjects
+            
+        for var i = 0; i < arraySize; i++ {
+            totalHours += (fetchedResultsController.objectAtIndexPath(NSIndexPath(forRow: i, inSection: section)) as BudgetItem).timeHrsRemain.integerValue
+            totalMinutes += (fetchedResultsController.objectAtIndexPath(NSIndexPath(forRow: i, inSection: section)) as BudgetItem).timeMinsRemain.integerValue
+            }
+        
+        var newTime:[Int] = cleanTime(totalHours, mins: totalMinutes)
+        
+        cell.sectionNameLabel.text = thisBudgetItem.category
+        cell.remainingTimeLabel.text = "\(newTime[0]):\(newTime[1])"
+
+        return cell
+    }
+    
     //==================== UITableViewDelegate Methods ====================
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        performSegueWithIdentifier("showRecordsView", sender: self)
+        if self.editMode == true {
+            performSegueWithIdentifier("showBudgetItemEditor", sender: self)
+        }
+        else {
+            performSegueWithIdentifier("showRecordsView", sender: self)
+        }
+        
+        
     }
+    
     
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         
-        return 25
-    }
-    
-    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        let thisBudgetItem = fetchedResultsController.objectAtIndexPath(NSIndexPath(forRow: 0, inSection: section)) as BudgetItem
-        
-        return thisBudgetItem.category
+        return 44
     }
     
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
@@ -135,7 +177,7 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
         
         testBudgetItem.name = "Test Budget Item"
         testBudgetItem.descript = "This is a Test"
-        testBudgetItem.category = "Test Category"
+        testBudgetItem.category = "Test Category 2"
         testBudgetItem.timeHrsRemain = 5
         testBudgetItem.timeMinsRemain = 15
         testBudgetItem.isVisible = true
@@ -149,6 +191,39 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
         for res in results {
             println(res)
         }
+    }
+    
+    func displayPromptControl() {
+        var navSingleTap = UITapGestureRecognizer(target: self, action: "navSingleTap")
+        navSingleTap.numberOfTapsRequired = 1
+        (self.navigationController?.navigationBar.subviews[1] as UIView).userInteractionEnabled = true
+        (self.navigationController?.navigationBar.subviews[1] as UIView).addGestureRecognizer(navSingleTap)
+    }
+    
+    func navSingleTap() {
+        if displayPrompt == false {
+            displayPrompt = true
+            self.navigationItem.prompt = "Time Remaining This Week:"
+        } else {
+            clearPrompt()
+        }
+    }
+    
+    func clearPrompt() {
+        displayPrompt = false
+        self.navigationItem.prompt = nil
+    }
+    
+    func cleanTime(hrs: Int, mins: Int) -> [Int] {
+        var newHrs:Int = hrs
+        var newMins:Int = mins
+        
+        while newMins >= 60 {
+            newHrs += 1
+            newMins -= 60
+        }
+        
+        return [newHrs, newMins]
     }
 }
 

@@ -13,7 +13,9 @@
 		931FE5231A3A816700917698 /* ItemRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931FE5221A3A816700917698 /* ItemRecord.swift */; };
 		931FE5261A3A837A00917698 /* CategoryItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931FE5251A3A837A00917698 /* CategoryItem.swift */; };
 		931FE52C1A3CDDDD00917698 /* iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 931FE52B1A3CDDDD00917698 /* iPad.storyboard */; };
-		9368763D1A358504006CB1EE /* BudgetEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9368763C1A358504006CB1EE /* BudgetEditorViewController.swift */; };
+		935045781A3D80A70094E8D1 /* SectionHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935045771A3D80A70094E8D1 /* SectionHeaderCell.swift */; };
+		935A15B71A3D23A300EEB6C6 /* EditItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935A15B61A3D23A300EEB6C6 /* EditItemCell.swift */; };
+		9368763D1A358504006CB1EE /* BudgetItemEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9368763C1A358504006CB1EE /* BudgetItemEditorViewController.swift */; };
 		93AFA5CD1A34DB8900932A99 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AFA5CC1A34DB8900932A99 /* AppDelegate.swift */; };
 		93AFA5D01A34DB8900932A99 /* Time_to_Budget.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 93AFA5CE1A34DB8900932A99 /* Time_to_Budget.xcdatamodeld */; };
 		93AFA5D21A34DB8900932A99 /* BudgetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AFA5D11A34DB8900932A99 /* BudgetViewController.swift */; };
@@ -40,7 +42,9 @@
 		931FE5221A3A816700917698 /* ItemRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemRecord.swift; sourceTree = "<group>"; };
 		931FE5251A3A837A00917698 /* CategoryItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryItem.swift; sourceTree = "<group>"; };
 		931FE52B1A3CDDDD00917698 /* iPad.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = iPad.storyboard; sourceTree = "<group>"; };
-		9368763C1A358504006CB1EE /* BudgetEditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BudgetEditorViewController.swift; sourceTree = "<group>"; };
+		935045771A3D80A70094E8D1 /* SectionHeaderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SectionHeaderCell.swift; sourceTree = "<group>"; };
+		935A15B61A3D23A300EEB6C6 /* EditItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditItemCell.swift; sourceTree = "<group>"; };
+		9368763C1A358504006CB1EE /* BudgetItemEditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BudgetItemEditorViewController.swift; sourceTree = "<group>"; };
 		93AFA5C71A34DB8900932A99 /* Time to Budget.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Time to Budget.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		93AFA5CB1A34DB8900932A99 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		93AFA5CC1A34DB8900932A99 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -87,6 +91,8 @@
 			isa = PBXGroup;
 			children = (
 				931FE51C1A36921700917698 /* BudgetItemCell.swift */,
+				935A15B61A3D23A300EEB6C6 /* EditItemCell.swift */,
+				935045771A3D80A70094E8D1 /* SectionHeaderCell.swift */,
 			);
 			name = "UI Support Classes";
 			sourceTree = "<group>";
@@ -95,7 +101,7 @@
 			isa = PBXGroup;
 			children = (
 				93AFA5D11A34DB8900932A99 /* BudgetViewController.swift */,
-				9368763C1A358504006CB1EE /* BudgetEditorViewController.swift */,
+				9368763C1A358504006CB1EE /* BudgetItemEditorViewController.swift */,
 				931FE51E1A36967F00917698 /* RecordsViewController.swift */,
 			);
 			name = "iPhone Views";
@@ -269,12 +275,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9368763D1A358504006CB1EE /* BudgetEditorViewController.swift in Sources */,
+				9368763D1A358504006CB1EE /* BudgetItemEditorViewController.swift in Sources */,
 				931FE5231A3A816700917698 /* ItemRecord.swift in Sources */,
 				93AFA5D21A34DB8900932A99 /* BudgetViewController.swift in Sources */,
 				93AFA5D01A34DB8900932A99 /* Time_to_Budget.xcdatamodeld in Sources */,
 				931FE5261A3A837A00917698 /* CategoryItem.swift in Sources */,
 				931FE51F1A36968000917698 /* RecordsViewController.swift in Sources */,
+				935045781A3D80A70094E8D1 /* SectionHeaderCell.swift in Sources */,
+				935A15B71A3D23A300EEB6C6 /* EditItemCell.swift in Sources */,
 				93AFA5CD1A34DB8900932A99 /* AppDelegate.swift in Sources */,
 				931FE51D1A36921700917698 /* BudgetItemCell.swift in Sources */,
 				931FE5211A3A815200917698 /* BudgetItem.swift in Sources */,
