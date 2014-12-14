@@ -57,6 +57,11 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
         self.performSegueWithIdentifier("showBudgetEditor", sender: self)
     }
     
+    @IBAction func debugButtonPressed(sender: UIBarButtonItem) {
+        testAddBudgetItemInCoreData()
+    }
+    
+    
     //==================== UITableViewDataSource Methods ====================
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         
@@ -102,7 +107,7 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
     
     //==================== NSFetchedResultsControllerDelegate Methods ====================
     func controllerDidChangeContent(controller: NSFetchedResultsController) {
-        
+        self.tableView.reloadData()
     }
     
     //==================== Helper Methods ====================
@@ -123,14 +128,14 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
         return localFetchedResultsController
     }
     
-    func testCoreData() {
+    func testAddBudgetItemInCoreData() {
         let appDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
         let entityDescription = NSEntityDescription.entityForName("BudgetItem", inManagedObjectContext: self.managedObjectContext)
         let testBudgetItem = BudgetItem(entity: entityDescription!, insertIntoManagedObjectContext: self.managedObjectContext)
         
         testBudgetItem.name = "Test Budget Item"
         testBudgetItem.descript = "This is a Test"
-        testBudgetItem.category = "Test Category 2"
+        testBudgetItem.category = "Test Category"
         testBudgetItem.timeHrsRemain = 5
         testBudgetItem.timeMinsRemain = 15
         testBudgetItem.isVisible = true

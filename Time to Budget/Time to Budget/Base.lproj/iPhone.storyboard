@@ -2,6 +2,8 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vNu-tz-Fky">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Budget Editor View Controller-->
@@ -50,7 +52,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="BudgetItemCell" id="UEx-z2-1IF" customClass="BudgetItemCell" customModule="Time_to_Budget" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="BudgetItemCell" id="UEx-z2-1IF" customClass="BudgetItemCell" customModule="Time_to_Budget" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="UEx-z2-1IF" id="Tay-em-GDe">
@@ -61,30 +63,48 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
-                                                    <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                                        <rect key="frame" x="61" y="12" width="150" height="21"/>
-                                                    </variation>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="remainingTime" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pbR-1z-pVf">
                                                     <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
-                                                    <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                                        <rect key="frame" x="254" y="11" width="113" height="21"/>
-                                                    </variation>
                                                 </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="mOD-IM-tE7" firstAttribute="leading" secondItem="Tay-em-GDe" secondAttribute="leadingMargin" constant="50" id="AMA-IL-Um8"/>
+                                                <constraint firstItem="pbR-1z-pVf" firstAttribute="top" secondItem="Tay-em-GDe" secondAttribute="topMargin" constant="4" id="BZK-Fw-SbA"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="pbR-1z-pVf" secondAttribute="bottom" constant="3" id="LaQ-OB-wW2"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="pbR-1z-pVf" secondAttribute="trailing" constant="-6" id="lJq-hX-Nhh"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="mOD-IM-tE7" secondAttribute="bottom" constant="3" id="mat-cp-fcV"/>
+                                                <constraint firstItem="mOD-IM-tE7" firstAttribute="top" secondItem="Tay-em-GDe" secondAttribute="topMargin" constant="4" id="zhA-tF-boz"/>
+                                            </constraints>
                                             <variation key="default">
                                                 <mask key="subviews">
                                                     <exclude reference="mOD-IM-tE7"/>
                                                     <exclude reference="pbR-1z-pVf"/>
+                                                </mask>
+                                                <mask key="constraints">
+                                                    <exclude reference="AMA-IL-Um8"/>
+                                                    <exclude reference="mat-cp-fcV"/>
+                                                    <exclude reference="zhA-tF-boz"/>
+                                                    <exclude reference="BZK-Fw-SbA"/>
+                                                    <exclude reference="LaQ-OB-wW2"/>
+                                                    <exclude reference="lJq-hX-Nhh"/>
                                                 </mask>
                                             </variation>
                                             <variation key="heightClass=regular-widthClass=compact">
                                                 <mask key="subviews">
                                                     <include reference="mOD-IM-tE7"/>
                                                     <include reference="pbR-1z-pVf"/>
+                                                </mask>
+                                                <mask key="constraints">
+                                                    <include reference="AMA-IL-Um8"/>
+                                                    <include reference="mat-cp-fcV"/>
+                                                    <include reference="zhA-tF-boz"/>
+                                                    <include reference="BZK-Fw-SbA"/>
+                                                    <include reference="LaQ-OB-wW2"/>
+                                                    <include reference="lJq-hX-Nhh"/>
                                                 </mask>
                                             </variation>
                                         </tableViewCellContentView>
@@ -94,9 +114,6 @@
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
-                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="0.0" y="0.0" width="400" height="800"/>
-                                </variation>
                                 <connections>
                                     <outlet property="dataSource" destination="BYZ-38-t0r" id="Ttr-kY-AoB"/>
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="4g0-qc-LSA"/>
@@ -104,18 +121,41 @@
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="awM-vd-cc1" secondAttribute="trailing" constant="-16" id="0sK-fg-7e1"/>
+                            <constraint firstItem="awM-vd-cc1" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-16" id="j6i-E6-jLj"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="awM-vd-cc1" secondAttribute="bottom" id="leT-OM-dnk"/>
+                            <constraint firstItem="awM-vd-cc1" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" id="nJe-hw-hJf"/>
+                        </constraints>
                         <variation key="default">
                             <mask key="subviews">
                                 <exclude reference="awM-vd-cc1"/>
+                            </mask>
+                            <mask key="constraints">
+                                <exclude reference="leT-OM-dnk"/>
+                                <exclude reference="0sK-fg-7e1"/>
+                                <exclude reference="j6i-E6-jLj"/>
+                                <exclude reference="nJe-hw-hJf"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
                             <mask key="subviews">
                                 <include reference="awM-vd-cc1"/>
                             </mask>
+                            <mask key="constraints">
+                                <include reference="leT-OM-dnk"/>
+                                <include reference="0sK-fg-7e1"/>
+                                <include reference="j6i-E6-jLj"/>
+                                <include reference="nJe-hw-hJf"/>
+                            </mask>
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" title="Budget" id="kgx-te-TR2">
+                        <barButtonItem key="leftBarButtonItem" title="Debug" id="dIt-jV-4Lr" userLabel="Debug">
+                            <connections>
+                                <action selector="debugButtonPressed:" destination="BYZ-38-t0r" id="275-R7-AB2"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="edit" id="jSN-f7-jt0">
                             <connections>
                                 <action selector="editButtonPressed:" destination="BYZ-38-t0r" id="cpM-tt-kP1"/>
@@ -130,7 +170,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2490" y="333"/>
+            <point key="canvasLocation" x="2490" y="332.25"/>
         </scene>
         <!--Task Records-->
         <scene sceneID="DSz-ax-U1S">

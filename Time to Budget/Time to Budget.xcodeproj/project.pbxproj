@@ -12,11 +12,12 @@
 		931FE5211A3A815200917698 /* BudgetItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931FE5201A3A815100917698 /* BudgetItem.swift */; };
 		931FE5231A3A816700917698 /* ItemRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931FE5221A3A816700917698 /* ItemRecord.swift */; };
 		931FE5261A3A837A00917698 /* CategoryItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931FE5251A3A837A00917698 /* CategoryItem.swift */; };
+		931FE52C1A3CDDDD00917698 /* iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 931FE52B1A3CDDDD00917698 /* iPad.storyboard */; };
 		9368763D1A358504006CB1EE /* BudgetEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9368763C1A358504006CB1EE /* BudgetEditorViewController.swift */; };
 		93AFA5CD1A34DB8900932A99 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AFA5CC1A34DB8900932A99 /* AppDelegate.swift */; };
 		93AFA5D01A34DB8900932A99 /* Time_to_Budget.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 93AFA5CE1A34DB8900932A99 /* Time_to_Budget.xcdatamodeld */; };
 		93AFA5D21A34DB8900932A99 /* BudgetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AFA5D11A34DB8900932A99 /* BudgetViewController.swift */; };
-		93AFA5D51A34DB8900932A99 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 93AFA5D31A34DB8900932A99 /* Main.storyboard */; };
+		93AFA5D51A34DB8900932A99 /* iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 93AFA5D31A34DB8900932A99 /* iPhone.storyboard */; };
 		93AFA5D71A34DB8900932A99 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 93AFA5D61A34DB8900932A99 /* Images.xcassets */; };
 		93AFA5DA1A34DB8900932A99 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93AFA5D81A34DB8900932A99 /* LaunchScreen.xib */; };
 		93AFA5E61A34DB8A00932A99 /* Time_to_BudgetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AFA5E51A34DB8A00932A99 /* Time_to_BudgetTests.swift */; };
@@ -38,13 +39,14 @@
 		931FE5201A3A815100917698 /* BudgetItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BudgetItem.swift; sourceTree = "<group>"; };
 		931FE5221A3A816700917698 /* ItemRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemRecord.swift; sourceTree = "<group>"; };
 		931FE5251A3A837A00917698 /* CategoryItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryItem.swift; sourceTree = "<group>"; };
+		931FE52B1A3CDDDD00917698 /* iPad.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = iPad.storyboard; sourceTree = "<group>"; };
 		9368763C1A358504006CB1EE /* BudgetEditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BudgetEditorViewController.swift; sourceTree = "<group>"; };
 		93AFA5C71A34DB8900932A99 /* Time to Budget.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Time to Budget.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		93AFA5CB1A34DB8900932A99 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		93AFA5CC1A34DB8900932A99 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		93AFA5CF1A34DB8900932A99 /* Time_to_Budget.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Time_to_Budget.xcdatamodel; sourceTree = "<group>"; };
 		93AFA5D11A34DB8900932A99 /* BudgetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetViewController.swift; sourceTree = "<group>"; };
-		93AFA5D41A34DB8900932A99 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		93AFA5D41A34DB8900932A99 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/iPhone.storyboard; sourceTree = "<group>"; };
 		93AFA5D61A34DB8900932A99 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		93AFA5D91A34DB8900932A99 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		93AFA5DF1A34DB8A00932A99 /* Time to BudgetTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Time to BudgetTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -81,36 +83,29 @@
 			name = Database;
 			sourceTree = "<group>";
 		};
-		931FE5271A3A8CB900917698 /* Budget View */ = {
-			isa = PBXGroup;
-			children = (
-				93AFA5D11A34DB8900932A99 /* BudgetViewController.swift */,
-			);
-			name = "Budget View";
-			sourceTree = "<group>";
-		};
-		931FE5281A3A8CC700917698 /* Budget Editor */ = {
-			isa = PBXGroup;
-			children = (
-				9368763C1A358504006CB1EE /* BudgetEditorViewController.swift */,
-			);
-			name = "Budget Editor";
-			sourceTree = "<group>";
-		};
-		931FE5291A3A8CCF00917698 /* Records View */ = {
-			isa = PBXGroup;
-			children = (
-				931FE51E1A36967F00917698 /* RecordsViewController.swift */,
-			);
-			name = "Records View";
-			sourceTree = "<group>";
-		};
 		931FE52A1A3A994000917698 /* UI Support Classes */ = {
 			isa = PBXGroup;
 			children = (
 				931FE51C1A36921700917698 /* BudgetItemCell.swift */,
 			);
 			name = "UI Support Classes";
+			sourceTree = "<group>";
+		};
+		931FE52D1A3CE14300917698 /* iPhone Views */ = {
+			isa = PBXGroup;
+			children = (
+				93AFA5D11A34DB8900932A99 /* BudgetViewController.swift */,
+				9368763C1A358504006CB1EE /* BudgetEditorViewController.swift */,
+				931FE51E1A36967F00917698 /* RecordsViewController.swift */,
+			);
+			name = "iPhone Views";
+			sourceTree = "<group>";
+		};
+		931FE52E1A3CE16500917698 /* iPad Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "iPad Views";
 			sourceTree = "<group>";
 		};
 		93AFA5BE1A34DB8900932A99 = {
@@ -135,12 +130,12 @@
 			isa = PBXGroup;
 			children = (
 				93AFA5CC1A34DB8900932A99 /* AppDelegate.swift */,
-				931FE5271A3A8CB900917698 /* Budget View */,
-				931FE5281A3A8CC700917698 /* Budget Editor */,
-				931FE5291A3A8CCF00917698 /* Records View */,
+				931FE52D1A3CE14300917698 /* iPhone Views */,
+				931FE52E1A3CE16500917698 /* iPad Views */,
 				931FE52A1A3A994000917698 /* UI Support Classes */,
 				931FE5241A3A82A800917698 /* Database */,
-				93AFA5D31A34DB8900932A99 /* Main.storyboard */,
+				93AFA5D31A34DB8900932A99 /* iPhone.storyboard */,
+				931FE52B1A3CDDDD00917698 /* iPad.storyboard */,
 				93AFA5D61A34DB8900932A99 /* Images.xcassets */,
 				93AFA5D81A34DB8900932A99 /* LaunchScreen.xib */,
 				93AFA5CA1A34DB8900932A99 /* Supporting Files */,
@@ -253,7 +248,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				93AFA5D51A34DB8900932A99 /* Main.storyboard in Resources */,
+				931FE52C1A3CDDDD00917698 /* iPad.storyboard in Resources */,
+				93AFA5D51A34DB8900932A99 /* iPhone.storyboard in Resources */,
 				93AFA5DA1A34DB8900932A99 /* LaunchScreen.xib in Resources */,
 				93AFA5D71A34DB8900932A99 /* Images.xcassets in Resources */,
 			);
@@ -304,12 +300,12 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		93AFA5D31A34DB8900932A99 /* Main.storyboard */ = {
+		93AFA5D31A34DB8900932A99 /* iPhone.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				93AFA5D41A34DB8900932A99 /* Base */,
 			);
-			name = Main.storyboard;
+			name = iPhone.storyboard;
 			sourceTree = "<group>";
 		};
 		93AFA5D81A34DB8900932A99 /* LaunchScreen.xib */ = {
