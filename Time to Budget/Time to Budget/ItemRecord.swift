@@ -13,6 +13,5 @@ import CoreData
 class ItemRecord: NSManagedObject {
     @NSManaged var date:NSDate
     @NSManaged var note:String
-    @NSManaged var timeHrsSpent:NSNumber
-    @NSManaged var timeMinsSpent:NSNumber
+    @NSManaged var timeSpent:Float
 }

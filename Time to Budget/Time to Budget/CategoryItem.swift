@@ -12,6 +12,5 @@ import CoreData
 @objc(CategoryItem)
 class CategoryItem: NSManagedObject {
     @NSManaged var name:String
-    @NSManaged var timeMinsRemain:NSNumber
-    @NSManaged var timeHrsRemain:NSNumber
+    @NSManaged var totalTimeRemaining:Float
 }

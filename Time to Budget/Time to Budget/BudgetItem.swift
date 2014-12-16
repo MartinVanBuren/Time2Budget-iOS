@@ -11,14 +11,9 @@ import CoreData
 
 @objc(BudgetItem)
 class BudgetItem: NSManagedObject {
-    @NSManaged var isVisible:NSNumber
+    @NSManaged var isVisible:Bool
     @NSManaged var descript:String
     @NSManaged var name:String
-    @NSManaged var timeHrsRemain:NSNumber
-    @NSManaged var timeMinsRemain:NSNumber
+    @NSManaged var timeRemaining:Float
     @NSManaged var category:String
-    
-    func remaingTimeAsString() -> String {
-        return "\(timeHrsRemain):\(timeMinsRemain)"
-    }
 }

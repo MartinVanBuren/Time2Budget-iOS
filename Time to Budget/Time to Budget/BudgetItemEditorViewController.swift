@@ -1,44 +1,121 @@
 //
-//  BudgetEditorViewController.swift
+//  BudgetItemEditorViewController.swift
 //  Time to Budget
 //
-//  Created by Robert Kennedy on 12/8/14.
+//  Created by Robert Kennedy on 12/14/14.
 //  Copyright (c) 2014 Arrken Games, LLC. All rights reserved.
 //
 
 import UIKit
 
-class BudgetItemEditorViewController: UIViewController {
-
-    @IBOutlet weak var tableView: UITableView!
+class BudgetItemEditorViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate {
+    
     var currentBudgetItem:BudgetItem!
-    var timeTotalRemainingHrs:NSNumber = 168
-    var timeTotalRemainingMins:NSNumber = 0
+    var finalTime = Time()
+    
+    @IBOutlet weak var nameTextField: UITextField!
+    @IBOutlet weak var descriptionTextField: UITextField!
+    @IBOutlet weak var categoryPicker: UIPickerView!
+    @IBOutlet weak var timePicker: UIPickerView!
+    
+    
+    var categoryPickerData:[String] = ["Test 1", "Test 2", "Test 3"]
+    var timeHourPickerData:[Int] = Factory.prepareTimeHourPickerData()
+    var timeMinutePickerData:[Int] = Factory.prepareTimeMinutePickerData()
+    var categoryPicked:String!
+    var timePicked:Time = Time()
+    var saveInfo:Bool = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        self.navigationController?.navigationBar.backItem?.title = "Done"
-        if timeTotalRemainingMins == 0 && timeTotalRemainingHrs != 0 {
-            self.navigationItem.title = "\(timeTotalRemainingHrs):00"
+        finalTime.floatToTime(currentBudgetItem.timeRemaining)
+        self.navigationItem.title = currentBudgetItem.name
+        
+        categoryPicker.dataSource = self
+        categoryPicker.delegate = self
+        timePicker.dataSource = self
+        timePicker.delegate = self
+        
+        categoryPicked = currentBudgetItem.category
+        nameTextField.text = currentBudgetItem.name
+        descriptionTextField.text = currentBudgetItem.descript
+        nameTextField.delegate = self
+        descriptionTextField.delegate = self
+    }
+    
+    // UIPicker Data Sources
+    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+        if pickerView.tag == 1 {
+            return 2
         }
-        else if timeTotalRemainingMins != 0 && timeTotalRemainingHrs == 0 {
-            self.navigationItem.title = "00:\(timeTotalRemainingMins)"
+        else if pickerView.tag == 2 {
+            return 1
         }
-        else if timeTotalRemainingMins == 0 && timeTotalRemainingHrs == 0 {
-            self.navigationItem.title = "00:00"
+        else {
+            return 0
         }
-        else if timeTotalRemainingMins != 0 && timeTotalRemainingHrs != 0 {
-            self.navigationItem.title = "\(timeTotalRemainingHrs):\(timeTotalRemainingMins)"
+    }
+    
+    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        if pickerView.tag == 1 {
+            if component == 0 {
+                return timeHourPickerData.count
+            }
+            else if component == 1 {
+                return timeMinutePickerData.count
+            }
+        }
+        else if pickerView.tag == 2 {
+            return categoryPickerData.count
         }
         
+        return 0
     }
-
+    
+    //UIPicker Delegates
+    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String! {
+        if pickerView.tag == 1 {
+            if component == 0 {
+                return "\(timeHourPickerData[row])"
+            }
+            else if component == 1 {
+                return "\(timeMinutePickerData[row])"
+            }
+        }
+        else if pickerView.tag == 2 {
+            return categoryPickerData[row]
+        }
+        
+        return ""
+    }
+    
+    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        if pickerView.tag == 1 {
+            if component == 0 {
+                timePicked.hours = timeHourPickerData[row]
+            }
+            else if component == 1 {
+                timePicked.minutes = timeMinutePickerData[row]
+            }
+        }
+        else if pickerView.tag == 2 {
+            categoryPicked = categoryPickerData[row]
+        }
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return true
+    }
+    
+    
 
     /*
     // MARK: - Navigation
@@ -51,17 +128,22 @@ class BudgetItemEditorViewController: UIViewController {
     */
     
     override func viewWillDisappear(animated: Bool) {
-        let appDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
-        /*
-        currentBudgetItem.category = categoryTextField.text
-        currentBudgetItem.name = nameTextField.text
-        currentBudgetItem.descript = descriptionTextField.text
-        currentBudgetItem.timeHrsRemain = hoursTextField.text
-        currentBudgetItem.timeMinsRemain = minsTextField.text
-        
-        appDelegate.saveContext()
-    */
+        if saveInfo {
+            let appDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
+            
+            currentBudgetItem.timeRemaining = currentBudgetItem.timeRemaining
+            currentBudgetItem.name = nameTextField.text
+            currentBudgetItem.descript = descriptionTextField.text
+            currentBudgetItem.category = categoryPicked
+            currentBudgetItem.isVisible = true
+            
+            appDelegate.saveContext()
+        }
     }
-    
-    
+
+    @IBAction func deleteButtonPressed(sender: UIButton) {
+        currentBudgetItem.isVisible = false
+        saveInfo = false
+        self.navigationController?.popViewControllerAnimated(true)
+    }
 }

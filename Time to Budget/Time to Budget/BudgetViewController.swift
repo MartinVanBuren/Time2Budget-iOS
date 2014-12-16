@@ -53,25 +53,18 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
             //let thisBudgetItem = fetchedResultsController.objectAtIndexPath(indexPath!) as BudgetItem
             //recordsVC.recordsBudgetItem = thisBudgetItem
         }
-        else if segue.identifier == "showBudgetItemEditor" {
-            let budgetItemEditorVC:BudgetItemEditorViewController = segue.destinationViewController as BudgetItemEditorViewController
-            let indexPath = self.tableView.indexPathForSelectedRow()
-            let thisBudgetItem = fetchedResultsController.objectAtIndexPath(indexPath!) as BudgetItem
-            budgetItemEditorVC.currentBudgetItem = thisBudgetItem
+        else if segue.identifier == "showBudgetEditor" {
+            let budgetEditorVC:BudgetEditorViewController = segue.destinationViewController as BudgetEditorViewController
+            
+            //let indexPath = self.tableView.indexPathForSelectedRow()
+            //let thisBudgetItem = fetchedResultsController.objectAtIndexPath(indexPath!) as BudgetItem
+            //budgetItemEditorVC.currentBudgetItem = thisBudgetItem
         }
     }
     
     //==================== IBAction Methods ====================
     @IBAction func editButtonPressed(sender: UIBarButtonItem) {
-        if editMode == false {
-            editMode = true;
-            self.editButton.title = "Done"
-            self.navigationItem.title = "Edit Budget"
-        } else {
-            editMode = false;
-            self.editButton.title = "Edit"
-            self.navigationItem.title = "Budget"
-        }
+        performSegueWithIdentifier("showBudgetItemEditor", sender: self)
     }
     
     @IBAction func debugButtonPressed(sender: UIBarButtonItem) {
@@ -92,49 +85,21 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        let thisBudgetItem = fetchedResultsController.objectAtIndexPath(indexPath) as BudgetItem
+        return Factory.prepareBudgetItemCell(tableView: tableView, fetchedResultsController: fetchedResultsController, indexPath: indexPath)
         
-        var cell:BudgetItemCell = tableView.dequeueReusableCellWithIdentifier("BudgetItemCell") as BudgetItemCell
-        
-        cell.itemNameLabel.text = thisBudgetItem.name
-        cell.remainingTimeLabel.text = thisBudgetItem.remaingTimeAsString()
-        
-        return cell
     }
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let thisBudgetItem = fetchedResultsController.objectAtIndexPath(NSIndexPath(forRow: 0, inSection: section)) as BudgetItem
         
-        var totalHours:Int = 0
-        var totalMinutes:Int = 0
+        return Factory.prepareSectionHeaderCell(tableView: tableView, fetchedResultsController: fetchedResultsController, section: section)
         
-        var cell:SectionHeaderCell = tableView.dequeueReusableCellWithIdentifier("SectionHeaderCell") as SectionHeaderCell
-        
-        let arraySize = fetchedResultsController.sections?[section].numberOfObjects
-            
-        for var i = 0; i < arraySize; i++ {
-            totalHours += (fetchedResultsController.objectAtIndexPath(NSIndexPath(forRow: i, inSection: section)) as BudgetItem).timeHrsRemain.integerValue
-            totalMinutes += (fetchedResultsController.objectAtIndexPath(NSIndexPath(forRow: i, inSection: section)) as BudgetItem).timeMinsRemain.integerValue
-            }
-        
-        var newTime:[Int] = cleanTime(totalHours, mins: totalMinutes)
-        
-        cell.sectionNameLabel.text = thisBudgetItem.category
-        cell.remainingTimeLabel.text = "\(newTime[0]):\(newTime[1])"
-
-        return cell
     }
     
     //==================== UITableViewDelegate Methods ====================
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if self.editMode == true {
-            performSegueWithIdentifier("showBudgetItemEditor", sender: self)
-        }
-        else {
-            performSegueWithIdentifier("showRecordsView", sender: self)
-        }
         
-        
+        performSegueWithIdentifier("showRecordsView", sender: self)
+    
     }
     
     
@@ -174,12 +139,12 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
         let appDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
         let entityDescription = NSEntityDescription.entityForName("BudgetItem", inManagedObjectContext: self.managedObjectContext)
         let testBudgetItem = BudgetItem(entity: entityDescription!, insertIntoManagedObjectContext: self.managedObjectContext)
+        let newTime = Time(newHours: 5, newMinutes: 15)
         
         testBudgetItem.name = "Test Budget Item"
         testBudgetItem.descript = "This is a Test"
         testBudgetItem.category = "Test Category 2"
-        testBudgetItem.timeHrsRemain = 5
-        testBudgetItem.timeMinsRemain = 15
+        testBudgetItem.timeRemaining = newTime.toFloat()
         testBudgetItem.isVisible = true
         
         appDelegate.saveContext()
@@ -203,7 +168,7 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
     func navSingleTap() {
         if displayPrompt == false {
             displayPrompt = true
-            self.navigationItem.prompt = "Time Remaining This Week:"
+            self.navigationItem.prompt = "Week of: "
         } else {
             clearPrompt()
         }
@@ -214,16 +179,5 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
         self.navigationItem.prompt = nil
     }
     
-    func cleanTime(hrs: Int, mins: Int) -> [Int] {
-        var newHrs:Int = hrs
-        var newMins:Int = mins
-        
-        while newMins >= 60 {
-            newHrs += 1
-            newMins -= 60
-        }
-        
-        return [newHrs, newMins]
-    }
 }
 
