@@ -14,40 +14,40 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
     @IBOutlet weak var tableView: UITableView!
     
     var totalTime = Time(newHours: 168, newMinutes: 0)
+    var returning:Bool? = false
+    let viewTransitionDelegate = TransitionDelegate()
     
     
     //==================== CoreData Properties ====================
-    let managedObjectContext = (UIApplication.sharedApplication().delegate as AppDelegate).managedObjectContext!
-    var fetchedResultsController:NSFetchedResultsController = NSFetchedResultsController()
+    let managedObjectContext = CoreDataController.getManagedObjectContext()
+    var frcBudgetItems:NSFetchedResultsController = NSFetchedResultsController()
+    var frcCategories:NSFetchedResultsController = NSFetchedResultsController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-        self.navigationController?.navigationBar.backItem?.title = "Done"
+        // Core Data - Fetching Budget Item
+        frcBudgetItems = CoreDataController.getFetchedResultsController(fetchRequest: CoreDataController.fetchBudgetItemRequest(), managedObjectContext: managedObjectContext)
+        frcBudgetItems.delegate = self
+        frcBudgetItems.performFetch(nil)
+        // Core Data - Fetching Category Item
+        frcCategories = CoreDataController.getFetchedResultsController(fetchRequest: CoreDataController.fetchCategoryItemRequest(), managedObjectContext: managedObjectContext)
+        frcCategories.delegate = self
+        frcCategories.performFetch(nil)
         
-        fetchedResultsController = getFetchedResultsController()
-        fetchedResultsController.delegate = self
-        fetchedResultsController.performFetch(nil)
         
         self.navigationItem.title = totalTime.toString()
-        self.tableView.contentInset.top = 64
+        
+        
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        fixContentInset(calledFromSegue: false)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
     
     override func viewWillDisappear(animated: Bool) {
         let appDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
@@ -59,32 +59,35 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
         if segue.identifier == "showBudgetItemEditorView" {
             let budgetItemEditorVC:BudgetItemEditorViewController = segue.destinationViewController as BudgetItemEditorViewController
             
+            
             let indexPath = self.tableView.indexPathForSelectedRow()
-            let thisBudgetItem = fetchedResultsController.objectAtIndexPath(indexPath!) as BudgetItem
+            let thisBudgetItem = frcBudgetItems.objectAtIndexPath(indexPath!) as BudgetItem
             budgetItemEditorVC.currentBudgetItem = thisBudgetItem
+            
+            fixContentInset(calledFromSegue: true)
         }
     }
     
     //==================== UITableViewDataSource Methods ====================
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         
-        return fetchedResultsController.sections!.count
+        return frcBudgetItems.sections!.count
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return fetchedResultsController.sections![section].numberOfObjects
+        return frcBudgetItems.sections![section].numberOfObjects
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        return Factory.prepareBudgetItemCell(tableView: tableView, fetchedResultsController: fetchedResultsController, indexPath: indexPath)
+        return Factory.prepareBudgetItemCell(tableView: tableView, fetchedResultsController: frcBudgetItems, indexPath: indexPath)
         
     }
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
-        return Factory.prepareSectionHeaderCell(tableView: tableView, fetchedResultsController: fetchedResultsController, section: section)
+        return Factory.prepareSectionHeaderCell(tableView: tableView, fetchedResultsController: frcBudgetItems, section: section)
         
     }
     
@@ -112,22 +115,32 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
         self.navigationItem.title = totalTime.toString()
     }
     
+    //==================== IB Actions ====================
+    
+    @IBAction func addCategoryButtonPressed(sender: UIBarButtonItem) {
+        CoreDataController.addCategoryItem()
+    }
+    
     //==================== Helper Methods ====================
-    func taskFetchRequest() -> NSFetchRequest {
-        let fetchRequest = NSFetchRequest(entityName: "BudgetItem")
-        let sortDescriptor = NSSortDescriptor(key: "category", ascending: true)
-        let sortDescriptor2 = NSSortDescriptor(key: "name", ascending: false)
-        
-        fetchRequest.sortDescriptors = [sortDescriptor, sortDescriptor2]
-        
-        return fetchRequest
-    }
     
-    func getFetchedResultsController() -> NSFetchedResultsController {
-        
-        var localFetchedResultsController = NSFetchedResultsController(fetchRequest: taskFetchRequest(), managedObjectContext: managedObjectContext, sectionNameKeyPath: "category", cacheName: nil)
-        
-        return localFetchedResultsController
+    func fixContentInset(#calledFromSegue: Bool) {
+        if calledFromSegue {
+            if (returning != nil) {
+                self.returning = true
+            }
+        } else {
+            if (returning != nil) {
+                if !returning! {
+                    self.tableView.contentInset.top = 64
+                }
+                else if returning! {
+                    self.tableView.contentInset.top -= 64
+                    self.returning = nil
+                }
+            }
+            else {
+                
+            }
+        }
     }
-    
 }

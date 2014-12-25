@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import CoreData
 
-class BudgetItemEditorViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate {
+class BudgetItemEditorViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate, NSFetchedResultsControllerDelegate {
     
     var currentBudgetItem:BudgetItem!
     var finalTime = Time()
@@ -18,8 +19,10 @@ class BudgetItemEditorViewController: UIViewController, UIPickerViewDataSource, 
     @IBOutlet weak var categoryPicker: UIPickerView!
     @IBOutlet weak var timePicker: UIPickerView!
     
+    let managedObjectContext = CoreDataController.getManagedObjectContext()
+    var frcCategories:NSFetchedResultsController = NSFetchedResultsController()
     
-    var categoryPickerData:[String] = ["Test 1", "Test 2", "Test 3"]
+    var categoryPickerData:[String]!
     var timeHourPickerData:[Int] = Factory.prepareTimeHourPickerData()
     var timeMinutePickerData:[Int] = Factory.prepareTimeMinutePickerData()
     var categoryPicked:String!
@@ -33,16 +36,32 @@ class BudgetItemEditorViewController: UIViewController, UIPickerViewDataSource, 
         finalTime.floatToTime(currentBudgetItem.timeRemaining)
         self.navigationItem.title = currentBudgetItem.name
         
+        // Core Data - Fetching Category Item
+        frcCategories = CoreDataController.getFetchedResultsController(fetchRequest: CoreDataController.fetchCategoryItemRequest(), managedObjectContext: managedObjectContext)
+        frcCategories.delegate = self
+        frcCategories.performFetch(nil)
+        
+        // Prepareing category picker data
+        categoryPickerData = Factory.prepareCategoryPickerData(frcCategories)
+        
+        // Picker Datasource/Delegate Setting
         categoryPicker.dataSource = self
         categoryPicker.delegate = self
         timePicker.dataSource = self
         timePicker.delegate = self
         
+        // Setting Current Selections
         categoryPicked = currentBudgetItem.category
+        timePicked = Time.floatToTime(currentBudgetItem.timeRemaining)
+        
         nameTextField.text = currentBudgetItem.name
         descriptionTextField.text = currentBudgetItem.descript
         nameTextField.delegate = self
         descriptionTextField.delegate = self
+        
+        timePicker.selectRow(getHourIndex(), inComponent: 0, animated: true)
+        timePicker.selectRow(getMinIndex(), inComponent: 1, animated: true)
+        categoryPicker.selectRow(getCategoryIndex(currentBudgetItem.category), inComponent: 0, animated: true)
     }
     
     // UIPicker Data Sources
@@ -131,7 +150,7 @@ class BudgetItemEditorViewController: UIViewController, UIPickerViewDataSource, 
         if saveInfo {
             let appDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
             
-            currentBudgetItem.timeRemaining = currentBudgetItem.timeRemaining
+            currentBudgetItem.timeRemaining = timePicked.toFloat()
             currentBudgetItem.name = nameTextField.text
             currentBudgetItem.descript = descriptionTextField.text
             currentBudgetItem.category = categoryPicked
@@ -145,5 +164,38 @@ class BudgetItemEditorViewController: UIViewController, UIPickerViewDataSource, 
         currentBudgetItem.isVisible = false
         saveInfo = false
         self.navigationController?.popViewControllerAnimated(true)
+    }
+    
+    
+    
+    // Helper Functions
+    func getHourIndex() -> Int {
+        return timePicked.hours
+    }
+    
+    func getMinIndex() -> Int {
+        if timePicked.minutes == 15 {
+            return 1
+        }
+        else if timePicked.minutes == 30 {
+            return 2
+        }
+        else if timePicked.minutes == 45 {
+            return 3
+        }
+        else {
+            return 0
+        }
+    }
+    
+    func getCategoryIndex(String) -> Int {
+        
+        for var index = 0; index < categoryPickerData.count; index++ {
+            if categoryPickerData[index] == currentBudgetItem.category {
+                return index
+            }
+        }
+        
+        return 0
     }
 }

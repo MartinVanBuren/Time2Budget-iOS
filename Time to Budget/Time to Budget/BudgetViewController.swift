@@ -20,17 +20,23 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
     @IBOutlet weak var editButton: UIBarButtonItem!
 
     //==================== CoreData Properties ====================
-    let managedObjectContext = (UIApplication.sharedApplication().delegate as AppDelegate).managedObjectContext!
-    var fetchedResultsController:NSFetchedResultsController = NSFetchedResultsController()
+    let managedObjectContext = CoreDataController.getManagedObjectContext()
+    var frcBudgetItems:NSFetchedResultsController = NSFetchedResultsController()
+    var frcCategories:NSFetchedResultsController = NSFetchedResultsController()
     
     //==================== Pre-Generated Methods ====================
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        fetchedResultsController = getFetchedResultsController()
-        fetchedResultsController.delegate = self
-        fetchedResultsController.performFetch(nil)
+        // Core Data Fetching
+        frcBudgetItems = CoreDataController.getFetchedResultsController(fetchRequest: CoreDataController.fetchBudgetItemRequest(), managedObjectContext: managedObjectContext)
+        frcBudgetItems.delegate = self
+        frcBudgetItems.performFetch(nil)
         
+        frcCategories = CoreDataController.getFetchedResultsController(fetchRequest: CoreDataController.fetchCategoryItemRequest(), managedObjectContext: managedObjectContext)
+        frcCategories.delegate = self
+        frcCategories.performFetch(nil)
+        
+        // Run Display Prompt Code
         self.displayPromptControl()
     }
     
@@ -55,7 +61,7 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
         }
         else if segue.identifier == "showBudgetEditor" {
             let budgetEditorVC:BudgetEditorViewController = segue.destinationViewController as BudgetEditorViewController
-            
+            budgetEditorVC.returning = false
             //let indexPath = self.tableView.indexPathForSelectedRow()
             //let thisBudgetItem = fetchedResultsController.objectAtIndexPath(indexPath!) as BudgetItem
             //budgetItemEditorVC.currentBudgetItem = thisBudgetItem
@@ -75,23 +81,22 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
     //==================== UITableViewDataSource Methods ====================
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         
-        return fetchedResultsController.sections!.count
+        return frcBudgetItems.sections!.count
     }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return fetchedResultsController.sections![section].numberOfObjects
+        return frcBudgetItems.sections![section].numberOfObjects
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        
-        return Factory.prepareBudgetItemCell(tableView: tableView, fetchedResultsController: fetchedResultsController, indexPath: indexPath)
-        
+
+        return Factory.prepareBudgetItemCell(tableView: tableView, fetchedResultsController: frcBudgetItems, indexPath: indexPath)
     }
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
-        return Factory.prepareSectionHeaderCell(tableView: tableView, fetchedResultsController: fetchedResultsController, section: section)
+        return Factory.prepareSectionHeaderCell(tableView: tableView, fetchedResultsController: frcBudgetItems, section: section)
         
     }
     
@@ -118,44 +123,8 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     //==================== Helper Methods ====================
-    func taskFetchRequest() -> NSFetchRequest {
-        let fetchRequest = NSFetchRequest(entityName: "BudgetItem")
-        let sortDescriptor = NSSortDescriptor(key: "category", ascending: true)
-        let sortDescriptor2 = NSSortDescriptor(key: "name", ascending: false)
-        
-        fetchRequest.sortDescriptors = [sortDescriptor, sortDescriptor2]
-        
-        return fetchRequest
-    }
-    
-    func getFetchedResultsController() -> NSFetchedResultsController {
-        
-        var localFetchedResultsController = NSFetchedResultsController(fetchRequest: taskFetchRequest(), managedObjectContext: managedObjectContext, sectionNameKeyPath: "category", cacheName: nil)
-        
-        return localFetchedResultsController
-    }
-    
     func testAddBudgetItemInCoreData() {
-        let appDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
-        let entityDescription = NSEntityDescription.entityForName("BudgetItem", inManagedObjectContext: self.managedObjectContext)
-        let testBudgetItem = BudgetItem(entity: entityDescription!, insertIntoManagedObjectContext: self.managedObjectContext)
-        let newTime = Time(newHours: 5, newMinutes: 15)
-        
-        testBudgetItem.name = "Test Budget Item"
-        testBudgetItem.descript = "This is a Test"
-        testBudgetItem.category = "Test Category 2"
-        testBudgetItem.timeRemaining = newTime.toFloat()
-        testBudgetItem.isVisible = true
-        
-        appDelegate.saveContext()
-        
-        var request = NSFetchRequest(entityName: "BudgetItem")
-        var error:NSError? = nil
-        var results:NSArray = self.managedObjectContext.executeFetchRequest(request, error: &error)!
-        
-        for res in results {
-            println(res)
-        }
+        CoreDataController.addBudgetItem()
     }
     
     func displayPromptControl() {

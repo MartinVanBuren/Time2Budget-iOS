@@ -19,14 +19,27 @@ class Time {
         self.minutes = newMinutes
     }
     init(budgetItem: BudgetItem) {
-        self.floatToTime(budgetItem.timeRemaining)
+        let temp = floatToTime(budgetItem.timeRemaining)
+        
+        self.hours = temp.hours
+        self.minutes = temp.minutes
     }
     init(itemRecord: ItemRecord) {
-        self.floatToTime(itemRecord.timeSpent)
+        let temp = floatToTime(itemRecord.timeSpent)
+        
+        self.hours = temp.hours
+        self.minutes = temp.minutes
+
     }
     init(categoryItem: CategoryItem) {
-        self.floatToTime(categoryItem.totalTimeRemaining)
+        let temp = floatToTime(categoryItem.totalTimeRemaining)
+        
+        self.hours = temp.hours
+        self.minutes = temp.minutes
+
     }
+    
+    // Methods
     
     func cleanTime() {
         var newHrs:Int = self.hours
@@ -52,6 +65,46 @@ class Time {
         return finalTime
     }
     
+    func setByFloat(newTime: Float) {
+        var tempTime:Time = floatToTime(newTime)
+        
+        self.hours = tempTime.hours
+        self.minutes = tempTime.minutes
+    }
+    
+    // Conversion Methods
+    
+    func toFloat() -> Float {
+        return Float(self.hours) + Float(Float(self.minutes) / 100.0)
+    }
+    
+    func floatToTime(newTime: Float) -> Time {
+        let arrayString = Array(String("\(newTime)"))
+        var passDecimal:Bool = false
+        
+        var digitHrs = Array("")
+        var digitMins = Array("")
+        
+        for var i = 0; i < arrayString.count; i++ {
+            if arrayString[i] != "." && passDecimal == false {
+                digitHrs.append(arrayString[i])
+            } else if arrayString[i] != "." && passDecimal == true {
+                digitMins.append(arrayString[i])
+            } else if arrayString[i] == "." {
+                passDecimal = true
+            }
+        }
+        
+        var tempHours = String(digitHrs).toInt()!
+        var tempMins = String(digitMins).toInt()!
+        
+        if tempMins == 3 {
+            tempMins *= 10
+        }
+        
+        return Time(newHours: tempHours, newMinutes: tempMins)
+    }
+    
     func toString() -> String {
         self.cleanTime()
         
@@ -73,49 +126,10 @@ class Time {
         
     }
     
-    func floatToTime(newTime: Float) {
-        let arrayString = Array(String("\(newTime)"))
-        var passDecimal:Bool = false
-        
-        var digitHrs = Array("")
-        var digitMins = Array("")
-        
-        for var i = 0; i < arrayString.count; i++ {
-            if arrayString[i] != "." && passDecimal == false {
-                digitHrs.append(arrayString[i])
-            } else if arrayString[i] != "." && passDecimal == true {
-                digitMins.append(arrayString[i])
-            } else if arrayString[i] == "." {
-                passDecimal = true
-            }
-        }
-        
-        self.hours = String(digitHrs).toInt()!
-        self.minutes = String(digitMins).toInt()!
-    }
+    // Conversion Class Methods
     
-    class func floatToTime(newTime: Float) -> Time {
-        let arrayString = Array(String("\(newTime)"))
-        var passDecimal:Bool = false
-        
-        var digitHrs = Array("")
-        var digitMins = Array("")
-        
-        for var i = 0; i < arrayString.count; i++ {
-            if arrayString[i] != "." && passDecimal == false {
-                digitHrs.append(arrayString[i])
-            } else if arrayString[i] != "." && passDecimal == true {
-                digitMins.append(arrayString[i])
-            } else if arrayString[i] == "." {
-                passDecimal = true
-            }
-        }
-        
-        return Time(newHours: String(digitHrs).toInt()!, newMinutes: String(digitMins).toInt()!)
-    }
-    
-    class func toString(time: Float) -> String {
-        var finalTime:Time = Time.floatToTime(time)
+    class func floatToString(time: Float) -> String {
+        var finalTime:Time = floatToTime(time)
         finalTime.cleanTime()
         
         if finalTime.minutes == 0 && finalTime.hours != 0 {
@@ -135,7 +149,30 @@ class Time {
         }
     }
     
-    func toFloat() -> Float {
-        return Float(self.hours) + Float(Float(self.minutes) / 100.0)
+    class func floatToTime(newTime: Float) -> Time {
+        let arrayString = Array(String("\(newTime)"))
+        var passDecimal:Bool = false
+        
+        var digitHrs = Array("")
+        var digitMins = Array("")
+        
+        for var i = 0; i < arrayString.count; i++ {
+            if arrayString[i] != "." && passDecimal == false {
+                digitHrs.append(arrayString[i])
+            } else if arrayString[i] != "." && passDecimal == true {
+                digitMins.append(arrayString[i])
+            } else if arrayString[i] == "." {
+                passDecimal = true
+            }
+        }
+        
+        var tempHours = String(digitHrs).toInt()!
+        var tempMins = String(digitMins).toInt()!
+        
+        if tempMins == 3 {
+            tempMins *= 10
+        }
+        
+        return Time(newHours: tempHours, newMinutes: tempMins)
     }
 }

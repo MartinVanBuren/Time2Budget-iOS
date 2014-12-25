@@ -39,7 +39,7 @@ class Factory {
         var preparedCell:BudgetItemCell = tableView.dequeueReusableCellWithIdentifier("BudgetItemCell") as BudgetItemCell
         
         preparedCell.itemNameLabel.text = thisBudgetItem.name
-        preparedCell.remainingTimeLabel.text = Time.toString(thisBudgetItem.timeRemaining)
+        preparedCell.remainingTimeLabel.text = Time.floatToString(thisBudgetItem.timeRemaining)
         
         return preparedCell
     }
@@ -62,5 +62,16 @@ class Factory {
         }
         
         return finalValue
+    }
+    
+    class func prepareCategoryPickerData(frcCategories: NSFetchedResultsController) -> [String] {
+        let categories = frcCategories.fetchedObjects
+        var finalData:[String] = []
+        
+        for var i = 0; i < categories!.count; i++ {
+            finalData.append(categories![i].name)
+        }
+        
+        return finalData
     }
 }

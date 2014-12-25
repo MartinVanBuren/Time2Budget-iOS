@@ -26,6 +26,10 @@
 		93AFA5D71A34DB8900932A99 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 93AFA5D61A34DB8900932A99 /* Images.xcassets */; };
 		93AFA5DA1A34DB8900932A99 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93AFA5D81A34DB8900932A99 /* LaunchScreen.xib */; };
 		93AFA5E61A34DB8A00932A99 /* Time_to_BudgetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AFA5E51A34DB8A00932A99 /* Time_to_BudgetTests.swift */; };
+		93B85A191A4B8C4E0078C94B /* TransitionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B85A181A4B8C4D0078C94B /* TransitionDelegate.swift */; };
+		93B85A1B1A4B8D760078C94B /* TransitionPresentationAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B85A1A1A4B8D760078C94B /* TransitionPresentationAnimator.swift */; };
+		93B85A1D1A4B8DF70078C94B /* TransitionDismissalAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B85A1C1A4B8DF70078C94B /* TransitionDismissalAnimator.swift */; };
+		93E572271A47104200B4F345 /* CoreDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E572261A47104200B4F345 /* CoreDataController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,6 +66,10 @@
 		93AFA5DF1A34DB8A00932A99 /* Time to BudgetTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Time to BudgetTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		93AFA5E41A34DB8A00932A99 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		93AFA5E51A34DB8A00932A99 /* Time_to_BudgetTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Time_to_BudgetTests.swift; sourceTree = "<group>"; };
+		93B85A181A4B8C4D0078C94B /* TransitionDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransitionDelegate.swift; sourceTree = "<group>"; };
+		93B85A1A1A4B8D760078C94B /* TransitionPresentationAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransitionPresentationAnimator.swift; sourceTree = "<group>"; };
+		93B85A1C1A4B8DF70078C94B /* TransitionDismissalAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransitionDismissalAnimator.swift; sourceTree = "<group>"; };
+		93E572261A47104200B4F345 /* CoreDataController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +93,7 @@
 		931FE5241A3A82A800917698 /* Database */ = {
 			isa = PBXGroup;
 			children = (
+				93E572261A47104200B4F345 /* CoreDataController.swift */,
 				931FE5201A3A815100917698 /* BudgetItem.swift */,
 				931FE5221A3A816700917698 /* ItemRecord.swift */,
 				931FE5251A3A837A00917698 /* CategoryItem.swift */,
@@ -96,6 +105,9 @@
 		931FE52A1A3A994000917698 /* Support Classes */ = {
 			isa = PBXGroup;
 			children = (
+				93B85A181A4B8C4D0078C94B /* TransitionDelegate.swift */,
+				93B85A1A1A4B8D760078C94B /* TransitionPresentationAnimator.swift */,
+				93B85A1C1A4B8DF70078C94B /* TransitionDismissalAnimator.swift */,
 				931FE51C1A36921700917698 /* BudgetItemCell.swift */,
 				935A15B61A3D23A300EEB6C6 /* EditItemCell.swift */,
 				935045771A3D80A70094E8D1 /* SectionHeaderCell.swift */,
@@ -110,8 +122,8 @@
 			children = (
 				93AFA5D11A34DB8900932A99 /* BudgetViewController.swift */,
 				9368763C1A358504006CB1EE /* BudgetEditorViewController.swift */,
-				931FE51E1A36967F00917698 /* RecordsViewController.swift */,
 				9371BD0D1A3E8491009097F4 /* BudgetItemEditorViewController.swift */,
+				931FE51E1A36967F00917698 /* RecordsViewController.swift */,
 			);
 			name = "iPhone Views";
 			sourceTree = "<group>";
@@ -286,14 +298,18 @@
 			files = (
 				9368763D1A358504006CB1EE /* BudgetEditorViewController.swift in Sources */,
 				9371BD0E1A3E8491009097F4 /* BudgetItemEditorViewController.swift in Sources */,
+				93E572271A47104200B4F345 /* CoreDataController.swift in Sources */,
 				931FE5231A3A816700917698 /* ItemRecord.swift in Sources */,
 				934DF2231A3E50BA00416D4F /* Time.swift in Sources */,
 				93AFA5D21A34DB8900932A99 /* BudgetViewController.swift in Sources */,
 				93AFA5D01A34DB8900932A99 /* Time_to_Budget.xcdatamodeld in Sources */,
 				931FE5261A3A837A00917698 /* CategoryItem.swift in Sources */,
 				931FE51F1A36968000917698 /* RecordsViewController.swift in Sources */,
+				93B85A191A4B8C4E0078C94B /* TransitionDelegate.swift in Sources */,
+				93B85A1B1A4B8D760078C94B /* TransitionPresentationAnimator.swift in Sources */,
 				935045781A3D80A70094E8D1 /* SectionHeaderCell.swift in Sources */,
 				935A15B71A3D23A300EEB6C6 /* EditItemCell.swift in Sources */,
+				93B85A1D1A4B8DF70078C94B /* TransitionDismissalAnimator.swift in Sources */,
 				934DF21F1A3E350C00416D4F /* Factory.swift in Sources */,
 				93AFA5CD1A34DB8900932A99 /* AppDelegate.swift in Sources */,
 				931FE51D1A36921700917698 /* BudgetItemCell.swift in Sources */,

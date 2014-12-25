@@ -189,10 +189,15 @@
                     </view>
                     <navigationItem key="navigationItem" id="ZeR-F0-wkc" userLabel="budgetEditor">
                         <barButtonItem key="backBarButtonItem" title="Save" id="nPH-ac-IaR"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="trp-ic-ZPc" userLabel="addCategory">
+                            <connections>
+                                <action selector="addCategoryButtonPressed:" destination="gDl-Q2-PJ8" id="Abe-SN-Xnn"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="iCZ-3c-YIX" id="O8J-ba-cEx"/>
-                        <segue destination="pB7-gf-Nkw" kind="show" identifier="showBudgetItemEditorView" id="VFw-Im-O9q"/>
+                        <segue destination="pB7-gf-Nkw" kind="presentation" identifier="showBudgetItemEditorView" modalPresentationStyle="overFullScreen" modalTransitionStyle="coverVertical" id="VFw-Im-O9q"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jx8-Dx-BM2" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -207,131 +212,181 @@
                         <viewControllerLayoutGuide type="top" id="nJv-aa-luP"/>
                         <viewControllerLayoutGuide type="bottom" id="wBT-s2-gdZ"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="tKV-bQ-O5b">
+                    <view key="view" contentMode="scaleToFill" id="tKV-bQ-O5b" userLabel="backgroundView">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Item Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fga-gb-c7p" userLabel="nameTextField">
-                                <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="16" y="101" width="207" height="30"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3uj-pe-Bxl" userLabel="mainView">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rgN-Ev-MtS">
+                                        <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                        <state key="normal" title="Delete">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                            <rect key="frame" x="141" y="340" width="118" height="60"/>
+                                        </variation>
+                                        <connections>
+                                            <action selector="deleteButtonPressed:" destination="pB7-gf-Nkw" eventType="touchUpInside" id="r9e-CV-2Xr"/>
+                                        </connections>
+                                    </button>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Item Description" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2fE-ej-qYg" userLabel="descriptionTextField">
+                                        <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                        <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                            <rect key="frame" x="103" y="46" width="289" height="30"/>
+                                        </variation>
+                                    </textField>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qr8-Pa-ZCU">
+                                        <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                        <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                            <rect key="frame" x="7" y="50" width="88" height="21"/>
+                                        </variation>
+                                    </label>
+                                    <pickerView tag="2" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K5G-By-JDT" userLabel="categoryPicker">
+                                        <rect key="frame" x="0.0" y="-162" width="320" height="162"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="keyPath" value="YES"/>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="keyPath" value="YES"/>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="keyPath" value="YES"/>
+                                        </userDefinedRuntimeAttributes>
+                                        <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                            <rect key="frame" x="90" y="84" width="302" height="100"/>
+                                        </variation>
+                                        <connections>
+                                            <outlet property="dataSource" destination="pB7-gf-Nkw" id="AR2-9g-sDp"/>
+                                            <outlet property="delegate" destination="pB7-gf-Nkw" id="mdv-rs-iXi"/>
+                                        </connections>
+                                    </pickerView>
+                                    <pickerView tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vLK-mX-SIQ" userLabel="timePicker">
+                                        <rect key="frame" x="0.0" y="-162" width="320" height="162"/>
+                                        <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                            <rect key="frame" x="0.0" y="222" width="400" height="100"/>
+                                        </variation>
+                                        <connections>
+                                            <outlet property="dataSource" destination="pB7-gf-Nkw" id="4gV-0N-VnI"/>
+                                            <outlet property="delegate" destination="pB7-gf-Nkw" id="olk-ky-L37"/>
+                                        </connections>
+                                    </pickerView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="neG-Ei-MSH">
+                                        <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                        <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                            <rect key="frame" x="8" y="16" width="87" height="21"/>
+                                        </variation>
+                                    </label>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Item Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fga-gb-c7p" userLabel="nameTextField">
+                                        <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                        <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                            <rect key="frame" x="103" y="8" width="289" height="30"/>
+                                        </variation>
+                                    </textField>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Category" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hBn-V8-QLD">
+                                        <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                        <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                            <rect key="frame" x="8" y="123" width="74" height="21"/>
+                                        </variation>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pu7-hC-Ef8">
+                                        <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                        <state key="normal" title="Save">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                            <rect key="frame" x="267" y="340" width="133" height="60"/>
+                                        </variation>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EiB-Xl-L8g">
+                                        <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                        <state key="normal" title="Cancel">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                            <rect key="frame" x="0.0" y="340" width="133" height="60"/>
+                                        </variation>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Minutes" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="grZ-hT-tQi">
+                                        <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                        <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                            <rect key="frame" x="256" y="193" width="61" height="21"/>
+                                        </variation>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hours" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KzU-n7-vP0">
+                                        <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                        <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                            <rect key="frame" x="83" y="193" width="46" height="21"/>
+                                        </variation>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <variation key="default">
+                                    <mask key="subviews">
+                                        <exclude reference="rgN-Ev-MtS"/>
+                                        <exclude reference="2fE-ej-qYg"/>
+                                        <exclude reference="qr8-Pa-ZCU"/>
+                                        <exclude reference="K5G-By-JDT"/>
+                                        <exclude reference="vLK-mX-SIQ"/>
+                                        <exclude reference="neG-Ei-MSH"/>
+                                        <exclude reference="fga-gb-c7p"/>
+                                        <exclude reference="hBn-V8-QLD"/>
+                                        <exclude reference="pu7-hC-Ef8"/>
+                                        <exclude reference="EiB-Xl-L8g"/>
+                                        <exclude reference="grZ-hT-tQi"/>
+                                        <exclude reference="KzU-n7-vP0"/>
+                                    </mask>
                                 </variation>
-                            </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Item Description" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2fE-ej-qYg" userLabel="descriptionTextField">
-                                <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
                                 <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="17" y="186" width="206" height="30"/>
+                                    <rect key="frame" x="0.0" y="200" width="400" height="400"/>
+                                    <mask key="subviews">
+                                        <include reference="rgN-Ev-MtS"/>
+                                        <include reference="2fE-ej-qYg"/>
+                                        <include reference="qr8-Pa-ZCU"/>
+                                        <include reference="K5G-By-JDT"/>
+                                        <include reference="vLK-mX-SIQ"/>
+                                        <include reference="neG-Ei-MSH"/>
+                                        <include reference="fga-gb-c7p"/>
+                                        <include reference="hBn-V8-QLD"/>
+                                        <include reference="pu7-hC-Ef8"/>
+                                        <include reference="EiB-Xl-L8g"/>
+                                        <include reference="grZ-hT-tQi"/>
+                                        <include reference="KzU-n7-vP0"/>
+                                    </mask>
                                 </variation>
-                            </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="neG-Ei-MSH">
-                                <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="17" y="72" width="46" height="21"/>
-                                </variation>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qr8-Pa-ZCU">
-                                <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="17" y="157" width="88" height="21"/>
-                                </variation>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rgN-Ev-MtS">
-                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
-                                <state key="normal" title="Delete Item">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="90" y="133" width="163" height="53"/>
-                                </variation>
-                                <connections>
-                                    <action selector="deleteButtonPressed:" destination="pB7-gf-Nkw" eventType="touchUpInside" id="r9e-CV-2Xr"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hours" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KzU-n7-vP0">
-                                <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="79" y="224" width="46" height="21"/>
-                                </variation>
-                            </label>
-                            <pickerView tag="2" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K5G-By-JDT" userLabel="categoryPicker">
-                                <rect key="frame" x="0.0" y="-162" width="320" height="162"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="keyPath" value="YES"/>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="keyPath" value="YES"/>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="keyPath" value="YES"/>
-                                </userDefinedRuntimeAttributes>
-                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="15" y="418" width="370" height="162"/>
-                                </variation>
-                                <connections>
-                                    <outlet property="dataSource" destination="pB7-gf-Nkw" id="AR2-9g-sDp"/>
-                                    <outlet property="delegate" destination="pB7-gf-Nkw" id="mdv-rs-iXi"/>
-                                </connections>
-                            </pickerView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Minutes" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="grZ-hT-tQi">
-                                <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="260" y="224" width="61" height="21"/>
-                                </variation>
-                            </label>
-                            <pickerView tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vLK-mX-SIQ" userLabel="timePicker">
-                                <rect key="frame" x="0.0" y="-162" width="320" height="162"/>
-                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="0.0" y="253" width="400" height="162"/>
-                                </variation>
-                                <connections>
-                                    <outlet property="dataSource" destination="pB7-gf-Nkw" id="4gV-0N-VnI"/>
-                                    <outlet property="delegate" destination="pB7-gf-Nkw" id="olk-ky-L37"/>
-                                </connections>
-                            </pickerView>
+                            </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                         <variation key="default">
                             <mask key="subviews">
-                                <exclude reference="fga-gb-c7p"/>
-                                <exclude reference="2fE-ej-qYg"/>
-                                <exclude reference="neG-Ei-MSH"/>
-                                <exclude reference="qr8-Pa-ZCU"/>
-                                <exclude reference="rgN-Ev-MtS"/>
-                                <exclude reference="KzU-n7-vP0"/>
-                                <exclude reference="K5G-By-JDT"/>
-                                <exclude reference="grZ-hT-tQi"/>
-                                <exclude reference="vLK-mX-SIQ"/>
+                                <exclude reference="3uj-pe-Bxl"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
                             <mask key="subviews">
-                                <include reference="fga-gb-c7p"/>
-                                <include reference="2fE-ej-qYg"/>
-                                <include reference="neG-Ei-MSH"/>
-                                <include reference="qr8-Pa-ZCU"/>
-                                <include reference="rgN-Ev-MtS"/>
-                                <include reference="KzU-n7-vP0"/>
-                                <include reference="K5G-By-JDT"/>
-                                <include reference="grZ-hT-tQi"/>
-                                <include reference="vLK-mX-SIQ"/>
+                                <include reference="3uj-pe-Bxl"/>
                             </mask>
                         </variation>
                     </view>
-                    <navigationItem key="navigationItem" title="budgetItemName" id="47c-oy-mCC">
-                        <barButtonItem key="backBarButtonItem" title="Done" id="pgC-RK-UO7"/>
-                    </navigationItem>
                     <connections>
                         <outlet property="categoryPicker" destination="K5G-By-JDT" id="Mwq-WZ-uiL"/>
                         <outlet property="descriptionTextField" destination="2fE-ej-qYg" id="BRi-u5-aBS"/>
