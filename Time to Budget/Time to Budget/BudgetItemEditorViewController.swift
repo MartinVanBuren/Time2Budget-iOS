@@ -15,7 +15,7 @@ class BudgetItemEditorViewController: UIViewController, UIPickerViewDataSource, 
     var finalTime = Time()
     
     @IBOutlet weak var nameTextField: UITextField!
-    @IBOutlet weak var descriptionTextField: UITextField!
+    @IBOutlet weak var descriptionTextView: UITextView!
     @IBOutlet weak var categoryPicker: UIPickerView!
     @IBOutlet weak var timePicker: UIPickerView!
     
@@ -27,7 +27,6 @@ class BudgetItemEditorViewController: UIViewController, UIPickerViewDataSource, 
     var timeMinutePickerData:[Int] = Factory.prepareTimeMinutePickerData()
     var categoryPicked:String!
     var timePicked:Time = Time()
-    var saveInfo:Bool = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,9 +54,11 @@ class BudgetItemEditorViewController: UIViewController, UIPickerViewDataSource, 
         timePicked = Time.floatToTime(currentBudgetItem.timeRemaining)
         
         nameTextField.text = currentBudgetItem.name
-        descriptionTextField.text = currentBudgetItem.descript
+        descriptionTextView.text = currentBudgetItem.descript
         nameTextField.delegate = self
-        descriptionTextField.delegate = self
+        //descriptionTextView.delegate = self
+        
+        descriptionTextView.userInteractionEnabled = true
         
         timePicker.selectRow(getHourIndex(), inComponent: 0, animated: true)
         timePicker.selectRow(getMinIndex(), inComponent: 1, animated: true)
@@ -145,28 +146,30 @@ class BudgetItemEditorViewController: UIViewController, UIPickerViewDataSource, 
         // Pass the selected object to the new view controller.
     }
     */
-    
-    override func viewWillDisappear(animated: Bool) {
-        if saveInfo {
-            let appDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
-            
-            currentBudgetItem.timeRemaining = timePicked.toFloat()
-            currentBudgetItem.name = nameTextField.text
-            currentBudgetItem.descript = descriptionTextField.text
-            currentBudgetItem.category = categoryPicked
-            currentBudgetItem.isVisible = true
-            
-            appDelegate.saveContext()
-        }
-    }
 
     @IBAction func deleteButtonPressed(sender: UIButton) {
         currentBudgetItem.isVisible = false
-        saveInfo = false
-        self.navigationController?.popViewControllerAnimated(true)
+        
+        self.dismissViewControllerAnimated(true, completion: {})
     }
     
+    @IBAction func saveButtonPressed(sender: UIButton) {
+        let appDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
+        
+        currentBudgetItem.timeRemaining = timePicked.toFloat()
+        currentBudgetItem.name = nameTextField.text
+        currentBudgetItem.descript = descriptionTextView.text
+        currentBudgetItem.category = categoryPicked
+        currentBudgetItem.isVisible = true
+        
+        appDelegate.saveContext()
+        
+        self.dismissViewControllerAnimated(true, completion: {})
+    }
     
+    @IBAction func cancelButtonPressed(sender: UIButton) {
+        self.dismissViewControllerAnimated(true, completion: {})
+    }
     
     // Helper Functions
     func getHourIndex() -> Int {
