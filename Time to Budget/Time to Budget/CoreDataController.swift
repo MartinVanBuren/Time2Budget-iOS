@@ -50,17 +50,17 @@ class CoreDataController {
         return fetchedResultsController
     }
     
-    class func addBudgetItem() {
+    class func addBudgetItem(#name: String, descript: String, category: String, newTime: Float) {
         let managedObjectContext = CoreDataController.getManagedObjectContext()
         let appDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
         let entityDescription = NSEntityDescription.entityForName("BudgetItem", inManagedObjectContext: managedObjectContext)
         let testBudgetItem = BudgetItem(entity: entityDescription!, insertIntoManagedObjectContext: managedObjectContext)
-        let newTime = Time(newHours: 5, newMinutes: 15)
+        //let newTime = Time(newHours: 5, newMinutes: 15)
         
-        testBudgetItem.name = "Test Budget Item"
-        testBudgetItem.descript = "This is a Test"
-        testBudgetItem.category = "Uncategorized"
-        testBudgetItem.timeRemaining = newTime.toFloat()
+        testBudgetItem.name = name
+        testBudgetItem.descript = descript
+        testBudgetItem.category = category
+        testBudgetItem.timeRemaining = newTime
         testBudgetItem.isVisible = true
         
         appDelegate.saveContext()
@@ -74,15 +74,15 @@ class CoreDataController {
         }
     }
     
-    class func addCategoryItem() {
+    class func addCategoryItem(#categoryName: String) {
         let managedObjectContext = CoreDataController.getManagedObjectContext()
         let appDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
         let entityDescription = NSEntityDescription.entityForName("CategoryItem", inManagedObjectContext: managedObjectContext)
-        let testCat = CategoryItem(entity: entityDescription!, insertIntoManagedObjectContext: managedObjectContext)
+        let newCat = CategoryItem(entity: entityDescription!, insertIntoManagedObjectContext: managedObjectContext)
         let newTime = Time(newHours: 0, newMinutes: 0)
         
-        testCat.name = "newCategory"
-        testCat.totalTimeRemaining = newTime.toFloat()
+        newCat.name = categoryName
+        newCat.totalTimeRemaining = newTime.toFloat()
         
         appDelegate.saveContext()
         

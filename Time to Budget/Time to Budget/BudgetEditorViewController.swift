@@ -16,7 +16,7 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
     var totalTime = Time(newHours: 168, newMinutes: 0)
     var returning:Bool? = false
     let viewTransitionDelegate = TransitionDelegate()
-    
+    var addTaskDialog:Bool = false
     
     //==================== CoreData Properties ====================
     let managedObjectContext = CoreDataController.getManagedObjectContext()
@@ -59,10 +59,13 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
         if segue.identifier == "showBudgetItemEditorView" {
             let budgetItemEditorVC:BudgetItemEditorViewController = segue.destinationViewController as BudgetItemEditorViewController
             
-            
-            let indexPath = self.tableView.indexPathForSelectedRow()
-            let thisBudgetItem = frcBudgetItems.objectAtIndexPath(indexPath!) as BudgetItem
-            budgetItemEditorVC.currentBudgetItem = thisBudgetItem
+            if !addTaskDialog {
+                let indexPath = self.tableView.indexPathForSelectedRow()
+                let thisBudgetItem = frcBudgetItems.objectAtIndexPath(indexPath!) as BudgetItem
+                budgetItemEditorVC.currentBudgetItem = thisBudgetItem
+            } else {
+                budgetItemEditorVC.addTaskDialog = true
+            }
             
             fixContentInset(calledFromSegue: true)
         }
@@ -118,9 +121,26 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
     //==================== IB Actions ====================
     
     @IBAction func addCategoryButtonPressed(sender: UIBarButtonItem) {
-        CoreDataController.addCategoryItem()
+        var inputTextField = UITextField()
+        inputTextField.placeholder = "Enter Category Name"
+        
+        var alert = UIAlertController(title: "New Category", message: "", preferredStyle: UIAlertControllerStyle.Alert)
+        //var alert = UIAlertView(title: "New Category", message: "", delegate: self, cancelButtonTitle: "Cancel", otherButtonTitles: "Add")
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
+        alert.addTextFieldWithConfigurationHandler {(textField) -> Void in inputTextField = textField}
+        alert.addAction(UIAlertAction(title: "Add", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+            // Now do whatever you want with inputTextField (remember to unwrap the optional)
+            CoreDataController.addCategoryItem(categoryName: inputTextField.text)
+        }))
+        
+        self.presentViewController(alert, animated: true, completion: {})
     }
     
+    @IBAction func addTaskButtonPressed(sender: UIButton) {
+        addTaskDialog = true
+        performSegueWithIdentifier("showBudgetItemEditorView", sender: sender)
+        addTaskDialog = false
+    }
     //==================== Helper Methods ====================
     
     func fixContentInset(#calledFromSegue: Bool) {

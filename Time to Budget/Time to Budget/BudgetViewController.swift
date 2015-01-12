@@ -124,7 +124,7 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
     
     //==================== Helper Methods ====================
     func testAddBudgetItemInCoreData() {
-        CoreDataController.addBudgetItem()
+        //CoreDataController.addBudgetItem()
     }
     
     func displayPromptControl() {

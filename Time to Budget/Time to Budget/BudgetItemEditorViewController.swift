@@ -13,11 +13,13 @@ class BudgetItemEditorViewController: UIViewController, UIPickerViewDataSource, 
     
     var currentBudgetItem:BudgetItem!
     var finalTime = Time()
+    var addTaskDialog:Bool = false
     
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var descriptionTextView: UITextView!
     @IBOutlet weak var categoryPicker: UIPickerView!
     @IBOutlet weak var timePicker: UIPickerView!
+    @IBOutlet weak var titleLabel: UILabel!
     
     let managedObjectContext = CoreDataController.getManagedObjectContext()
     var frcCategories:NSFetchedResultsController = NSFetchedResultsController()
@@ -32,8 +34,16 @@ class BudgetItemEditorViewController: UIViewController, UIPickerViewDataSource, 
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        finalTime.floatToTime(currentBudgetItem.timeRemaining)
-        self.navigationItem.title = currentBudgetItem.name
+        if !addTaskDialog {
+            finalTime.floatToTime(currentBudgetItem.timeRemaining)
+            //self.navigationItem.title = currentBudgetItem.name
+            self.titleLabel.text = "Edit Task"
+        } else {
+            finalTime.setByFloat(0.0)
+            //self.navigationItem.title = "New Task"
+            self.titleLabel.text = "Add Task"
+            
+        }
         
         // Core Data - Fetching Category Item
         frcCategories = CoreDataController.getFetchedResultsController(fetchRequest: CoreDataController.fetchCategoryItemRequest(), managedObjectContext: managedObjectContext)
@@ -49,20 +59,26 @@ class BudgetItemEditorViewController: UIViewController, UIPickerViewDataSource, 
         timePicker.dataSource = self
         timePicker.delegate = self
         
-        // Setting Current Selections
-        categoryPicked = currentBudgetItem.category
-        timePicked = Time.floatToTime(currentBudgetItem.timeRemaining)
+        if !addTaskDialog {
+            // Setting Current Selections
+            categoryPicked = currentBudgetItem.category
+            timePicked = Time.floatToTime(currentBudgetItem.timeRemaining)
+            nameTextField.text = currentBudgetItem.name
+            descriptionTextView.text = currentBudgetItem.descript
+        } else {
+            categoryPicked = "Uncategorized"
+            timePicked = Time.floatToTime(0.0)
+            nameTextField.text = ""
+            descriptionTextView.text = ""
+        }
         
-        nameTextField.text = currentBudgetItem.name
-        descriptionTextView.text = currentBudgetItem.descript
         nameTextField.delegate = self
-        //descriptionTextView.delegate = self
         
         descriptionTextView.userInteractionEnabled = true
         
         timePicker.selectRow(getHourIndex(), inComponent: 0, animated: true)
         timePicker.selectRow(getMinIndex(), inComponent: 1, animated: true)
-        categoryPicker.selectRow(getCategoryIndex(currentBudgetItem.category), inComponent: 0, animated: true)
+        categoryPicker.selectRow(getCategoryIndex(categoryPicked), inComponent: 0, animated: true)
     }
     
     // UIPicker Data Sources
@@ -146,29 +162,31 @@ class BudgetItemEditorViewController: UIViewController, UIPickerViewDataSource, 
         // Pass the selected object to the new view controller.
     }
     */
-
-    @IBAction func deleteButtonPressed(sender: UIButton) {
-        currentBudgetItem.isVisible = false
-        
-        self.dismissViewControllerAnimated(true, completion: {})
-    }
     
     @IBAction func saveButtonPressed(sender: UIButton) {
-        let appDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
-        
-        currentBudgetItem.timeRemaining = timePicked.toFloat()
-        currentBudgetItem.name = nameTextField.text
-        currentBudgetItem.descript = descriptionTextView.text
-        currentBudgetItem.category = categoryPicked
-        currentBudgetItem.isVisible = true
-        
-        appDelegate.saveContext()
+        if !addTaskDialog {
+            let appDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
+            
+            currentBudgetItem.timeRemaining = timePicked.toFloat()
+            currentBudgetItem.name = nameTextField.text
+            currentBudgetItem.descript = descriptionTextView.text
+            currentBudgetItem.category = categoryPicked
+            currentBudgetItem.isVisible = true
+            
+            appDelegate.saveContext()
+        } else {
+            CoreDataController.addBudgetItem(name: nameTextField.text, descript: descriptionTextView.text, category: categoryPicked, newTime: timePicked.toFloat())
+        }
         
         self.dismissViewControllerAnimated(true, completion: {})
     }
     
     @IBAction func cancelButtonPressed(sender: UIButton) {
         self.dismissViewControllerAnimated(true, completion: {})
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        self.addTaskDialog = false
     }
     
     // Helper Functions
@@ -191,10 +209,10 @@ class BudgetItemEditorViewController: UIViewController, UIPickerViewDataSource, 
         }
     }
     
-    func getCategoryIndex(String) -> Int {
+    func getCategoryIndex(category: String) -> Int {
         
         for var index = 0; index < categoryPickerData.count; index++ {
-            if categoryPickerData[index] == currentBudgetItem.category {
+            if categoryPickerData[index] == category {
                 return index
             }
         }
