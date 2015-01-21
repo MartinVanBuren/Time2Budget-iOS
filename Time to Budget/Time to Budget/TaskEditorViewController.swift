@@ -9,9 +9,9 @@
 import UIKit
 import CoreData
 
-class BudgetItemEditorViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate, NSFetchedResultsControllerDelegate {
+class TaskEditorViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate, NSFetchedResultsControllerDelegate {
     
-    var currentBudgetItem:BudgetItem!
+    var currentTask:Task!
     var finalTime = Time()
     var addTaskDialog:Bool = false
     
@@ -35,7 +35,7 @@ class BudgetItemEditorViewController: UIViewController, UIPickerViewDataSource, 
 
         // Do any additional setup after loading the view.
         if !addTaskDialog {
-            finalTime.floatToTime(currentBudgetItem.timeRemaining)
+            finalTime.floatToTime(currentTask.timeRemaining)
             //self.navigationItem.title = currentBudgetItem.name
             self.titleLabel.text = "Edit Task"
         } else {
@@ -46,7 +46,7 @@ class BudgetItemEditorViewController: UIViewController, UIPickerViewDataSource, 
         }
         
         // Core Data - Fetching Category Item
-        frcCategories = CoreDataController.getFetchedResultsController(fetchRequest: CoreDataController.fetchCategoryItemRequest(), managedObjectContext: managedObjectContext)
+        frcCategories = CoreDataController.getFetchedResultsController(fetchRequest: CoreDataController.getFetchRequest("Categories"), managedObjectContext: managedObjectContext)
         frcCategories.delegate = self
         frcCategories.performFetch(nil)
         
@@ -61,10 +61,10 @@ class BudgetItemEditorViewController: UIViewController, UIPickerViewDataSource, 
         
         if !addTaskDialog {
             // Setting Current Selections
-            categoryPicked = currentBudgetItem.category
-            timePicked = Time.floatToTime(currentBudgetItem.timeRemaining)
-            nameTextField.text = currentBudgetItem.name
-            descriptionTextView.text = currentBudgetItem.descript
+            categoryPicked = currentTask.category
+            timePicked = Time.floatToTime(currentTask.timeRemaining)
+            nameTextField.text = currentTask.name
+            descriptionTextView.text = currentTask.descript
         } else {
             categoryPicked = "Uncategorized"
             timePicked = Time.floatToTime(0.0)
@@ -167,15 +167,15 @@ class BudgetItemEditorViewController: UIViewController, UIPickerViewDataSource, 
         if !addTaskDialog {
             let appDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
             
-            currentBudgetItem.timeRemaining = timePicked.toFloat()
-            currentBudgetItem.name = nameTextField.text
-            currentBudgetItem.descript = descriptionTextView.text
-            currentBudgetItem.category = categoryPicked
-            currentBudgetItem.isVisible = true
+            currentTask.timeRemaining = timePicked.toFloat()
+            currentTask.name = nameTextField.text
+            currentTask.descript = descriptionTextView.text
+            currentTask.category = categoryPicked
+            currentTask.isVisible = true
             
             appDelegate.saveContext()
         } else {
-            CoreDataController.addBudgetItem(name: nameTextField.text, descript: descriptionTextView.text, category: categoryPicked, newTime: timePicked.toFloat())
+            CoreDataController.addTask(name: nameTextField.text, descript: descriptionTextView.text, category: categoryPicked, newTime: timePicked.toFloat())
         }
         
         self.dismissViewControllerAnimated(true, completion: {})

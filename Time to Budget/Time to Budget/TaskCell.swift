@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BudgetItemCell: UITableViewCell {
+class TaskCell: UITableViewCell {
     
     @IBOutlet weak var itemNameLabel: UILabel!
     @IBOutlet weak var remainingTimeLabel: UILabel!

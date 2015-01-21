@@ -1,5 +1,5 @@
 //
-//  ItemRecord.swift
+//  Record.swift
 //  Time to Budget
 //
 //  Created by Robert Kennedy on 12/11/14.
@@ -9,9 +9,10 @@
 import Foundation
 import CoreData
 
-@objc(ItemRecord)
-class ItemRecord: NSManagedObject {
+@objc(Record)
+class Record: NSManagedObject {
     @NSManaged var date:NSDate
     @NSManaged var note:String
     @NSManaged var timeSpent:Float
+    @NSManaged var taskName:String
 }

@@ -11,35 +11,35 @@ import UIKit
 import CoreData
 
 class Factory {
-    class func prepareSectionHeaderCell (#tableView: UITableView, fetchedResultsController: NSFetchedResultsController, section: Int) -> SectionHeaderCell {
+    class func prepareCategoryCell (#tableView: UITableView, fetchedResultsController: NSFetchedResultsController, section: Int) -> CategoryCell {
         
-        let thisBudgetItem = fetchedResultsController.objectAtIndexPath(NSIndexPath(forRow: 0, inSection: section)) as BudgetItem
+        let thisTask = fetchedResultsController.objectAtIndexPath(NSIndexPath(forRow: 0, inSection: section)) as Task
         
         var totalTime:Time = Time()
         
-        var preparedCell:SectionHeaderCell = tableView.dequeueReusableCellWithIdentifier("SectionHeaderCell") as SectionHeaderCell
+        var preparedCell:CategoryCell = tableView.dequeueReusableCellWithIdentifier("CategoryCell") as CategoryCell
         
         let arraySize = fetchedResultsController.sections?[section].numberOfObjects
         
         for var i = 0; i < arraySize; i++ {
-            totalTime.hours += Time(budgetItem: (fetchedResultsController.objectAtIndexPath(NSIndexPath(forRow: i, inSection: section)) as BudgetItem)).hours
-            totalTime.minutes += Time(budgetItem: (fetchedResultsController.objectAtIndexPath(NSIndexPath(forRow: i, inSection: section)) as BudgetItem)).minutes
+            totalTime.hours += Time(task: (fetchedResultsController.objectAtIndexPath(NSIndexPath(forRow: i, inSection: section)) as Task)).hours
+            totalTime.minutes += Time(task: (fetchedResultsController.objectAtIndexPath(NSIndexPath(forRow: i, inSection: section)) as Task)).minutes
         }
         
-        preparedCell.sectionNameLabel.text = thisBudgetItem.category
+        preparedCell.sectionNameLabel.text = thisTask.category
         preparedCell.remainingTimeLabel.text = totalTime.toString()
         
         return preparedCell
     }
     
-    class func prepareBudgetItemCell (#tableView: UITableView, fetchedResultsController: NSFetchedResultsController, indexPath: NSIndexPath) -> BudgetItemCell {
+    class func prepareTaskCell (#tableView: UITableView, fetchedResultsController: NSFetchedResultsController, indexPath: NSIndexPath) -> TaskCell {
         
-        let thisBudgetItem = fetchedResultsController.objectAtIndexPath(indexPath) as BudgetItem
+        let thisTask = fetchedResultsController.objectAtIndexPath(indexPath) as Task
         
-        var preparedCell:BudgetItemCell = tableView.dequeueReusableCellWithIdentifier("BudgetItemCell") as BudgetItemCell
+        var preparedCell:TaskCell = tableView.dequeueReusableCellWithIdentifier("TaskCell") as TaskCell
         
-        preparedCell.itemNameLabel.text = thisBudgetItem.name
-        preparedCell.remainingTimeLabel.text = Time.floatToString(thisBudgetItem.timeRemaining)
+        preparedCell.itemNameLabel.text = thisTask.name
+        preparedCell.remainingTimeLabel.text = Time.floatToString(thisTask.timeRemaining)
         
         return preparedCell
     }

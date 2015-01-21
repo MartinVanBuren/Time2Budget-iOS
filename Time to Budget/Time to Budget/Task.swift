@@ -1,5 +1,5 @@
 //
-//  BudgetItem.swift
+//  Task.swift
 //  Time to Budget
 //
 //  Created by Robert Kennedy on 12/11/14.
@@ -9,8 +9,8 @@
 import Foundation
 import CoreData
 
-@objc(BudgetItem)
-class BudgetItem: NSManagedObject {
+@objc(Task)
+class Task: NSManagedObject {
     @NSManaged var isVisible:Bool
     @NSManaged var descript:String
     @NSManaged var name:String

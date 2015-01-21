@@ -23,7 +23,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="BudgetItemCell" id="U9e-AW-r7r" customClass="BudgetItemCell" customModule="Time_to_Budget" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="TaskCell" id="U9e-AW-r7r" userLabel="TaskCell" customClass="TaskCell" customModule="Time_to_Budget" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="U9e-AW-r7r" id="5zc-wk-c0c">
@@ -40,6 +40,9 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
+                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                                        <rect key="frame" x="166" y="12" width="113" height="20"/>
+                                                    </variation>
                                                 </label>
                                             </subviews>
                                             <constraints>
@@ -84,7 +87,7 @@
                                             <outlet property="remainingTimeLabel" destination="S74-ri-rP6" id="4xm-f3-c5p"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SectionHeaderCell" id="pOC-cb-aCZ" userLabel="SectionHeaderCell" customClass="SectionHeaderCell" customModule="Time_to_Budget" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CategoryCell" id="pOC-cb-aCZ" userLabel="CategoryCell" customClass="CategoryCell" customModule="Time_to_Budget" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="pOC-cb-aCZ" id="IdL-qM-75r">
@@ -95,13 +98,10 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
+                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                                        <rect key="frame" x="138" y="12" width="113" height="19"/>
+                                                    </variation>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s2u-yO-Z6a" userLabel="addBudgetItem">
-                                                    <rect key="frame" x="-23" y="-15" width="46" height="30"/>
-                                                    <connections>
-                                                        <action selector="addTaskButtonPressed:" destination="gDl-Q2-PJ8" eventType="touchUpInside" id="fpk-TE-CNg"/>
-                                                    </connections>
-                                                </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="sectionName" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6yV-z2-kas">
                                                     <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -110,27 +110,22 @@
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="s2u-yO-Z6a" firstAttribute="leading" secondItem="6yV-z2-kas" secondAttribute="trailing" constant="8" id="NGG-fX-qGc"/>
                                                 <constraint firstItem="6yV-z2-kas" firstAttribute="top" secondItem="IdL-qM-75r" secondAttribute="topMargin" constant="4" id="RzT-Ft-Ltl"/>
                                                 <constraint firstItem="6yV-z2-kas" firstAttribute="leading" secondItem="IdL-qM-75r" secondAttribute="leadingMargin" id="UMW-uf-aNr"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="6yV-z2-kas" secondAttribute="bottom" constant="3" id="dx4-Un-H0a"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="l7i-KU-OfP" secondAttribute="bottom" constant="4" id="f8I-sV-nxI"/>
                                                 <constraint firstItem="l7i-KU-OfP" firstAttribute="top" secondItem="IdL-qM-75r" secondAttribute="topMargin" constant="4" id="nGm-Au-4Kc"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="l7i-KU-OfP" secondAttribute="trailing" constant="61" id="om9-vO-vql"/>
-                                                <constraint firstItem="6yV-z2-kas" firstAttribute="centerY" secondItem="s2u-yO-Z6a" secondAttribute="centerY" id="wLF-TW-niP"/>
                                             </constraints>
                                             <variation key="default">
                                                 <mask key="subviews">
                                                     <exclude reference="l7i-KU-OfP"/>
-                                                    <exclude reference="s2u-yO-Z6a"/>
                                                     <exclude reference="6yV-z2-kas"/>
                                                 </mask>
                                                 <mask key="constraints">
                                                     <exclude reference="RzT-Ft-Ltl"/>
                                                     <exclude reference="UMW-uf-aNr"/>
                                                     <exclude reference="dx4-Un-H0a"/>
-                                                    <exclude reference="wLF-TW-niP"/>
-                                                    <exclude reference="NGG-fX-qGc"/>
                                                     <exclude reference="f8I-sV-nxI"/>
                                                     <exclude reference="nGm-Au-4Kc"/>
                                                     <exclude reference="om9-vO-vql"/>
@@ -139,15 +134,12 @@
                                             <variation key="heightClass=regular-widthClass=compact">
                                                 <mask key="subviews">
                                                     <include reference="l7i-KU-OfP"/>
-                                                    <include reference="s2u-yO-Z6a"/>
                                                     <include reference="6yV-z2-kas"/>
                                                 </mask>
                                                 <mask key="constraints">
                                                     <include reference="RzT-Ft-Ltl"/>
                                                     <include reference="UMW-uf-aNr"/>
                                                     <include reference="dx4-Un-H0a"/>
-                                                    <include reference="wLF-TW-niP"/>
-                                                    <include reference="NGG-fX-qGc"/>
                                                     <include reference="f8I-sV-nxI"/>
                                                     <include reference="nGm-Au-4Kc"/>
                                                     <include reference="om9-vO-vql"/>
@@ -165,58 +157,117 @@
                                     <outlet property="delegate" destination="gDl-Q2-PJ8" id="ygY-ma-k73"/>
                                 </connections>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="59N-ns-iLS" userLabel="AddCategoryButton">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="59N-ns-iLS" secondAttribute="height" multiplier="85:24" id="iyu-TN-KKb"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="Add Category">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="iyu-TN-KKb"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="16" y="732" width="140" height="48"/>
+                                    <mask key="constraints">
+                                        <include reference="iyu-TN-KKb"/>
+                                    </mask>
+                                </variation>
+                                <connections>
+                                    <action selector="addCategoryButtonPressed:" destination="gDl-Q2-PJ8" eventType="touchUpInside" id="fV9-fi-Beg"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bfR-I3-Gsa" userLabel="AddTaskButton">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="bfR-I3-Gsa" secondAttribute="height" multiplier="85:24" id="8co-Ao-zjJ"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="Add Task">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="8co-Ao-zjJ"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="244" y="732" width="140" height="48"/>
+                                    <mask key="constraints">
+                                        <include reference="8co-Ao-zjJ"/>
+                                    </mask>
+                                </variation>
+                                <connections>
+                                    <action selector="addTaskButtonPressed:" destination="gDl-Q2-PJ8" eventType="touchUpInside" id="vIn-Rl-EC9"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="iCZ-3c-YIX" firstAttribute="leading" secondItem="G99-jg-v3U" secondAttribute="leadingMargin" constant="-16" id="0bO-fe-heX"/>
+                            <constraint firstItem="kOq-EG-P1D" firstAttribute="top" secondItem="59N-ns-iLS" secondAttribute="bottom" constant="20" id="3nK-gx-DuD"/>
+                            <constraint firstItem="59N-ns-iLS" firstAttribute="leading" secondItem="G99-jg-v3U" secondAttribute="leadingMargin" id="53q-Sl-aEG"/>
                             <constraint firstItem="kOq-EG-P1D" firstAttribute="top" secondItem="iCZ-3c-YIX" secondAttribute="bottom" id="LFJ-Yf-6dk"/>
+                            <constraint firstItem="bfR-I3-Gsa" firstAttribute="trailing" secondItem="G99-jg-v3U" secondAttribute="trailingMargin" id="OiW-Zs-QMh"/>
+                            <constraint firstItem="kOq-EG-P1D" firstAttribute="top" secondItem="bfR-I3-Gsa" secondAttribute="bottom" constant="20" id="V1s-0u-ZJj"/>
                             <constraint firstAttribute="trailingMargin" secondItem="iCZ-3c-YIX" secondAttribute="trailing" constant="-16" id="eyB-gj-Led"/>
                             <constraint firstItem="iCZ-3c-YIX" firstAttribute="top" secondItem="G99-jg-v3U" secondAttribute="topMargin" id="n4H-3i-WSE"/>
                         </constraints>
                         <variation key="default">
                             <mask key="subviews">
                                 <exclude reference="iCZ-3c-YIX"/>
+                                <exclude reference="59N-ns-iLS"/>
+                                <exclude reference="bfR-I3-Gsa"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="LFJ-Yf-6dk"/>
                                 <exclude reference="0bO-fe-heX"/>
                                 <exclude reference="eyB-gj-Led"/>
                                 <exclude reference="n4H-3i-WSE"/>
+                                <exclude reference="53q-Sl-aEG"/>
+                                <exclude reference="OiW-Zs-QMh"/>
+                                <exclude reference="3nK-gx-DuD"/>
+                                <exclude reference="LFJ-Yf-6dk"/>
+                                <exclude reference="V1s-0u-ZJj"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
                             <mask key="subviews">
                                 <include reference="iCZ-3c-YIX"/>
+                                <include reference="59N-ns-iLS"/>
+                                <include reference="bfR-I3-Gsa"/>
                             </mask>
                             <mask key="constraints">
-                                <include reference="LFJ-Yf-6dk"/>
                                 <include reference="0bO-fe-heX"/>
                                 <include reference="eyB-gj-Led"/>
                                 <include reference="n4H-3i-WSE"/>
+                                <include reference="53q-Sl-aEG"/>
+                                <include reference="OiW-Zs-QMh"/>
+                                <include reference="3nK-gx-DuD"/>
+                                <include reference="LFJ-Yf-6dk"/>
+                                <include reference="V1s-0u-ZJj"/>
                             </mask>
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" id="ZeR-F0-wkc" userLabel="budgetEditor">
                         <barButtonItem key="backBarButtonItem" title="Save" id="nPH-ac-IaR"/>
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="trp-ic-ZPc" userLabel="addCategory">
-                            <connections>
-                                <action selector="addCategoryButtonPressed:" destination="gDl-Q2-PJ8" id="Abe-SN-Xnn"/>
-                            </connections>
-                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="iCZ-3c-YIX" id="O8J-ba-cEx"/>
-                        <segue destination="pB7-gf-Nkw" kind="presentation" identifier="showBudgetItemEditorView" modalPresentationStyle="fullScreen" modalTransitionStyle="coverVertical" id="VFw-Im-O9q"/>
+                        <segue destination="pB7-gf-Nkw" kind="presentation" identifier="showTaskEditorView" modalPresentationStyle="fullScreen" modalTransitionStyle="coverVertical" id="VFw-Im-O9q"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jx8-Dx-BM2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2490" y="1006.5"/>
         </scene>
-        <!--Budget Item Editor View Controller-->
+        <!--Task Editor View Controller-->
         <scene sceneID="GrQ-Lb-zTK">
             <objects>
-                <viewController title="Budget Item Editor View Controller" id="pB7-gf-Nkw" customClass="BudgetItemEditorViewController" customModule="Time_to_Budget" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Budget Item Editor View Controller" id="pB7-gf-Nkw" userLabel="Task Editor View Controller" customClass="TaskEditorViewController" customModule="Time_to_Budget" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="nJv-aa-luP"/>
                         <viewControllerLayoutGuide type="bottom" id="wBT-s2-gdZ"/>
@@ -713,7 +764,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="BudgetItemCell" id="UEx-z2-1IF" customClass="BudgetItemCell" customModule="Time_to_Budget" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="TaskCell" id="UEx-z2-1IF" userLabel="TaskCell" customClass="TaskCell" customModule="Time_to_Budget" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="UEx-z2-1IF" id="Tay-em-GDe">
@@ -777,7 +828,7 @@
                                             <outlet property="remainingTimeLabel" destination="pbR-1z-pVf" id="mbL-em-WRI"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SectionHeaderCell" id="GyR-29-HpB" userLabel="SectionHeaderCell" customClass="SectionHeaderCell" customModule="Time_to_Budget" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CategoryCell" id="GyR-29-HpB" userLabel="CategoryCell" customClass="CategoryCell" customModule="Time_to_Budget" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="GyR-29-HpB" id="Yue-9E-nCG">
@@ -880,11 +931,6 @@
                     </view>
                     <navigationItem key="navigationItem" title="Budget" id="kgx-te-TR2">
                         <barButtonItem key="backBarButtonItem" title="Done" id="eMx-hT-IAU"/>
-                        <barButtonItem key="leftBarButtonItem" title="Debug" id="dIt-jV-4Lr" userLabel="Debug">
-                            <connections>
-                                <action selector="debugButtonPressed:" destination="BYZ-38-t0r" id="275-R7-AB2"/>
-                            </connections>
-                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="edit" id="jSN-f7-jt0">
                             <connections>
                                 <action selector="editButtonPressed:" destination="BYZ-38-t0r" id="cpM-tt-kP1"/>
@@ -894,7 +940,7 @@
                     <connections>
                         <outlet property="editButton" destination="jSN-f7-jt0" id="SSl-58-sfg"/>
                         <outlet property="tableView" destination="awM-vd-cc1" id="kVU-H8-Kj6"/>
-                        <segue destination="gDl-Q2-PJ8" kind="show" identifier="showBudgetItemEditor" id="BlM-Gq-6A6"/>
+                        <segue destination="gDl-Q2-PJ8" kind="show" identifier="showBudgetEditorView" id="BlM-Gq-6A6"/>
                         <segue destination="sxO-VC-seW" kind="show" identifier="showRecordsView" id="eNE-Hf-gai"/>
                     </connections>
                 </viewController>

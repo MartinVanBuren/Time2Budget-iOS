@@ -1,5 +1,5 @@
 //
-//  CategoryItem.swift
+//  Category.swift
 //  Time to Budget
 //
 //  Created by Robert Kennedy on 12/11/14.
@@ -9,8 +9,8 @@
 import Foundation
 import CoreData
 
-@objc(CategoryItem)
-class CategoryItem: NSManagedObject {
+@objc(Category)
+class Category: NSManagedObject {
     @NSManaged var name:String
     @NSManaged var totalTimeRemaining:Float
 }

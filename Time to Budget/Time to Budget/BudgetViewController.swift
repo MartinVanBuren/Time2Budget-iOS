@@ -21,18 +21,22 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
 
     //==================== CoreData Properties ====================
     let managedObjectContext = CoreDataController.getManagedObjectContext()
-    var frcBudgetItems:NSFetchedResultsController = NSFetchedResultsController()
+    var frcTasks:NSFetchedResultsController = NSFetchedResultsController()
     var frcCategories:NSFetchedResultsController = NSFetchedResultsController()
     
     //==================== Pre-Generated Methods ====================
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Core Data Fetching
-        frcBudgetItems = CoreDataController.getFetchedResultsController(fetchRequest: CoreDataController.fetchBudgetItemRequest(), managedObjectContext: managedObjectContext)
-        frcBudgetItems.delegate = self
-        frcBudgetItems.performFetch(nil)
         
-        frcCategories = CoreDataController.getFetchedResultsController(fetchRequest: CoreDataController.fetchCategoryItemRequest(), managedObjectContext: managedObjectContext)
+        //tableView.tableHeaderView = UIView(frame: CGRectZero)
+        //tableView.tableFooterView = UIView(frame: CGRectZero)
+        
+        // Core Data Fetching
+        frcTasks = CoreDataController.getFetchedResultsController(fetchRequest: CoreDataController.getFetchRequest("Tasks"), managedObjectContext: managedObjectContext)
+        frcTasks.delegate = self
+        frcTasks.performFetch(nil)
+        
+        frcCategories = CoreDataController.getFetchedResultsController(fetchRequest: CoreDataController.getFetchRequest("Categories"), managedObjectContext: managedObjectContext)
         frcCategories.delegate = self
         frcCategories.performFetch(nil)
         
@@ -56,47 +60,42 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
             let recordsVC:RecordsViewController = segue.destinationViewController as RecordsViewController
             
             //let indexPath = self.tableView.indexPathForSelectedRow()
-            //let thisBudgetItem = fetchedResultsController.objectAtIndexPath(indexPath!) as BudgetItem
-            //recordsVC.recordsBudgetItem = thisBudgetItem
+            //let thisTask = fetchedResultsController.objectAtIndexPath(indexPath!) as Task
+            //recordsVC.recordsTask = thisTask
         }
-        else if segue.identifier == "showBudgetEditor" {
+        else if segue.identifier == "showBudgetEditorView" {
             let budgetEditorVC:BudgetEditorViewController = segue.destinationViewController as BudgetEditorViewController
             budgetEditorVC.returning = false
             //let indexPath = self.tableView.indexPathForSelectedRow()
-            //let thisBudgetItem = fetchedResultsController.objectAtIndexPath(indexPath!) as BudgetItem
-            //budgetItemEditorVC.currentBudgetItem = thisBudgetItem
+            //let thisTask = fetchedResultsController.objectAtIndexPath(indexPath!) as Task
+            //TaskEditorVC.currentTask = thisTask
         }
     }
     
     //==================== IBAction Methods ====================
     @IBAction func editButtonPressed(sender: UIBarButtonItem) {
-        performSegueWithIdentifier("showBudgetItemEditor", sender: self)
+        performSegueWithIdentifier("showBudgetEditorView", sender: self)
     }
-    
-    @IBAction func debugButtonPressed(sender: UIBarButtonItem) {
-        testAddBudgetItemInCoreData()
-    }
-    
     
     //==================== UITableViewDataSource Methods ====================
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         
-        return frcBudgetItems.sections!.count
+        return frcTasks.sections!.count
     }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return frcBudgetItems.sections![section].numberOfObjects
+        return frcTasks.sections![section].numberOfObjects
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 
-        return Factory.prepareBudgetItemCell(tableView: tableView, fetchedResultsController: frcBudgetItems, indexPath: indexPath)
+        return Factory.prepareTaskCell(tableView: tableView, fetchedResultsController: frcTasks, indexPath: indexPath)
     }
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
-        return Factory.prepareSectionHeaderCell(tableView: tableView, fetchedResultsController: frcBudgetItems, section: section)
+        return Factory.prepareCategoryCell(tableView: tableView, fetchedResultsController: frcTasks, section: section)
         
     }
     
@@ -123,10 +122,6 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     //==================== Helper Methods ====================
-    func testAddBudgetItemInCoreData() {
-        //CoreDataController.addBudgetItem()
-    }
-    
     func displayPromptControl() {
         var navSingleTap = UITapGestureRecognizer(target: self, action: "navSingleTap")
         navSingleTap.numberOfTapsRequired = 1

@@ -18,21 +18,21 @@ class Time {
         self.hours = newHours
         self.minutes = newMinutes
     }
-    init(budgetItem: BudgetItem) {
-        let temp = floatToTime(budgetItem.timeRemaining)
+    init(task: Task) {
+        let temp = floatToTime(task.timeRemaining)
         
         self.hours = temp.hours
         self.minutes = temp.minutes
     }
-    init(itemRecord: ItemRecord) {
+    init(itemRecord: Record) {
         let temp = floatToTime(itemRecord.timeSpent)
         
         self.hours = temp.hours
         self.minutes = temp.minutes
 
     }
-    init(categoryItem: CategoryItem) {
-        let temp = floatToTime(categoryItem.totalTimeRemaining)
+    init(category: Category) {
+        let temp = floatToTime(category.totalTimeRemaining)
         
         self.hours = temp.hours
         self.minutes = temp.minutes
@@ -42,16 +42,15 @@ class Time {
     // Methods
     
     func cleanTime() {
-        var newHrs:Int = self.hours
-        var newMins:Int = self.minutes
-        
-        while newMins >= 60 {
-            newHrs += 1
-            newMins -= 60
+        while self.minutes >= 60 {
+            self.hours += 1
+            self.minutes -= 60
         }
-        
-        self.hours = newHrs
-        self.minutes = newMins
+
+        while self.minutes < 0 {
+            self.hours -= 1
+            self.minutes += 60
+        }
     }
     
     class func cleanTime(#newHrs: Int, newMins: Int) -> Time {

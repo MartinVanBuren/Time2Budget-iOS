@@ -20,24 +20,22 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
     
     //==================== CoreData Properties ====================
     let managedObjectContext = CoreDataController.getManagedObjectContext()
-    var frcBudgetItems:NSFetchedResultsController = NSFetchedResultsController()
+    var frcTasks:NSFetchedResultsController = NSFetchedResultsController()
     var frcCategories:NSFetchedResultsController = NSFetchedResultsController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Core Data - Fetching Budget Item
-        frcBudgetItems = CoreDataController.getFetchedResultsController(fetchRequest: CoreDataController.fetchBudgetItemRequest(), managedObjectContext: managedObjectContext)
-        frcBudgetItems.delegate = self
-        frcBudgetItems.performFetch(nil)
+        frcTasks = CoreDataController.getFetchedResultsController(fetchRequest: CoreDataController.getFetchRequest("Tasks"), managedObjectContext: managedObjectContext)
+        frcTasks.delegate = self
+        frcTasks.performFetch(nil)
         // Core Data - Fetching Category Item
-        frcCategories = CoreDataController.getFetchedResultsController(fetchRequest: CoreDataController.fetchCategoryItemRequest(), managedObjectContext: managedObjectContext)
+        frcCategories = CoreDataController.getFetchedResultsController(fetchRequest: CoreDataController.getFetchRequest("Categories"), managedObjectContext: managedObjectContext)
         frcCategories.delegate = self
         frcCategories.performFetch(nil)
         
         
         self.navigationItem.title = totalTime.toString()
-        
-        
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -56,15 +54,15 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
     
     //==================== Segue Preperation ====================
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "showBudgetItemEditorView" {
-            let budgetItemEditorVC:BudgetItemEditorViewController = segue.destinationViewController as BudgetItemEditorViewController
+        if segue.identifier == "showTaskEditorView" {
+            let taskEditorVC:TaskEditorViewController = segue.destinationViewController as TaskEditorViewController
             
             if !addTaskDialog {
                 let indexPath = self.tableView.indexPathForSelectedRow()
-                let thisBudgetItem = frcBudgetItems.objectAtIndexPath(indexPath!) as BudgetItem
-                budgetItemEditorVC.currentBudgetItem = thisBudgetItem
+                let thisTask = frcTasks.objectAtIndexPath(indexPath!) as Task
+                taskEditorVC.currentTask = thisTask
             } else {
-                budgetItemEditorVC.addTaskDialog = true
+                taskEditorVC.addTaskDialog = true
             }
             
             fixContentInset(calledFromSegue: true)
@@ -74,30 +72,33 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
     //==================== UITableViewDataSource Methods ====================
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         
-        return frcBudgetItems.sections!.count
+        return frcTasks.sections!.count
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return frcBudgetItems.sections![section].numberOfObjects
+        return frcTasks.sections![section].numberOfObjects
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        
-        return Factory.prepareBudgetItemCell(tableView: tableView, fetchedResultsController: frcBudgetItems, indexPath: indexPath)
+        var tempTime = Time.floatToTime((frcTasks.objectAtIndexPath(indexPath) as Task).timeRemaining)
+        self.totalTime.hours -= tempTime.hours
+        self.totalTime.minutes -= tempTime.minutes
+        updateTimeRemaining()
+        return Factory.prepareTaskCell(tableView: tableView, fetchedResultsController: frcTasks, indexPath: indexPath)
         
     }
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
-        return Factory.prepareSectionHeaderCell(tableView: tableView, fetchedResultsController: frcBudgetItems, section: section)
+        return Factory.prepareCategoryCell(tableView: tableView, fetchedResultsController: frcTasks, section: section)
         
     }
     
     //==================== UITableViewDelegate Methods ====================
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
-        performSegueWithIdentifier("showBudgetItemEditorView", sender: self)
+        performSegueWithIdentifier("showTaskEditorView", sender: self)
         
     }
     
@@ -108,6 +109,16 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
     }
     
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        var moveRecords:Bool = false
+        var alert = UIAlertController(title: "Save Task Records?", message: "Task records will be moved to a task named \"Taskless Records\"", preferredStyle: UIAlertControllerStyle.Alert)
+        alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+            CoreDataController.deleteTask(frcTasks: self.frcTasks, indexPath: indexPath, retainRecords: true)
+        }))
+        alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+            CoreDataController.deleteTask(frcTasks: self.frcTasks, indexPath: indexPath, retainRecords: false)
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
+        
         
     }
     
@@ -115,33 +126,37 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
     func controllerDidChangeContent(controller: NSFetchedResultsController) {
         self.tableView.reloadData()
         
-        self.navigationItem.title = totalTime.toString()
+        updateTimeRemaining()
     }
     
     //==================== IB Actions ====================
+    @IBAction func addTaskButtonPressed(sender: UIButton) {
+        addTaskDialog = true
+        performSegueWithIdentifier("showTaskEditorView", sender: sender)
+        addTaskDialog = false
+    }
     
-    @IBAction func addCategoryButtonPressed(sender: UIBarButtonItem) {
+    @IBAction func addCategoryButtonPressed(sender: UIButton) {
         var inputTextField = UITextField()
         inputTextField.placeholder = "Enter Category Name"
         
         var alert = UIAlertController(title: "New Category", message: "", preferredStyle: UIAlertControllerStyle.Alert)
         //var alert = UIAlertView(title: "New Category", message: "", delegate: self, cancelButtonTitle: "Cancel", otherButtonTitles: "Add")
+        alert.addAction(UIAlertAction(title: "Add", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+            CoreDataController.addCategory(categoryName: inputTextField.text)
+        }))
         alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
         alert.addTextFieldWithConfigurationHandler {(textField) -> Void in inputTextField = textField}
-        alert.addAction(UIAlertAction(title: "Add", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
-            // Now do whatever you want with inputTextField (remember to unwrap the optional)
-            CoreDataController.addCategoryItem(categoryName: inputTextField.text)
-        }))
+        
         
         self.presentViewController(alert, animated: true, completion: {})
     }
     
-    @IBAction func addTaskButtonPressed(sender: UIButton) {
-        addTaskDialog = true
-        performSegueWithIdentifier("showBudgetItemEditorView", sender: sender)
-        addTaskDialog = false
-    }
     //==================== Helper Methods ====================
+    func updateTimeRemaining() {
+        self.totalTime.cleanTime()
+        self.navigationItem.title = self.totalTime.toString()
+    }
     
     func fixContentInset(#calledFromSegue: Bool) {
         if calledFromSegue {
