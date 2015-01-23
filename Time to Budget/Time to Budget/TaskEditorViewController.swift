@@ -1,17 +1,19 @@
 //
-//  BudgetItemEditorViewController.swift
+//  TaskEditorViewController.swift
 //  Time to Budget
 //
-//  Created by Robert Kennedy on 12/14/14.
-//  Copyright (c) 2014 Arrken Games, LLC. All rights reserved.
+//  Created by Robert Kennedy on 1/23/15.
+//  Copyright (c) 2015 Arrken Games, LLC. All rights reserved.
 //
 
+import Foundation
 import UIKit
-import CoreData
+import Realm
 
-class TaskEditorViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate, NSFetchedResultsControllerDelegate {
+class TaskEditorViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate {
     
     var currentTask:Task!
+    var currentCategory:Category!
     var finalTime = Time()
     var addTaskDialog:Bool = false
     
@@ -21,8 +23,9 @@ class TaskEditorViewController: UIViewController, UIPickerViewDataSource, UIPick
     @IBOutlet weak var timePicker: UIPickerView!
     @IBOutlet weak var titleLabel: UILabel!
     
-    let managedObjectContext = CoreDataController.getManagedObjectContext()
-    var frcCategories:NSFetchedResultsController = NSFetchedResultsController()
+    //==================== Realm Properties ====================
+    let realm = Database.getRealm()
+    let categoryList = Category.allObjects()
     
     var categoryPickerData:[String]!
     var timeHourPickerData:[Int] = Factory.prepareTimeHourPickerData()
@@ -32,26 +35,19 @@ class TaskEditorViewController: UIViewController, UIPickerViewDataSource, UIPick
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
         if !addTaskDialog {
-            finalTime.floatToTime(currentTask.timeRemaining)
-            //self.navigationItem.title = currentBudgetItem.name
-            self.titleLabel.text = "Edit Task"
+            finalTime.doubleToTime(currentTask.timeRemaining)
+            self.titleLabel.text = currentTask.name
         } else {
-            finalTime.setByFloat(0.0)
-            //self.navigationItem.title = "New Task"
+            finalTime.setByDouble(0.0)
             self.titleLabel.text = "Add Task"
             
         }
         
-        // Core Data - Fetching Category Item
-        frcCategories = CoreDataController.getFetchedResultsController(fetchRequest: CoreDataController.getFetchRequest("Categories"), managedObjectContext: managedObjectContext)
-        frcCategories.delegate = self
-        frcCategories.performFetch(nil)
-        
         // Prepareing category picker data
-        categoryPickerData = Factory.prepareCategoryPickerData(frcCategories)
+        categoryPickerData = Factory.prepareCategoryPickerData(categoryList)
         
         // Picker Datasource/Delegate Setting
         categoryPicker.dataSource = self
@@ -61,13 +57,13 @@ class TaskEditorViewController: UIViewController, UIPickerViewDataSource, UIPick
         
         if !addTaskDialog {
             // Setting Current Selections
-            categoryPicked = currentTask.category
-            timePicked = Time.floatToTime(currentTask.timeRemaining)
+            categoryPicked = currentCategory.name
+            timePicked = Time.doubleToTime(currentTask.timeRemaining)
             nameTextField.text = currentTask.name
-            descriptionTextView.text = currentTask.descript
+            descriptionTextView.text = currentTask.memo
         } else {
             categoryPicked = "Uncategorized"
-            timePicked = Time.floatToTime(0.0)
+            timePicked = Time.doubleToTime(0.0)
             nameTextField.text = ""
             descriptionTextView.text = ""
         }
@@ -151,31 +147,12 @@ class TaskEditorViewController: UIViewController, UIPickerViewDataSource, UIPick
         return true
     }
     
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-    
     @IBAction func saveButtonPressed(sender: UIButton) {
+        
         if !addTaskDialog {
-            let appDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
-            
-            currentTask.timeRemaining = timePicked.toFloat()
-            currentTask.name = nameTextField.text
-            currentTask.descript = descriptionTextView.text
-            currentTask.category = categoryPicked
-            currentTask.isVisible = true
-            
-            appDelegate.saveContext()
+            Database.updateTask(task: currentTask, name: nameTextField.text, memo: descriptionTextView.text, time: timePicked.toDouble(), categoryName: categoryPicked)
         } else {
-            CoreDataController.addTask(name: nameTextField.text, descript: descriptionTextView.text, category: categoryPicked, newTime: timePicked.toFloat())
+            Database.addTask(name: nameTextField.text, memo: descriptionTextView.text, time: timePicked.toDouble(), categoryName: categoryPicked)
         }
         
         self.dismissViewControllerAnimated(true, completion: {})

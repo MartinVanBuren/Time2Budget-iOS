@@ -7,10 +7,11 @@
 //
 
 import UIKit
+import Realm
 
 class RecordsViewController: UIViewController {
 
-    var recordsTask:Task!
+    var currentTask:Task!
     
     override func viewDidLoad() {
         super.viewDidLoad()

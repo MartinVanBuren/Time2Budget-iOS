@@ -8,38 +8,38 @@
 
 import Foundation
 import UIKit
-import CoreData
+import Realm
 
 class Factory {
-    class func prepareCategoryCell (#tableView: UITableView, fetchedResultsController: NSFetchedResultsController, section: Int) -> CategoryCell {
+    class func prepareCategoryCell (#tableView: UITableView, categoryList: RLMResults, section: Int) -> CategoryCell {
         
-        let thisTask = fetchedResultsController.objectAtIndexPath(NSIndexPath(forRow: 0, inSection: section)) as Task
+        let thisCategory = categoryList.objectAtIndex(UInt(section)) as Category
         
         var totalTime:Time = Time()
         
         var preparedCell:CategoryCell = tableView.dequeueReusableCellWithIdentifier("CategoryCell") as CategoryCell
         
-        let arraySize = fetchedResultsController.sections?[section].numberOfObjects
+        var taskArray = thisCategory.tasks
         
-        for var i = 0; i < arraySize; i++ {
-            totalTime.hours += Time(task: (fetchedResultsController.objectAtIndexPath(NSIndexPath(forRow: i, inSection: section)) as Task)).hours
-            totalTime.minutes += Time(task: (fetchedResultsController.objectAtIndexPath(NSIndexPath(forRow: i, inSection: section)) as Task)).minutes
+        for var i = 0; i < Int(taskArray.count); i++ {
+            totalTime.hours += Time(task: (taskArray.objectAtIndex(UInt(i))) as Task).hours
+            totalTime.minutes += Time(task: (taskArray.objectAtIndex(UInt(i))) as Task).minutes
         }
         
-        preparedCell.sectionNameLabel.text = thisTask.category
+        preparedCell.sectionNameLabel.text = thisCategory.name
         preparedCell.remainingTimeLabel.text = totalTime.toString()
         
         return preparedCell
     }
     
-    class func prepareTaskCell (#tableView: UITableView, fetchedResultsController: NSFetchedResultsController, indexPath: NSIndexPath) -> TaskCell {
+    class func prepareTaskCell (#tableView: UITableView, categoryList: RLMResults, indexPath: NSIndexPath) -> TaskCell {
         
-        let thisTask = fetchedResultsController.objectAtIndexPath(indexPath) as Task
+        let thisTask = ((categoryList.objectAtIndex(UInt(indexPath.section)) as Category).tasks.objectAtIndex(UInt(indexPath.row)) as Task)
         
         var preparedCell:TaskCell = tableView.dequeueReusableCellWithIdentifier("TaskCell") as TaskCell
         
         preparedCell.itemNameLabel.text = thisTask.name
-        preparedCell.remainingTimeLabel.text = Time.floatToString(thisTask.timeRemaining)
+        preparedCell.remainingTimeLabel.text = Time.doubleToString(thisTask.timeRemaining)
         
         return preparedCell
     }
@@ -64,14 +64,42 @@ class Factory {
         return finalValue
     }
     
-    class func prepareCategoryPickerData(frcCategories: NSFetchedResultsController) -> [String] {
-        let categories = frcCategories.fetchedObjects
+    class func prepareCategoryPickerData(categoryList: RLMResults) -> [String] {
         var finalData:[String] = []
         
-        for var i = 0; i < categories!.count; i++ {
-            finalData.append(categories![i].name)
+        for var i = 0; i < Int(categoryList.count); i++ {
+            finalData.append((categoryList.objectAtIndex(UInt(i)) as Category).name)
         }
         
         return finalData
+    }
+
+    class func prepareDeleteTaskAlert(#indexPath: NSIndexPath) -> UIAlertController {
+        
+        var alert = UIAlertController(title: "Save Task Records?", message: "Task records will be moved to a task named \"Taskless Records\"", preferredStyle: UIAlertControllerStyle.Alert)
+        alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+            Database.deleteTask(indexPath: indexPath, retainRecords: true)
+        }))
+        alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+            Database.deleteTask(indexPath: indexPath, retainRecords: false)
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
+
+        return alert
+    }
+
+    class func prepareAddCategoryAlert() -> UIAlertController {
+        var inputTextField = UITextField()
+        inputTextField.placeholder = "Enter Category Name"
+        
+        var alert = UIAlertController(title: "New Category", message: "", preferredStyle: UIAlertControllerStyle.Alert)
+        //var alert = UIAlertView(title: "New Category", message: "", delegate: self, cancelButtonTitle: "Cancel", otherButtonTitles: "Add")
+        alert.addAction(UIAlertAction(title: "Add", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+            Database.addCategory(name: inputTextField.text)
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
+        alert.addTextFieldWithConfigurationHandler {(textField) -> Void in inputTextField = textField}
+        
+        return alert
     }
 }

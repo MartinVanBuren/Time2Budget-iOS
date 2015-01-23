@@ -19,20 +19,20 @@ class Time {
         self.minutes = newMinutes
     }
     init(task: Task) {
-        let temp = floatToTime(task.timeRemaining)
+        let temp = doubleToTime(task.timeRemaining)
         
         self.hours = temp.hours
         self.minutes = temp.minutes
     }
-    init(itemRecord: Record) {
-        let temp = floatToTime(itemRecord.timeSpent)
+    init(record: Record) {
+        let temp = doubleToTime(record.timeSpent)
         
         self.hours = temp.hours
         self.minutes = temp.minutes
 
     }
     init(category: Category) {
-        let temp = floatToTime(category.totalTimeRemaining)
+        let temp = doubleToTime(category.totalTimeRemaining)
         
         self.hours = temp.hours
         self.minutes = temp.minutes
@@ -64,8 +64,8 @@ class Time {
         return finalTime
     }
     
-    func setByFloat(newTime: Float) {
-        var tempTime:Time = floatToTime(newTime)
+    func setByDouble(newTime: Double) {
+        var tempTime:Time = doubleToTime(newTime)
         
         self.hours = tempTime.hours
         self.minutes = tempTime.minutes
@@ -73,11 +73,11 @@ class Time {
     
     // Conversion Methods
     
-    func toFloat() -> Float {
-        return Float(self.hours) + Float(Float(self.minutes) / 100.0)
+    func toDouble() -> Double {
+        return Double(self.hours) + Double(Double(self.minutes) / 100.0)
     }
     
-    func floatToTime(newTime: Float) -> Time {
+    func doubleToTime(newTime: Double) -> Time {
         let arrayString = Array(String("\(newTime)"))
         var passDecimal:Bool = false
         
@@ -127,8 +127,8 @@ class Time {
     
     // Conversion Class Methods
     
-    class func floatToString(time: Float) -> String {
-        var finalTime:Time = floatToTime(time)
+    class func doubleToString(time: Double) -> String {
+        var finalTime:Time = doubleToTime(time)
         finalTime.cleanTime()
         
         if finalTime.minutes == 0 && finalTime.hours != 0 {
@@ -148,7 +148,7 @@ class Time {
         }
     }
     
-    class func floatToTime(newTime: Float) -> Time {
+    class func doubleToTime(newTime: Double) -> Time {
         let arrayString = Array(String("\(newTime)"))
         var passDecimal:Bool = false
         

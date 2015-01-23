@@ -2,38 +2,37 @@
 //  BudgetEditorViewController.swift
 //  Time to Budget
 //
-//  Created by Robert Kennedy on 12/8/14.
-//  Copyright (c) 2014 Arrken Games, LLC. All rights reserved.
+//  Created by Robert Kennedy on 1/23/15.
+//  Copyright (c) 2015 Arrken Games, LLC. All rights reserved.
 //
 
+import Foundation
 import UIKit
-import CoreData
+import Realm
 
-class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate {
-
+class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+    
     @IBOutlet weak var tableView: UITableView!
     
     var totalTime = Time(newHours: 168, newMinutes: 0)
     var returning:Bool? = false
     let viewTransitionDelegate = TransitionDelegate()
     var addTaskDialog:Bool = false
+    var notificationToken: RLMNotificationToken?
     
-    //==================== CoreData Properties ====================
-    let managedObjectContext = CoreDataController.getManagedObjectContext()
-    var frcTasks:NSFetchedResultsController = NSFetchedResultsController()
-    var frcCategories:NSFetchedResultsController = NSFetchedResultsController()
+    //==================== Realm Properties ====================
+    let realm = Database.getRealm()
+    let categoryList = Category.allObjects()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Core Data - Fetching Budget Item
-        frcTasks = CoreDataController.getFetchedResultsController(fetchRequest: CoreDataController.getFetchRequest("Tasks"), managedObjectContext: managedObjectContext)
-        frcTasks.delegate = self
-        frcTasks.performFetch(nil)
-        // Core Data - Fetching Category Item
-        frcCategories = CoreDataController.getFetchedResultsController(fetchRequest: CoreDataController.getFetchRequest("Categories"), managedObjectContext: managedObjectContext)
-        frcCategories.delegate = self
-        frcCategories.performFetch(nil)
         
+        // Set realm notification block
+        notificationToken = RLMRealm.defaultRealm().addNotificationBlock { note, realm in
+            self.tableView.reloadData()
+        }
+        
+        self.tableView.reloadData()
         
         self.navigationItem.title = totalTime.toString()
     }
@@ -41,14 +40,14 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
     override func viewWillAppear(animated: Bool) {
         fixContentInset(calledFromSegue: false)
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
     override func viewWillDisappear(animated: Bool) {
-        let appDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
+        //let appDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
         
     }
     
@@ -58,9 +57,11 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
             let taskEditorVC:TaskEditorViewController = segue.destinationViewController as TaskEditorViewController
             
             if !addTaskDialog {
-                let indexPath = self.tableView.indexPathForSelectedRow()
-                let thisTask = frcTasks.objectAtIndexPath(indexPath!) as Task
+                let indexPath = self.tableView.indexPathForSelectedRow()!
+                let thisTask = ((categoryList.objectAtIndex(UInt(indexPath.section)) as Category).tasks.objectAtIndex(UInt(indexPath.row))) as Task
+                let thisCategory = (categoryList.objectAtIndex(UInt(indexPath.section)) as Category)
                 taskEditorVC.currentTask = thisTask
+                taskEditorVC.currentCategory = thisCategory
             } else {
                 taskEditorVC.addTaskDialog = true
             }
@@ -72,26 +73,26 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
     //==================== UITableViewDataSource Methods ====================
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         
-        return frcTasks.sections!.count
+        return Int(categoryList.count)
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return frcTasks.sections![section].numberOfObjects
+        return Int((categoryList.objectAtIndex(UInt(section)) as Category).tasks.count)
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var tempTime = Time.floatToTime((frcTasks.objectAtIndexPath(indexPath) as Task).timeRemaining)
+        let tempTime = Time.doubleToTime(((categoryList.objectAtIndex(UInt(indexPath.section)) as Category).tasks.objectAtIndex(UInt(indexPath.row)) as Task).timeRemaining)
         self.totalTime.hours -= tempTime.hours
         self.totalTime.minutes -= tempTime.minutes
         updateTimeRemaining()
-        return Factory.prepareTaskCell(tableView: tableView, fetchedResultsController: frcTasks, indexPath: indexPath)
         
+        return Factory.prepareTaskCell(tableView: tableView, categoryList: categoryList, indexPath: indexPath)
     }
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
-        return Factory.prepareCategoryCell(tableView: tableView, fetchedResultsController: frcTasks, section: section)
+        return Factory.prepareCategoryCell(tableView: tableView, categoryList: categoryList, section: section)
         
     }
     
@@ -109,26 +110,10 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
     }
     
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        var moveRecords:Bool = false
-        var alert = UIAlertController(title: "Save Task Records?", message: "Task records will be moved to a task named \"Taskless Records\"", preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
-            CoreDataController.deleteTask(frcTasks: self.frcTasks, indexPath: indexPath, retainRecords: true)
-        }))
-        alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
-            CoreDataController.deleteTask(frcTasks: self.frcTasks, indexPath: indexPath, retainRecords: false)
-        }))
-        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
         
-        
+        self.presentViewController(Factory.prepareDeleteTaskAlert(indexPath: indexPath), animated: true, completion: {})
     }
-    
-    //==================== NSFetchedResultsControllerDelegate Methods ====================
-    func controllerDidChangeContent(controller: NSFetchedResultsController) {
-        self.tableView.reloadData()
-        
-        updateTimeRemaining()
-    }
-    
+
     //==================== IB Actions ====================
     @IBAction func addTaskButtonPressed(sender: UIButton) {
         addTaskDialog = true
@@ -137,19 +122,8 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
     }
     
     @IBAction func addCategoryButtonPressed(sender: UIButton) {
-        var inputTextField = UITextField()
-        inputTextField.placeholder = "Enter Category Name"
         
-        var alert = UIAlertController(title: "New Category", message: "", preferredStyle: UIAlertControllerStyle.Alert)
-        //var alert = UIAlertView(title: "New Category", message: "", delegate: self, cancelButtonTitle: "Cancel", otherButtonTitles: "Add")
-        alert.addAction(UIAlertAction(title: "Add", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
-            CoreDataController.addCategory(categoryName: inputTextField.text)
-        }))
-        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
-        alert.addTextFieldWithConfigurationHandler {(textField) -> Void in inputTextField = textField}
-        
-        
-        self.presentViewController(alert, animated: true, completion: {})
+        self.presentViewController(Factory.prepareAddCategoryAlert(), animated: true, completion: {})
     }
     
     //==================== Helper Methods ====================

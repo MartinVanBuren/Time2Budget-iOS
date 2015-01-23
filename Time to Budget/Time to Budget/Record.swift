@@ -7,12 +7,11 @@
 //
 
 import Foundation
-import CoreData
+import Realm
 
-@objc(Record)
-class Record: NSManagedObject {
-    @NSManaged var date:NSDate
-    @NSManaged var note:String
-    @NSManaged var timeSpent:Float
-    @NSManaged var taskName:String
+class Record: RLMObject {
+    dynamic var id = 0
+    dynamic var date = NSDate(timeIntervalSince1970: 1)
+    dynamic var note = ""
+    dynamic var timeSpent = 0.0
 }

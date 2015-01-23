@@ -7,13 +7,11 @@
 //
 
 import Foundation
-import CoreData
+import Realm
 
-@objc(Task)
-class Task: NSManagedObject {
-    @NSManaged var isVisible:Bool
-    @NSManaged var descript:String
-    @NSManaged var name:String
-    @NSManaged var timeRemaining:Float
-    @NSManaged var category:String
+class Task: RLMObject {
+    dynamic var name = ""
+    dynamic var memo = ""
+    dynamic var timeRemaining = 0.0
+    dynamic var records = RLMArray(objectClassName: Record.className())
 }

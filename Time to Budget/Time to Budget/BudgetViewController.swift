@@ -1,15 +1,16 @@
 //
-//  ViewController.swift
+//  BudgetViewController.swift
 //  Time to Budget
 //
-//  Created by Robert Kennedy on 12/7/14.
-//  Copyright (c) 2014 Arrken Games, LLC. All rights reserved.
+//  Created by Robert Kennedy on 1/23/15.
+//  Copyright (c) 2015 Arrken Games, LLC. All rights reserved.
 //
 
+import Foundation
 import UIKit
-import CoreData
+import Realm
 
-class BudgetViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate {
+class BudgetViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     //==================== Properties ====================
     var editMode:Bool = false
@@ -18,11 +19,11 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
     //==================== IBOutlets ====================
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var editButton: UIBarButtonItem!
-
-    //==================== CoreData Properties ====================
-    let managedObjectContext = CoreDataController.getManagedObjectContext()
-    var frcTasks:NSFetchedResultsController = NSFetchedResultsController()
-    var frcCategories:NSFetchedResultsController = NSFetchedResultsController()
+    
+    //==================== Realm Properties ====================
+    let realm = Database.getRealm()
+    let categoryList = Category.allObjects()
+    var notificationToken: RLMNotificationToken?
     
     //==================== Pre-Generated Methods ====================
     override func viewDidLoad() {
@@ -31,14 +32,12 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
         //tableView.tableHeaderView = UIView(frame: CGRectZero)
         //tableView.tableFooterView = UIView(frame: CGRectZero)
         
-        // Core Data Fetching
-        frcTasks = CoreDataController.getFetchedResultsController(fetchRequest: CoreDataController.getFetchRequest("Tasks"), managedObjectContext: managedObjectContext)
-        frcTasks.delegate = self
-        frcTasks.performFetch(nil)
+        // Set realm notification block
+        notificationToken = RLMRealm.defaultRealm().addNotificationBlock { note, realm in
+            self.tableView.reloadData()
+        }
         
-        frcCategories = CoreDataController.getFetchedResultsController(fetchRequest: CoreDataController.getFetchRequest("Categories"), managedObjectContext: managedObjectContext)
-        frcCategories.delegate = self
-        frcCategories.performFetch(nil)
+        self.tableView.reloadData()
         
         // Run Display Prompt Code
         self.displayPromptControl()
@@ -47,7 +46,7 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -59,16 +58,13 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
             clearPrompt()
             let recordsVC:RecordsViewController = segue.destinationViewController as RecordsViewController
             
-            //let indexPath = self.tableView.indexPathForSelectedRow()
-            //let thisTask = fetchedResultsController.objectAtIndexPath(indexPath!) as Task
-            //recordsVC.recordsTask = thisTask
+            let indexPath = self.tableView.indexPathForSelectedRow()!
+            let thisTask = ((categoryList.objectAtIndex(UInt(indexPath.section)) as Category).tasks.objectAtIndex(UInt(indexPath.row))) as Task
+            recordsVC.currentTask = thisTask
         }
         else if segue.identifier == "showBudgetEditorView" {
             let budgetEditorVC:BudgetEditorViewController = segue.destinationViewController as BudgetEditorViewController
             budgetEditorVC.returning = false
-            //let indexPath = self.tableView.indexPathForSelectedRow()
-            //let thisTask = fetchedResultsController.objectAtIndexPath(indexPath!) as Task
-            //TaskEditorVC.currentTask = thisTask
         }
     }
     
@@ -80,22 +76,25 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
     //==================== UITableViewDataSource Methods ====================
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         
-        return frcTasks.sections!.count
+        return Int(categoryList.count)
+        
     }
-
+    
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return frcTasks.sections![section].numberOfObjects
+        return Int((categoryList.objectAtIndex(UInt(section)) as Category).tasks.count)
+        
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-
-        return Factory.prepareTaskCell(tableView: tableView, fetchedResultsController: frcTasks, indexPath: indexPath)
+        
+        return Factory.prepareTaskCell(tableView: tableView, categoryList: categoryList, indexPath: indexPath)
+        
     }
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
-        return Factory.prepareCategoryCell(tableView: tableView, fetchedResultsController: frcTasks, section: section)
+        return Factory.prepareCategoryCell(tableView: tableView, categoryList: categoryList, section: section)
         
     }
     
@@ -103,22 +102,13 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
         performSegueWithIdentifier("showRecordsView", sender: self)
-    
+        
     }
     
     
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         
         return 44
-    }
-    
-    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        
-    }
-    
-    //==================== NSFetchedResultsControllerDelegate Methods ====================
-    func controllerDidChangeContent(controller: NSFetchedResultsController) {
-        self.tableView.reloadData()
     }
     
     //==================== Helper Methods ====================
@@ -144,4 +134,3 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
 }
-
