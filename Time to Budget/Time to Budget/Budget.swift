@@ -9,7 +9,7 @@
 import Foundation
 import Realm
 
-class Budget: RLMObject {
-    dynamic var name = ""
-    dynamic var categories = RLMArray(objectClassName: Category.className())
+public class Budget: RLMObject {
+    public dynamic var name = ""
+    public dynamic var categories = RLMArray(objectClassName: Category.className())
 }

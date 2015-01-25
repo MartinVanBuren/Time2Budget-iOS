@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import Realm
 
-class Factory {
+class Factory {    
     class func prepareCategoryCell (#tableView: UITableView, categoryList: RLMResults, section: Int) -> CategoryCell {
         
         let thisCategory = categoryList.objectAtIndex(UInt(section)) as Category

@@ -9,8 +9,8 @@
 import Foundation
 import Realm
 
-class Category: RLMObject {
-    dynamic var name = ""
-    dynamic var totalTimeRemaining = 0.0
-    dynamic var tasks = RLMArray(objectClassName: Task.className())
+public class Category: RLMObject {
+    public dynamic var name = ""
+    public dynamic var totalTimeRemaining = 0.0
+    public dynamic var tasks = RLMArray(objectClassName: Task.className())
 }

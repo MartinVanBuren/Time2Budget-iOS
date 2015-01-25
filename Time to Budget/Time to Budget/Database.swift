@@ -10,15 +10,15 @@ import Foundation
 import UIKit
 import Realm
 
-class Database {
+public class Database {
     
-    class func getRealm() -> RLMRealm {
+    public class func getRealm() -> RLMRealm {
         return RLMRealm.defaultRealm()
     }
     
-    class func addCategory(#name: String) {
+    public class func addCategory(#name: String) {
         
-        let realm = RLMRealm.defaultRealm()
+        let realm = Database.getRealm()
         let newCategory = Category()
         newCategory.name = name
             
@@ -28,12 +28,12 @@ class Database {
         
     }
     
-    class func addTask(#name: String, memo: String, time: Double, categoryName: String) {
+    public class func addTask(#name: String, memo: String, time: Double, categoryName: String) {
         
-        let realm = RLMRealm.defaultRealm()
+        let realm = Database.getRealm()
         let newTask = Task()
         var category = (Category.objectsWhere("name = '\(categoryName)'")).objectAtIndex(0) as Category
-            
+        
         newTask.name = name
         newTask.memo = memo
         newTask.timeRemaining = time
@@ -44,8 +44,8 @@ class Database {
         
     }
     
-    class func moveTask(#task: Task, newCategory: String) {
-        let realm = RLMRealm.defaultRealm()
+    public class func moveTask(#task: Task, newCategory: String) {
+        let realm = Database.getRealm()
         var newTask = Task()
         var category = (Category.objectsWhere("name = '\(newCategory)'")).objectAtIndex(0) as Category
         
@@ -59,8 +59,8 @@ class Database {
         realm.commitWriteTransaction()
     }
     
-    class func updateTask(#task: Task, name: String, memo: String, time: Double, categoryName: String) {
-        let realm = RLMRealm.defaultRealm()
+    public class func updateTask(#task: Task, name: String, memo: String, time: Double, categoryName: String) {
+        let realm = Database.getRealm()
         
         realm.beginWriteTransaction()
         task.name = name
@@ -72,8 +72,18 @@ class Database {
         
     }
     
-    //TODO
-    class func deleteTask(#indexPath: NSIndexPath, retainRecords: Bool) {
+    public class func deleteTask(#indexPath: NSIndexPath, retainRecords: Bool) {
+        let realm = Database.getRealm();
         
+        let currentTask = ((Category.allObjects().objectAtIndex(UInt(indexPath.section)) as Category).tasks.objectAtIndex(UInt(indexPath.row)) as Task)
+        
+        if (retainRecords) {
+            let currentTaskRecords = currentTask.records
+            let tasklessRecordsTask = (Task.objectsWhere("name = 'Taskless Records'").objectAtIndex(0) as Task)
+            
+            
+        } else {
+            
+        }
     }
 }

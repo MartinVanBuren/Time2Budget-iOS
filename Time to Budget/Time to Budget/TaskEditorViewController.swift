@@ -38,7 +38,7 @@ class TaskEditorViewController: UIViewController, UIPickerViewDataSource, UIPick
         
         // Do any additional setup after loading the view.
         if !addTaskDialog {
-            finalTime.doubleToTime(currentTask.timeRemaining)
+            finalTime.setByDouble(currentTask.timeRemaining)
             self.titleLabel.text = currentTask.name
         } else {
             finalTime.setByDouble(0.0)

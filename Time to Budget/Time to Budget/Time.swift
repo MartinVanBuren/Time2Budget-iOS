@@ -9,30 +9,30 @@
 import Foundation
 import UIKit
 
-class Time {
-    var hours:Int = 0
-    var minutes:Int = 0
+public class Time {
+    public var hours:Int = 0
+    public var minutes:Int = 0
     
-    init() {}
-    init(newHours: Int, newMinutes: Int) {
+    public init() {}
+    public init(newHours: Int, newMinutes: Int) {
         self.hours = newHours
         self.minutes = newMinutes
     }
-    init(task: Task) {
-        let temp = doubleToTime(task.timeRemaining)
+    public init(task: Task) {
+        let temp = Time.doubleToTime(task.timeRemaining)
         
         self.hours = temp.hours
         self.minutes = temp.minutes
     }
-    init(record: Record) {
-        let temp = doubleToTime(record.timeSpent)
+    public init(record: Record) {
+        let temp = Time.doubleToTime(record.timeSpent)
         
         self.hours = temp.hours
         self.minutes = temp.minutes
 
     }
-    init(category: Category) {
-        let temp = doubleToTime(category.totalTimeRemaining)
+    public init(category: Category) {
+        let temp = Time.doubleToTime(category.totalTimeRemaining)
         
         self.hours = temp.hours
         self.minutes = temp.minutes
@@ -41,7 +41,7 @@ class Time {
     
     // Methods
     
-    func cleanTime() {
+    public func cleanTime() {
         while self.minutes >= 60 {
             self.hours += 1
             self.minutes -= 60
@@ -53,19 +53,10 @@ class Time {
         }
     }
     
-    class func cleanTime(#newHrs: Int, newMins: Int) -> Time {
-        var finalTime:Time = Time(newHours: newHrs, newMinutes: newMins)
+    public func setByDouble(newTime: Double) {
+        var tempTime:Time = Time.doubleToTime(newTime)
         
-        while finalTime.minutes >= 60 {
-            finalTime.hours += 1
-            finalTime.minutes -= 60
-        }
-        
-        return finalTime
-    }
-    
-    func setByDouble(newTime: Double) {
-        var tempTime:Time = doubleToTime(newTime)
+        tempTime.cleanTime()
         
         self.hours = tempTime.hours
         self.minutes = tempTime.minutes
@@ -73,38 +64,11 @@ class Time {
     
     // Conversion Methods
     
-    func toDouble() -> Double {
+    public func toDouble() -> Double {
         return Double(self.hours) + Double(Double(self.minutes) / 100.0)
     }
     
-    func doubleToTime(newTime: Double) -> Time {
-        let arrayString = Array(String("\(newTime)"))
-        var passDecimal:Bool = false
-        
-        var digitHrs = Array("")
-        var digitMins = Array("")
-        
-        for var i = 0; i < arrayString.count; i++ {
-            if arrayString[i] != "." && passDecimal == false {
-                digitHrs.append(arrayString[i])
-            } else if arrayString[i] != "." && passDecimal == true {
-                digitMins.append(arrayString[i])
-            } else if arrayString[i] == "." {
-                passDecimal = true
-            }
-        }
-        
-        var tempHours = String(digitHrs).toInt()!
-        var tempMins = String(digitMins).toInt()!
-        
-        if tempMins == 3 {
-            tempMins *= 10
-        }
-        
-        return Time(newHours: tempHours, newMinutes: tempMins)
-    }
-    
-    func toString() -> String {
+    public func toString() -> String {
         self.cleanTime()
         
         if minutes == 0 && hours != 0 {
@@ -127,7 +91,7 @@ class Time {
     
     // Conversion Class Methods
     
-    class func doubleToString(time: Double) -> String {
+    public class func doubleToString(time: Double) -> String {
         var finalTime:Time = doubleToTime(time)
         finalTime.cleanTime()
         
@@ -148,7 +112,7 @@ class Time {
         }
     }
     
-    class func doubleToTime(newTime: Double) -> Time {
+    public class func doubleToTime(newTime: Double) -> Time {
         let arrayString = Array(String("\(newTime)"))
         var passDecimal:Bool = false
         
@@ -172,6 +136,9 @@ class Time {
             tempMins *= 10
         }
         
-        return Time(newHours: tempHours, newMinutes: tempMins)
+        let finalTime = Time(newHours: tempHours, newMinutes: tempMins)
+        finalTime.cleanTime()
+        
+        return finalTime
     }
 }

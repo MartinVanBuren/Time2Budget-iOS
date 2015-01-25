@@ -16,7 +16,7 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
     
     var totalTime = Time(newHours: 168, newMinutes: 0)
     var returning:Bool? = false
-    let viewTransitionDelegate = TransitionDelegate()
+    //let viewTransitionDelegate = TransitionDelegate()
     var addTaskDialog:Bool = false
     var notificationToken: RLMNotificationToken?
     

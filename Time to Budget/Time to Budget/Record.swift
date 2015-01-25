@@ -9,9 +9,8 @@
 import Foundation
 import Realm
 
-class Record: RLMObject {
-    dynamic var id = 0
-    dynamic var date = NSDate(timeIntervalSince1970: 1)
-    dynamic var note = ""
-    dynamic var timeSpent = 0.0
+public class Record: RLMObject {
+    public dynamic var date = NSDate(timeIntervalSince1970: 1)
+    public dynamic var note = ""
+    public dynamic var timeSpent = 0.0
 }
