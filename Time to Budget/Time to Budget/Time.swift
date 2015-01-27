@@ -42,14 +42,26 @@ public class Time {
     // Methods
     
     public func cleanTime() {
-        while self.minutes >= 60 {
-            self.hours += 1
-            self.minutes -= 60
-        }
+        if (self.hours >= 0) {
+            while (self.minutes >= 60) {
+                self.hours += 1
+                self.minutes -= 60
+            }
 
-        while self.minutes < 0 {
-            self.hours -= 1
-            self.minutes += 60
+            while (self.minutes < 0) {
+                self.hours -= 1
+                self.minutes += 60
+            }
+        } else if (self.hours < 0) {
+            while (self.minutes >= 60) {
+                self.hours -= 1
+                self.minutes -= 60
+            }
+            
+            while (self.minutes < 0) {
+                self.hours += 1
+                self.minutes += 60
+            }
         }
     }
     

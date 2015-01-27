@@ -11,7 +11,7 @@ import UIKit
 import Realm
 
 public class Factory {
-    class func prepareCategoryCell (#tableView: UITableView, categoryList: RLMResults, section: Int) -> CategoryCell {
+    class func prepareCategoryCell (#tableView: UITableView, categoryList: RLMResults, section: Int) -> UIView {
         
         let thisCategory = categoryList.objectAtIndex(UInt(section)) as Category
         
@@ -29,7 +29,11 @@ public class Factory {
         preparedCell.sectionNameLabel.text = thisCategory.name
         preparedCell.remainingTimeLabel.text = totalTime.toString()
         
-        return preparedCell
+        let returnedView = UIView()
+        
+        returnedView.addSubview(preparedCell)
+        
+        return returnedView
     }
     
     class func prepareTaskCell (#tableView: UITableView, categoryList: RLMResults, indexPath: NSIndexPath) -> TaskCell {

@@ -30,11 +30,12 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
         // Set realm notification block
         notificationToken = RLMRealm.defaultRealm().addNotificationBlock { note, realm in
             self.tableView.reloadData()
+            self.updateTimeRemaining()
         }
         
         self.tableView.reloadData()
         
-        self.navigationItem.title = totalTime.toString()
+        self.updateTimeRemaining()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -85,10 +86,6 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let tempTime = Time.doubleToTime(((categoryList.objectAtIndex(UInt(indexPath.section)) as Category).tasks.objectAtIndex(UInt(indexPath.row)) as Task).timeRemaining)
-        self.totalTime.hours -= tempTime.hours
-        self.totalTime.minutes -= tempTime.minutes
-        updateTimeRemaining()
         
         return Factory.prepareTaskCell(tableView: tableView, categoryList: categoryList, indexPath: indexPath)
     }
@@ -138,7 +135,20 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
     
     //==================== Helper Methods ====================
     func updateTimeRemaining() {
-        self.totalTime.cleanTime()
+        let tempTime = Time()
+        let taskList = Task.allObjects()
+        let newTime = Time.doubleToTime(168.0)
+        
+        for var i = 0; i < Int(taskList.count); i++ {
+            tempTime.setByDouble((taskList.objectAtIndex(UInt(i)) as Task).timeRemaining)
+            newTime.hours -= tempTime.hours
+            newTime.minutes -= tempTime.minutes
+        
+        }
+        
+        newTime.cleanTime()
+        
+        self.totalTime = newTime
         self.navigationItem.title = self.totalTime.toString()
     }
     

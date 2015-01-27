@@ -33,7 +33,23 @@ class Time_Tests: XCTestCase {
         time.minutes = -135
         time.cleanTime()
         
-        XCTAssert((time.hours == 3 && time.minutes == 45), "Failed to Clean Time")
+        let results = (time.hours == 3 && time.minutes == 45)
+        
+        XCTAssert(results, "Failed to Clean Time")
+    }
+    
+    func test_cleanTimeNegative() {
+        
+        time.hours = -6
+        time.minutes = 60
+        time.cleanTime()
+        
+        time.minutes = -45
+        time.cleanTime()
+        
+        let results = (time.hours == -6 && time.minutes == 15)
+        
+        XCTAssert(results, "Failed to Clean Negative Time")
     }
 
     func test_setByDouble() {
