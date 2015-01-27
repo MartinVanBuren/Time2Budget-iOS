@@ -15,7 +15,8 @@ class TaskEditorViewController: UIViewController, UIPickerViewDataSource, UIPick
     var currentTask:Task!
     var currentCategory:Category!
     var finalTime = Time()
-    var addTaskDialog:Bool = false
+    var addTaskDialog:Bool!
+    var budgetEditorViewController: BudgetEditorViewController!
     
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var descriptionTextView: UITextView!
@@ -37,7 +38,7 @@ class TaskEditorViewController: UIViewController, UIPickerViewDataSource, UIPick
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        if !addTaskDialog {
+        if (!addTaskDialog) {
             finalTime.setByDouble(currentTask.timeRemaining)
             self.titleLabel.text = currentTask.name
         } else {
@@ -148,14 +149,27 @@ class TaskEditorViewController: UIViewController, UIPickerViewDataSource, UIPick
     }
     
     @IBAction func saveButtonPressed(sender: UIButton) {
-        
-        if !addTaskDialog {
-            Database.updateTask(task: currentTask, name: nameTextField.text, memo: descriptionTextView.text, time: timePicked.toDouble(), categoryName: categoryPicked)
+        if (!addTaskDialog) {
+            if (currentTask.name == nameTextField.text) {
+                Database.updateTask(task: currentTask, name: nameTextField.text, memo: descriptionTextView.text, time: timePicked.toDouble(), categoryName: categoryPicked)
+                budgetEditorViewController.addTaskDialog = false
+                self.dismissViewControllerAnimated(true, completion: {})
+            } else if (currentTask.name != nameTextField.text && Database.checkTaskName(name: nameTextField.text)) {
+                Database.updateTask(task: currentTask, name: nameTextField.text, memo: descriptionTextView.text, time: timePicked.toDouble(), categoryName: categoryPicked)
+                budgetEditorViewController.addTaskDialog = false
+                self.dismissViewControllerAnimated(true, completion: {})
+            } else {
+                Factory.displayAlert(viewController: self, title: "Task Name Taken", message: "'\(nameTextField.text)' is already a Task")
+            }
         } else {
-            Database.addTask(name: nameTextField.text, memo: descriptionTextView.text, time: timePicked.toDouble(), categoryName: categoryPicked)
+            if (Database.checkTaskName(name: nameTextField.text)) {
+                Database.addTask(name: nameTextField.text, memo: descriptionTextView.text, time: timePicked.toDouble(), categoryName: categoryPicked)
+                budgetEditorViewController.addTaskDialog = false
+                self.dismissViewControllerAnimated(true, completion: {})
+            } else {
+                Factory.displayAlert(viewController: self, title: "Task Name Taken", message: "'\(nameTextField.text)' is already a Task")
+            }
         }
-        
-        self.dismissViewControllerAnimated(true, completion: {})
     }
     
     @IBAction func cancelButtonPressed(sender: UIButton) {

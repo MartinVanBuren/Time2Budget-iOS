@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import Realm
 
-class Factory {    
+public class Factory {
     class func prepareCategoryCell (#tableView: UITableView, categoryList: RLMResults, section: Int) -> CategoryCell {
         
         let thisCategory = categoryList.objectAtIndex(UInt(section)) as Category
@@ -74,32 +74,71 @@ class Factory {
         return finalData
     }
 
-    class func prepareDeleteTaskAlert(#indexPath: NSIndexPath) -> UIAlertController {
+    class func displayDeleteTaskAlert(#viewController: UIViewController, indexPath: NSIndexPath){
+        let currentTask = ((Category.allObjects().objectAtIndex(UInt(indexPath.section)) as Category).tasks.objectAtIndex(UInt(indexPath.row)) as Task)
         
-        var alert = UIAlertController(title: "Save Task Records?", message: "Task records will be moved to a task named \"Taskless Records\"", preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
-            Database.deleteTask(indexPath: indexPath, retainRecords: true)
-        }))
-        alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
-            Database.deleteTask(indexPath: indexPath, retainRecords: false)
-        }))
-        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
-
-        return alert
+        if (!(currentTask.name == "Taskless Records")) {
+            let alert = UIAlertController(title: "Keep Records?", message: "Records will be moved to the 'Taskless Records' Task", preferredStyle: UIAlertControllerStyle.Alert)
+            alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+                Database.deleteTask(taskName: currentTask.name, retainRecords: true)
+            }))
+            alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+                Database.deleteTask(taskName: currentTask.name, retainRecords: false)
+            }))
+            alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
+            
+            viewController.presentViewController(alert, animated: true, completion: {})
+        } else {
+            Factory.displayAlert(viewController: viewController, title: "Cannot Delete", message: "'Taskless Records' is used to store Records from deleted Tasks")
+        }
+    }
+    
+    class func displayDeleteCategoryAlert(#viewController: UIViewController, categoryName: String) {
+        let currentCategory = (Category.objectsWhere("name = '\(categoryName)'").objectAtIndex(0) as Category)
+        
+        if (!(currentCategory.name == "Uncategorized")) {
+            let alert = UIAlertController(title: "Keep Tasks?", message: "Tasks will be moved to the 'Uncategorized' Category", preferredStyle: UIAlertControllerStyle.Alert)
+            alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+                Database.deleteCategory(categoryName: currentCategory.name, retainTasks: true)
+            }))
+            alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+                Database.deleteCategory(categoryName: currentCategory.name, retainTasks: false)
+            }))
+            alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
+            
+            viewController.presentViewController(alert, animated: true, completion: {})
+        } else {
+            Factory.displayAlert(viewController: viewController, title: "Cannot Delete", message: "'Uncategorized' is used to store Tasks from deleted Categories")
+        }
     }
 
-    class func prepareAddCategoryAlert() -> UIAlertController {
+    class func displayAddCategoryAlert(viewController: UIViewController) {
         var inputTextField = UITextField()
         inputTextField.placeholder = "Enter Category Name"
         
-        var alert = UIAlertController(title: "New Category", message: "", preferredStyle: UIAlertControllerStyle.Alert)
-        //var alert = UIAlertView(title: "New Category", message: "", delegate: self, cancelButtonTitle: "Cancel", otherButtonTitles: "Add")
+        let alert = UIAlertController(title: "New Category", message: "", preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Add", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
-            Database.addCategory(name: inputTextField.text)
+            if (Database.checkCategoryName(name: inputTextField.text)) {
+                
+                Database.addCategory(name: inputTextField.text)
+            } else {
+                
+                Factory.displayAlert(viewController: viewController, title: "Category Name Taken", message: "'\(inputTextField.text)' is already a Category")
+            }
         }))
-        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: { (action) -> Void in
+            
+        }))
         alert.addTextFieldWithConfigurationHandler {(textField) -> Void in inputTextField = textField}
         
-        return alert
+        
+        viewController.presentViewController(alert, animated: true, completion: {})
+        }
+    
+    class func displayAlert(#viewController: UIViewController, title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Cancel, handler: nil))
+        
+        viewController.presentViewController(alert, animated: true, completion: {})
     }
 }

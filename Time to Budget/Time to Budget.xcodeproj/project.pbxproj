@@ -10,11 +10,12 @@
 		9320D56F1A74625B0013018C /* MarshalOperator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9320D56E1A74625B0013018C /* MarshalOperator.swift */; };
 		9320D5891A7476A50013018C /* Time_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9320D5881A7476A50013018C /* Time_Tests.swift */; };
 		93BC90451A74C84200A63932 /* Database_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93BC90441A74C84200A63932 /* Database_Tests.swift */; };
-		93BC90531A74DC4500A63932 /* Budget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F0E53D1A7214E1009D95EC /* Budget.swift */; };
-		93BC90541A74DC4500A63932 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F0E5101A720BF4009D95EC /* Category.swift */; };
-		93BC90551A74DC4500A63932 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F0E5171A720BF4009D95EC /* Task.swift */; };
-		93BC90561A74DC4500A63932 /* Record.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F0E5151A720BF4009D95EC /* Record.swift */; };
-		93BC90571A74E04900A63932 /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F0E53B1A721396009D95EC /* Database.swift */; };
+		93D4673B1A762C780016E875 /* Budget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F0E53D1A7214E1009D95EC /* Budget.swift */; };
+		93D4673C1A762C780016E875 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F0E5101A720BF4009D95EC /* Category.swift */; };
+		93D4673D1A762C780016E875 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F0E5171A720BF4009D95EC /* Task.swift */; };
+		93D4673E1A762C780016E875 /* Record.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F0E5151A720BF4009D95EC /* Record.swift */; };
+		93D4673F1A762CAE0016E875 /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F0E53B1A721396009D95EC /* Database.swift */; };
+		93D467401A76F26B0016E875 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93F0E5321A720D13009D95EC /* Realm.framework */; };
 		93F0E4ED1A720B64009D95EC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F0E4EC1A720B64009D95EC /* AppDelegate.swift */; };
 		93F0E4F41A720B64009D95EC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 93F0E4F31A720B64009D95EC /* Images.xcassets */; };
 		93F0E4F71A720B64009D95EC /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93F0E4F51A720B64009D95EC /* LaunchScreen.xib */; };
@@ -90,6 +91,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				93D467401A76F26B0016E875 /* Realm.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -323,12 +325,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				93BC90451A74C84200A63932 /* Database_Tests.swift in Sources */,
+				93D4673B1A762C780016E875 /* Budget.swift in Sources */,
 				9320D5891A7476A50013018C /* Time_Tests.swift in Sources */,
-				93BC90561A74DC4500A63932 /* Record.swift in Sources */,
-				93BC90551A74DC4500A63932 /* Task.swift in Sources */,
-				93BC90531A74DC4500A63932 /* Budget.swift in Sources */,
-				93BC90571A74E04900A63932 /* Database.swift in Sources */,
-				93BC90541A74DC4500A63932 /* Category.swift in Sources */,
+				93D4673D1A762C780016E875 /* Task.swift in Sources */,
+				93D4673E1A762C780016E875 /* Record.swift in Sources */,
+				93D4673F1A762CAE0016E875 /* Database.swift in Sources */,
+				93D4673C1A762C780016E875 /* Category.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

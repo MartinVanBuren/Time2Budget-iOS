@@ -55,13 +55,16 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "showTaskEditorView" {
             let taskEditorVC:TaskEditorViewController = segue.destinationViewController as TaskEditorViewController
+            taskEditorVC.budgetEditorViewController = self
             
-            if !addTaskDialog {
+            
+            if (!addTaskDialog) {
                 let indexPath = self.tableView.indexPathForSelectedRow()!
                 let thisTask = ((categoryList.objectAtIndex(UInt(indexPath.section)) as Category).tasks.objectAtIndex(UInt(indexPath.row))) as Task
                 let thisCategory = (categoryList.objectAtIndex(UInt(indexPath.section)) as Category)
                 taskEditorVC.currentTask = thisTask
                 taskEditorVC.currentCategory = thisCategory
+                taskEditorVC.addTaskDialog = false
             } else {
                 taskEditorVC.addTaskDialog = true
             }
@@ -111,20 +114,27 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
     
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         
-        self.presentViewController(Factory.prepareDeleteTaskAlert(indexPath: indexPath), animated: true, completion: {})
+        Factory.displayDeleteTaskAlert(viewController: self, indexPath: indexPath)
     }
 
     //==================== IB Actions ====================
     @IBAction func addTaskButtonPressed(sender: UIButton) {
         addTaskDialog = true
         performSegueWithIdentifier("showTaskEditorView", sender: sender)
-        addTaskDialog = false
     }
     
     @IBAction func addCategoryButtonPressed(sender: UIButton) {
         
-        self.presentViewController(Factory.prepareAddCategoryAlert(), animated: true, completion: {})
+        Factory.displayAddCategoryAlert(self)
     }
+    
+    @IBAction func deleteCategoryButtonPressed(sender: UIButton) {
+        
+        let cell = sender.superview?.superview as CategoryCell
+
+        Factory.displayDeleteCategoryAlert(viewController: self, categoryName: cell.sectionNameLabel.text!)
+    }
+    
     
     //==================== Helper Methods ====================
     func updateTimeRemaining() {

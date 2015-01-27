@@ -40,9 +40,6 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
-                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                                        <rect key="frame" x="166" y="12" width="113" height="20"/>
-                                                    </variation>
                                                 </label>
                                             </subviews>
                                             <constraints>
@@ -98,9 +95,6 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
-                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                                        <rect key="frame" x="138" y="12" width="113" height="19"/>
-                                                    </variation>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="sectionName" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6yV-z2-kas">
                                                     <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
@@ -108,12 +102,22 @@
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kxh-wg-VZE">
+                                                    <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                                    <state key="normal" title="Delete"/>
+                                                    <connections>
+                                                        <action selector="deleteCategoryButtonPressed:" destination="gDl-Q2-PJ8" eventType="touchUpInside" id="TcP-Ck-M6u"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstAttribute="bottomMargin" secondItem="kxh-wg-VZE" secondAttribute="bottom" constant="3" id="EDB-Yx-oxY"/>
                                                 <constraint firstItem="6yV-z2-kas" firstAttribute="top" secondItem="IdL-qM-75r" secondAttribute="topMargin" constant="4" id="RzT-Ft-Ltl"/>
                                                 <constraint firstItem="6yV-z2-kas" firstAttribute="leading" secondItem="IdL-qM-75r" secondAttribute="leadingMargin" id="UMW-uf-aNr"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="6yV-z2-kas" secondAttribute="bottom" constant="3" id="dx4-Un-H0a"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="l7i-KU-OfP" secondAttribute="bottom" constant="4" id="f8I-sV-nxI"/>
+                                                <constraint firstItem="kxh-wg-VZE" firstAttribute="top" secondItem="IdL-qM-75r" secondAttribute="topMargin" constant="3" id="iVh-Ig-hOO"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="kxh-wg-VZE" secondAttribute="trailing" constant="4" id="ity-zb-otF"/>
                                                 <constraint firstItem="l7i-KU-OfP" firstAttribute="top" secondItem="IdL-qM-75r" secondAttribute="topMargin" constant="4" id="nGm-Au-4Kc"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="l7i-KU-OfP" secondAttribute="trailing" constant="61" id="om9-vO-vql"/>
                                             </constraints>
@@ -121,6 +125,7 @@
                                                 <mask key="subviews">
                                                     <exclude reference="l7i-KU-OfP"/>
                                                     <exclude reference="6yV-z2-kas"/>
+                                                    <exclude reference="kxh-wg-VZE"/>
                                                 </mask>
                                                 <mask key="constraints">
                                                     <exclude reference="RzT-Ft-Ltl"/>
@@ -129,12 +134,16 @@
                                                     <exclude reference="f8I-sV-nxI"/>
                                                     <exclude reference="nGm-Au-4Kc"/>
                                                     <exclude reference="om9-vO-vql"/>
+                                                    <exclude reference="EDB-Yx-oxY"/>
+                                                    <exclude reference="iVh-Ig-hOO"/>
+                                                    <exclude reference="ity-zb-otF"/>
                                                 </mask>
                                             </variation>
                                             <variation key="heightClass=regular-widthClass=compact">
                                                 <mask key="subviews">
                                                     <include reference="l7i-KU-OfP"/>
                                                     <include reference="6yV-z2-kas"/>
+                                                    <include reference="kxh-wg-VZE"/>
                                                 </mask>
                                                 <mask key="constraints">
                                                     <include reference="RzT-Ft-Ltl"/>
@@ -143,6 +152,9 @@
                                                     <include reference="f8I-sV-nxI"/>
                                                     <include reference="nGm-Au-4Kc"/>
                                                     <include reference="om9-vO-vql"/>
+                                                    <include reference="EDB-Yx-oxY"/>
+                                                    <include reference="iVh-Ig-hOO"/>
+                                                    <include reference="ity-zb-otF"/>
                                                 </mask>
                                             </variation>
                                         </tableViewCellContentView>
@@ -260,7 +272,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jx8-Dx-BM2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2490" y="1006.5"/>
+            <point key="canvasLocation" x="2490" y="1005.75"/>
         </scene>
         <!--Task Editor View Controller-->
         <scene sceneID="GrQ-Lb-zTK">
@@ -779,9 +791,6 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
-                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                                        <rect key="frame" x="172" y="12" width="113" height="20"/>
-                                                    </variation>
                                                 </label>
                                             </subviews>
                                             <constraints>
@@ -843,9 +852,6 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
-                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                                        <rect key="frame" x="144" y="12" width="113" height="19"/>
-                                                    </variation>
                                                 </label>
                                             </subviews>
                                             <constraints>
