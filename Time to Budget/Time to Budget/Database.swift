@@ -133,8 +133,9 @@ public class Database {
         realm.commitWriteTransaction()
     }
     
-    public class func updateTask(#task: Task, name: String, memo: String, time: Double, categoryName: String) {
+    public class func updateTask(#taskName: String, name: String, memo: String, time: Double, categoryName: String) {
         let realm = Database.getRealm()
+        let task = Task.objectsWhere("name = '\(taskName)'").objectAtIndex(0) as Task
         
         realm.beginWriteTransaction()
         task.name = name
