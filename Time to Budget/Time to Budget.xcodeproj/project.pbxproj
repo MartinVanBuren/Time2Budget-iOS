@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		9320D56F1A74625B0013018C /* MarshalOperator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9320D56E1A74625B0013018C /* MarshalOperator.swift */; };
 		9320D5891A7476A50013018C /* Time_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9320D5881A7476A50013018C /* Time_Tests.swift */; };
+		93223B491A86840500365D3A /* TrackingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93223B481A86840500365D3A /* TrackingViewController.swift */; };
 		93BC90451A74C84200A63932 /* Database_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93BC90441A74C84200A63932 /* Database_Tests.swift */; };
 		93D4673B1A762C780016E875 /* Budget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F0E53D1A7214E1009D95EC /* Budget.swift */; };
 		93D4673C1A762C780016E875 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F0E5101A720BF4009D95EC /* Category.swift */; };
@@ -57,6 +58,7 @@
 		9320D5751A746E8F0013018C /* Time to Budget Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Time to Budget Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9320D5781A746E900013018C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9320D5881A7476A50013018C /* Time_Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Time_Tests.swift; sourceTree = "<group>"; };
+		93223B481A86840500365D3A /* TrackingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackingViewController.swift; sourceTree = "<group>"; };
 		93BC90441A74C84200A63932 /* Database_Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Database_Tests.swift; sourceTree = "<group>"; };
 		93F0E4E71A720B64009D95EC /* Time to Budget.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Time to Budget.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		93F0E4EB1A720B64009D95EC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -175,6 +177,7 @@
 				93F0E5161A720BF4009D95EC /* RecordsViewController.swift */,
 				93F0E53F1A72194D009D95EC /* BudgetEditorViewController.swift */,
 				93F0E5431A721975009D95EC /* TaskEditorViewController.swift */,
+				93223B481A86840500365D3A /* TrackingViewController.swift */,
 			);
 			name = "iPhone Views";
 			sourceTree = "<group>";
@@ -348,6 +351,7 @@
 				93F0E52A1A720BF4009D95EC /* Time.swift in Sources */,
 				93F0E5251A720BF4009D95EC /* Record.swift in Sources */,
 				93F0E5281A720BF4009D95EC /* TaskCell.swift in Sources */,
+				93223B491A86840500365D3A /* TrackingViewController.swift in Sources */,
 				93F0E52B1A720BF4009D95EC /* TransitionDelegate.swift in Sources */,
 				93F0E5271A720BF4009D95EC /* Task.swift in Sources */,
 				93F0E52D1A720BF4009D95EC /* TransitionPresentationAnimator.swift in Sources */,

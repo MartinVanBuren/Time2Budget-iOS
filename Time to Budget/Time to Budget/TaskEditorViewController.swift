@@ -15,7 +15,6 @@ class TaskEditorViewController: UIViewController, UIPickerViewDataSource, UIPick
     var currentTask:Task!
     var currentCategory:Category!
     var finalTime = Time()
-    var addTaskDialog:Bool!
     var budgetEditorViewController: BudgetEditorViewController!
     
     @IBOutlet weak var nameTextField: UITextField!
@@ -38,7 +37,7 @@ class TaskEditorViewController: UIViewController, UIPickerViewDataSource, UIPick
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        if (!addTaskDialog) {
+        if (!budgetEditorViewController.addTaskDialog) {
             finalTime.setByDouble(currentTask.timeRemaining)
             self.titleLabel.text = currentTask.name
         } else {
@@ -56,7 +55,7 @@ class TaskEditorViewController: UIViewController, UIPickerViewDataSource, UIPick
         timePicker.dataSource = self
         timePicker.delegate = self
         
-        if !addTaskDialog {
+        if !budgetEditorViewController.addTaskDialog {
             // Setting Current Selections
             categoryPicked = currentCategory.name
             timePicked = Time.doubleToTime(currentTask.timeRemaining)
@@ -149,7 +148,7 @@ class TaskEditorViewController: UIViewController, UIPickerViewDataSource, UIPick
     }
     
     @IBAction func saveButtonPressed(sender: UIButton) {
-        if (!addTaskDialog) {
+        if (!budgetEditorViewController.addTaskDialog) {
             if (currentTask.name == nameTextField.text) {
                 Database.updateTask(taskName: currentTask.name, name: nameTextField.text, memo: descriptionTextView.text, time: timePicked.toDouble(), categoryName: categoryPicked)
                 budgetEditorViewController.addTaskDialog = false
@@ -173,11 +172,8 @@ class TaskEditorViewController: UIViewController, UIPickerViewDataSource, UIPick
     }
     
     @IBAction func cancelButtonPressed(sender: UIButton) {
+        budgetEditorViewController.addTaskDialog = false
         self.dismissViewControllerAnimated(true, completion: {})
-    }
-    
-    override func viewWillDisappear(animated: Bool) {
-        self.addTaskDialog = false
     }
     
     // Helper Functions

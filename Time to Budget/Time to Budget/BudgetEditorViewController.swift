@@ -16,7 +16,6 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
     
     var totalTime = Time(newHours: 168, newMinutes: 0)
     var returning:Bool? = false
-    //let viewTransitionDelegate = TransitionDelegate()
     var addTaskDialog:Bool = false
     var notificationToken: RLMNotificationToken?
     
@@ -46,12 +45,12 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+    /*
     override func viewWillDisappear(animated: Bool) {
-        //let appDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
+        
         
     }
-    
+    */
     //==================== Segue Preperation ====================
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "showTaskEditorView" {
@@ -65,12 +64,14 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
                 let thisCategory = (categoryList.objectAtIndex(UInt(indexPath.section)) as Category)
                 taskEditorVC.currentTask = thisTask
                 taskEditorVC.currentCategory = thisCategory
-                taskEditorVC.addTaskDialog = false
-            } else {
-                taskEditorVC.addTaskDialog = true
+                
             }
             
             fixContentInset(calledFromSegue: true)
+        }
+        
+        if segue.identifier == "showTrackingView" {
+            let trackingVC:TrackingViewController = segue.destinationViewController as TrackingViewController
         }
     }
     

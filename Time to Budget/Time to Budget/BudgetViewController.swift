@@ -29,9 +29,6 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //tableView.tableHeaderView = UIView(frame: CGRectZero)
-        //tableView.tableFooterView = UIView(frame: CGRectZero)
-        
         // Set realm notification block
         notificationToken = RLMRealm.defaultRealm().addNotificationBlock { note, realm in
             self.tableView.reloadData()
@@ -71,6 +68,10 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
     //==================== IBAction Methods ====================
     @IBAction func editButtonPressed(sender: UIBarButtonItem) {
         performSegueWithIdentifier("showBudgetEditorView", sender: self)
+    }
+    
+    @IBAction func addRecordButtonPressed(sender: UIButton) {
+        performSegueWithIdentifier("showTrackingView", sender: self)
     }
     
     //==================== UITableViewDataSource Methods ====================
