@@ -9,7 +9,11 @@
 /* Begin PBXBuildFile section */
 		9320D56F1A74625B0013018C /* MarshalOperator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9320D56E1A74625B0013018C /* MarshalOperator.swift */; };
 		9320D5891A7476A50013018C /* Time_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9320D5881A7476A50013018C /* Time_Tests.swift */; };
-		93223B491A86840500365D3A /* TrackingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93223B481A86840500365D3A /* TrackingViewController.swift */; };
+		93223B491A86840500365D3A /* AddRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93223B481A86840500365D3A /* AddRecordViewController.swift */; };
+		93B2E5F31A9032B80058372F /* TaskSelectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B2E5F21A9032B80058372F /* TaskSelectorViewController.swift */; };
+		93B2E5F51A903E790058372F /* TimePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B2E5F41A903E790058372F /* TimePickerViewController.swift */; };
+		93B2E5F71A903E890058372F /* DatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B2E5F61A903E890058372F /* DatePickerViewController.swift */; };
+		93B2E5FC1A905F990058372F /* MemoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B2E5FB1A905F990058372F /* MemoCell.swift */; };
 		93BC90451A74C84200A63932 /* Database_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93BC90441A74C84200A63932 /* Database_Tests.swift */; };
 		93D4673B1A762C780016E875 /* Budget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F0E53D1A7214E1009D95EC /* Budget.swift */; };
 		93D4673C1A762C780016E875 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F0E5101A720BF4009D95EC /* Category.swift */; };
@@ -58,7 +62,11 @@
 		9320D5751A746E8F0013018C /* Time to Budget Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Time to Budget Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9320D5781A746E900013018C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9320D5881A7476A50013018C /* Time_Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Time_Tests.swift; sourceTree = "<group>"; };
-		93223B481A86840500365D3A /* TrackingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackingViewController.swift; sourceTree = "<group>"; };
+		93223B481A86840500365D3A /* AddRecordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddRecordViewController.swift; sourceTree = "<group>"; };
+		93B2E5F21A9032B80058372F /* TaskSelectorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskSelectorViewController.swift; sourceTree = "<group>"; };
+		93B2E5F41A903E790058372F /* TimePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimePickerViewController.swift; sourceTree = "<group>"; };
+		93B2E5F61A903E890058372F /* DatePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePickerViewController.swift; sourceTree = "<group>"; };
+		93B2E5FB1A905F990058372F /* MemoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemoCell.swift; sourceTree = "<group>"; };
 		93BC90441A74C84200A63932 /* Database_Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Database_Tests.swift; sourceTree = "<group>"; };
 		93F0E4E71A720B64009D95EC /* Time to Budget.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Time to Budget.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		93F0E4EB1A720B64009D95EC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -127,6 +135,35 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		93B2E5F81A903EA80058372F /* Add Record Views */ = {
+			isa = PBXGroup;
+			children = (
+				93223B481A86840500365D3A /* AddRecordViewController.swift */,
+				93B2E5F21A9032B80058372F /* TaskSelectorViewController.swift */,
+				93B2E5F41A903E790058372F /* TimePickerViewController.swift */,
+				93B2E5F61A903E890058372F /* DatePickerViewController.swift */,
+			);
+			name = "Add Record Views";
+			sourceTree = "<group>";
+		};
+		93B2E5F91A903EC40058372F /* Main Views */ = {
+			isa = PBXGroup;
+			children = (
+				93F0E5411A721960009D95EC /* BudgetViewController.swift */,
+				93F0E5161A720BF4009D95EC /* RecordsViewController.swift */,
+			);
+			name = "Main Views";
+			sourceTree = "<group>";
+		};
+		93B2E5FA1A903ED50058372F /* Editor Views */ = {
+			isa = PBXGroup;
+			children = (
+				93F0E53F1A72194D009D95EC /* BudgetEditorViewController.swift */,
+				93F0E5431A721975009D95EC /* TaskEditorViewController.swift */,
+			);
+			name = "Editor Views";
+			sourceTree = "<group>";
+		};
 		93F0E4DE1A720B64009D95EC = {
 			isa = PBXGroup;
 			children = (
@@ -173,11 +210,9 @@
 		93F0E52E1A720BFD009D95EC /* iPhone Views */ = {
 			isa = PBXGroup;
 			children = (
-				93F0E5411A721960009D95EC /* BudgetViewController.swift */,
-				93F0E5161A720BF4009D95EC /* RecordsViewController.swift */,
-				93F0E53F1A72194D009D95EC /* BudgetEditorViewController.swift */,
-				93F0E5431A721975009D95EC /* TaskEditorViewController.swift */,
-				93223B481A86840500365D3A /* TrackingViewController.swift */,
+				93B2E5F91A903EC40058372F /* Main Views */,
+				93B2E5FA1A903ED50058372F /* Editor Views */,
+				93B2E5F81A903EA80058372F /* Add Record Views */,
 			);
 			name = "iPhone Views";
 			sourceTree = "<group>";
@@ -188,6 +223,7 @@
 				93F0E5111A720BF4009D95EC /* CategoryCell.swift */,
 				93F0E5131A720BF4009D95EC /* EditTaskCell.swift */,
 				93F0E5181A720BF4009D95EC /* TaskCell.swift */,
+				93B2E5FB1A905F990058372F /* MemoCell.swift */,
 				93F0E5141A720BF4009D95EC /* Factory.swift */,
 				93F0E51A1A720BF4009D95EC /* Time.swift */,
 				9320D56E1A74625B0013018C /* MarshalOperator.swift */,
@@ -347,21 +383,25 @@
 				93F0E53E1A7214E1009D95EC /* Budget.swift in Sources */,
 				93F0E5401A72194D009D95EC /* BudgetEditorViewController.swift in Sources */,
 				93F0E52C1A720BF4009D95EC /* TransitionDismissalAnimator.swift in Sources */,
+				93B2E5F51A903E790058372F /* TimePickerViewController.swift in Sources */,
 				93F0E5421A721960009D95EC /* BudgetViewController.swift in Sources */,
 				93F0E52A1A720BF4009D95EC /* Time.swift in Sources */,
 				93F0E5251A720BF4009D95EC /* Record.swift in Sources */,
 				93F0E5281A720BF4009D95EC /* TaskCell.swift in Sources */,
-				93223B491A86840500365D3A /* TrackingViewController.swift in Sources */,
+				93223B491A86840500365D3A /* AddRecordViewController.swift in Sources */,
 				93F0E52B1A720BF4009D95EC /* TransitionDelegate.swift in Sources */,
 				93F0E5271A720BF4009D95EC /* Task.swift in Sources */,
 				93F0E52D1A720BF4009D95EC /* TransitionPresentationAnimator.swift in Sources */,
 				9320D56F1A74625B0013018C /* MarshalOperator.swift in Sources */,
 				93F0E5231A720BF4009D95EC /* EditTaskCell.swift in Sources */,
+				93B2E5FC1A905F990058372F /* MemoCell.swift in Sources */,
 				93F0E5441A721975009D95EC /* TaskEditorViewController.swift in Sources */,
 				93F0E4ED1A720B64009D95EC /* AppDelegate.swift in Sources */,
 				93F0E53C1A721396009D95EC /* Database.swift in Sources */,
 				93F0E5201A720BF4009D95EC /* Category.swift in Sources */,
+				93B2E5F71A903E890058372F /* DatePickerViewController.swift in Sources */,
 				93F0E5211A720BF4009D95EC /* CategoryCell.swift in Sources */,
+				93B2E5F31A9032B80058372F /* TaskSelectorViewController.swift in Sources */,
 				93F0E5261A720BF4009D95EC /* RecordsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

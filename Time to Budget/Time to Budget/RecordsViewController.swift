@@ -16,11 +16,17 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
     var editRecord:Bool = false
     var recordList:RLMArray!
     @IBOutlet weak var tableView: UITableView!
+    var notificationToken: RLMNotificationToken?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         recordList = currentTask.records
+        
+        // Set realm notification block
+        notificationToken = RLMRealm.defaultRealm().addNotificationBlock { note, realm in
+            self.tableView.reloadData()
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -35,7 +41,7 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "showTrackingViewAlt" {
             
-            let trackingVC:TrackingViewController = (segue.destinationViewController as UINavigationController).topViewController as TrackingViewController
+            let trackingVC:AddRecordViewController = (segue.destinationViewController as UINavigationController).topViewController as AddRecordViewController
             
             if self.editRecord {
                 let indexPath = self.tableView.indexPathForSelectedRow()!
@@ -67,7 +73,7 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        return Factory.prepareRecordCell(tableView: tableView, recordList: self.recordList, indexPath: indexPath)
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {

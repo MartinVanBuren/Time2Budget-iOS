@@ -71,7 +71,7 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
         }
         
         if segue.identifier == "showTrackingView" {
-            let trackingVC:TrackingViewController = segue.destinationViewController as TrackingViewController
+            let trackingVC:AddRecordViewController = segue.destinationViewController as AddRecordViewController
         }
     }
     

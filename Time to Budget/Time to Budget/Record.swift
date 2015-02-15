@@ -16,7 +16,7 @@ public class Record: RLMObject {
     
     public func dateToString() -> String {
         var dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = "dd-MM-yyyy"
+        dateFormatter.dateFormat = "MMMM dd, yyyy"
         
         return dateFormatter.stringFromDate(self.date)
     }

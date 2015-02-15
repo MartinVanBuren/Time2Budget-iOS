@@ -39,6 +39,9 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
         // Run Display Prompt Code
         self.displayPromptControl()
     }
+    override func viewWillAppear(animated: Bool) {
+        self.tableView.reloadData()
+    }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)

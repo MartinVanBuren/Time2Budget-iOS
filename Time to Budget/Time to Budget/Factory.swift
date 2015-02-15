@@ -48,75 +48,73 @@ public class Factory {
         return preparedCell
     }
     
-    class func prepareAddTrackingCells(#tableView: UITableView, indexPath:NSIndexPath, currentTask:Task?, currentRecord: Record?) -> UITableViewCell {
+    class func prepareAddRecordTaskCell(#tableView: UITableView, currentTask:Task?) -> UITableViewCell {
+        var taskCell = UITableViewCell(style: UITableViewCellStyle.Value1, reuseIdentifier: "RecordRightDetailCell")
         
-        switch indexPath.row {
-        case 0:
-            var taskCell = UITableViewCell(style: UITableViewCellStyle.Value1, reuseIdentifier: "RecordRightDetailCell")
-            
-            taskCell.textLabel?.text = "Task"
-            
-            if let unwrappedTaskName = currentTask?.name {
-                taskCell.detailTextLabel?.text = unwrappedTaskName
-                taskCell.detailTextLabel?.textColor = UIColor.blackColor()
-            } else {
-                taskCell.detailTextLabel?.text = "Choose a Task"
-            }
-            
-            taskCell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
-            
-            return taskCell
-            
-        case 1:
-            var timeSpentCell = UITableViewCell(style: UITableViewCellStyle.Value1, reuseIdentifier: "RecordRightDetailCell")
-            
-            timeSpentCell.textLabel?.text = "Time Spent"
-            
-            if let unwrappedTimeSpent = currentRecord?.timeSpent {
-                timeSpentCell.detailTextLabel?.text = Time.doubleToString(unwrappedTimeSpent)
-                timeSpentCell.detailTextLabel?.textColor = UIColor.blackColor()
-            } else {
-                timeSpentCell.detailTextLabel?.text = "00:00"
-            }
-            
-            timeSpentCell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
-            
-            return timeSpentCell
-            
-        case 2:
-            var dateCell = UITableViewCell(style: UITableViewCellStyle.Value1, reuseIdentifier: "RecordRightDetailCell")
-            
-            dateCell.textLabel?.text = "Date"
-            
-            if let unwrappedDate = currentRecord?.dateToString() {
-                dateCell.detailTextLabel?.text = unwrappedDate
-                dateCell.detailTextLabel?.textColor = UIColor.blackColor()
-            } else {
-                dateCell.detailTextLabel?.text = "Current Date"
-            }
-            
-            dateCell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
-            
-            return dateCell
-            
-        case 3:
-            var memoCell = tableView.dequeueReusableCellWithIdentifier("RecordMemoCell") as UITableViewCell
-            
-            if let unwrappedMemo = currentRecord?.note {
-                memoCell.detailTextLabel?.textColor = UIColor.blackColor()
-            } else {
-                memoCell.subviews[1]
-            }
-            
-            return memoCell
-            
-        default:
-            return UITableViewCell()
+        taskCell.textLabel?.text = "Task"
+        
+        if let unwrappedTaskName = currentTask?.name {
+            taskCell.detailTextLabel?.text = unwrappedTaskName
+            taskCell.detailTextLabel?.textColor = UIColor.blackColor()
+        } else {
+            taskCell.detailTextLabel?.text = "Choose a Task"
         }
         
+        taskCell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
+        
+        return taskCell
     }
     
-    class func prepareRecordCell(#tableView: UITableView, recordList: RLMResults, indexPath: NSIndexPath) -> UITableViewCell {
+    class func prepareAddRecordTimeCell(#tableView: UITableView, timeSpent: Time?) -> UITableViewCell {
+        var timeSpentCell = UITableViewCell(style: UITableViewCellStyle.Value1, reuseIdentifier: "RecordRightDetailCell")
+        
+        timeSpentCell.textLabel?.text = "Time Spent"
+        
+        if let unwrappedTimeSpent = timeSpent?.toDouble() {
+            timeSpentCell.detailTextLabel?.text = Time.doubleToString(unwrappedTimeSpent)
+            timeSpentCell.detailTextLabel?.textColor = UIColor.blackColor()
+        } else {
+            timeSpentCell.detailTextLabel?.text = "00:00"
+        }
+        
+        timeSpentCell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
+        
+        return timeSpentCell
+    }
+    
+    class func prepareAddRecordDateCell(#tableView: UITableView, date: NSDate?) -> UITableViewCell {
+        var dateCell = UITableViewCell(style: UITableViewCellStyle.Value1, reuseIdentifier: "RecordRightDetailCell")
+        
+        dateCell.textLabel?.text = "Date"
+        
+        if let unwrappedDate = date? {
+            var dateFormatter = NSDateFormatter()
+            dateFormatter.dateFormat = "MMMM dd, yyyy"
+            
+            dateCell.detailTextLabel?.text = dateFormatter.stringFromDate(unwrappedDate)
+            dateCell.detailTextLabel?.textColor = UIColor.blackColor()
+        } else {
+            dateCell.detailTextLabel?.text = "Current Date"
+        }
+        
+        dateCell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
+        
+        return dateCell
+    }
+    
+    class func prepareAddRecordMemoCell(#tableView: UITableView, memo: String?) -> UITableViewCell {
+        var memoCell = tableView.dequeueReusableCellWithIdentifier("RecordMemoCell") as MemoCell
+        
+        if let unwrappedMemo = memo? {
+            memoCell.memoTextField.text = unwrappedMemo
+        } else {
+            memoCell.memoTextField.placeholder = "(Optional) Enter a Memo"
+        }
+    
+        return memoCell
+    }
+    
+    class func prepareRecordCell(#tableView: UITableView, recordList: RLMArray, indexPath: NSIndexPath) -> UITableViewCell {
         var preparedCell = UITableViewCell(style: UITableViewCellStyle.Value1, reuseIdentifier: "RecordRightDetailCell")
         let thisRecord = recordList.objectAtIndex(UInt(indexPath.row)) as Record
         
