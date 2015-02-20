@@ -797,6 +797,9 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
+                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                                        <rect key="frame" x="172" y="12" width="113" height="20"/>
+                                                    </variation>
                                                 </label>
                                             </subviews>
                                             <constraints>
@@ -1409,13 +1412,13 @@
                                 <exclude reference="04R-3c-mEo"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="lfW-gg-f2c"/>
-                                <exclude reference="rqL-pJ-37n"/>
-                                <exclude reference="zU5-Ap-aSj"/>
+                                <exclude reference="N0u-bY-zbS"/>
                                 <exclude reference="FYV-im-031"/>
                                 <exclude reference="ZVl-YX-PbD"/>
                                 <exclude reference="ueU-UN-65z"/>
-                                <exclude reference="N0u-bY-zbS"/>
+                                <exclude reference="lfW-gg-f2c"/>
+                                <exclude reference="rqL-pJ-37n"/>
+                                <exclude reference="zU5-Ap-aSj"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
@@ -1424,19 +1427,22 @@
                                 <include reference="04R-3c-mEo"/>
                             </mask>
                             <mask key="constraints">
-                                <include reference="lfW-gg-f2c"/>
-                                <include reference="rqL-pJ-37n"/>
-                                <include reference="zU5-Ap-aSj"/>
+                                <include reference="N0u-bY-zbS"/>
                                 <exclude reference="FYV-im-031"/>
                                 <include reference="ZVl-YX-PbD"/>
                                 <include reference="ueU-UN-65z"/>
-                                <include reference="N0u-bY-zbS"/>
+                                <include reference="lfW-gg-f2c"/>
+                                <include reference="rqL-pJ-37n"/>
+                                <include reference="zU5-Ap-aSj"/>
                             </mask>
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" title="Choose Date" id="XnW-l9-Yen">
                         <barButtonItem key="backBarButtonItem" title="Cancel" id="JeV-GK-O1n"/>
                     </navigationItem>
+                    <connections>
+                        <outlet property="datePicker" destination="04R-3c-mEo" id="58F-p1-fUJ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kDA-HJ-nrZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

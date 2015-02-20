@@ -13,6 +13,7 @@ public class Record: RLMObject {
     public dynamic var date = NSDate(timeIntervalSince1970: 1)
     public dynamic var note = ""
     public dynamic var timeSpent = 0.0
+    public dynamic var parent:Task!
     
     public func dateToString() -> String {
         var dateFormatter = NSDateFormatter()

@@ -98,14 +98,15 @@ public class Database {
         if (Database.checkTaskName(name: name)) {
             let realm = Database.getRealm()
             let newTask = Task()
-            var category = (Category.objectsWhere("name = '\(categoryName)'")).objectAtIndex(0) as Category
+            var parentCategory = (Category.objectsWhere("name = '\(categoryName)'")).objectAtIndex(0) as Category
             
+            newTask.parent = parentCategory
             newTask.name = name
             newTask.memo = memo
             newTask.timeRemaining = time
             
             realm.beginWriteTransaction()
-            category.tasks.addObject(newTask)
+            parentCategory.tasks.addObject(newTask)
             realm.commitWriteTransaction()
         } else {
             println("Task Name Taken")
@@ -181,6 +182,7 @@ public class Database {
         let parentTask = Task.objectsWhere("name = '\(taskName)'").objectAtIndex(0) as Task
         let newRecord = Record()
         
+        newRecord.parent = parentTask
         newRecord.note = note
         newRecord.timeSpent = timeSpent
         newRecord.date = date
@@ -194,13 +196,16 @@ public class Database {
         let realm = Database.getRealm()
         let tempRecord = Record()
         let task = (Task.objectsWhere("name = '\(newTask)'")).objectAtIndex(0) as Task
-        
+            
         tempRecord.date = record.date
         tempRecord.note = record.note
         tempRecord.timeSpent = record.timeSpent
         
         realm.beginWriteTransaction()
         realm.deleteObject(record)
+        realm.commitWriteTransaction()
+        
+        realm.beginWriteTransaction()
         task.records.addObject(tempRecord)
         realm.commitWriteTransaction()
     }

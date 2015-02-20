@@ -10,6 +10,7 @@ import Foundation
 import Realm
 
 public class Task: RLMObject {
+    public dynamic var parent:Category!
     public dynamic var name = ""
     public dynamic var memo = ""
     public dynamic var timeRemaining = 0.0

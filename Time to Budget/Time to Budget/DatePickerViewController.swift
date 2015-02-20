@@ -12,13 +12,16 @@ class DatePickerViewController: UIViewController {
 
     var addRecordVC:AddRecordViewController!
     var datePicked:NSDate!
+    @IBOutlet weak var datePicker: UIDatePicker!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         
+        self.datePicked = self.addRecordVC.date
         
+        self.datePicker.setDate(self.datePicked, animated: true)
         
     }
 

@@ -25,6 +25,11 @@ class AddRecordViewController: UIViewController, UITableViewDataSource, UITableV
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        if let unwrappedDate = self.date? {
+            
+        } else {
+            self.date = NSDate()
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -77,7 +82,7 @@ class AddRecordViewController: UIViewController, UITableViewDataSource, UITableV
         case 1:
             return Factory.prepareAddRecordTimeCell(tableView: tableView, timeSpent: self.timeSpent?)
         case 2:
-            return Factory.prepareAddRecordDateCell(tableView: tableView, date: self.date?)
+            return Factory.prepareAddRecordDateCell(tableView: tableView, date: self.date)
         default:
             return Factory.prepareAddRecordMemoCell(tableView: tableView, memo: self.memo?)
         }
@@ -120,30 +125,26 @@ class AddRecordViewController: UIViewController, UITableViewDataSource, UITableV
         
         if let unwrappedTask = self.currentTask? {
             if let unwrappedTime = self.timeSpent? {
-                if let unwrappedDate = self.date? {
-                    if let unwrappedMemo = self.memo? {
-                        if !editRecord {
-                            Database.addRecord(taskName: unwrappedTask.name, note: unwrappedMemo, timeSpent: unwrappedTime.toDouble(), date: unwrappedDate)
-                        } else {
-                            if let unwrappedRecord = self.currentRecord? {
-                                Database.updateRecord(record: unwrappedRecord, taskName: unwrappedTask.name, note: unwrappedMemo, timeSpent: unwrappedTime.toDouble(), date: unwrappedDate)
-                            } else {
-                                Factory.displayAlert(viewController: self, title: "Error: Record Missing", message: "Record missing while in edit mode. D':")
-                            }
-                        }
+                if let unwrappedMemo = self.memo? {
+                    if !editRecord {
+                        Database.addRecord(taskName: unwrappedTask.name, note: unwrappedMemo, timeSpent: unwrappedTime.toDouble(), date: self.date!)
                     } else {
-                        if !editRecord {
-                            Database.addRecord(taskName: unwrappedTask.name, note: "", timeSpent: unwrappedTime.toDouble(), date: unwrappedDate)
+                        if let unwrappedRecord = self.currentRecord? {
+                            Database.updateRecord(record: unwrappedRecord, taskName: unwrappedTask.name, note: unwrappedMemo, timeSpent: unwrappedTime.toDouble(), date: self.date!)
                         } else {
-                            if let unwrappedRecord = self.currentRecord? {
-                                Database.updateRecord(record: unwrappedRecord, taskName: unwrappedTask.name, note: "", timeSpent: unwrappedTime.toDouble(), date: unwrappedDate)
-                            } else {
-                                Factory.displayAlert(viewController: self, title: "Error: Record Missing", message: "Record missing while in edit mode. D':")
-                            }
+                            Factory.displayAlert(viewController: self, title: "Error: Record Missing", message: "Record missing while in edit mode. D':")
                         }
                     }
                 } else {
-                    Factory.displayAlert(viewController: self, title: "Date Not Selected", message: "You must select a date.")
+                    if !editRecord {
+                        Database.addRecord(taskName: unwrappedTask.name, note: "", timeSpent: unwrappedTime.toDouble(), date: self.date!)
+                    } else {
+                        if let unwrappedRecord = self.currentRecord? {
+                            Database.updateRecord(record: unwrappedRecord, taskName: unwrappedTask.name, note: "", timeSpent: unwrappedTime.toDouble(), date: self.date!)
+                        } else {
+                            Factory.displayAlert(viewController: self, title: "Error: Record Missing", message: "Record missing while in edit mode. D':")
+                        }
+                    }
                 }
             } else {
                 Factory.displayAlert(viewController: self, title: "Time Spent Not Selected", message: "You must select an amount of time to spend.")

@@ -17,6 +17,7 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
     var recordList:RLMArray!
     @IBOutlet weak var tableView: UITableView!
     var notificationToken: RLMNotificationToken?
+    var promptEnabled:Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,6 +28,8 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
         notificationToken = RLMRealm.defaultRealm().addNotificationBlock { note, realm in
             self.tableView.reloadData()
         }
+        
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -35,6 +38,13 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     override func viewWillAppear(animated: Bool) {
+        navigationItem.title = currentTask.name
+        
+        if currentTask.memo != "" {
+            navigationItem.prompt = currentTask.memo
+            self.promptEnabled = true
+        }
+        
         fixContentInset(calledFromSegue: false)
     }
 
@@ -60,7 +70,7 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
     }
 
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 44
+        return 0
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -77,7 +87,7 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 0
+        return 1
     }
     
     @IBAction func addRecordButtonPressed(sender: UIButton) {
@@ -90,7 +100,7 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
             if (returning != nil) {
                 self.returning = true
             }
-        } else {
+        } else if !self.promptEnabled {
             if (returning != nil) {
                 if !returning! {
                     self.tableView.contentInset.top = 64
