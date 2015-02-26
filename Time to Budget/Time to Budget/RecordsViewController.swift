@@ -16,20 +16,12 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
     var editRecord:Bool = false
     var recordList:RLMArray!
     @IBOutlet weak var tableView: UITableView!
-    var notificationToken: RLMNotificationToken?
     var promptEnabled:Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         recordList = currentTask.records
-        
-        // Set realm notification block
-        notificationToken = RLMRealm.defaultRealm().addNotificationBlock { note, realm in
-            self.tableView.reloadData()
-        }
-        
-        
     }
 
     override func didReceiveMemoryWarning() {
@@ -45,9 +37,13 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
             self.promptEnabled = true
         }
         
+        self.tableView.reloadData()
+        
         fixContentInset(calledFromSegue: false)
     }
 
+    // ============================= Segue Preperation =============================
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "showTrackingViewAlt" {
             
@@ -68,6 +64,8 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
         
         fixContentInset(calledFromSegue: true)
     }
+    
+    // ============================= Table View Overrides =============================
 
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 0
@@ -90,10 +88,19 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
         return 1
     }
     
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        
+        Factory.displayDeleteRecordAlert(self, record: recordList.objectAtIndex(UInt(indexPath.row)) as Record)
+    }
+    
+    // ============================= IBActions =============================
+    
     @IBAction func addRecordButtonPressed(sender: UIButton) {
         self.editRecord = false
         performSegueWithIdentifier("showTrackingViewAlt", sender: self)
     }
+    
+    // ============================= Helper Functions =============================
     
     func fixContentInset(#calledFromSegue: Bool) {
         if calledFromSegue {

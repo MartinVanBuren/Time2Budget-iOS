@@ -30,6 +30,12 @@ class AddRecordViewController: UIViewController, UITableViewDataSource, UITableV
         } else {
             self.date = NSDate()
         }
+        
+        if let unwrappedRecord = self.currentRecord? {
+            self.timeSpent = Time.doubleToTime(unwrappedRecord.timeSpent)
+            self.date = unwrappedRecord.date
+            self.memo = unwrappedRecord.note
+        }
     }
 
     override func didReceiveMemoryWarning() {

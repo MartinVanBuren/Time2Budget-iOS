@@ -92,13 +92,13 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        return Factory.prepareTaskCell(tableView: tableView, categoryList: categoryList, indexPath: indexPath)
+        return Factory.prepareTaskCell(tableView: tableView, categoryList: categoryList, indexPath: indexPath, isEditor: false)
         
     }
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
-        return Factory.prepareCategoryCell(tableView: tableView, categoryList: categoryList, section: section)
+        return Factory.prepareCategoryCell(tableView: tableView, categoryList: categoryList, section: section, isEditor: false)
         
     }
     

@@ -38,7 +38,7 @@ class TaskEditorViewController: UIViewController, UIPickerViewDataSource, UIPick
         
         // Do any additional setup after loading the view.
         if (!budgetEditorViewController.addTaskDialog) {
-            finalTime.setByDouble(currentTask.timeRemaining)
+            finalTime.setByDouble(currentTask.timeBudgeted)
             self.titleLabel.text = currentTask.name
         } else {
             finalTime.setByDouble(0.0)
@@ -58,7 +58,7 @@ class TaskEditorViewController: UIViewController, UIPickerViewDataSource, UIPick
         if !budgetEditorViewController.addTaskDialog {
             // Setting Current Selections
             categoryPicked = currentCategory.name
-            timePicked = Time.doubleToTime(currentTask.timeRemaining)
+            timePicked = Time.doubleToTime(currentTask.timeBudgeted)
             nameTextField.text = currentTask.name
             descriptionTextView.text = currentTask.memo
         } else {

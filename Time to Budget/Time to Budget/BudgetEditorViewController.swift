@@ -21,7 +21,7 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
     
     //==================== Realm Properties ====================
     let realm = Database.getRealm()
-    let categoryList = Category.allObjects()
+    var categoryList = Category.allObjects()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,9 +32,13 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
             self.updateTimeRemaining()
         }
         
-        self.tableView.reloadData()
+        if let unwrappedReturning = returning? {
+            if !unwrappedReturning {
+                self.tableView.reloadData()
+                self.updateTimeRemaining()
+            }
+        }
         
-        self.updateTimeRemaining()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -45,18 +49,12 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    /*
-    override func viewWillDisappear(animated: Bool) {
-        
-        
-    }
-    */
+
     //==================== Segue Preperation ====================
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "showTaskEditorView" {
             let taskEditorVC:TaskEditorViewController = segue.destinationViewController as TaskEditorViewController
             taskEditorVC.budgetEditorViewController = self
-            
             
             if (!addTaskDialog) {
                 let indexPath = self.tableView.indexPathForSelectedRow()!
@@ -64,7 +62,6 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
                 let thisCategory = (categoryList.objectAtIndex(UInt(indexPath.section)) as Category)
                 taskEditorVC.currentTask = thisTask
                 taskEditorVC.currentCategory = thisCategory
-                
             }
             
             fixContentInset(calledFromSegue: true)
@@ -88,12 +85,12 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        return Factory.prepareTaskCell(tableView: tableView, categoryList: categoryList, indexPath: indexPath)
+        return Factory.prepareTaskCell(tableView: tableView, categoryList: categoryList, indexPath: indexPath, isEditor: true)
     }
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
-        return Factory.prepareCategoryCell(tableView: tableView, categoryList: categoryList, section: section)
+        return Factory.prepareCategoryCell(tableView: tableView, categoryList: categoryList, section: section, isEditor: true)
         
     }
     
@@ -136,15 +133,14 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
     
     //==================== Helper Methods ====================
     func updateTimeRemaining() {
-        let tempTime = Time()
         let taskList = Task.allObjects()
+        var tempTime = Time()
         let newTime = Time.doubleToTime(168.0)
         
-        for var i = 0; i < Int(taskList.count); i++ {
-            tempTime.setByDouble((taskList.objectAtIndex(UInt(i)) as Task).timeRemaining)
+        for var i:UInt = 0; i < taskList.count; i++ {
+            tempTime = Time.doubleToTime((taskList.objectAtIndex(i) as Task).timeRemaining)
             newTime.hours -= tempTime.hours
             newTime.minutes -= tempTime.minutes
-        
         }
         
         newTime.cleanTime()

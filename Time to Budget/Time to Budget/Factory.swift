@@ -11,23 +11,20 @@ import UIKit
 import Realm
 
 public class Factory {
-    class func prepareCategoryCell(#tableView: UITableView, categoryList: RLMResults, section: Int) -> UIView {
+    class func prepareCategoryCell(#tableView: UITableView, categoryList: RLMResults, section: Int, isEditor: Bool) -> UIView {
         
         let thisCategory = categoryList.objectAtIndex(UInt(section)) as Category
-        
-        var totalTime:Time = Time()
         
         var preparedCell:CategoryCell = tableView.dequeueReusableCellWithIdentifier("CategoryCell") as CategoryCell
         
         var taskArray = thisCategory.tasks
         
-        for var i = 0; i < Int(taskArray.count); i++ {
-            totalTime.hours += Time(task: (taskArray.objectAtIndex(UInt(i))) as Task).hours
-            totalTime.minutes += Time(task: (taskArray.objectAtIndex(UInt(i))) as Task).minutes
-        }
-        
         preparedCell.sectionNameLabel.text = thisCategory.name
-        preparedCell.remainingTimeLabel.text = totalTime.toString()
+        if !isEditor {
+            preparedCell.remainingTimeLabel.text = Time.doubleToString(thisCategory.totalTimeRemaining)
+        } else {
+            preparedCell.remainingTimeLabel.text = Time.doubleToString(thisCategory.totalTimeBudgeted)
+        }
         
         let returnedView = UIView()
         
@@ -36,14 +33,18 @@ public class Factory {
         return returnedView
     }
     
-    class func prepareTaskCell(#tableView: UITableView, categoryList: RLMResults, indexPath: NSIndexPath) -> TaskCell {
+    class func prepareTaskCell(#tableView: UITableView, categoryList: RLMResults, indexPath: NSIndexPath, isEditor: Bool) -> TaskCell {
         
         let thisTask = ((categoryList.objectAtIndex(UInt(indexPath.section)) as Category).tasks.objectAtIndex(UInt(indexPath.row)) as Task)
         
         var preparedCell:TaskCell = tableView.dequeueReusableCellWithIdentifier("TaskCell") as TaskCell
         
         preparedCell.itemNameLabel.text = thisTask.name
-        preparedCell.remainingTimeLabel.text = Time.doubleToString(thisTask.timeRemaining)
+        if !isEditor {
+            preparedCell.remainingTimeLabel.text = Time.doubleToString(thisTask.timeRemaining)
+        } else {
+            preparedCell.remainingTimeLabel.text = Time.doubleToString(thisTask.timeBudgeted)
+        }
         
         return preparedCell
     }
@@ -213,7 +214,19 @@ public class Factory {
         
         
         viewController.presentViewController(alert, animated: true, completion: {})
-        }
+    }
+    
+    class func displayDeleteRecordAlert(viewController: UIViewController, record: Record) {
+        
+        let alert = UIAlertController(title: "Are You Sure?", message: "Are you sure you wwant to delete this task?", preferredStyle: UIAlertControllerStyle.Alert)
+        alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+            Database.deleteRecord(record: record)
+            (viewController as RecordsViewController).tableView.reloadData()
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
+        
+        viewController.presentViewController(alert, animated: true, completion: {})
+    }
     
     class func displayAlert(#viewController: UIViewController, title: String, message: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
@@ -221,4 +234,5 @@ public class Factory {
         
         viewController.presentViewController(alert, animated: true, completion: {})
     }
+    
 }

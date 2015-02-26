@@ -64,7 +64,7 @@ class Database_Tests: XCTestCase {
         
         let task = Task.objectsWhere("name = 'TestTask'").objectAtIndex(0) as Task
         
-        Database.moveTask(taskName: task.name, newCategory: "Test2")
+        Database.moveTask(taskName: task.name, newCategoryName: "Test2")
         
         let cat1 = Category.objectsWhere("name = 'Test1'").objectAtIndex(0) as Category
         let cat2 = Category.objectsWhere("name = 'Test2'").objectAtIndex(0) as Category
@@ -218,7 +218,7 @@ class Database_Tests: XCTestCase {
         
         let record = (Task.objectsWhere("name = 'TestTask1'").objectAtIndex(0) as Task).records.objectAtIndex(0) as Record
         
-        Database.moveRecord(record: record, newTask: "TestTask2")
+        Database.moveRecord(record: record, newTaskName: "TestTask2")
         
         let movedRecord = (Task.objectsWhere("name = 'TestTask2'").objectAtIndex(0) as Task).records.objectAtIndex(0) as Record
         
