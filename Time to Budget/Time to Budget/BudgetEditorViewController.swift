@@ -31,18 +31,15 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
             self.tableView.reloadData()
             self.updateTimeRemaining()
         }
-        
-        if let unwrappedReturning = returning? {
-            if !unwrappedReturning {
-                self.tableView.reloadData()
-                self.updateTimeRemaining()
-            }
-        }
+
+        self.tableView.reloadData()
+        self.updateTimeRemaining()
         
     }
     
     override func viewWillAppear(animated: Bool) {
         fixContentInset(calledFromSegue: false)
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -120,14 +117,14 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
     
     @IBAction func addCategoryButtonPressed(sender: UIButton) {
         
-        Factory.displayAddCategoryAlert(self)
+        Factory.displayAddCategoryAlert(viewController: self)
     }
     
     @IBAction func deleteCategoryButtonPressed(sender: UIButton) {
         
         let cell = sender.superview?.superview as CategoryCell
 
-        Factory.displayDeleteCategoryAlert(viewController: self, categoryName: cell.sectionNameLabel.text!)
+        Factory.displayEditCategoryAlert(viewController: self, categoryName: cell.sectionNameLabel.text!)
     }
     
     

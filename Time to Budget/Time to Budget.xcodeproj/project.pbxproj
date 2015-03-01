@@ -10,6 +10,7 @@
 		9320D56F1A74625B0013018C /* MarshalOperator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9320D56E1A74625B0013018C /* MarshalOperator.swift */; };
 		9320D5891A7476A50013018C /* Time_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9320D5881A7476A50013018C /* Time_Tests.swift */; };
 		93223B491A86840500365D3A /* AddRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93223B481A86840500365D3A /* AddRecordViewController.swift */; };
+		939DB8901AA2CD330047C108 /* SubtitleDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939DB88F1AA2CD330047C108 /* SubtitleDetailCell.swift */; };
 		93B2E5F31A9032B80058372F /* TaskSelectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B2E5F21A9032B80058372F /* TaskSelectorViewController.swift */; };
 		93B2E5F51A903E790058372F /* TimePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B2E5F41A903E790058372F /* TimePickerViewController.swift */; };
 		93B2E5F71A903E890058372F /* DatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B2E5F61A903E890058372F /* DatePickerViewController.swift */; };
@@ -32,7 +33,6 @@
 		93F0E5251A720BF4009D95EC /* Record.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F0E5151A720BF4009D95EC /* Record.swift */; };
 		93F0E5261A720BF4009D95EC /* RecordsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F0E5161A720BF4009D95EC /* RecordsViewController.swift */; };
 		93F0E5271A720BF4009D95EC /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F0E5171A720BF4009D95EC /* Task.swift */; };
-		93F0E5281A720BF4009D95EC /* TaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F0E5181A720BF4009D95EC /* TaskCell.swift */; };
 		93F0E52A1A720BF4009D95EC /* Time.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F0E51A1A720BF4009D95EC /* Time.swift */; };
 		93F0E52B1A720BF4009D95EC /* TransitionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F0E51B1A720BF4009D95EC /* TransitionDelegate.swift */; };
 		93F0E52C1A720BF4009D95EC /* TransitionDismissalAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F0E51C1A720BF4009D95EC /* TransitionDismissalAnimator.swift */; };
@@ -63,6 +63,7 @@
 		9320D5781A746E900013018C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9320D5881A7476A50013018C /* Time_Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Time_Tests.swift; sourceTree = "<group>"; };
 		93223B481A86840500365D3A /* AddRecordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddRecordViewController.swift; sourceTree = "<group>"; };
+		939DB88F1AA2CD330047C108 /* SubtitleDetailCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubtitleDetailCell.swift; sourceTree = "<group>"; };
 		93B2E5F21A9032B80058372F /* TaskSelectorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskSelectorViewController.swift; sourceTree = "<group>"; };
 		93B2E5F41A903E790058372F /* TimePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimePickerViewController.swift; sourceTree = "<group>"; };
 		93B2E5F61A903E890058372F /* DatePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePickerViewController.swift; sourceTree = "<group>"; };
@@ -81,7 +82,6 @@
 		93F0E5151A720BF4009D95EC /* Record.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Record.swift; sourceTree = "<group>"; };
 		93F0E5161A720BF4009D95EC /* RecordsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordsViewController.swift; sourceTree = "<group>"; };
 		93F0E5171A720BF4009D95EC /* Task.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
-		93F0E5181A720BF4009D95EC /* TaskCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskCell.swift; sourceTree = "<group>"; };
 		93F0E51A1A720BF4009D95EC /* Time.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Time.swift; sourceTree = "<group>"; };
 		93F0E51B1A720BF4009D95EC /* TransitionDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransitionDelegate.swift; sourceTree = "<group>"; };
 		93F0E51C1A720BF4009D95EC /* TransitionDismissalAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransitionDismissalAnimator.swift; sourceTree = "<group>"; };
@@ -133,6 +133,17 @@
 				9320D5781A746E900013018C /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		939DB88C1AA2A8AF0047C108 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				93F0E5111A720BF4009D95EC /* CategoryCell.swift */,
+				93F0E5131A720BF4009D95EC /* EditTaskCell.swift */,
+				93B2E5FB1A905F990058372F /* MemoCell.swift */,
+				939DB88F1AA2CD330047C108 /* SubtitleDetailCell.swift */,
+			);
+			name = Cells;
 			sourceTree = "<group>";
 		};
 		93B2E5F81A903EA80058372F /* Add Record Views */ = {
@@ -220,10 +231,7 @@
 		93F0E52F1A720C38009D95EC /* Support Classes */ = {
 			isa = PBXGroup;
 			children = (
-				93F0E5111A720BF4009D95EC /* CategoryCell.swift */,
-				93F0E5131A720BF4009D95EC /* EditTaskCell.swift */,
-				93F0E5181A720BF4009D95EC /* TaskCell.swift */,
-				93B2E5FB1A905F990058372F /* MemoCell.swift */,
+				939DB88C1AA2A8AF0047C108 /* Cells */,
 				93F0E5141A720BF4009D95EC /* Factory.swift */,
 				93F0E51A1A720BF4009D95EC /* Time.swift */,
 				9320D56E1A74625B0013018C /* MarshalOperator.swift */,
@@ -387,9 +395,9 @@
 				93F0E5421A721960009D95EC /* BudgetViewController.swift in Sources */,
 				93F0E52A1A720BF4009D95EC /* Time.swift in Sources */,
 				93F0E5251A720BF4009D95EC /* Record.swift in Sources */,
-				93F0E5281A720BF4009D95EC /* TaskCell.swift in Sources */,
 				93223B491A86840500365D3A /* AddRecordViewController.swift in Sources */,
 				93F0E52B1A720BF4009D95EC /* TransitionDelegate.swift in Sources */,
+				939DB8901AA2CD330047C108 /* SubtitleDetailCell.swift in Sources */,
 				93F0E5271A720BF4009D95EC /* Task.swift in Sources */,
 				93F0E52D1A720BF4009D95EC /* TransitionPresentationAnimator.swift in Sources */,
 				9320D56F1A74625B0013018C /* MarshalOperator.swift in Sources */,

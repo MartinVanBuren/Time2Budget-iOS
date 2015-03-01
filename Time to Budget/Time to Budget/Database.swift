@@ -124,6 +124,7 @@ public class Database {
         realm.transactionWithBlock { () -> Void in
             oldCategory.tasks.removeObjectAtIndex(oldIndex)
             oldCategory.calcTime()
+            task.parent = newCategory
             newCategory.tasks.addObject(task)
             newCategory.calcTime()
         }
@@ -135,7 +136,7 @@ public class Database {
 
         realm.transactionWithBlock { () -> Void in
             task.name = name
-            task.timeRemaining = time
+            task.timeBudgeted = time
             task.memo = memo
             task.calcTime()
             task.parent.calcTime()
@@ -196,6 +197,7 @@ public class Database {
         realm.transactionWithBlock { () -> Void in
             oldTask.records.removeObjectAtIndex(oldIndex)
             oldTask.calcTime()
+            record.parent = newTask
             newTask.records.addObject(record)
             newTask.calcTime()
         }
