@@ -1290,10 +1290,37 @@
                                     <outlet property="delegate" destination="F8n-Iw-4On" id="NF2-qF-ulJ"/>
                                 </connections>
                             </pickerView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="icw-38-pqv">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="icw-38-pqv" secondAttribute="height" multiplier="5:1" id="1Oi-4a-Ll3"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="35"/>
+                                <state key="normal" title="Start 00:00:00">
+                                    <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="1Oi-4a-Ll3"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact">
+                                    <mask key="constraints">
+                                        <include reference="1Oi-4a-Ll3"/>
+                                    </mask>
+                                </variation>
+                                <connections>
+                                    <action selector="startTimeButtonPressed:" destination="F8n-Iw-4On" eventType="touchUpInside" id="rYT-ea-qad"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="YNy-BW-eM1" firstAttribute="leading" secondItem="APc-0A-bjE" secondAttribute="leadingMargin" constant="56" id="1dy-Yj-yDj"/>
+                            <constraint firstItem="icw-38-pqv" firstAttribute="top" secondItem="cjm-F8-kVz" secondAttribute="bottom" constant="32" id="3ap-QF-KYr"/>
+                            <constraint firstItem="icw-38-pqv" firstAttribute="leading" secondItem="APc-0A-bjE" secondAttribute="leadingMargin" constant="-16" id="B6T-ld-YGJ"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="icw-38-pqv" secondAttribute="trailing" constant="-16" id="Gj5-Rw-Gr7"/>
                             <constraint firstItem="cjm-F8-kVz" firstAttribute="top" secondItem="OLb-lH-p0b" secondAttribute="bottom" constant="72" id="Gxt-Vk-c33"/>
                             <constraint firstItem="YNy-BW-eM1" firstAttribute="width" secondItem="YNy-BW-eM1" secondAttribute="height" multiplier="64:11" id="eqe-Bq-YxF"/>
                             <constraint firstAttribute="trailingMargin" secondItem="YNy-BW-eM1" secondAttribute="trailing" constant="56" id="lKK-Er-Ea0"/>
@@ -1305,30 +1332,38 @@
                             <mask key="subviews">
                                 <exclude reference="YNy-BW-eM1"/>
                                 <exclude reference="cjm-F8-kVz"/>
+                                <exclude reference="icw-38-pqv"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="o2M-hK-q2W"/>
                                 <exclude reference="Gxt-Vk-c33"/>
                                 <exclude reference="nHQ-4e-Ls6"/>
                                 <exclude reference="yLn-Bm-YZM"/>
+                                <exclude reference="3ap-QF-KYr"/>
+                                <exclude reference="B6T-ld-YGJ"/>
+                                <exclude reference="Gj5-Rw-Gr7"/>
                                 <exclude reference="1dy-Yj-yDj"/>
                                 <exclude reference="eqe-Bq-YxF"/>
                                 <exclude reference="lKK-Er-Ea0"/>
+                                <exclude reference="o2M-hK-q2W"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
                             <mask key="subviews">
                                 <include reference="YNy-BW-eM1"/>
                                 <include reference="cjm-F8-kVz"/>
+                                <include reference="icw-38-pqv"/>
                             </mask>
                             <mask key="constraints">
-                                <include reference="o2M-hK-q2W"/>
                                 <include reference="Gxt-Vk-c33"/>
                                 <include reference="nHQ-4e-Ls6"/>
                                 <include reference="yLn-Bm-YZM"/>
+                                <include reference="3ap-QF-KYr"/>
+                                <include reference="B6T-ld-YGJ"/>
+                                <include reference="Gj5-Rw-Gr7"/>
                                 <include reference="1dy-Yj-yDj"/>
                                 <exclude reference="eqe-Bq-YxF"/>
                                 <include reference="lKK-Er-Ea0"/>
+                                <include reference="o2M-hK-q2W"/>
                             </mask>
                         </variation>
                     </view>
@@ -1336,6 +1371,7 @@
                         <barButtonItem key="backBarButtonItem" title="Cancel" id="ymR-BX-6lZ"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="startButton" destination="icw-38-pqv" id="i3b-Yb-2O5"/>
                         <outlet property="timePicker" destination="cjm-F8-kVz" id="kcF-Ks-H75"/>
                     </connections>
                 </viewController>

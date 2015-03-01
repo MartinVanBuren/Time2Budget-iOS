@@ -162,12 +162,12 @@ public class Database {
         } else {
             realm.transactionWithBlock { () -> Void in
                 realm.deleteObjects(currentRecords)
-                parent.calcTime()
             }
         }
         
         realm.transactionWithBlock { () -> Void in
             realm.deleteObject(currentTask)
+            parent.calcTime()
         }
     }
     

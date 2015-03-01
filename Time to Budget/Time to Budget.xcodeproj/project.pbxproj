@@ -135,6 +135,14 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		9385F1661AA36B63000C8726 /* Add/Edit Task Views */ = {
+			isa = PBXGroup;
+			children = (
+				93F0E5431A721975009D95EC /* TaskEditorViewController.swift */,
+			);
+			name = "Add/Edit Task Views";
+			sourceTree = "<group>";
+		};
 		939DB88C1AA2A8AF0047C108 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
@@ -146,7 +154,7 @@
 			name = Cells;
 			sourceTree = "<group>";
 		};
-		93B2E5F81A903EA80058372F /* Add Record Views */ = {
+		93B2E5F81A903EA80058372F /* Add/Edit Record Views */ = {
 			isa = PBXGroup;
 			children = (
 				93223B481A86840500365D3A /* AddRecordViewController.swift */,
@@ -154,7 +162,7 @@
 				93B2E5F41A903E790058372F /* TimePickerViewController.swift */,
 				93B2E5F61A903E890058372F /* DatePickerViewController.swift */,
 			);
-			name = "Add Record Views";
+			name = "Add/Edit Record Views";
 			sourceTree = "<group>";
 		};
 		93B2E5F91A903EC40058372F /* Main Views */ = {
@@ -170,7 +178,8 @@
 			isa = PBXGroup;
 			children = (
 				93F0E53F1A72194D009D95EC /* BudgetEditorViewController.swift */,
-				93F0E5431A721975009D95EC /* TaskEditorViewController.swift */,
+				9385F1661AA36B63000C8726 /* Add/Edit Task Views */,
+				93B2E5F81A903EA80058372F /* Add/Edit Record Views */,
 			);
 			name = "Editor Views";
 			sourceTree = "<group>";
@@ -223,7 +232,6 @@
 			children = (
 				93B2E5F91A903EC40058372F /* Main Views */,
 				93B2E5FA1A903ED50058372F /* Editor Views */,
-				93B2E5F81A903EA80058372F /* Add Record Views */,
 			);
 			name = "iPhone Views";
 			sourceTree = "<group>";
