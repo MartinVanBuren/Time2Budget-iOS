@@ -117,6 +117,64 @@ public class Factory {
         return memoCell
     }
     
+    class func prepareAddTaskNameCell(#tableView: UITableView, name: String?) -> UITableViewCell {
+        var preparedCell = tableView.dequeueReusableCellWithIdentifier("taskNameCell") as TextfieldCell
+        
+        if let unwrappedName = name? {
+            preparedCell.textField.text = unwrappedName
+        } else {
+            preparedCell.textField.placeholder = "Task Name"
+        }
+        
+        return preparedCell
+    }
+    
+    class func prepareAddTaskMemoCell(#tableView: UITableView, memo: String?) -> UITableViewCell {
+        var preparedCell = tableView.dequeueReusableCellWithIdentifier("taskMemoCell") as TextfieldCell
+        
+        if let unwrappedMemo = memo? {
+            preparedCell.textField.text = unwrappedMemo
+        } else {
+            preparedCell.textField.placeholder = "Memo (Optional)"
+        }
+        
+        return preparedCell
+    }
+    
+    class func prepareAddTaskCategoryCell(#tableView: UITableView, categoryName: String?) -> UITableViewCell {
+        var preparedCell = UITableViewCell(style: UITableViewCellStyle.Value1, reuseIdentifier: "rightDetailCell")
+        
+        preparedCell.textLabel?.text = "Category"
+        
+        if let unwrappedCategoryName = categoryName? {
+            preparedCell.detailTextLabel?.text = categoryName
+            preparedCell.detailTextLabel?.textColor = UIColor.blackColor()
+        } else {
+            preparedCell.detailTextLabel?.text = "Choose Category"
+        }
+        
+        preparedCell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
+        
+        return preparedCell
+    }
+    
+    class func prepareAddTaskTimeCell(#tableView: UITableView, time: Double?) -> UITableViewCell {
+        var preparedCell = UITableViewCell(style: UITableViewCellStyle.Value1, reuseIdentifier: "rightDetailCell")
+        
+        preparedCell.textLabel?.text = "Time Budgeted"
+        
+        if let unwrappedTime = time? {
+            preparedCell.detailTextLabel?.text = Time.doubleToString(unwrappedTime)
+            preparedCell.detailTextLabel?.textColor = UIColor.blackColor()
+        } else {
+            preparedCell.detailTextLabel?.text = "00:00"
+        }
+        
+        preparedCell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
+        
+        return preparedCell
+    }
+    
     class func prepareRecordCell(#tableView: UITableView, recordList: RLMArray, indexPath: NSIndexPath) -> UITableViewCell {
         var preparedCell = tableView.dequeueReusableCellWithIdentifier("RecordCell") as SubtitleDetailCell
         let thisRecord = recordList.objectAtIndex(UInt(indexPath.row)) as Record

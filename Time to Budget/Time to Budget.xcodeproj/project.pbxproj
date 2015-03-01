@@ -10,6 +10,12 @@
 		9320D56F1A74625B0013018C /* MarshalOperator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9320D56E1A74625B0013018C /* MarshalOperator.swift */; };
 		9320D5891A7476A50013018C /* Time_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9320D5881A7476A50013018C /* Time_Tests.swift */; };
 		93223B491A86840500365D3A /* AddRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93223B481A86840500365D3A /* AddRecordViewController.swift */; };
+		9385F1721AA396D4000C8726 /* gear 34x34.png in Resources */ = {isa = PBXBuildFile; fileRef = 9385F16F1AA396D4000C8726 /* gear 34x34.png */; };
+		9385F1741AA397C8000C8726 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9385F1731AA397C8000C8726 /* SettingsViewController.swift */; };
+		9385F1761AA39D30000C8726 /* TaskEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9385F1751AA39D30000C8726 /* TaskEditorViewController.swift */; };
+		9385F1781AA3A248000C8726 /* TextfieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9385F1771AA3A248000C8726 /* TextfieldCell.swift */; };
+		9385F17A1AA3C3A3000C8726 /* TaskEditorTimePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9385F1791AA3C3A3000C8726 /* TaskEditorTimePickerViewController.swift */; };
+		9385F17C1AA3C805000C8726 /* TaskEditorCategorySelectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9385F17B1AA3C805000C8726 /* TaskEditorCategorySelectorViewController.swift */; };
 		939DB8901AA2CD330047C108 /* SubtitleDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939DB88F1AA2CD330047C108 /* SubtitleDetailCell.swift */; };
 		93B2E5F31A9032B80058372F /* TaskSelectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B2E5F21A9032B80058372F /* TaskSelectorViewController.swift */; };
 		93B2E5F51A903E790058372F /* TimePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B2E5F41A903E790058372F /* TimePickerViewController.swift */; };
@@ -44,7 +50,6 @@
 		93F0E53E1A7214E1009D95EC /* Budget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F0E53D1A7214E1009D95EC /* Budget.swift */; };
 		93F0E5401A72194D009D95EC /* BudgetEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F0E53F1A72194D009D95EC /* BudgetEditorViewController.swift */; };
 		93F0E5421A721960009D95EC /* BudgetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F0E5411A721960009D95EC /* BudgetViewController.swift */; };
-		93F0E5441A721975009D95EC /* TaskEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F0E5431A721975009D95EC /* TaskEditorViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +68,12 @@
 		9320D5781A746E900013018C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9320D5881A7476A50013018C /* Time_Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Time_Tests.swift; sourceTree = "<group>"; };
 		93223B481A86840500365D3A /* AddRecordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddRecordViewController.swift; sourceTree = "<group>"; };
+		9385F16F1AA396D4000C8726 /* gear 34x34.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gear 34x34.png"; sourceTree = "<group>"; };
+		9385F1731AA397C8000C8726 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		9385F1751AA39D30000C8726 /* TaskEditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskEditorViewController.swift; sourceTree = "<group>"; };
+		9385F1771AA3A248000C8726 /* TextfieldCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextfieldCell.swift; sourceTree = "<group>"; };
+		9385F1791AA3C3A3000C8726 /* TaskEditorTimePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskEditorTimePickerViewController.swift; sourceTree = "<group>"; };
+		9385F17B1AA3C805000C8726 /* TaskEditorCategorySelectorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskEditorCategorySelectorViewController.swift; sourceTree = "<group>"; };
 		939DB88F1AA2CD330047C108 /* SubtitleDetailCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubtitleDetailCell.swift; sourceTree = "<group>"; };
 		93B2E5F21A9032B80058372F /* TaskSelectorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskSelectorViewController.swift; sourceTree = "<group>"; };
 		93B2E5F41A903E790058372F /* TimePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimePickerViewController.swift; sourceTree = "<group>"; };
@@ -93,7 +104,6 @@
 		93F0E53D1A7214E1009D95EC /* Budget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Budget.swift; sourceTree = "<group>"; };
 		93F0E53F1A72194D009D95EC /* BudgetEditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BudgetEditorViewController.swift; sourceTree = "<group>"; };
 		93F0E5411A721960009D95EC /* BudgetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BudgetViewController.swift; sourceTree = "<group>"; };
-		93F0E5431A721975009D95EC /* TaskEditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskEditorViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,7 +148,9 @@
 		9385F1661AA36B63000C8726 /* Add/Edit Task Views */ = {
 			isa = PBXGroup;
 			children = (
-				93F0E5431A721975009D95EC /* TaskEditorViewController.swift */,
+				9385F1751AA39D30000C8726 /* TaskEditorViewController.swift */,
+				9385F1791AA3C3A3000C8726 /* TaskEditorTimePickerViewController.swift */,
+				9385F17B1AA3C805000C8726 /* TaskEditorCategorySelectorViewController.swift */,
 			);
 			name = "Add/Edit Task Views";
 			sourceTree = "<group>";
@@ -150,6 +162,7 @@
 				93F0E5131A720BF4009D95EC /* EditTaskCell.swift */,
 				93B2E5FB1A905F990058372F /* MemoCell.swift */,
 				939DB88F1AA2CD330047C108 /* SubtitleDetailCell.swift */,
+				9385F1771AA3A248000C8726 /* TextfieldCell.swift */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -170,6 +183,7 @@
 			children = (
 				93F0E5411A721960009D95EC /* BudgetViewController.swift */,
 				93F0E5161A720BF4009D95EC /* RecordsViewController.swift */,
+				9385F1731AA397C8000C8726 /* SettingsViewController.swift */,
 			);
 			name = "Main Views";
 			sourceTree = "<group>";
@@ -222,6 +236,7 @@
 		93F0E4EA1A720B64009D95EC /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				9385F16F1AA396D4000C8726 /* gear 34x34.png */,
 				93F0E4EB1A720B64009D95EC /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -367,6 +382,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9385F1721AA396D4000C8726 /* gear 34x34.png in Resources */,
 				93F0E4F71A720B64009D95EC /* LaunchScreen.xib in Resources */,
 				93F0E50D1A720BD4009D95EC /* iPhone.storyboard in Resources */,
 				93F0E4F41A720B64009D95EC /* Images.xcassets in Resources */,
@@ -401,6 +417,8 @@
 				93F0E52C1A720BF4009D95EC /* TransitionDismissalAnimator.swift in Sources */,
 				93B2E5F51A903E790058372F /* TimePickerViewController.swift in Sources */,
 				93F0E5421A721960009D95EC /* BudgetViewController.swift in Sources */,
+				9385F17C1AA3C805000C8726 /* TaskEditorCategorySelectorViewController.swift in Sources */,
+				9385F1781AA3A248000C8726 /* TextfieldCell.swift in Sources */,
 				93F0E52A1A720BF4009D95EC /* Time.swift in Sources */,
 				93F0E5251A720BF4009D95EC /* Record.swift in Sources */,
 				93223B491A86840500365D3A /* AddRecordViewController.swift in Sources */,
@@ -408,15 +426,17 @@
 				939DB8901AA2CD330047C108 /* SubtitleDetailCell.swift in Sources */,
 				93F0E5271A720BF4009D95EC /* Task.swift in Sources */,
 				93F0E52D1A720BF4009D95EC /* TransitionPresentationAnimator.swift in Sources */,
+				9385F1761AA39D30000C8726 /* TaskEditorViewController.swift in Sources */,
 				9320D56F1A74625B0013018C /* MarshalOperator.swift in Sources */,
 				93F0E5231A720BF4009D95EC /* EditTaskCell.swift in Sources */,
 				93B2E5FC1A905F990058372F /* MemoCell.swift in Sources */,
-				93F0E5441A721975009D95EC /* TaskEditorViewController.swift in Sources */,
 				93F0E4ED1A720B64009D95EC /* AppDelegate.swift in Sources */,
 				93F0E53C1A721396009D95EC /* Database.swift in Sources */,
 				93F0E5201A720BF4009D95EC /* Category.swift in Sources */,
 				93B2E5F71A903E890058372F /* DatePickerViewController.swift in Sources */,
 				93F0E5211A720BF4009D95EC /* CategoryCell.swift in Sources */,
+				9385F1741AA397C8000C8726 /* SettingsViewController.swift in Sources */,
+				9385F17A1AA3C3A3000C8726 /* TaskEditorTimePickerViewController.swift in Sources */,
 				93B2E5F31A9032B80058372F /* TaskSelectorViewController.swift in Sources */,
 				93F0E5261A720BF4009D95EC /* RecordsViewController.swift in Sources */,
 			);
