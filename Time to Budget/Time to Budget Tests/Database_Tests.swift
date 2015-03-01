@@ -64,7 +64,7 @@ class Database_Tests: XCTestCase {
         
         let task = Task.objectsWhere("name = 'TestTask'").objectAtIndex(0) as Task
         
-        Database.moveTask(taskName: task.name, newCategory: "Test2")
+        Database.moveTask(taskName: task.name, newCategoryName: "Test2")
         
         let cat1 = Category.objectsWhere("name = 'Test1'").objectAtIndex(0) as Category
         let cat2 = Category.objectsWhere("name = 'Test2'").objectAtIndex(0) as Category
@@ -80,7 +80,7 @@ class Database_Tests: XCTestCase {
         Database.addTask(name: "TestTask", memo: "TestMemo", time: 5.45, categoryName: "Test1")
         let task = Task.objectsWhere("name = 'TestTask'").objectAtIndex(0) as Task
         
-        Database.updateTask(task: task, name: "TestTaskUpdated", memo: "TestMemoUpdated", time: 1.15, categoryName: "Test1")
+        Database.updateTask(taskName: task.name, name: "TestTaskUpdated", memo: "TestMemoUpdated", time: 1.15, categoryName: "Test1")
         
         let newTask = (Category.objectsWhere("name = 'Test1'").objectAtIndex(0) as Category).tasks.objectAtIndex(0) as Task
         
@@ -138,10 +138,6 @@ class Database_Tests: XCTestCase {
         let deletedTask1Test = (Task.objectsWhere("name = 'dtest1'").count == 0)
         let deletedTask2Test = (Task.objectsWhere("name = 'dtest2'").count == 0)
         let deletedTask3Test = (Task.objectsWhere("name = 'dtest3'").count == 0)
-        
-        println(Task.objectsWhere("name = 'dtest1'").count)
-        println(Task.objectsWhere("name = 'dtest2'").count)
-        println(Task.objectsWhere("name = 'dtest3'").count)
         
         let deletedTest:Bool = (Category.objectsWhere("name = 'Test 1'").count == 0 && Category.objectsWhere("name = 'Test 2'").count == 0)
         let retainedTasksTest = (retainedTask1Test && retainedTask2Test && retainedTask3Test)
@@ -203,9 +199,6 @@ class Database_Tests: XCTestCase {
         let timeTest:Bool = (record.timeSpent == 5.30)
         let dateTest:Bool = (record.dateToString() == dateFormatter.stringFromDate(testDate))
         
-        println(record.dateToString())
-        println(dateFormatter.stringFromDate(testDate))
-        
         XCTAssert((noteTest && timeTest && dateTest), "Failed to Add Record Properly")
     }
     
@@ -225,7 +218,7 @@ class Database_Tests: XCTestCase {
         
         let record = (Task.objectsWhere("name = 'TestTask1'").objectAtIndex(0) as Task).records.objectAtIndex(0) as Record
         
-        Database.moveRecord(record: record, newTask: "TestTask2")
+        Database.moveRecord(record: record, newTaskName: "TestTask2")
         
         let movedRecord = (Task.objectsWhere("name = 'TestTask2'").objectAtIndex(0) as Task).records.objectAtIndex(0) as Record
         
