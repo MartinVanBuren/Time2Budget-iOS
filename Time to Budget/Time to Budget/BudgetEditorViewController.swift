@@ -88,8 +88,12 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
     
     //==================== UITableViewDelegate Methods ====================
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        addTaskDialog = false
-        performSegueWithIdentifier("showTaskEditorView", sender: self)
+        if (((categoryList.objectAtIndex(UInt(indexPath.section)) as Category).tasks.objectAtIndex(UInt(indexPath.row))) as Task).name != "Taskless Records" {
+            addTaskDialog = false
+            performSegueWithIdentifier("showTaskEditorView", sender: self)
+        } else {
+            Factory.displayAlert(viewController: self, title: "Cannot Edit", message: "This task is an essential system task and cannot be edited")
+        }
     }
     
     
@@ -114,7 +118,7 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
         Factory.displayAddCategoryAlert(viewController: self)
     }
     
-    @IBAction func deleteCategoryButtonPressed(sender: UIButton) {
+    @IBAction func editCategoryButtonPressed(sender: UIButton) {
         
         let cell = sender.superview?.superview as CategoryCell
 

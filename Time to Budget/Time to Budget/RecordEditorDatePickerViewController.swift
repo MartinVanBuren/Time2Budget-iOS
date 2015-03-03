@@ -8,9 +8,9 @@
 
 import UIKit
 
-class DatePickerViewController: UIViewController {
+class RecordEditorDatePickerViewController: UIViewController {
 
-    var addRecordVC:AddRecordViewController!
+    var recordEditorVC:RecordEditorViewController!
     var datePicked:NSDate!
     @IBOutlet weak var datePicker: UIDatePicker!
     
@@ -19,7 +19,7 @@ class DatePickerViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         
-        self.datePicked = self.addRecordVC.date
+        self.datePicked = self.recordEditorVC.date
         
         self.datePicker.setDate(self.datePicked, animated: true)
         
@@ -31,7 +31,7 @@ class DatePickerViewController: UIViewController {
     }
 
     @IBAction func saveButtonPressed(sender: UIButton) {
-        addRecordVC.date = self.datePicked
+        recordEditorVC.date = self.datePicked
         
         self.navigationController?.popViewControllerAnimated(true)
     }

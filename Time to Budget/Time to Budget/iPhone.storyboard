@@ -117,12 +117,12 @@
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kxh-wg-VZE">
+                                                <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kxh-wg-VZE">
                                                     <rect key="frame" x="-23" y="-15" width="46" height="30"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                                     <state key="normal" title="Edit"/>
                                                     <connections>
-                                                        <action selector="deleteCategoryButtonPressed:" destination="gDl-Q2-PJ8" eventType="touchUpInside" id="TcP-Ck-M6u"/>
+                                                        <action selector="editCategoryButtonPressed:" destination="gDl-Q2-PJ8" eventType="touchUpInside" id="fMO-bj-9Zp"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
@@ -184,6 +184,7 @@
                                             </variation>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="editButton" destination="kxh-wg-VZE" id="DrU-D7-DeD"/>
                                             <outlet property="remainingTimeLabel" destination="l7i-KU-OfP" id="Pbf-ka-u8u"/>
                                             <outlet property="sectionNameLabel" destination="6yV-z2-kas" id="yD6-e1-6vm"/>
                                         </connections>
@@ -975,10 +976,10 @@
             </objects>
             <point key="canvasLocation" x="2490" y="135"/>
         </scene>
-        <!--Add Record View Controller-->
+        <!--Record Editor View Controller-->
         <scene sceneID="K5g-JQ-wx4">
             <objects>
-                <viewController title="Add Record View Controller" id="Ji8-4B-5Xa" userLabel="Add Record View Controller" customClass="AddRecordViewController" customModule="Time_to_Budget" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Record Editor View Controller" id="Ji8-4B-5Xa" customClass="RecordEditorViewController" customModule="Time_to_Budget" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="9fg-aX-evn"/>
                         <viewControllerLayoutGuide type="bottom" id="6bD-W8-5dF"/>
@@ -1175,10 +1176,10 @@
             </objects>
             <point key="canvasLocation" x="5121" y="-240.75"/>
         </scene>
-        <!--Time Picker View Controller-->
+        <!--Record Editor Time Picker View Controller-->
         <scene sceneID="Vux-cj-SqD">
             <objects>
-                <viewController id="F8n-Iw-4On" userLabel="Time Picker View Controller" customClass="TimePickerViewController" customModule="Time_to_Budget" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="F8n-Iw-4On" userLabel="Record Editor Time Picker View Controller" customClass="RecordEditorTimePickerViewController" customModule="Time_to_Budget" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="OLb-lH-p0b"/>
                         <viewControllerLayoutGuide type="bottom" id="Oka-Vc-d0X"/>
@@ -1327,10 +1328,10 @@
             </objects>
             <point key="canvasLocation" x="5890.5" y="-417.75"/>
         </scene>
-        <!--Date Picker View Controller-->
+        <!--Record Editor Date Picker View Controller-->
         <scene sceneID="swB-09-Tzt">
             <objects>
-                <viewController id="x6k-sM-pnq" userLabel="Date Picker View Controller" customClass="DatePickerViewController" customModule="Time_to_Budget" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="x6k-sM-pnq" userLabel="Record Editor Date Picker View Controller" customClass="RecordEditorDatePickerViewController" customModule="Time_to_Budget" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Kce-md-Hch"/>
                         <viewControllerLayoutGuide type="bottom" id="DlX-u1-FDE"/>
@@ -1448,10 +1449,10 @@
             </objects>
             <point key="canvasLocation" x="5890.5" y="258.75"/>
         </scene>
-        <!--Task Selector View Controller-->
+        <!--Record Editor Task Selector View Controller-->
         <scene sceneID="alh-v7-VGE">
             <objects>
-                <viewController id="pK4-2A-tVc" userLabel="Task Selector View Controller" customClass="TaskSelectorViewController" customModule="Time_to_Budget" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="pK4-2A-tVc" userLabel="Record Editor Task Selector View Controller" customClass="RecordEditorTaskSelectorViewController" customModule="Time_to_Budget" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="lKb-7F-cX3"/>
                         <viewControllerLayoutGuide type="bottom" id="gA8-l3-2k7"/>

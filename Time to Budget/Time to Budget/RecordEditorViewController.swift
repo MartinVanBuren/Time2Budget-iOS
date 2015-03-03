@@ -9,7 +9,7 @@
 import UIKit
 import Realm
 
-class AddRecordViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate {
+class RecordEditorViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate {
     
     var editRecord:Bool = false
     var currentTask:Task?
@@ -35,6 +35,7 @@ class AddRecordViewController: UIViewController, UITableViewDataSource, UITableV
             self.timeSpent = Time.doubleToTime(unwrappedRecord.timeSpent)
             self.date = unwrappedRecord.date
             self.memo = unwrappedRecord.note
+            self.navigationItem.title = "Edit Record"
         }
     }
 
@@ -56,14 +57,14 @@ class AddRecordViewController: UIViewController, UITableViewDataSource, UITableV
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if (segue.identifier == "showTaskSelectorView") {
-            let taskSelectorVC = segue.destinationViewController as TaskSelectorViewController
-            taskSelectorVC.addRecordVC = self
+            let taskSelectorVC = segue.destinationViewController as RecordEditorTaskSelectorViewController
+            taskSelectorVC.recordEditorVC = self
         } else if (segue.identifier == "showTimePickerView") {
-            let timePickerVC = segue.destinationViewController as TimePickerViewController
-            timePickerVC.addRecordVC = self
+            let timePickerVC = segue.destinationViewController as RecordEditorTimePickerViewController
+            timePickerVC.recordEditorVC = self
         } else if (segue.identifier == "showDatePickerView") {
-            let datePickerVC = segue.destinationViewController as DatePickerViewController
-            datePickerVC.addRecordVC = self
+            let datePickerVC = segue.destinationViewController as RecordEditorDatePickerViewController
+            datePickerVC.recordEditorVC = self
         }
         
         fixContentInset(calledFromSegue: true)

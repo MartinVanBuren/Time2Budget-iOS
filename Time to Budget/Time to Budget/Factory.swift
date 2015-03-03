@@ -23,6 +23,9 @@ public class Factory {
         if !isEditor {
             preparedCell.remainingTimeLabel.text = Time.doubleToString(thisCategory.totalTimeRemaining)
         } else {
+            if thisCategory.name == "Uncategorized" {
+                preparedCell.editButton.hidden = true
+            }
             preparedCell.remainingTimeLabel.text = Time.doubleToString(thisCategory.totalTimeBudgeted)
         }
         

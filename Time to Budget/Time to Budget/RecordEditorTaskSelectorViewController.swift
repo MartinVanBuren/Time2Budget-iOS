@@ -8,11 +8,11 @@
 
 import UIKit
 
-class TaskSelectorViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class RecordEditorTaskSelectorViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     let realm = Database.getRealm()
     let categoryList = Category.allObjects()
-    var addRecordVC:AddRecordViewController!
+    var recordEditorVC:RecordEditorViewController!
     @IBOutlet weak var tableView: UITableView!
     var returning:Bool? = false
     
@@ -56,7 +56,7 @@ class TaskSelectorViewController: UIViewController, UITableViewDataSource, UITab
     
     //==================== UITableViewDelegate Methods ====================
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        addRecordVC.currentTask = ((categoryList.objectAtIndex(UInt(indexPath.section)) as Category).tasks.objectAtIndex(UInt(indexPath.row)) as Task)
+        recordEditorVC.currentTask = ((categoryList.objectAtIndex(UInt(indexPath.section)) as Category).tasks.objectAtIndex(UInt(indexPath.row)) as Task)
         self.navigationController?.popViewControllerAnimated(true)
     }
     

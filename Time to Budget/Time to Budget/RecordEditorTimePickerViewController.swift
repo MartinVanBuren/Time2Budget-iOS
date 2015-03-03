@@ -8,13 +8,13 @@
 
 import UIKit
 
-class TimePickerViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
+class RecordEditorTimePickerViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
 
     // Time Picker Declarations
     var timeHourPickerData:[Int] = Factory.prepareTimeHourPickerData()
     var timeMinutePickerData:[Int] = Factory.prepareTimeMinutePickerData()
     var timePicked:Time = Time()
-    var addRecordVC:AddRecordViewController!
+    var recordEditorVC:RecordEditorViewController!
     @IBOutlet weak var timePicker: UIPickerView!
     
     // Stop watch Declarations
@@ -31,7 +31,7 @@ class TimePickerViewController: UIViewController, UIPickerViewDataSource, UIPick
         timePicker.dataSource = self
         timePicker.delegate = self
         
-        if let unwrappedTime = addRecordVC.timeSpent {
+        if let unwrappedTime = recordEditorVC.timeSpent {
             timePicked = unwrappedTime
         } else {
             timePicked.hours = 0
@@ -73,7 +73,7 @@ class TimePickerViewController: UIViewController, UIPickerViewDataSource, UIPick
     
     //IB Actions
     @IBAction func saveButtonPressed(sender: UIButton) {
-        addRecordVC.timeSpent = self.timePicked
+        recordEditorVC.timeSpent = self.timePicked
         
         self.navigationController?.popViewControllerAnimated(true)
     }
