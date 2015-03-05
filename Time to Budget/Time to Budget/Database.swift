@@ -16,6 +16,13 @@ public class Database {
         return RLMRealm.defaultRealm()
     }
     
+    public class func getExampleRealm() -> RLMRealm {
+        let path = NSBundle.mainBundle().pathForResource("example", ofType: "realm")
+        let exampleRealm = RLMRealm(path: path, readOnly: true, error: NSErrorPointer())
+        
+        return exampleRealm
+    }
+    
     public class func checkCategoryName(#name: String) -> Bool {
         let count = Int(Category.objectsWhere("name = '\(name)'").count)
         
