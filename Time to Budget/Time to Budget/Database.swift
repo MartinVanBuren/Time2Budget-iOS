@@ -52,6 +52,10 @@ public class Database {
         let loopCount:UInt = currentCategoryTasks.count
         
         if (retainTasks) {
+            if Category.objectsWhere("name = 'Uncategorized'").count == 0 {
+                Database.addCategory(name: "Uncategorized")
+            }
+            
             for var i:UInt = 0; i < loopCount; ++i {
                 Database.moveTask(taskName: (currentCategoryTasks.firstObject() as Task).name, newCategoryName: "Uncategorized")
             }
@@ -155,6 +159,10 @@ public class Database {
         
         if (retainRecords) {
             let loopCount:UInt = currentTask.records.count
+            
+            if Task.objectsWhere("name = 'Taskless Records'").count == 0 {
+                Database.addTask(name: "Taskless Records", memo: "Retained records from a deleted Task.", time: 0.0, categoryName: "\(parent.name)")
+            }
             
             for var i:UInt = 0; i < loopCount; ++i {
                 Database.moveRecord(record: (currentTask.records.firstObject() as Record), newTaskName: "Taskless Records")
