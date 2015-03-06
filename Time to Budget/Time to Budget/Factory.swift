@@ -22,8 +22,24 @@ public class Factory {
         preparedCell.sectionNameLabel.text = thisCategory.name
         if !isEditor {
             preparedCell.remainingTimeLabel.text = Time.doubleToString(thisCategory.totalTimeRemaining)
+            
+            if thisCategory.totalTimeRemaining > 0.0 {
+                preparedCell.remainingTimeLabel.textColor = UIColor(red: 0.25, green: 0.65, blue: 0.05, alpha: 1.0)
+            } else if thisCategory.totalTimeRemaining < 0.0 {
+                preparedCell.remainingTimeLabel.textColor = UIColor.redColor()
+            } else {
+                preparedCell.remainingTimeLabel.textColor = UIColor(red: 85/255, green: 85/255, blue: 85/255, alpha: 1.0)
+            }
         } else {
             preparedCell.remainingTimeLabel.text = Time.doubleToString(thisCategory.totalTimeBudgeted)
+            
+            if thisCategory.totalTimeBudgeted > 0.0 {
+                preparedCell.remainingTimeLabel.textColor = UIColor(red: 0.25, green: 0.65, blue: 0.05, alpha: 1.0)
+            } else if thisCategory.totalTimeBudgeted < 0.0 {
+                preparedCell.remainingTimeLabel.textColor = UIColor.redColor()
+            } else {
+                preparedCell.remainingTimeLabel.textColor = UIColor(red: 85/255, green: 85/255, blue: 85/255, alpha: 1.0)
+            }
         }
         
         let returnedView = UIView()
@@ -44,9 +60,28 @@ public class Factory {
         
         if !isEditor {
             preparedCell.detail.text = Time.doubleToString(thisTask.timeRemaining)
+            
+            if thisTask.timeRemaining > 0.0 {
+                preparedCell.detail.textColor = UIColor(red: 0.25, green: 0.65, blue: 0.05, alpha: 1.0)
+            } else if thisTask.timeRemaining < 0.0 {
+                preparedCell.detail.textColor = UIColor.redColor()
+            } else {
+                preparedCell.detail.textColor = UIColor(red: 127/255, green: 127/255, blue: 127/255, alpha: 1.0)
+            }
+            
         } else {
             preparedCell.detail.text = Time.doubleToString(thisTask.timeBudgeted)
+            
+            if thisTask.timeBudgeted > 0.0 {
+                preparedCell.detail.textColor = UIColor(red: 0.25, green: 0.65, blue: 0.05, alpha: 1.0)
+            } else if thisTask.timeRemaining < 0.0 {
+                preparedCell.detail.textColor = UIColor.redColor()
+            } else {
+                preparedCell.detail.textColor = UIColor(red: 127/255, green: 127/255, blue: 127/255, alpha: 1.0)
+            }
         }
+        
+        
         
         return preparedCell
     }
