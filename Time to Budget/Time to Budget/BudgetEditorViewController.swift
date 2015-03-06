@@ -50,22 +50,17 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
     //==================== Segue Preperation ====================
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "showTaskEditorView" {
-            let taskEditorVC:TaskEditorViewController = segue.destinationViewController as TaskEditorViewController
+            let taskEditorVC:TaskEditorViewController = (segue.destinationViewController as UINavigationController).topViewController as TaskEditorViewController
             taskEditorVC.budgetEditorViewController = self
             
             if (!addTaskDialog) {
                 let indexPath = self.tableView.indexPathForSelectedRow()!
                 let thisTask = ((categoryList.objectAtIndex(UInt(indexPath.section)) as Category).tasks.objectAtIndex(UInt(indexPath.row))) as Task
-                let thisCategory = (categoryList.objectAtIndex(UInt(indexPath.section)) as Category)
                 taskEditorVC.currentTask = thisTask
-                taskEditorVC.currentCategory = thisCategory
+                taskEditorVC.editTask = true
             }
             
             fixContentInset(calledFromSegue: true)
-        }
-        
-        if segue.identifier == "showTrackingView" {
-            let trackingVC:AddRecordViewController = segue.destinationViewController as AddRecordViewController
         }
     }
     
@@ -94,8 +89,8 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
     //==================== UITableViewDelegate Methods ====================
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
+        addTaskDialog = false
         performSegueWithIdentifier("showTaskEditorView", sender: self)
-        
     }
     
     
@@ -120,7 +115,7 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
         Factory.displayAddCategoryAlert(viewController: self)
     }
     
-    @IBAction func deleteCategoryButtonPressed(sender: UIButton) {
+    @IBAction func editCategoryButtonPressed(sender: UIButton) {
         
         let cell = sender.superview?.superview as CategoryCell
 

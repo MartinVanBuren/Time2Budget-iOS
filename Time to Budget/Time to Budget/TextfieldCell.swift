@@ -1,18 +1,16 @@
 //
-//  CategoryCell.swift
+//  TextfieldCell.swift
 //  Time to Budget
 //
-//  Created by Robert Kennedy on 12/14/14.
-//  Copyright (c) 2014 Arrken Games, LLC. All rights reserved.
+//  Created by Robert Kennedy on 3/1/15.
+//  Copyright (c) 2015 Arrken Games, LLC. All rights reserved.
 //
 
 import UIKit
 
-class CategoryCell: UITableViewCell {
+class TextfieldCell: UITableViewCell {
 
-    @IBOutlet weak var sectionNameLabel: UILabel!
-    @IBOutlet weak var remainingTimeLabel: UILabel!
-    @IBOutlet weak var editButton: UIButton!
+    @IBOutlet weak var textField: UITextField!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -24,4 +22,5 @@ class CategoryCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
+
 }

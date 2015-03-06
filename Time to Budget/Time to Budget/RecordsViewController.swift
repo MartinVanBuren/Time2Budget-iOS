@@ -47,7 +47,7 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "showTrackingViewAlt" {
             
-            let trackingVC:AddRecordViewController = (segue.destinationViewController as UINavigationController).topViewController as AddRecordViewController
+            let trackingVC = (segue.destinationViewController as UINavigationController).topViewController as RecordEditorViewController
             
             if self.editRecord {
                 let indexPath = self.tableView.indexPathForSelectedRow()!

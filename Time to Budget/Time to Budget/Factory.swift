@@ -22,8 +22,24 @@ public class Factory {
         preparedCell.sectionNameLabel.text = thisCategory.name
         if !isEditor {
             preparedCell.remainingTimeLabel.text = Time.doubleToString(thisCategory.totalTimeRemaining)
+            
+            if thisCategory.totalTimeRemaining > 0.0 {
+                preparedCell.remainingTimeLabel.textColor = UIColor(red: 0.25, green: 0.65, blue: 0.05, alpha: 1.0)
+            } else if thisCategory.totalTimeRemaining < 0.0 {
+                preparedCell.remainingTimeLabel.textColor = UIColor.redColor()
+            } else {
+                preparedCell.remainingTimeLabel.textColor = UIColor(red: 85/255, green: 85/255, blue: 85/255, alpha: 1.0)
+            }
         } else {
             preparedCell.remainingTimeLabel.text = Time.doubleToString(thisCategory.totalTimeBudgeted)
+            
+            if thisCategory.totalTimeBudgeted > 0.0 {
+                preparedCell.remainingTimeLabel.textColor = UIColor(red: 0.25, green: 0.65, blue: 0.05, alpha: 1.0)
+            } else if thisCategory.totalTimeBudgeted < 0.0 {
+                preparedCell.remainingTimeLabel.textColor = UIColor.redColor()
+            } else {
+                preparedCell.remainingTimeLabel.textColor = UIColor(red: 85/255, green: 85/255, blue: 85/255, alpha: 1.0)
+            }
         }
         
         let returnedView = UIView()
@@ -44,9 +60,28 @@ public class Factory {
         
         if !isEditor {
             preparedCell.detail.text = Time.doubleToString(thisTask.timeRemaining)
+            
+            if thisTask.timeRemaining > 0.0 {
+                preparedCell.detail.textColor = UIColor(red: 0.25, green: 0.65, blue: 0.05, alpha: 1.0)
+            } else if thisTask.timeRemaining < 0.0 {
+                preparedCell.detail.textColor = UIColor.redColor()
+            } else {
+                preparedCell.detail.textColor = UIColor(red: 127/255, green: 127/255, blue: 127/255, alpha: 1.0)
+            }
+            
         } else {
             preparedCell.detail.text = Time.doubleToString(thisTask.timeBudgeted)
+            
+            if thisTask.timeBudgeted > 0.0 {
+                preparedCell.detail.textColor = UIColor(red: 0.25, green: 0.65, blue: 0.05, alpha: 1.0)
+            } else if thisTask.timeRemaining < 0.0 {
+                preparedCell.detail.textColor = UIColor.redColor()
+            } else {
+                preparedCell.detail.textColor = UIColor(red: 127/255, green: 127/255, blue: 127/255, alpha: 1.0)
+            }
         }
+        
+        
         
         return preparedCell
     }
@@ -117,6 +152,64 @@ public class Factory {
         return memoCell
     }
     
+    class func prepareAddTaskNameCell(#tableView: UITableView, name: String?) -> UITableViewCell {
+        var preparedCell = tableView.dequeueReusableCellWithIdentifier("taskNameCell") as TextfieldCell
+        
+        if let unwrappedName = name? {
+            preparedCell.textField.text = unwrappedName
+        } else {
+            preparedCell.textField.placeholder = "Task Name"
+        }
+        
+        return preparedCell
+    }
+    
+    class func prepareAddTaskMemoCell(#tableView: UITableView, memo: String?) -> UITableViewCell {
+        var preparedCell = tableView.dequeueReusableCellWithIdentifier("taskMemoCell") as TextfieldCell
+        
+        if let unwrappedMemo = memo? {
+            preparedCell.textField.text = unwrappedMemo
+        } else {
+            preparedCell.textField.placeholder = "Memo (Optional)"
+        }
+        
+        return preparedCell
+    }
+    
+    class func prepareAddTaskCategoryCell(#tableView: UITableView, categoryName: String?) -> UITableViewCell {
+        var preparedCell = UITableViewCell(style: UITableViewCellStyle.Value1, reuseIdentifier: "rightDetailCell")
+        
+        preparedCell.textLabel?.text = "Category"
+        
+        if let unwrappedCategoryName = categoryName? {
+            preparedCell.detailTextLabel?.text = categoryName
+            preparedCell.detailTextLabel?.textColor = UIColor.blackColor()
+        } else {
+            preparedCell.detailTextLabel?.text = "Choose Category"
+        }
+        
+        preparedCell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
+        
+        return preparedCell
+    }
+    
+    class func prepareAddTaskTimeCell(#tableView: UITableView, time: Double?) -> UITableViewCell {
+        var preparedCell = UITableViewCell(style: UITableViewCellStyle.Value1, reuseIdentifier: "rightDetailCell")
+        
+        preparedCell.textLabel?.text = "Time Budgeted"
+        
+        if let unwrappedTime = time? {
+            preparedCell.detailTextLabel?.text = Time.doubleToString(unwrappedTime)
+            preparedCell.detailTextLabel?.textColor = UIColor.blackColor()
+        } else {
+            preparedCell.detailTextLabel?.text = "00:00"
+        }
+        
+        preparedCell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
+        
+        return preparedCell
+    }
+    
     class func prepareRecordCell(#tableView: UITableView, recordList: RLMArray, indexPath: NSIndexPath) -> UITableViewCell {
         var preparedCell = tableView.dequeueReusableCellWithIdentifier("RecordCell") as SubtitleDetailCell
         let thisRecord = recordList.objectAtIndex(UInt(indexPath.row)) as Record
@@ -161,39 +254,31 @@ public class Factory {
     class func displayDeleteTaskAlert(#viewController: BudgetEditorViewController, indexPath: NSIndexPath){
         let currentTask = ((Category.allObjects().objectAtIndex(UInt(indexPath.section)) as Category).tasks.objectAtIndex(UInt(indexPath.row)) as Task)
         
-        if (!(currentTask.name == "Taskless Records")) {
-            let alert = UIAlertController(title: "Keep Records?", message: "Records will be moved to the 'Taskless Records' Task", preferredStyle: UIAlertControllerStyle.Alert)
-            alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
-                Database.deleteTask(taskName: currentTask.name, retainRecords: true)
-            }))
-            alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
-                Database.deleteTask(taskName: currentTask.name, retainRecords: false)
-            }))
-            alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
+        let alert = UIAlertController(title: "Keep Records?", message: "Records will be moved to the 'Taskless Records' Task", preferredStyle: UIAlertControllerStyle.Alert)
+        alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+            Database.deleteTask(taskName: currentTask.name, retainRecords: true)
+        }))
+        alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+            Database.deleteTask(taskName: currentTask.name, retainRecords: false)
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
             
-            viewController.presentViewController(alert, animated: true, completion: {})
-        } else {
-            Factory.displayAlert(viewController: viewController, title: "Cannot Delete", message: "'Taskless Records' is used to store Records from deleted Tasks")
-        }
+        viewController.presentViewController(alert, animated: true, completion: {})
     }
     
     class func displayDeleteCategoryAlert(#viewController: UIViewController, categoryName: String) {
         let currentCategory = (Category.objectsWhere("name = '\(categoryName)'").objectAtIndex(0) as Category)
         
-        if (!(currentCategory.name == "Uncategorized")) {
-            let alert = UIAlertController(title: "Keep Tasks?", message: "Tasks will be moved to the 'Uncategorized' Category", preferredStyle: UIAlertControllerStyle.Alert)
-            alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
-                Database.deleteCategory(categoryName: currentCategory.name, retainTasks: true)
-            }))
-            alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
-                Database.deleteCategory(categoryName: currentCategory.name, retainTasks: false)
-            }))
-            alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
+        let alert = UIAlertController(title: "Keep Tasks?", message: "Tasks will be moved to the 'Uncategorized' Category", preferredStyle: UIAlertControllerStyle.Alert)
+        alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+            Database.deleteCategory(categoryName: currentCategory.name, retainTasks: true)
+        }))
+        alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+            Database.deleteCategory(categoryName: currentCategory.name, retainTasks: false)
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
             
-            viewController.presentViewController(alert, animated: true, completion: {})
-        } else {
-            Factory.displayAlert(viewController: viewController, title: "Cannot Delete", message: "'Uncategorized' is used to store Tasks from deleted Categories")
-        }
+        viewController.presentViewController(alert, animated: true, completion: {})
     }
 
     class func displayAddCategoryAlert(#viewController: UIViewController) {
@@ -222,7 +307,6 @@ public class Factory {
     class func displayEditCategoryAlert(#viewController: UIViewController, categoryName: String) {
         var inputTextField = UITextField()
         let category = Category.objectsWhere("name = '\(categoryName)'").firstObject() as Category
-        //inputTextField.text = category.name
         
         let alert = UIAlertController(title: "Edit Category", message: "", preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Delete", style: UIAlertActionStyle.Default, handler: { (action) -> Void in

@@ -77,6 +77,10 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
         performSegueWithIdentifier("showTrackingView", sender: self)
     }
     
+    @IBAction func settingsButtonPressed(sender: UIBarButtonItem) {
+        performSegueWithIdentifier("showSettingsView", sender: self)
+    }
+    
     //==================== UITableViewDataSource Methods ====================
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         
