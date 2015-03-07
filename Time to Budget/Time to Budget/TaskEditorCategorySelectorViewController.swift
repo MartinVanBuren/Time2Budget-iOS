@@ -11,7 +11,7 @@ import UIKit
 class TaskEditorCategorySelectorViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     let realm = Database.getRealm()
-    let categoryList = Category.allObjects()
+    let currentBudget = Budget.objectsWhere("isCurrent = TRUE").firstObject() as Budget
     var taskEditorVC:TaskEditorViewController!
     var returning:Bool? = false
     @IBOutlet weak var tableView: UITableView!
@@ -37,13 +37,13 @@ class TaskEditorCategorySelectorViewController: UIViewController, UITableViewDat
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return Int(categoryList.count)
+        return Int(currentBudget.categories.count)
         
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var finalCell = UITableViewCell()
-        finalCell.addSubview(Factory.prepareCategoryCell(tableView: self.tableView, categoryList: self.categoryList, section: indexPath.row, isEditor: false))
+        finalCell.addSubview(Factory.prepareCategoryCell(tableView: self.tableView, categoryList: currentBudget.categories, section: indexPath.row, isEditor: false))
         
         return finalCell
     }
@@ -56,7 +56,7 @@ class TaskEditorCategorySelectorViewController: UIViewController, UITableViewDat
     
     //==================== UITableViewDelegate Methods ====================
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        taskEditorVC.taskCategory = (categoryList.objectAtIndex(UInt(indexPath.row)) as Category).name
+        taskEditorVC.taskCategory = (currentBudget.categories.objectAtIndex(UInt(indexPath.row)) as Category).name
         self.navigationController?.popViewControllerAnimated(true)
     }
     

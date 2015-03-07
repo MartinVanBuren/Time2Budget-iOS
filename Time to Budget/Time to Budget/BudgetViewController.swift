@@ -22,12 +22,19 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
     
     //==================== Realm Properties ====================
     let realm = Database.getRealm()
-    let categoryList = Category.allObjects()
+    var currentBudget:Budget?
     var notificationToken: RLMNotificationToken?
     
     //==================== Pre-Generated Methods ====================
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if Budget.objectsWhere("isCurrent = TRUE").count > 0 {
+            self.currentBudget = (Budget.objectsWhere("isCurrent = TRUE").firstObject() as Budget)
+        } else {
+            Database.newBudget()
+            self.currentBudget = (Budget.objectsWhere("isCurrent = TRUE").firstObject() as Budget)
+        }
         
         // Set realm notification block
         notificationToken = RLMRealm.defaultRealm().addNotificationBlock { note, realm in
@@ -59,7 +66,7 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
             let recordsVC:RecordsViewController = segue.destinationViewController as RecordsViewController
             
             let indexPath = self.tableView.indexPathForSelectedRow()!
-            let thisTask = ((categoryList.objectAtIndex(UInt(indexPath.section)) as Category).tasks.objectAtIndex(UInt(indexPath.row))) as Task
+            let thisTask = ((currentBudget!.categories.objectAtIndex(UInt(indexPath.section)) as Category).tasks.objectAtIndex(UInt(indexPath.row))) as Task
             recordsVC.currentTask = thisTask
         }
         else if segue.identifier == "showBudgetEditorView" {
@@ -84,25 +91,25 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
     //==================== UITableViewDataSource Methods ====================
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         
-        return Int(categoryList.count)
+        return Int(currentBudget!.categories.count)
         
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return Int((categoryList.objectAtIndex(UInt(section)) as Category).tasks.count)
+        return Int((currentBudget!.categories.objectAtIndex(UInt(section)) as Category).tasks.count)
         
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        return Factory.prepareTaskCell(tableView: tableView, categoryList: categoryList, indexPath: indexPath, isEditor: false)
+        return Factory.prepareTaskCell(tableView: tableView, categoryList: currentBudget!.categories, indexPath: indexPath, isEditor: false)
         
     }
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
-        return Factory.prepareCategoryCell(tableView: tableView, categoryList: categoryList, section: section, isEditor: false)
+        return Factory.prepareCategoryCell(tableView: tableView, categoryList: currentBudget!.categories, section: section, isEditor: false)
         
     }
     
@@ -130,7 +137,7 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
     func navSingleTap() {
         if displayPrompt == false {
             displayPrompt = true
-            self.navigationItem.prompt = "Week of: "
+            self.navigationItem.prompt = "Budget: \(currentBudget!.name)"
         } else {
             clearPrompt()
         }

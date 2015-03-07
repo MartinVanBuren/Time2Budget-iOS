@@ -11,7 +11,7 @@ import UIKit
 import Realm
 
 public class Factory {
-    class func prepareCategoryCell(#tableView: UITableView, categoryList: RLMResults, section: Int, isEditor: Bool) -> UIView {
+    class func prepareCategoryCell(#tableView: UITableView, categoryList: RLMArray, section: Int, isEditor: Bool) -> UIView {
         
         let thisCategory = categoryList.objectAtIndex(UInt(section)) as Category
         
@@ -49,7 +49,7 @@ public class Factory {
         return returnedView
     }
     
-    class func prepareTaskCell(#tableView: UITableView, categoryList: RLMResults, indexPath: NSIndexPath, isEditor: Bool) -> UITableViewCell {
+    class func prepareTaskCell(#tableView: UITableView, categoryList: RLMArray, indexPath: NSIndexPath, isEditor: Bool) -> UITableViewCell {
         
         let thisTask = ((categoryList.objectAtIndex(UInt(indexPath.section)) as Category).tasks.objectAtIndex(UInt(indexPath.row)) as Task)
         
@@ -282,6 +282,7 @@ public class Factory {
     }
 
     class func displayAddCategoryAlert(#viewController: UIViewController) {
+        let currentBudget = Budget.objectsWhere("isCurrent = TRUE").firstObject() as Budget
         var inputTextField = UITextField()
         inputTextField.placeholder = "Enter Category Name"
         
@@ -305,6 +306,7 @@ public class Factory {
     }
     
     class func displayEditCategoryAlert(#viewController: UIViewController, categoryName: String) {
+        let currentBudget = Budget.objectsWhere("isCurrent = TRUE").firstObject() as Budget
         var inputTextField = UITextField()
         let category = Category.objectsWhere("name = '\(categoryName)'").firstObject() as Category
         
@@ -317,10 +319,8 @@ public class Factory {
         }))
         alert.addAction(UIAlertAction(title: "Save", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
             if (Database.checkCategoryName(name: inputTextField.text) || category.name == inputTextField.text) {
-                
                 Database.updateCategory(categoryName: category.name, newCategoryName: inputTextField.text)
             } else {
-                
                 Factory.displayAlert(viewController: viewController, title: "Category Name Taken", message: "'\(inputTextField.text)' is already a Category")
             }
         }))

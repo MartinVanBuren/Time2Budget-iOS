@@ -20,9 +20,10 @@
 		93B2E5F51A903E790058372F /* RecordEditorTimePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B2E5F41A903E790058372F /* RecordEditorTimePickerViewController.swift */; };
 		93B2E5F71A903E890058372F /* RecordEditorDatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B2E5F61A903E890058372F /* RecordEditorDatePickerViewController.swift */; };
 		93B2E5FC1A905F990058372F /* MemoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B2E5FB1A905F990058372F /* MemoCell.swift */; };
-		93BC90451A74C84200A63932 /* Database_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93BC90441A74C84200A63932 /* Database_Tests.swift */; };
 		93CBED4D1AA667AE00079482 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CBED4C1AA667AE00079482 /* Settings.swift */; };
 		93CBED501AA7E3DB00079482 /* example.realm in Resources */ = {isa = PBXBuildFile; fileRef = 93CBED4E1AA7E38500079482 /* example.realm */; };
+		93CBED531AAB505E00079482 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93CBED521AAB505E00079482 /* CloudKit.framework */; };
+		93CBED551AAB5BB000079482 /* CloudKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CBED541AAB5BB000079482 /* CloudKitManager.swift */; };
 		93D4673B1A762C780016E875 /* Budget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F0E53D1A7214E1009D95EC /* Budget.swift */; };
 		93D4673C1A762C780016E875 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F0E5101A720BF4009D95EC /* Category.swift */; };
 		93D4673D1A762C780016E875 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F0E5171A720BF4009D95EC /* Task.swift */; };
@@ -82,6 +83,9 @@
 		93BC90441A74C84200A63932 /* Database_Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Database_Tests.swift; sourceTree = "<group>"; };
 		93CBED4C1AA667AE00079482 /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		93CBED4E1AA7E38500079482 /* example.realm */ = {isa = PBXFileReference; lastKnownFileType = file; name = example.realm; path = ../example.realm; sourceTree = "<group>"; };
+		93CBED511AAB4C2000079482 /* Time to Budget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Time to Budget.entitlements"; sourceTree = "<group>"; };
+		93CBED521AAB505E00079482 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
+		93CBED541AAB5BB000079482 /* CloudKitManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloudKitManager.swift; sourceTree = "<group>"; };
 		93F0E4E71A720B64009D95EC /* Time to Budget.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Time to Budget.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		93F0E4EB1A720B64009D95EC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		93F0E4EC1A720B64009D95EC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -121,6 +125,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				93CBED531AAB505E00079482 /* CloudKit.framework in Frameworks */,
 				93F0E5371A720D79009D95EC /* libc++.dylib in Frameworks */,
 				93F0E5331A720D13009D95EC /* Realm.framework in Frameworks */,
 			);
@@ -203,6 +208,7 @@
 		93F0E4DE1A720B64009D95EC = {
 			isa = PBXGroup;
 			children = (
+				93CBED521AAB505E00079482 /* CloudKit.framework */,
 				93F0E4E91A720B64009D95EC /* Time to Budget */,
 				93F0E5381A720D94009D95EC /* Realm */,
 				9320D5761A746E900013018C /* Time to Budget Tests */,
@@ -222,6 +228,7 @@
 		93F0E4E91A720B64009D95EC /* Time to Budget */ = {
 			isa = PBXGroup;
 			children = (
+				93CBED511AAB4C2000079482 /* Time to Budget.entitlements */,
 				93F0E4EC1A720B64009D95EC /* AppDelegate.swift */,
 				93F0E52E1A720BFD009D95EC /* iPhone Views */,
 				93F0E52F1A720C38009D95EC /* Support Classes */,
@@ -268,6 +275,7 @@
 			isa = PBXGroup;
 			children = (
 				93F0E53B1A721396009D95EC /* Database.swift */,
+				93CBED541AAB5BB000079482 /* CloudKitManager.swift */,
 				93F0E53D1A7214E1009D95EC /* Budget.swift */,
 				93F0E5101A720BF4009D95EC /* Category.swift */,
 				93F0E5171A720BF4009D95EC /* Task.swift */,
@@ -351,6 +359,11 @@
 					93F0E4E61A720B64009D95EC = {
 						CreatedOnToolsVersion = 6.1.1;
 						DevelopmentTeam = 2LHJ7M29TL;
+						SystemCapabilities = {
+							com.apple.iCloud = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -399,7 +412,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				93BC90451A74C84200A63932 /* Database_Tests.swift in Sources */,
 				93D4673B1A762C780016E875 /* Budget.swift in Sources */,
 				9320D5891A7476A50013018C /* Time_Tests.swift in Sources */,
 				93D4673D1A762C780016E875 /* Task.swift in Sources */,
@@ -422,6 +434,7 @@
 				93F0E5421A721960009D95EC /* BudgetViewController.swift in Sources */,
 				9385F17C1AA3C805000C8726 /* TaskEditorCategorySelectorViewController.swift in Sources */,
 				9385F1781AA3A248000C8726 /* TextfieldCell.swift in Sources */,
+				93CBED551AAB5BB000079482 /* CloudKitManager.swift in Sources */,
 				93F0E52A1A720BF4009D95EC /* Time.swift in Sources */,
 				93F0E5251A720BF4009D95EC /* Record.swift in Sources */,
 				93223B491A86840500365D3A /* RecordEditorViewController.swift in Sources */,
@@ -587,6 +600,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "Time to Budget/Time to Budget.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = YES;
@@ -605,6 +619,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "Time to Budget/Time to Budget.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = YES;

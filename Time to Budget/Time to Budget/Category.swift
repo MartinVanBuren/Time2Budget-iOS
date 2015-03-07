@@ -13,6 +13,7 @@ public class Category: RLMObject {
     public dynamic var name = ""
     public dynamic var totalTimeRemaining = 0.0
     public dynamic var totalTimeBudgeted = 0.0
+    public dynamic var parent: Budget!
     public dynamic var tasks = RLMArray(objectClassName: Task.className())
     
     public func calcTime() {
