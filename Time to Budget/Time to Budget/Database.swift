@@ -23,8 +23,66 @@ public class Database {
         return exampleRealm
     }
     
+    public class func newBudget() {
+        let realm = Database.getRealm()
+        
+        if Budget.objectsWhere("isCurrent = TRUE").count > 0 {
+            let oldBudget = Budget.objectsWhere("isCurrent = TRUE").firstObject() as Budget
+            
+            realm.transactionWithBlock { () -> Void in
+                let newBudget = Budget()
+                oldBudget.isCurrent = false
+                
+                newBudget.autoInit()
+                newBudget.categories = Database.migrateToNewBudget(oldBudget.categories)
+                
+                realm.addObject(newBudget)
+            }
+        } else {
+            realm.transactionWithBlock { () -> Void in
+                let newBudget = Budget()
+                
+                newBudget.autoInit()
+                
+                realm.addObject(newBudget)
+            }
+        }
+    }
+    
+    public class func migrateToNewBudget(oldCategories: RLMArray) -> RLMArray {
+        let newBudget = Budget.objectsWhere("isCurrent = TRUE").firstObject() as Budget
+        let newCategories = RLMArray(objectClassName: "Category")
+        
+        for var i:UInt = 0; i < oldCategories.count; i++ {
+            let oldCategory = oldCategories[i] as Category
+            
+            let newCategory = Category()
+            
+            newCategory.name = oldCategory.name
+            newCategory.parent = newBudget
+            
+            for var x:UInt = 0; x < oldCategory.tasks.count; x++ {
+                let oldTask = oldCategory.tasks[x] as Task
+                
+                let newTask = Task()
+                newTask.name = oldTask.name
+                newTask.timeBudgeted = oldTask.timeBudgeted
+                newTask.parent = newCategory
+                newTask.calcTime()
+                
+                newCategory.tasks.addObject(newTask)
+            }
+            
+            newCategory.calcTime()
+            newCategories.addObject(newCategory)
+        }
+        
+        return newCategories
+    }
+    
     public class func checkCategoryName(#name: String) -> Bool {
-        let count = Int(Category.objectsWhere("name = '\(name)'").count)
+        let budget = Budget.objectsWhere("isCurrent = TRUE").firstObject() as Budget
+        let count = Int(budget.categories.objectsWhere("name = '\(name)'").count)
         
         if (count == 0) {
             return true
@@ -36,6 +94,7 @@ public class Database {
     }
     
     public class func addCategory(#name: String) {
+        let currentBudget = Budget.objectsWhere("isCurrent = TRUE").firstObject() as Budget
         
         if (Database.checkCategoryName(name: name)) {
             let realm = Database.getRealm()
@@ -44,7 +103,7 @@ public class Database {
                 let newCategory = Category()
                 newCategory.name = name
                 newCategory.calcTime()
-                realm.addObject(newCategory)
+                currentBudget.categories.addObject(newCategory)
             }
         } else {
             println("Category Name Taken")
@@ -54,8 +113,10 @@ public class Database {
     public class func deleteCategory(#categoryName: String, retainTasks: Bool) {
         let realm = Database.getRealm();
         
+        let currentBudget = Budget.objectsWhere("isCurrent = TRUE").firstObject() as Budget
         let currentCategory = (Category.objectsWhere("name = '\(categoryName)'").firstObject() as Category)
         let currentCategoryTasks = currentCategory.tasks
+        let oldIndex = currentBudget.categories.indexOfObject(currentCategory)
         let loopCount:UInt = currentCategoryTasks.count
         
         if (retainTasks) {
@@ -68,6 +129,7 @@ public class Database {
             }
             
             realm.beginWriteTransaction()
+            currentBudget.categories.removeObjectAtIndex(oldIndex)
             realm.deleteObject(currentCategory)
             realm.commitWriteTransaction()
         } else {
@@ -76,6 +138,7 @@ public class Database {
             }
             
             realm.beginWriteTransaction()
+            currentBudget.categories.removeObjectAtIndex(oldIndex)
             realm.deleteObject(currentCategory)
             realm.commitWriteTransaction()
         }
@@ -83,14 +146,15 @@ public class Database {
     
     public class func updateCategory(#categoryName: String, newCategoryName: String) {
         let realm = Database.getRealm()
-        let currentCategory = Category.objectsWhere("name = '\(categoryName)'").firstObject() as Category
+        let currentBudget = Budget.objectsWhere("isCurrent = TRUE").firstObject() as Budget
+        let currentCategory = currentBudget.categories.objectsWhere("name = '\(categoryName)'").firstObject() as Category
         
         realm.beginWriteTransaction()
         currentCategory.name = newCategoryName
         realm.commitWriteTransaction()
     }
     
-    public class func checkTaskName(#name: String) -> Bool {
+    public class func checkTaskName(#name: String, category: Category) -> Bool {
         let count = Int(Task.objectsWhere("name = '\(name)'").count)
         
         if (count == 0) {
@@ -103,10 +167,12 @@ public class Database {
     }
     
     public class func addTask(#name: String, memo: String, time: Double, categoryName: String) {
+        let currentBudget = Budget.objectsWhere("isCurrent = TRUE").firstObject() as Budget
+        let parentCategory = (currentBudget.categories.objectsWhere("name = '\(categoryName)'")).firstObject() as Category
         
-        if (Database.checkTaskName(name: name)) {
+        if (Database.checkTaskName(name: name, category: parentCategory)) {
             let realm = Database.getRealm()
-            let parentCategory = (Category.objectsWhere("name = '\(categoryName)'")).firstObject() as Category
+            
             
             realm.transactionWithBlock { () -> Void in
                 let newTask = Task()
@@ -221,8 +287,10 @@ public class Database {
     public class func deleteRecord(#record: Record) {
         let realm = Database.getRealm()
         let parent = record.parent
+        let oldIndex = parent.records.indexOfObject(record)
 
         realm.transactionWithBlock { () -> Void in
+            parent.records.removeObjectAtIndex(oldIndex)
             realm.deleteObject(record)
             parent.calcTime()
         }

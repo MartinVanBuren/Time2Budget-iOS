@@ -11,7 +11,7 @@ import UIKit
 class RecordEditorTaskSelectorViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     let realm = Database.getRealm()
-    let categoryList = Category.allObjects()
+    let currentBudget = Budget.objectsWhere("isCurrent = TRUE").firstObject() as Budget
     var recordEditorVC:RecordEditorViewController!
     @IBOutlet weak var tableView: UITableView!
     var returning:Bool? = false
@@ -32,31 +32,31 @@ class RecordEditorTaskSelectorViewController: UIViewController, UITableViewDataS
     //==================== UITableViewDataSource Methods ====================
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         
-        return Int(categoryList.count)
+        return Int(currentBudget.categories.count)
         
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return Int((categoryList.objectAtIndex(UInt(section)) as Category).tasks.count)
+        return Int((currentBudget.categories.objectAtIndex(UInt(section)) as Category).tasks.count)
         
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        return Factory.prepareTaskCell(tableView: tableView, categoryList: categoryList, indexPath: indexPath, isEditor: false)
+        return Factory.prepareTaskCell(tableView: tableView, categoryList: currentBudget.categories, indexPath: indexPath, isEditor: false)
         
     }
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
-        return Factory.prepareCategoryCell(tableView: tableView, categoryList: categoryList, section: section, isEditor: false)
+        return Factory.prepareCategoryCell(tableView: tableView, categoryList: currentBudget.categories, section: section, isEditor: false)
         
     }
     
     //==================== UITableViewDelegate Methods ====================
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        recordEditorVC.currentTask = ((categoryList.objectAtIndex(UInt(indexPath.section)) as Category).tasks.objectAtIndex(UInt(indexPath.row)) as Task)
+        recordEditorVC.currentTask = ((currentBudget.categories.objectAtIndex(UInt(indexPath.section)) as Category).tasks.objectAtIndex(UInt(indexPath.row)) as Task)
         self.navigationController?.popViewControllerAnimated(true)
     }
     
