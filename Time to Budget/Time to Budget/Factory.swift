@@ -250,6 +250,25 @@ public class Factory {
         
         return finalData
     }
+    
+    class func prepareSettingsFeedbackCell(#tableView: UITableView) -> UITableViewCell {
+        var preparedCell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "BasicCell")
+        
+        preparedCell.textLabel?.text = "Feedback"
+        preparedCell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
+        
+        return preparedCell
+    }
+    
+    class func prepareSettingsAboutCell(#tableView: UITableView) -> UITableViewCell {
+        var preparedCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "AboutCell")
+        
+        preparedCell.textLabel?.text = "©2015 Arrken Software LLC"
+        preparedCell.detailTextLabel?.text = "Designed and Developed by Robert Kennedy"
+        preparedCell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
+        
+        return preparedCell
+    }
 
     class func displayDeleteTaskAlert(#viewController: BudgetEditorViewController, indexPath: NSIndexPath){
         let currentTask = ((Category.allObjects().objectAtIndex(UInt(indexPath.section)) as Category).tasks.objectAtIndex(UInt(indexPath.row)) as Task)
@@ -299,7 +318,7 @@ public class Factory {
         alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: { (action) -> Void in
             
         }))
-        alert.addTextFieldWithConfigurationHandler {(textField) -> Void in inputTextField = textField}
+        alert.addTextFieldWithConfigurationHandler {(textField) -> Void in inputTextField = textField; inputTextField.autocapitalizationType = UITextAutocapitalizationType.Words}
         
         
         viewController.presentViewController(alert, animated: true, completion: {})
@@ -324,7 +343,7 @@ public class Factory {
                 Factory.displayAlert(viewController: viewController, title: "Category Name Taken", message: "'\(inputTextField.text)' is already a Category")
             }
         }))
-        alert.addTextFieldWithConfigurationHandler {(textField) -> Void in inputTextField = textField; inputTextField.text = category.name}
+        alert.addTextFieldWithConfigurationHandler {(textField) -> Void in inputTextField = textField; inputTextField.text = category.name; inputTextField.autocapitalizationType = UITextAutocapitalizationType.Words}
         
         viewController.presentViewController(alert, animated: true, completion: {})
     }
