@@ -94,8 +94,7 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     // ============================= IBActions =============================
-    
-    @IBAction func addRecordButtonPressed(sender: UIButton) {
+    @IBAction func addRecordButtonPressed(sender: UIBarButtonItem) {
         self.editRecord = false
         performSegueWithIdentifier("showTrackingViewAlt", sender: self)
     }

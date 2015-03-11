@@ -71,21 +71,12 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
         }
         else if segue.identifier == "showBudgetEditorView" {
             let budgetEditorVC:BudgetEditorViewController = segue.destinationViewController as BudgetEditorViewController
-            budgetEditorVC.returning = false
         }
     }
     
     //==================== IBAction Methods ====================
-    @IBAction func editButtonPressed(sender: UIBarButtonItem) {
-        performSegueWithIdentifier("showBudgetEditorView", sender: self)
-    }
-    
-    @IBAction func addRecordButtonPressed(sender: UIButton) {
+    @IBAction func addRecordButtonPressed(sender: UIBarButtonItem) {
         performSegueWithIdentifier("showTrackingView", sender: self)
-    }
-    
-    @IBAction func settingsButtonPressed(sender: UIBarButtonItem) {
-        performSegueWithIdentifier("showSettingsView", sender: self)
     }
     
     //==================== UITableViewDataSource Methods ====================

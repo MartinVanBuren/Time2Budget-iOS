@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vNu-tz-Fky">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C1510" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="1qN-jU-o94">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
@@ -195,76 +195,20 @@
                                     <outlet property="delegate" destination="gDl-Q2-PJ8" id="ygY-ma-k73"/>
                                 </connections>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="59N-ns-iLS" userLabel="AddCategoryButton">
-                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="59N-ns-iLS" secondAttribute="height" multiplier="85:24" id="iyu-TN-KKb"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <state key="normal" title="Add Category">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="iyu-TN-KKb"/>
-                                    </mask>
-                                </variation>
-                                <variation key="heightClass=regular-widthClass=compact">
-                                    <mask key="constraints">
-                                        <include reference="iyu-TN-KKb"/>
-                                    </mask>
-                                </variation>
-                                <connections>
-                                    <action selector="addCategoryButtonPressed:" destination="gDl-Q2-PJ8" eventType="touchUpInside" id="fV9-fi-Beg"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bfR-I3-Gsa" userLabel="AddTaskButton">
-                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="bfR-I3-Gsa" secondAttribute="height" multiplier="85:24" id="8co-Ao-zjJ"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <state key="normal" title="Add Task">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="8co-Ao-zjJ"/>
-                                    </mask>
-                                </variation>
-                                <variation key="heightClass=regular-widthClass=compact">
-                                    <mask key="constraints">
-                                        <include reference="8co-Ao-zjJ"/>
-                                    </mask>
-                                </variation>
-                                <connections>
-                                    <action selector="addTaskButtonPressed:" destination="gDl-Q2-PJ8" eventType="touchUpInside" id="vIn-Rl-EC9"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="iCZ-3c-YIX" firstAttribute="leading" secondItem="G99-jg-v3U" secondAttribute="leadingMargin" constant="-16" id="0bO-fe-heX"/>
-                            <constraint firstItem="kOq-EG-P1D" firstAttribute="top" secondItem="59N-ns-iLS" secondAttribute="bottom" constant="20" id="3nK-gx-DuD"/>
-                            <constraint firstItem="59N-ns-iLS" firstAttribute="leading" secondItem="G99-jg-v3U" secondAttribute="leadingMargin" id="53q-Sl-aEG"/>
                             <constraint firstItem="kOq-EG-P1D" firstAttribute="top" secondItem="iCZ-3c-YIX" secondAttribute="bottom" id="LFJ-Yf-6dk"/>
-                            <constraint firstItem="bfR-I3-Gsa" firstAttribute="trailing" secondItem="G99-jg-v3U" secondAttribute="trailingMargin" id="OiW-Zs-QMh"/>
-                            <constraint firstItem="kOq-EG-P1D" firstAttribute="top" secondItem="bfR-I3-Gsa" secondAttribute="bottom" constant="20" id="V1s-0u-ZJj"/>
                             <constraint firstAttribute="trailingMargin" secondItem="iCZ-3c-YIX" secondAttribute="trailing" constant="-16" id="eyB-gj-Led"/>
                             <constraint firstItem="iCZ-3c-YIX" firstAttribute="top" secondItem="G99-jg-v3U" secondAttribute="topMargin" id="n4H-3i-WSE"/>
                         </constraints>
                         <variation key="default">
                             <mask key="subviews">
                                 <exclude reference="iCZ-3c-YIX"/>
-                                <exclude reference="59N-ns-iLS"/>
-                                <exclude reference="bfR-I3-Gsa"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="3nK-gx-DuD"/>
                                 <exclude reference="LFJ-Yf-6dk"/>
-                                <exclude reference="V1s-0u-ZJj"/>
-                                <exclude reference="53q-Sl-aEG"/>
-                                <exclude reference="OiW-Zs-QMh"/>
                                 <exclude reference="0bO-fe-heX"/>
                                 <exclude reference="eyB-gj-Led"/>
                                 <exclude reference="n4H-3i-WSE"/>
@@ -273,23 +217,27 @@
                         <variation key="heightClass=regular-widthClass=compact">
                             <mask key="subviews">
                                 <include reference="iCZ-3c-YIX"/>
-                                <include reference="59N-ns-iLS"/>
-                                <include reference="bfR-I3-Gsa"/>
                             </mask>
                             <mask key="constraints">
-                                <include reference="3nK-gx-DuD"/>
                                 <include reference="LFJ-Yf-6dk"/>
-                                <include reference="V1s-0u-ZJj"/>
-                                <include reference="53q-Sl-aEG"/>
-                                <include reference="OiW-Zs-QMh"/>
                                 <include reference="0bO-fe-heX"/>
                                 <include reference="eyB-gj-Led"/>
                                 <include reference="n4H-3i-WSE"/>
                             </mask>
                         </variation>
                     </view>
-                    <navigationItem key="navigationItem" id="ZeR-F0-wkc" userLabel="budgetEditor">
+                    <navigationItem key="navigationItem" title="Budget Editor" id="ZeR-F0-wkc" userLabel="budgetEditor">
                         <barButtonItem key="backBarButtonItem" title="Save" id="nPH-ac-IaR"/>
+                        <barButtonItem key="leftBarButtonItem" title="Category" id="0YG-91-XNI">
+                            <connections>
+                                <action selector="addCategoryButtonPressed:" destination="gDl-Q2-PJ8" id="pyI-fE-3Wa"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Task" id="Vci-CI-tEa">
+                            <connections>
+                                <action selector="addTaskButtonPressed:" destination="gDl-Q2-PJ8" id="juv-bb-fFM"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="iCZ-3c-YIX" id="O8J-ba-cEx"/>
@@ -298,7 +246,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jx8-Dx-BM2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2490" y="1338"/>
+            <point key="canvasLocation" x="4275" y="2628"/>
         </scene>
         <!--Task Editor View Controller-->
         <scene sceneID="edI-4F-PXW">
@@ -498,7 +446,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qqZ-6t-f3k" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4077" y="1338"/>
+            <point key="canvasLocation" x="5862" y="2628"/>
         </scene>
         <!--Task Editor Category Selector View Controller-->
         <scene sceneID="qyK-UQ-bzY">
@@ -621,7 +569,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Zed-13-ywZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4848" y="1590"/>
+            <point key="canvasLocation" x="6633" y="2880"/>
         </scene>
         <!--Task Editor Time Picker View-->
         <scene sceneID="DoT-CR-8tl">
@@ -724,7 +672,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hFf-2c-cOp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4848" y="901.5"/>
+            <point key="canvasLocation" x="6633" y="2196"/>
         </scene>
         <!--Budget View-->
         <scene sceneID="tne-QT-ifu">
@@ -885,50 +833,20 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="4g0-qc-LSA"/>
                                 </connections>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fce-e6-VRO">
-                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="Fce-e6-VRO" secondAttribute="height" multiplier="64:11" id="w66-Hp-U7s"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="31"/>
-                                <state key="normal" title="Add Record">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="w66-Hp-U7s"/>
-                                    </mask>
-                                </variation>
-                                <variation key="heightClass=regular-widthClass=compact">
-                                    <mask key="constraints">
-                                        <include reference="w66-Hp-U7s"/>
-                                    </mask>
-                                </variation>
-                                <connections>
-                                    <action selector="addRecordButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="sOf-gA-KNi"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="awM-vd-cc1" secondAttribute="trailing" constant="-16" id="0sK-fg-7e1"/>
-                            <constraint firstItem="Fce-e6-VRO" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="56" id="97f-bW-74Q"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="Fce-e6-VRO" secondAttribute="trailing" constant="56" id="WxE-pR-Unx"/>
                             <constraint firstItem="awM-vd-cc1" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-16" id="j6i-E6-jLj"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="awM-vd-cc1" secondAttribute="bottom" id="leT-OM-dnk"/>
                             <constraint firstItem="awM-vd-cc1" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" id="nJe-hw-hJf"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Fce-e6-VRO" secondAttribute="bottom" constant="20" id="y73-Wm-Eey"/>
                         </constraints>
                         <variation key="default">
                             <mask key="subviews">
                                 <exclude reference="awM-vd-cc1"/>
-                                <exclude reference="Fce-e6-VRO"/>
                             </mask>
                             <mask key="constraints">
                                 <exclude reference="leT-OM-dnk"/>
-                                <exclude reference="y73-Wm-Eey"/>
-                                <exclude reference="97f-bW-74Q"/>
-                                <exclude reference="WxE-pR-Unx"/>
                                 <exclude reference="0sK-fg-7e1"/>
                                 <exclude reference="j6i-E6-jLj"/>
                                 <exclude reference="nJe-hw-hJf"/>
@@ -937,44 +855,33 @@
                         <variation key="heightClass=regular-widthClass=compact">
                             <mask key="subviews">
                                 <include reference="awM-vd-cc1"/>
-                                <include reference="Fce-e6-VRO"/>
                             </mask>
                             <mask key="constraints">
                                 <include reference="leT-OM-dnk"/>
-                                <include reference="y73-Wm-Eey"/>
-                                <include reference="97f-bW-74Q"/>
-                                <include reference="WxE-pR-Unx"/>
                                 <include reference="0sK-fg-7e1"/>
                                 <include reference="j6i-E6-jLj"/>
                                 <include reference="nJe-hw-hJf"/>
                             </mask>
                         </variation>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Budget" id="qN5-Op-yog"/>
                     <navigationItem key="navigationItem" title="Budget" id="kgx-te-TR2">
                         <barButtonItem key="backBarButtonItem" title="Done" id="eMx-hT-IAU"/>
-                        <barButtonItem key="leftBarButtonItem" title="⚙" width="11" id="AXh-eN-tGw">
+                        <barButtonItem key="rightBarButtonItem" title="Record" id="Iiv-cw-nJj">
                             <connections>
-                                <action selector="settingsButtonPressed:" destination="BYZ-38-t0r" id="PUX-hb-DGb"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="edit" id="jSN-f7-jt0">
-                            <connections>
-                                <action selector="editButtonPressed:" destination="BYZ-38-t0r" id="cpM-tt-kP1"/>
+                                <action selector="addRecordButtonPressed:" destination="BYZ-38-t0r" id="muP-v5-WEt"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="editButton" destination="jSN-f7-jt0" id="SSl-58-sfg"/>
                         <outlet property="tableView" destination="awM-vd-cc1" id="kVU-H8-Kj6"/>
-                        <segue destination="gDl-Q2-PJ8" kind="show" identifier="showBudgetEditorView" id="BlM-Gq-6A6"/>
                         <segue destination="sxO-VC-seW" kind="show" identifier="showRecordsView" id="eNE-Hf-gai"/>
                         <segue destination="waX-jO-hTd" kind="presentation" identifier="showTrackingView" modalPresentationStyle="fullScreen" modalTransitionStyle="coverVertical" id="Bp2-lw-sqJ"/>
-                        <segue destination="iBz-P8-bvG" kind="presentation" identifier="showSettingsView" modalPresentationStyle="fullScreen" modalTransitionStyle="coverVertical" id="TQb-tL-aa8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2490" y="135"/>
+            <point key="canvasLocation" x="5268" y="-136.5"/>
         </scene>
         <!--Record Editor View Controller-->
         <scene sceneID="K5g-JQ-wx4">
@@ -1174,7 +1081,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sR2-ng-aBS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5121" y="-240.75"/>
+            <point key="canvasLocation" x="7155" y="-144.75"/>
         </scene>
         <!--Record Editor Time Picker View Controller-->
         <scene sceneID="Vux-cj-SqD">
@@ -1326,7 +1233,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fHS-nB-gUa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5890.5" y="-417.75"/>
+            <point key="canvasLocation" x="7924.5" y="-321.75"/>
         </scene>
         <!--Record Editor Date Picker View Controller-->
         <scene sceneID="swB-09-Tzt">
@@ -1447,7 +1354,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kDA-HJ-nrZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5890.5" y="258.75"/>
+            <point key="canvasLocation" x="7924.5" y="354.75"/>
         </scene>
         <!--Record Editor Task Selector View Controller-->
         <scene sceneID="alh-v7-VGE">
@@ -1648,7 +1555,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="p6t-qf-qPY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5890.5" y="-1087.5"/>
+            <point key="canvasLocation" x="7924.5" y="-991.5"/>
         </scene>
         <!--Records View Controller-->
         <scene sceneID="DSz-ax-U1S">
@@ -1748,50 +1655,20 @@
                                     <outlet property="delegate" destination="sxO-VC-seW" id="IK1-T3-eIS"/>
                                 </connections>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X8q-j5-j1l">
-                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="X8q-j5-j1l" secondAttribute="height" multiplier="64:11" id="j1a-kA-GPr"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="31"/>
-                                <state key="normal" title="Add Record">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="j1a-kA-GPr"/>
-                                    </mask>
-                                </variation>
-                                <variation key="heightClass=regular-widthClass=compact">
-                                    <mask key="constraints">
-                                        <include reference="j1a-kA-GPr"/>
-                                    </mask>
-                                </variation>
-                                <connections>
-                                    <action selector="addRecordButtonPressed:" destination="sxO-VC-seW" eventType="touchUpInside" id="AjJ-h9-shD"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="wrW-sg-9w8" firstAttribute="leading" secondItem="Q4B-Ge-ble" secondAttribute="leadingMargin" constant="-16" id="23u-pG-udb"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="X8q-j5-j1l" secondAttribute="trailing" constant="56" id="5k6-Dx-r7C"/>
                             <constraint firstItem="wrW-sg-9w8" firstAttribute="top" secondItem="Q4B-Ge-ble" secondAttribute="topMargin" id="TQ0-q5-hKy"/>
-                            <constraint firstItem="Wdc-EV-pUD" firstAttribute="top" secondItem="X8q-j5-j1l" secondAttribute="bottom" constant="20" id="an2-pG-RMf"/>
                             <constraint firstAttribute="trailingMargin" secondItem="wrW-sg-9w8" secondAttribute="trailing" constant="-16" id="l14-pK-Xeo"/>
-                            <constraint firstItem="X8q-j5-j1l" firstAttribute="leading" secondItem="Q4B-Ge-ble" secondAttribute="leadingMargin" constant="56" id="pG7-VI-MXX"/>
                             <constraint firstItem="Wdc-EV-pUD" firstAttribute="top" secondItem="wrW-sg-9w8" secondAttribute="bottom" id="vhi-3Y-QOJ"/>
                         </constraints>
                         <variation key="default">
                             <mask key="subviews">
                                 <exclude reference="wrW-sg-9w8"/>
-                                <exclude reference="X8q-j5-j1l"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="an2-pG-RMf"/>
                                 <exclude reference="vhi-3Y-QOJ"/>
-                                <exclude reference="5k6-Dx-r7C"/>
-                                <exclude reference="pG7-VI-MXX"/>
                                 <exclude reference="23u-pG-udb"/>
                                 <exclude reference="TQ0-q5-hKy"/>
                                 <exclude reference="l14-pK-Xeo"/>
@@ -1800,19 +1677,24 @@
                         <variation key="heightClass=regular-widthClass=compact">
                             <mask key="subviews">
                                 <include reference="wrW-sg-9w8"/>
-                                <include reference="X8q-j5-j1l"/>
                             </mask>
                             <mask key="constraints">
-                                <include reference="an2-pG-RMf"/>
                                 <include reference="vhi-3Y-QOJ"/>
-                                <include reference="5k6-Dx-r7C"/>
-                                <include reference="pG7-VI-MXX"/>
                                 <include reference="23u-pG-udb"/>
                                 <include reference="TQ0-q5-hKy"/>
                                 <include reference="l14-pK-Xeo"/>
                             </mask>
                         </variation>
                     </view>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="Title" id="VYr-cZ-5Vi">
+                        <barButtonItem key="rightBarButtonItem" title="Record" id="hhe-Vc-KD8">
+                            <connections>
+                                <action selector="addRecordButtonPressed:" destination="sxO-VC-seW" id="RYn-C8-euc"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="tableView" destination="wrW-sg-9w8" id="zMo-8T-Auz"/>
                         <segue destination="waX-jO-hTd" kind="presentation" identifier="showTrackingViewAlt" modalPresentationStyle="fullScreen" modalTransitionStyle="coverVertical" id="ALJ-4Q-4lf"/>
@@ -1820,12 +1702,13 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6aa-zH-TIl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3555" y="354.75"/>
+            <point key="canvasLocation" x="5268" y="583.5"/>
         </scene>
         <!--Main Navigation Controller-->
         <scene sceneID="vWo-Qf-c5o">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="vNu-tz-Fky" userLabel="Main Navigation Controller" sceneMemberID="viewController">
+                <navigationController title="Budget View Navigation Controller" automaticallyAdjustsScrollViewInsets="NO" id="vNu-tz-Fky" userLabel="Main Navigation Controller" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Budget" id="cp4-1U-Sch"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="C4i-AT-vHI">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1838,7 +1721,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fba-lr-XFA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1761" y="135"/>
+            <point key="canvasLocation" x="4506" y="-136.5"/>
         </scene>
         <!--Settings View-->
         <scene sceneID="5ZG-bn-gz3">
@@ -1900,17 +1783,12 @@
                             <outlet property="delegate" destination="IDT-GR-thk" id="7d5-r1-j6X"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Settings" id="jWf-Uw-f7U">
-                        <barButtonItem key="leftBarButtonItem" style="done" systemItem="done" id="lyc-bE-wgo">
-                            <connections>
-                                <action selector="doneButtonPressed:" destination="IDT-GR-thk" id="amX-08-DMo"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <tabBarItem key="tabBarItem" title="Settings" id="4HX-p4-aVW"/>
+                    <navigationItem key="navigationItem" title="Settings" id="jWf-Uw-f7U"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rPn-y9-hwv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4401" y="-924"/>
+            <point key="canvasLocation" x="5046" y="-1062"/>
         </scene>
         <!--Add Record Navigation Controller-->
         <scene sceneID="L7N-UV-NXN">
@@ -1928,12 +1806,13 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2at-9N-kKV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4413" y="-237"/>
+            <point key="canvasLocation" x="6447" y="-141"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Settings Navigation Controller-->
         <scene sceneID="zr5-NJ-WvN">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="iBz-P8-bvG" sceneMemberID="viewController">
+                <navigationController title="Settings Navigation Controller" automaticallyAdjustsScrollViewInsets="NO" id="iBz-P8-bvG" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Settings" id="3Nc-zS-6mX"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="SBn-kX-pP5">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1946,7 +1825,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="a2a-Ey-Eej" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3483" y="-924"/>
+            <point key="canvasLocation" x="4284" y="-1062"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="VMl-Hx-wor">
@@ -1964,10 +1843,49 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VbU-c3-FCn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3273" y="1338"/>
+            <point key="canvasLocation" x="5058" y="2628"/>
+        </scene>
+        <!--Budget Editor Navigation Controller-->
+        <scene sceneID="Tg8-bU-HeC">
+            <objects>
+                <navigationController title="Budget Editor Navigation Controller" automaticallyAdjustsScrollViewInsets="NO" id="JIZ-0u-c6h" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Editor" id="DCa-bD-8jL"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="4ZV-Up-8DL">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="gDl-Q2-PJ8" kind="relationship" relationship="rootViewController" id="sC8-Oh-idV"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rWU-XK-bjo" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3492" y="2628"/>
+        </scene>
+        <!--Main Tab Bar Controller-->
+        <scene sceneID="ktH-DB-Xvo">
+            <objects>
+                <tabBarController title="Main Tab Bar Controller" automaticallyAdjustsScrollViewInsets="NO" id="1qN-jU-o94" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="i6c-Ba-ARD">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="vNu-tz-Fky" kind="relationship" relationship="viewControllers" id="YAj-h9-pca"/>
+                        <segue destination="JIZ-0u-c6h" kind="relationship" relationship="viewControllers" id="uET-xu-0bA"/>
+                        <segue destination="iBz-P8-bvG" kind="relationship" relationship="viewControllers" id="FfH-WY-m28"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="a0z-xZ-xrX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3492" y="-136.5"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="Bp2-lw-sqJ"/>
+        <segue reference="ALJ-4Q-4lf"/>
     </inferredMetricsTieBreakers>
 </document>
