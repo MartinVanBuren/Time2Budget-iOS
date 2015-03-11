@@ -15,7 +15,6 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
     @IBOutlet weak var tableView: UITableView!
     
     var totalTime = Time(newHours: 168, newMinutes: 0)
-    var returning:Bool? = false
     var addTaskDialog:Bool = false
     var notificationToken: RLMNotificationToken?
     
@@ -38,7 +37,7 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
     }
     
     override func viewWillAppear(animated: Bool) {
-        fixContentInset(calledFromSegue: false)
+        
         
     }
     
@@ -59,8 +58,6 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
                 taskEditorVC.currentTask = thisTask
                 taskEditorVC.editTask = true
             }
-            
-            fixContentInset(calledFromSegue: true)
         }
     }
     
@@ -105,13 +102,12 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
     }
 
     //==================== IB Actions ====================
-    @IBAction func addTaskButtonPressed(sender: UIButton) {
+    @IBAction func addTaskButtonPressed(sender: UIBarButtonItem) {
         addTaskDialog = true
         performSegueWithIdentifier("showTaskEditorView", sender: sender)
     }
     
-    @IBAction func addCategoryButtonPressed(sender: UIButton) {
-        
+    @IBAction func addCategoryButtonPressed(sender: UIBarButtonItem) {
         Factory.displayAddCategoryAlert(viewController: self)
     }
     
@@ -139,26 +135,5 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
         
         self.totalTime = newTime
         self.navigationItem.title = self.totalTime.toString()
-    }
-    
-    func fixContentInset(#calledFromSegue: Bool) {
-        if calledFromSegue {
-            if (returning != nil) {
-                self.returning = true
-            }
-        } else {
-            if (returning != nil) {
-                if !returning! {
-                    self.tableView.contentInset.top = 64
-                }
-                else if returning! {
-                    self.tableView.contentInset.top -= 64
-                    self.returning = nil
-                }
-            }
-            else {
-                
-            }
-        }
     }
 }
