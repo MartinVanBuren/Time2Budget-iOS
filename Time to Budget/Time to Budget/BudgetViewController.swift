@@ -18,7 +18,6 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
     
     //==================== IBOutlets ====================
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var editButton: UIBarButtonItem!
     
     //==================== Realm Properties ====================
     let realm = Database.getRealm()

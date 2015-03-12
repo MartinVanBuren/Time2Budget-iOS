@@ -228,12 +228,12 @@
                     </view>
                     <navigationItem key="navigationItem" title="Budget Editor" id="ZeR-F0-wkc" userLabel="budgetEditor">
                         <barButtonItem key="backBarButtonItem" title="Save" id="nPH-ac-IaR"/>
-                        <barButtonItem key="leftBarButtonItem" title="Category" id="0YG-91-XNI">
+                        <barButtonItem key="leftBarButtonItem" title="+ Category" id="0YG-91-XNI">
                             <connections>
                                 <action selector="addCategoryButtonPressed:" destination="gDl-Q2-PJ8" id="pyI-fE-3Wa"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Task" id="Vci-CI-tEa">
+                        <barButtonItem key="rightBarButtonItem" title="+ Task" id="Vci-CI-tEa">
                             <connections>
                                 <action selector="addTaskButtonPressed:" destination="gDl-Q2-PJ8" id="juv-bb-fFM"/>
                             </connections>
@@ -867,7 +867,7 @@
                     <tabBarItem key="tabBarItem" title="Budget" id="qN5-Op-yog"/>
                     <navigationItem key="navigationItem" title="Budget" id="kgx-te-TR2">
                         <barButtonItem key="backBarButtonItem" title="Done" id="eMx-hT-IAU"/>
-                        <barButtonItem key="rightBarButtonItem" title="Record" id="Iiv-cw-nJj">
+                        <barButtonItem key="rightBarButtonItem" title="+ Record" id="Iiv-cw-nJj">
                             <connections>
                                 <action selector="addRecordButtonPressed:" destination="BYZ-38-t0r" id="muP-v5-WEt"/>
                             </connections>
@@ -1688,7 +1688,7 @@
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Title" id="VYr-cZ-5Vi">
-                        <barButtonItem key="rightBarButtonItem" title="Record" id="hhe-Vc-KD8">
+                        <barButtonItem key="rightBarButtonItem" title="+ Record" id="hhe-Vc-KD8">
                             <connections>
                                 <action selector="addRecordButtonPressed:" destination="sxO-VC-seW" id="RYn-C8-euc"/>
                             </connections>
@@ -1708,7 +1708,7 @@
         <scene sceneID="vWo-Qf-c5o">
             <objects>
                 <navigationController title="Budget View Navigation Controller" automaticallyAdjustsScrollViewInsets="NO" id="vNu-tz-Fky" userLabel="Main Navigation Controller" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Budget" id="cp4-1U-Sch"/>
+                    <tabBarItem key="tabBarItem" title="Budget" image="book-cover-7.png" id="cp4-1U-Sch"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="C4i-AT-vHI">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1812,7 +1812,7 @@
         <scene sceneID="zr5-NJ-WvN">
             <objects>
                 <navigationController title="Settings Navigation Controller" automaticallyAdjustsScrollViewInsets="NO" id="iBz-P8-bvG" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Settings" id="3Nc-zS-6mX"/>
+                    <tabBarItem key="tabBarItem" title="Settings" image="gear-7.png" id="3Nc-zS-6mX"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="SBn-kX-pP5">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1849,7 +1849,7 @@
         <scene sceneID="Tg8-bU-HeC">
             <objects>
                 <navigationController title="Budget Editor Navigation Controller" automaticallyAdjustsScrollViewInsets="NO" id="JIZ-0u-c6h" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Editor" id="DCa-bD-8jL"/>
+                    <tabBarItem key="tabBarItem" title="Editor" image="pencil-7.png" id="DCa-bD-8jL"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="4ZV-Up-8DL">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1869,11 +1869,17 @@
             <objects>
                 <tabBarController title="Main Tab Bar Controller" automaticallyAdjustsScrollViewInsets="NO" id="1qN-jU-o94" sceneMemberID="viewController">
                     <toolbarItems/>
+                    <keyCommands/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="i6c-Ba-ARD">
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="selectedIndex">
+                            <integer key="value" value="0"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
                     <connections>
                         <segue destination="vNu-tz-Fky" kind="relationship" relationship="viewControllers" id="YAj-h9-pca"/>
                         <segue destination="JIZ-0u-c6h" kind="relationship" relationship="viewControllers" id="uET-xu-0bA"/>
@@ -1885,6 +1891,11 @@
             <point key="canvasLocation" x="3492" y="-136.5"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="book-cover-7.png" width="30" height="30"/>
+        <image name="gear-7.png" width="30" height="30"/>
+        <image name="pencil-7.png" width="30" height="30"/>
+    </resources>
     <inferredMetricsTieBreakers>
         <segue reference="ALJ-4Q-4lf"/>
     </inferredMetricsTieBreakers>

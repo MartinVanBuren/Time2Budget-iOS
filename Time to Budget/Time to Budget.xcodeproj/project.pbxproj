@@ -15,6 +15,9 @@
 		9385F1781AA3A248000C8726 /* TextfieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9385F1771AA3A248000C8726 /* TextfieldCell.swift */; };
 		9385F17A1AA3C3A3000C8726 /* TaskEditorTimePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9385F1791AA3C3A3000C8726 /* TaskEditorTimePickerViewController.swift */; };
 		9385F17C1AA3C805000C8726 /* TaskEditorCategorySelectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9385F17B1AA3C805000C8726 /* TaskEditorCategorySelectorViewController.swift */; };
+		93967CB21AB20CED00D46CF6 /* gear-7.png in Resources */ = {isa = PBXBuildFile; fileRef = 93967CB11AB20CED00D46CF6 /* gear-7.png */; };
+		93967CB41AB20D0A00D46CF6 /* book-cover-7.png in Resources */ = {isa = PBXBuildFile; fileRef = 93967CB31AB20D0A00D46CF6 /* book-cover-7.png */; };
+		93967CB61AB20D3800D46CF6 /* pencil-7.png in Resources */ = {isa = PBXBuildFile; fileRef = 93967CB51AB20D3800D46CF6 /* pencil-7.png */; };
 		939DB8901AA2CD330047C108 /* SubtitleDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939DB88F1AA2CD330047C108 /* SubtitleDetailCell.swift */; };
 		93B2E5F31A9032B80058372F /* RecordEditorTaskSelectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B2E5F21A9032B80058372F /* RecordEditorTaskSelectorViewController.swift */; };
 		93B2E5F51A903E790058372F /* RecordEditorTimePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B2E5F41A903E790058372F /* RecordEditorTimePickerViewController.swift */; };
@@ -75,6 +78,9 @@
 		9385F1771AA3A248000C8726 /* TextfieldCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextfieldCell.swift; sourceTree = "<group>"; };
 		9385F1791AA3C3A3000C8726 /* TaskEditorTimePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskEditorTimePickerViewController.swift; sourceTree = "<group>"; };
 		9385F17B1AA3C805000C8726 /* TaskEditorCategorySelectorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskEditorCategorySelectorViewController.swift; sourceTree = "<group>"; };
+		93967CB11AB20CED00D46CF6 /* gear-7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gear-7.png"; sourceTree = "<group>"; };
+		93967CB31AB20D0A00D46CF6 /* book-cover-7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "book-cover-7.png"; sourceTree = "<group>"; };
+		93967CB51AB20D3800D46CF6 /* pencil-7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pencil-7.png"; sourceTree = "<group>"; };
 		939DB88F1AA2CD330047C108 /* SubtitleDetailCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubtitleDetailCell.swift; sourceTree = "<group>"; };
 		93B2E5F21A9032B80058372F /* RecordEditorTaskSelectorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordEditorTaskSelectorViewController.swift; sourceTree = "<group>"; };
 		93B2E5F41A903E790058372F /* RecordEditorTimePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordEditorTimePickerViewController.swift; sourceTree = "<group>"; };
@@ -246,6 +252,9 @@
 				93F0E5381A720D94009D95EC /* Realm */,
 				93CBED521AAB505E00079482 /* CloudKit.framework */,
 				93CBED4E1AA7E38500079482 /* example.realm */,
+				93967CB11AB20CED00D46CF6 /* gear-7.png */,
+				93967CB31AB20D0A00D46CF6 /* book-cover-7.png */,
+				93967CB51AB20D3800D46CF6 /* pencil-7.png */,
 				93F0E4EB1A720B64009D95EC /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -399,9 +408,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				93967CB41AB20D0A00D46CF6 /* book-cover-7.png in Resources */,
 				93F0E4F71A720B64009D95EC /* LaunchScreen.xib in Resources */,
 				93F0E50D1A720BD4009D95EC /* iPhone.storyboard in Resources */,
 				93F0E4F41A720B64009D95EC /* Images.xcassets in Resources */,
+				93967CB21AB20CED00D46CF6 /* gear-7.png in Resources */,
+				93967CB61AB20D3800D46CF6 /* pencil-7.png in Resources */,
 				93CBED501AA7E3DB00079482 /* example.realm in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
