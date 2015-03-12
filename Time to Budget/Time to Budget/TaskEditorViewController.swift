@@ -124,7 +124,7 @@ class TaskEditorViewController: UIViewController, UITableViewDataSource, UITable
                     if let unwrappedMemo = self.taskMemo? {
                         if self.editTask! {
                             if let unwrappedTask = currentTask? {
-                                Database.updateTask(taskName: unwrappedTask.name, name: unwrappedName, memo: unwrappedMemo, time: unwrappedTime, categoryName: unwrappedCategory)
+                                Database.updateTask(task: unwrappedTask, name: unwrappedName, memo: unwrappedMemo, time: unwrappedTime, categoryName: unwrappedCategory)
                             } else {
                                 Factory.displayAlert(viewController: self, title: "Error: Task Missing", message: "Task missing while in edit mode. D':")
                             }
@@ -134,7 +134,7 @@ class TaskEditorViewController: UIViewController, UITableViewDataSource, UITable
                     } else {
                         if self.editTask! {
                             if let unwrappedTask = currentTask? {
-                                Database.updateTask(taskName: unwrappedTask.name, name: unwrappedName, memo: "", time: unwrappedTime, categoryName: unwrappedCategory)
+                                Database.updateTask(task: unwrappedTask, name: unwrappedName, memo: "", time: unwrappedTime, categoryName: unwrappedCategory)
                             } else {
                                 Factory.displayAlert(viewController: self, title: "Error: Task Missing", message: "Task missing while in edit mode. D':")
                             }
