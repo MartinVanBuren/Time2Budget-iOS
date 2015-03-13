@@ -66,8 +66,4 @@ class SettingsViewController: UITableViewController {
             break
         }
     }
-
-    @IBAction func doneButtonPressed(sender: UIBarButtonItem) {
-        self.dismissViewControllerAnimated(true, completion: {})
-    }
 }

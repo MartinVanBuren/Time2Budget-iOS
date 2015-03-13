@@ -22,6 +22,7 @@ class BudgetHistoryListViewController: UITableViewController {
         // Set realm notification block
         notificationToken = RLMRealm.defaultRealm().addNotificationBlock { note, realm in
             self.tableView.reloadData()
+            //self.budgetList = Budget.objectsWhere("isCurrent = FALSE").sortedResultsUsingProperty("endDate", ascending: false)
         }
     }
 

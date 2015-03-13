@@ -1567,6 +1567,7 @@
             <objects>
                 <tableViewController title="Budget History List View" id="Q0K-kL-n9w" customClass="BudgetHistoryListViewController" customModule="Time_to_Budget" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Ax6-Mi-xQv">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
@@ -1610,6 +1611,7 @@
             <objects>
                 <tableViewController title="Budget History View" id="Ibx-B3-h6c" customClass="BudgetHistoryViewController" customModule="Time_to_Budget" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="3yc-kD-9JF">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
@@ -1649,9 +1651,9 @@
                                             <exclude reference="2q1-LY-3bV"/>
                                             <exclude reference="Spj-fx-mRj"/>
                                             <exclude reference="kMk-UZ-SdS"/>
-                                            <exclude reference="eme-0U-ipH"/>
                                             <exclude reference="1Gu-al-t8G"/>
                                             <exclude reference="ZhS-gR-HD1"/>
+                                            <exclude reference="eme-0U-ipH"/>
                                         </mask>
                                     </variation>
                                     <variation key="heightClass=regular-widthClass=compact">
@@ -1663,9 +1665,9 @@
                                             <include reference="2q1-LY-3bV"/>
                                             <include reference="Spj-fx-mRj"/>
                                             <include reference="kMk-UZ-SdS"/>
-                                            <include reference="eme-0U-ipH"/>
                                             <include reference="1Gu-al-t8G"/>
                                             <include reference="ZhS-gR-HD1"/>
+                                            <include reference="eme-0U-ipH"/>
                                         </mask>
                                     </variation>
                                 </tableViewCellContentView>
@@ -1716,14 +1718,14 @@
                                             <exclude reference="kgU-Wk-8vk"/>
                                         </mask>
                                         <mask key="constraints">
-                                            <exclude reference="mzg-zI-yni"/>
-                                            <exclude reference="Nkv-yh-T1g"/>
-                                            <exclude reference="USc-ck-lWb"/>
-                                            <exclude reference="WRO-O7-xWh"/>
-                                            <exclude reference="5ks-1b-7lf"/>
+                                            <exclude reference="GIs-iv-TZX"/>
                                             <exclude reference="dam-rI-5Vv"/>
                                             <exclude reference="zD0-i6-g8q"/>
-                                            <exclude reference="GIs-iv-TZX"/>
+                                            <exclude reference="5ks-1b-7lf"/>
+                                            <exclude reference="WRO-O7-xWh"/>
+                                            <exclude reference="Nkv-yh-T1g"/>
+                                            <exclude reference="USc-ck-lWb"/>
+                                            <exclude reference="mzg-zI-yni"/>
                                         </mask>
                                     </variation>
                                     <variation key="heightClass=regular-widthClass=compact">
@@ -1733,14 +1735,14 @@
                                             <include reference="kgU-Wk-8vk"/>
                                         </mask>
                                         <mask key="constraints">
-                                            <include reference="mzg-zI-yni"/>
-                                            <include reference="Nkv-yh-T1g"/>
-                                            <include reference="USc-ck-lWb"/>
-                                            <include reference="WRO-O7-xWh"/>
-                                            <include reference="5ks-1b-7lf"/>
+                                            <include reference="GIs-iv-TZX"/>
                                             <include reference="dam-rI-5Vv"/>
                                             <include reference="zD0-i6-g8q"/>
-                                            <include reference="GIs-iv-TZX"/>
+                                            <include reference="5ks-1b-7lf"/>
+                                            <include reference="WRO-O7-xWh"/>
+                                            <include reference="Nkv-yh-T1g"/>
+                                            <include reference="USc-ck-lWb"/>
+                                            <include reference="mzg-zI-yni"/>
                                         </mask>
                                     </variation>
                                 </tableViewCellContentView>
@@ -1772,6 +1774,7 @@
             <objects>
                 <tableViewController title="Budget History Records View" id="aLd-KV-d2p" customClass="BudgetHistoryRecordsViewController" customModule="Time_to_Budget" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="IgE-UO-c6F">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
@@ -1817,14 +1820,14 @@
                                             <exclude reference="bSL-EH-iEP"/>
                                         </mask>
                                         <mask key="constraints">
+                                            <exclude reference="8d3-SP-qZQ"/>
+                                            <exclude reference="L4c-7m-ePj"/>
+                                            <exclude reference="7UV-G8-et8"/>
+                                            <exclude reference="YiO-HB-1hS"/>
+                                            <exclude reference="cYn-Wg-6UF"/>
                                             <exclude reference="2Ty-vW-nwa"/>
                                             <exclude reference="f6h-xh-RpG"/>
                                             <exclude reference="w2Z-Xh-UVJ"/>
-                                            <exclude reference="7UV-G8-et8"/>
-                                            <exclude reference="cYn-Wg-6UF"/>
-                                            <exclude reference="YiO-HB-1hS"/>
-                                            <exclude reference="L4c-7m-ePj"/>
-                                            <exclude reference="8d3-SP-qZQ"/>
                                         </mask>
                                     </variation>
                                     <variation key="heightClass=regular-widthClass=compact">
@@ -1834,14 +1837,14 @@
                                             <include reference="bSL-EH-iEP"/>
                                         </mask>
                                         <mask key="constraints">
+                                            <include reference="8d3-SP-qZQ"/>
+                                            <include reference="L4c-7m-ePj"/>
+                                            <include reference="7UV-G8-et8"/>
+                                            <include reference="YiO-HB-1hS"/>
+                                            <include reference="cYn-Wg-6UF"/>
                                             <include reference="2Ty-vW-nwa"/>
                                             <include reference="f6h-xh-RpG"/>
                                             <include reference="w2Z-Xh-UVJ"/>
-                                            <include reference="7UV-G8-et8"/>
-                                            <include reference="cYn-Wg-6UF"/>
-                                            <include reference="YiO-HB-1hS"/>
-                                            <include reference="L4c-7m-ePj"/>
-                                            <include reference="8d3-SP-qZQ"/>
                                         </mask>
                                     </variation>
                                 </tableViewCellContentView>
@@ -1873,6 +1876,7 @@
             <objects>
                 <tableViewController title="Budget History Record Viewer" id="iwe-4h-iXA" customClass="BudgetHistoryRecordViewController" customModule="Time_to_Budget" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="t6e-4z-uWs">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
@@ -1908,13 +1912,13 @@
                                             <exclude reference="gYy-8g-7HT"/>
                                         </mask>
                                         <mask key="constraints">
-                                            <exclude reference="k4X-fu-RSx"/>
-                                            <exclude reference="xlN-d3-dz3"/>
+                                            <exclude reference="9s5-PX-MB5"/>
+                                            <exclude reference="Hgn-oL-D4q"/>
+                                            <exclude reference="L3H-Sd-TO9"/>
                                             <exclude reference="c2l-NP-0N3"/>
                                             <exclude reference="f3e-u7-LRj"/>
-                                            <exclude reference="L3H-Sd-TO9"/>
-                                            <exclude reference="Hgn-oL-D4q"/>
-                                            <exclude reference="9s5-PX-MB5"/>
+                                            <exclude reference="k4X-fu-RSx"/>
+                                            <exclude reference="xlN-d3-dz3"/>
                                         </mask>
                                     </variation>
                                     <variation key="heightClass=regular-widthClass=compact">
@@ -1922,13 +1926,13 @@
                                             <include reference="gYy-8g-7HT"/>
                                         </mask>
                                         <mask key="constraints">
-                                            <exclude reference="k4X-fu-RSx"/>
-                                            <include reference="xlN-d3-dz3"/>
+                                            <exclude reference="9s5-PX-MB5"/>
+                                            <include reference="Hgn-oL-D4q"/>
+                                            <exclude reference="L3H-Sd-TO9"/>
                                             <include reference="c2l-NP-0N3"/>
                                             <include reference="f3e-u7-LRj"/>
-                                            <exclude reference="L3H-Sd-TO9"/>
-                                            <include reference="Hgn-oL-D4q"/>
-                                            <exclude reference="9s5-PX-MB5"/>
+                                            <exclude reference="k4X-fu-RSx"/>
+                                            <include reference="xlN-d3-dz3"/>
                                         </mask>
                                     </variation>
                                 </tableViewCellContentView>

@@ -17,15 +17,15 @@ class BudgetHistoryRecordsViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Set realm notification block
-        notificationToken = RLMRealm.defaultRealm().addNotificationBlock { note, realm in
-            self.tableView.reloadData()
-        }
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        self.tableView.reloadData()
     }
     
     // MARK: - Navigation
