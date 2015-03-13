@@ -20,8 +20,6 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        recordList = currentTask.records
     }
 
     override func didReceiveMemoryWarning() {
@@ -31,6 +29,8 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
     
     override func viewWillAppear(animated: Bool) {
         navigationItem.title = currentTask.name
+        
+        recordList = currentTask.records
         
         if currentTask.memo != "" {
             navigationItem.prompt = currentTask.memo

@@ -18,6 +18,11 @@
 		93967CB21AB20CED00D46CF6 /* gear-7.png in Resources */ = {isa = PBXBuildFile; fileRef = 93967CB11AB20CED00D46CF6 /* gear-7.png */; };
 		93967CB41AB20D0A00D46CF6 /* book-cover-7.png in Resources */ = {isa = PBXBuildFile; fileRef = 93967CB31AB20D0A00D46CF6 /* book-cover-7.png */; };
 		93967CB61AB20D3800D46CF6 /* pencil-7.png in Resources */ = {isa = PBXBuildFile; fileRef = 93967CB51AB20D3800D46CF6 /* pencil-7.png */; };
+		93967CB81AB2297700D46CF6 /* list-simple-7.png in Resources */ = {isa = PBXBuildFile; fileRef = 93967CB71AB2297700D46CF6 /* list-simple-7.png */; };
+		93967CBA1AB22D2000D46CF6 /* BudgetHistoryListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93967CB91AB22D2000D46CF6 /* BudgetHistoryListViewController.swift */; };
+		93967CBD1AB22D4900D46CF6 /* BudgetHistoryRecordsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93967CBC1AB22D4900D46CF6 /* BudgetHistoryRecordsViewController.swift */; };
+		93967CBF1AB22D5800D46CF6 /* BudgetHistoryRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93967CBE1AB22D5800D46CF6 /* BudgetHistoryRecordViewController.swift */; };
+		93967CC11AB2310900D46CF6 /* BudgetHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93967CC01AB2310900D46CF6 /* BudgetHistoryViewController.swift */; };
 		939DB8901AA2CD330047C108 /* SubtitleDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939DB88F1AA2CD330047C108 /* SubtitleDetailCell.swift */; };
 		93B2E5F31A9032B80058372F /* RecordEditorTaskSelectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B2E5F21A9032B80058372F /* RecordEditorTaskSelectorViewController.swift */; };
 		93B2E5F51A903E790058372F /* RecordEditorTimePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B2E5F41A903E790058372F /* RecordEditorTimePickerViewController.swift */; };
@@ -81,6 +86,11 @@
 		93967CB11AB20CED00D46CF6 /* gear-7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gear-7.png"; sourceTree = "<group>"; };
 		93967CB31AB20D0A00D46CF6 /* book-cover-7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "book-cover-7.png"; sourceTree = "<group>"; };
 		93967CB51AB20D3800D46CF6 /* pencil-7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pencil-7.png"; sourceTree = "<group>"; };
+		93967CB71AB2297700D46CF6 /* list-simple-7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "list-simple-7.png"; sourceTree = "<group>"; };
+		93967CB91AB22D2000D46CF6 /* BudgetHistoryListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BudgetHistoryListViewController.swift; sourceTree = "<group>"; };
+		93967CBC1AB22D4900D46CF6 /* BudgetHistoryRecordsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BudgetHistoryRecordsViewController.swift; sourceTree = "<group>"; };
+		93967CBE1AB22D5800D46CF6 /* BudgetHistoryRecordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BudgetHistoryRecordViewController.swift; sourceTree = "<group>"; };
+		93967CC01AB2310900D46CF6 /* BudgetHistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BudgetHistoryViewController.swift; sourceTree = "<group>"; };
 		939DB88F1AA2CD330047C108 /* SubtitleDetailCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubtitleDetailCell.swift; sourceTree = "<group>"; };
 		93B2E5F21A9032B80058372F /* RecordEditorTaskSelectorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordEditorTaskSelectorViewController.swift; sourceTree = "<group>"; };
 		93B2E5F41A903E790058372F /* RecordEditorTimePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordEditorTimePickerViewController.swift; sourceTree = "<group>"; };
@@ -168,6 +178,17 @@
 			name = "Task Editor";
 			sourceTree = "<group>";
 		};
+		93967CBB1AB22D2600D46CF6 /* Budget History View */ = {
+			isa = PBXGroup;
+			children = (
+				93967CB91AB22D2000D46CF6 /* BudgetHistoryListViewController.swift */,
+				93967CC01AB2310900D46CF6 /* BudgetHistoryViewController.swift */,
+				93967CBC1AB22D4900D46CF6 /* BudgetHistoryRecordsViewController.swift */,
+				93967CBE1AB22D5800D46CF6 /* BudgetHistoryRecordViewController.swift */,
+			);
+			name = "Budget History View";
+			sourceTree = "<group>";
+		};
 		939DB88C1AA2A8AF0047C108 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
@@ -197,6 +218,7 @@
 				93F0E5411A721960009D95EC /* BudgetViewController.swift */,
 				93F0E5161A720BF4009D95EC /* RecordsViewController.swift */,
 				9385F1731AA397C8000C8726 /* SettingsViewController.swift */,
+				93967CBB1AB22D2600D46CF6 /* Budget History View */,
 			);
 			name = "Main Views";
 			sourceTree = "<group>";
@@ -253,6 +275,7 @@
 				93CBED521AAB505E00079482 /* CloudKit.framework */,
 				93CBED4E1AA7E38500079482 /* example.realm */,
 				93967CB11AB20CED00D46CF6 /* gear-7.png */,
+				93967CB71AB2297700D46CF6 /* list-simple-7.png */,
 				93967CB31AB20D0A00D46CF6 /* book-cover-7.png */,
 				93967CB51AB20D3800D46CF6 /* pencil-7.png */,
 				93F0E4EB1A720B64009D95EC /* Info.plist */,
@@ -411,6 +434,7 @@
 				93967CB41AB20D0A00D46CF6 /* book-cover-7.png in Resources */,
 				93F0E4F71A720B64009D95EC /* LaunchScreen.xib in Resources */,
 				93F0E50D1A720BD4009D95EC /* iPhone.storyboard in Resources */,
+				93967CB81AB2297700D46CF6 /* list-simple-7.png in Resources */,
 				93F0E4F41A720B64009D95EC /* Images.xcassets in Resources */,
 				93967CB21AB20CED00D46CF6 /* gear-7.png in Resources */,
 				93967CB61AB20D3800D46CF6 /* pencil-7.png in Resources */,
@@ -438,6 +462,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				93967CBD1AB22D4900D46CF6 /* BudgetHistoryRecordsViewController.swift in Sources */,
 				93F0E5241A720BF4009D95EC /* Factory.swift in Sources */,
 				93F0E5351A720D20009D95EC /* RLMSupport.swift in Sources */,
 				93F0E53E1A7214E1009D95EC /* Budget.swift in Sources */,
@@ -448,6 +473,7 @@
 				9385F17C1AA3C805000C8726 /* TaskEditorCategorySelectorViewController.swift in Sources */,
 				9385F1781AA3A248000C8726 /* TextfieldCell.swift in Sources */,
 				93CBED551AAB5BB000079482 /* CloudKitManager.swift in Sources */,
+				93967CBF1AB22D5800D46CF6 /* BudgetHistoryRecordViewController.swift in Sources */,
 				93F0E52A1A720BF4009D95EC /* Time.swift in Sources */,
 				93F0E5251A720BF4009D95EC /* Record.swift in Sources */,
 				93223B491A86840500365D3A /* RecordEditorViewController.swift in Sources */,
@@ -459,9 +485,11 @@
 				9320D56F1A74625B0013018C /* MarshalOperator.swift in Sources */,
 				93F0E5231A720BF4009D95EC /* EditTaskCell.swift in Sources */,
 				93B2E5FC1A905F990058372F /* MemoCell.swift in Sources */,
+				93967CC11AB2310900D46CF6 /* BudgetHistoryViewController.swift in Sources */,
 				93F0E4ED1A720B64009D95EC /* AppDelegate.swift in Sources */,
 				93F0E53C1A721396009D95EC /* Database.swift in Sources */,
 				93F0E5201A720BF4009D95EC /* Category.swift in Sources */,
+				93967CBA1AB22D2000D46CF6 /* BudgetHistoryListViewController.swift in Sources */,
 				93B2E5F71A903E890058372F /* RecordEditorDatePickerViewController.swift in Sources */,
 				93CBED4D1AA667AE00079482 /* Settings.swift in Sources */,
 				93F0E5211A720BF4009D95EC /* CategoryCell.swift in Sources */,

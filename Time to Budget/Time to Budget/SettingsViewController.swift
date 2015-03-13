@@ -26,7 +26,7 @@ class SettingsViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        return 3
     }
 
     override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -36,8 +36,10 @@ class SettingsViewController: UITableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         switch indexPath.row {
         case 0:
-            return Factory.prepareSettingsFeedbackCell(tableView: self.tableView)
+            return Factory.prepareBasicCell(tableView: self.tableView, titleText: "Clear Database")
         case 1:
+            return Factory.prepareBasicCell(tableView: self.tableView, titleText: "Feedback")
+        case 2:
             return Factory.prepareSettingsAboutCell(tableView: self.tableView)
         default:
             return UITableViewCell()
@@ -47,17 +49,21 @@ class SettingsViewController: UITableViewController {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         switch indexPath.row {
         case 0:
+            for views in tabBarController!.viewControllers! {
+                (views as UINavigationController).popToRootViewControllerAnimated(false)
+            }
+            let realm = Database.getRealm()
+            realm.beginWriteTransaction()
+            realm.deleteAllObjects()
+            realm.commitWriteTransaction()
+        case 1:
             let url = NSURL(string: "https://bitbucket.org/arrkensoftware/timetobudget_ios/issues")
             UIApplication.sharedApplication().openURL(url!)
-        case 1:
+        case 2:
             let url = NSURL(string: "https://arrken.com")
             UIApplication.sharedApplication().openURL(url!)
         default:
             break
         }
-    }
-
-    @IBAction func doneButtonPressed(sender: UIBarButtonItem) {
-        self.dismissViewControllerAnimated(true, completion: {})
     }
 }

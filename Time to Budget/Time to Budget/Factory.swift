@@ -251,15 +251,6 @@ public class Factory {
         return finalData
     }
     
-    class func prepareSettingsFeedbackCell(#tableView: UITableView) -> UITableViewCell {
-        var preparedCell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "BasicCell")
-        
-        preparedCell.textLabel?.text = "Feedback"
-        preparedCell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
-        
-        return preparedCell
-    }
-    
     class func prepareSettingsAboutCell(#tableView: UITableView) -> UITableViewCell {
         var preparedCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "AboutCell")
         
@@ -269,16 +260,27 @@ public class Factory {
         
         return preparedCell
     }
+    
+    class func prepareBasicCell(#tableView: UITableView, titleText: String) -> UITableViewCell {
+        var preparedCell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "BasicCell")
+        
+        preparedCell.textLabel?.text = titleText
+        preparedCell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
+        
+        return preparedCell
+    }
 
     class func displayDeleteTaskAlert(#viewController: BudgetEditorViewController, indexPath: NSIndexPath){
-        let currentTask = ((Category.allObjects().objectAtIndex(UInt(indexPath.section)) as Category).tasks.objectAtIndex(UInt(indexPath.row)) as Task)
+        let currentBudget = Budget.objectsWhere("isCurrent = TRUE").firstObject() as Budget
+        let currentCategory = currentBudget.categories[UInt(indexPath.section)] as Category
+        let currentTask = currentCategory.tasks[UInt(indexPath.row)] as Task
         
         let alert = UIAlertController(title: "Keep Records?", message: "Records will be moved to the 'Taskless Records' Task", preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
-            Database.deleteTask(taskName: currentTask.name, retainRecords: true)
+            Database.deleteTask(task: currentTask, retainRecords: true)
         }))
         alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
-            Database.deleteTask(taskName: currentTask.name, retainRecords: false)
+            Database.deleteTask(task: currentTask, retainRecords: false)
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
             
@@ -286,7 +288,8 @@ public class Factory {
     }
     
     class func displayDeleteCategoryAlert(#viewController: UIViewController, categoryName: String) {
-        let currentCategory = (Category.objectsWhere("name = '\(categoryName)'").objectAtIndex(0) as Category)
+        let currentBudget = Budget.objectsWhere("isCurrent = TRUE").firstObject() as Budget
+        let currentCategory = currentBudget.categories.objectsWhere("name = '\(categoryName)'").firstObject() as Category
         
         let alert = UIAlertController(title: "Keep Tasks?", message: "Tasks will be moved to the 'Uncategorized' Category", preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
@@ -301,7 +304,6 @@ public class Factory {
     }
 
     class func displayAddCategoryAlert(#viewController: UIViewController) {
-        let currentBudget = Budget.objectsWhere("isCurrent = TRUE").firstObject() as Budget
         var inputTextField = UITextField()
         inputTextField.placeholder = "Enter Category Name"
         
@@ -327,7 +329,7 @@ public class Factory {
     class func displayEditCategoryAlert(#viewController: UIViewController, categoryName: String) {
         let currentBudget = Budget.objectsWhere("isCurrent = TRUE").firstObject() as Budget
         var inputTextField = UITextField()
-        let category = Category.objectsWhere("name = '\(categoryName)'").firstObject() as Category
+        let category = currentBudget.categories.objectsWhere("name = '\(categoryName)'").firstObject() as Category
         
         let alert = UIAlertController(title: "Edit Category", message: "", preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Delete", style: UIAlertActionStyle.Default, handler: { (action) -> Void in

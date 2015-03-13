@@ -82,7 +82,6 @@ class RecordEditorViewController: UIViewController, UITableViewDataSource, UITab
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        
         switch indexPath.row {
         case 0:
             return Factory.prepareAddRecordTaskCell(tableView: tableView, currentTask: self.currentTask?)
@@ -134,7 +133,7 @@ class RecordEditorViewController: UIViewController, UITableViewDataSource, UITab
             if let unwrappedTime = self.timeSpent? {
                 if let unwrappedMemo = self.memo? {
                     if !editRecord {
-                        Database.addRecord(taskName: unwrappedTask.name, note: unwrappedMemo, timeSpent: unwrappedTime.toDouble(), date: self.date!)
+                        Database.addRecord(parentTask: unwrappedTask, note: unwrappedMemo, timeSpent: unwrappedTime.toDouble(), date: self.date!)
                     } else {
                         if let unwrappedRecord = self.currentRecord? {
                             Database.updateRecord(record: unwrappedRecord, taskName: unwrappedTask.name, note: unwrappedMemo, timeSpent: unwrappedTime.toDouble(), date: self.date!)
@@ -144,7 +143,7 @@ class RecordEditorViewController: UIViewController, UITableViewDataSource, UITab
                     }
                 } else {
                     if !editRecord {
-                        Database.addRecord(taskName: unwrappedTask.name, note: "", timeSpent: unwrappedTime.toDouble(), date: self.date!)
+                        Database.addRecord(parentTask: unwrappedTask, note: "", timeSpent: unwrappedTime.toDouble(), date: self.date!)
                     } else {
                         if let unwrappedRecord = self.currentRecord? {
                             Database.updateRecord(record: unwrappedRecord, taskName: unwrappedTask.name, note: "", timeSpent: unwrappedTime.toDouble(), date: self.date!)
