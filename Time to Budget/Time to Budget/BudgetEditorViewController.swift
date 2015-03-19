@@ -140,7 +140,7 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
         let newTime = Time.doubleToTime(168.0)
         
         for var i:UInt = 0; i < taskList.count; i++ {
-            tempTime = Time.doubleToTime((taskList.objectAtIndex(i) as Task).timeRemaining)
+            tempTime = Time.doubleToTime((taskList.objectAtIndex(i) as Task).timeBudgeted)
             newTime.hours -= tempTime.hours
             newTime.minutes -= tempTime.minutes
         }
@@ -150,4 +150,5 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
         self.totalTime = newTime
         self.navigationItem.title = self.totalTime.toString()
     }
+    
 }
