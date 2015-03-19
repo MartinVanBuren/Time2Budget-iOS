@@ -128,29 +128,26 @@ class RecordEditorViewController: UIViewController, UITableViewDataSource, UITab
     }
     
     @IBAction func saveRecordButtonPressed(sender: UIButton) {
+        var finalMemo = ""
+        
+        if let unwrappedMemo = self.memo? {
+            finalMemo = unwrappedMemo
+        }
         
         if let unwrappedTask = self.currentTask? {
             if let unwrappedTime = self.timeSpent? {
-                if let unwrappedMemo = self.memo? {
-                    if !editRecord {
-                        Database.addRecord(parentTask: unwrappedTask, note: unwrappedMemo, timeSpent: unwrappedTime.toDouble(), date: self.date!)
+                if self.editRecord {
+                    // Edit Record Mode
+                    if let unwrappedRecord = self.currentRecord? {
+                        Database.updateRecord(record: unwrappedRecord, taskName: unwrappedTask.name, note: finalMemo, timeSpent: unwrappedTime.toDouble(), date: self.date!)
+                        self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
                     } else {
-                        if let unwrappedRecord = self.currentRecord? {
-                            Database.updateRecord(record: unwrappedRecord, taskName: unwrappedTask.name, note: unwrappedMemo, timeSpent: unwrappedTime.toDouble(), date: self.date!)
-                        } else {
-                            Factory.displayAlert(viewController: self, title: "Error: Record Missing", message: "Record missing while in edit mode. D':")
-                        }
+                        Factory.displayAlert(viewController: self, title: "Error: Record Missing", message: "Record missing while in edit mode. D':")
                     }
                 } else {
-                    if !editRecord {
-                        Database.addRecord(parentTask: unwrappedTask, note: "", timeSpent: unwrappedTime.toDouble(), date: self.date!)
-                    } else {
-                        if let unwrappedRecord = self.currentRecord? {
-                            Database.updateRecord(record: unwrappedRecord, taskName: unwrappedTask.name, note: "", timeSpent: unwrappedTime.toDouble(), date: self.date!)
-                        } else {
-                            Factory.displayAlert(viewController: self, title: "Error: Record Missing", message: "Record missing while in edit mode. D':")
-                        }
-                    }
+                    // New Record Mode
+                    Database.addRecord(parentTask: unwrappedTask, note: finalMemo, timeSpent: unwrappedTime.toDouble(), date: self.date!)
+                    self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
                 }
             } else {
                 Factory.displayAlert(viewController: self, title: "Time Spent Not Selected", message: "You must select an amount of time to spend.")
@@ -158,8 +155,6 @@ class RecordEditorViewController: UIViewController, UITableViewDataSource, UITab
         } else {
             Factory.displayAlert(viewController: self, title: "Task Not Selected", message: "You must select a Task.")
         }
-    
-        self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
     }
     
     func fixContentInset(#calledFromSegue: Bool) {

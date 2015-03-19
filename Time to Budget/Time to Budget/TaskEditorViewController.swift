@@ -14,7 +14,7 @@ class TaskEditorViewController: UIViewController, UITableViewDataSource, UITable
     var budgetEditorViewController:BudgetEditorViewController!
     var currentTask:Task?
     var returning:Bool? = false
-    var editTask:Bool! = false
+    var editTask:Bool = false
     
     var taskName:String?
     var taskMemo:String?
@@ -24,7 +24,7 @@ class TaskEditorViewController: UIViewController, UITableViewDataSource, UITable
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if editTask! {
+        if editTask {
             self.navigationItem.title = "Edit \(currentTask!.name)"
         } else {
             self.navigationItem.title = "Add Task"
@@ -117,42 +117,37 @@ class TaskEditorViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     @IBAction func saveButtonPressed(sender: UIButton) {
+        var finalMemo = ""
         
-        if let unwrappedCategory = self.taskCategory? {
-            if let unwrappedTime = self.taskTime? {
-                if let unwrappedName = self.taskName? {
-                    if let unwrappedMemo = self.taskMemo? {
-                        if self.editTask! {
-                            if let unwrappedTask = currentTask? {
-                                Database.updateTask(task: unwrappedTask, name: unwrappedName, memo: unwrappedMemo, time: unwrappedTime, categoryName: unwrappedCategory)
-                            } else {
-                                Factory.displayAlert(viewController: self, title: "Error: Task Missing", message: "Task missing while in edit mode. D':")
-                            }
-                        } else {
-                            Database.addTask(name: unwrappedName, memo: unwrappedMemo, time: unwrappedTime, categoryName: unwrappedCategory)
-                        }
-                    } else {
-                        if self.editTask! {
-                            if let unwrappedTask = currentTask? {
-                                Database.updateTask(task: unwrappedTask, name: unwrappedName, memo: "", time: unwrappedTime, categoryName: unwrappedCategory)
-                            } else {
-                                Factory.displayAlert(viewController: self, title: "Error: Task Missing", message: "Task missing while in edit mode. D':")
-                            }
-                        } else {
-                            Database.addTask(name: unwrappedName, memo: "", time: unwrappedTime, categoryName: unwrappedCategory)
-                        }
-                    }
-                } else {
-                    Factory.displayAlert(viewController: self, title: "Name Not Given", message: "You must name the task before saving.")
-                }
-            } else {
-                Factory.displayAlert(viewController: self, title: "Time Budgeted Not Selected", message: "You must select an amount of time to budget.")
-            }
-        } else {
-            Factory.displayAlert(viewController: self, title: "Category Not Selected", message: "You must select a Category")
+        if let unwrappedMemo = self.taskMemo? {
+            finalMemo = unwrappedMemo
         }
         
-        self.dismissViewControllerAnimated(true, completion: {})
+        if let unwrappedName = self.taskName? {
+            if let unwrappedCategory = self.taskCategory? {
+                if let unwrappedTime = self.taskTime? {
+                    if self.editTask {
+                        // Edit Task Mode
+                        if let unwrappedTask = currentTask? {
+                            Database.updateTask(task: unwrappedTask, name: unwrappedName, memo: finalMemo, time: unwrappedTime, categoryName: unwrappedCategory)
+                            self.dismissViewControllerAnimated(true, completion: {})
+                        } else {
+                            Factory.displayAlert(viewController: self, title: "Error: Task Missing", message: "Task missing while in edit mode. D':")
+                        }
+                    } else {
+                        // New Task Mode
+                        Database.addTask(name: unwrappedName, memo: finalMemo, time: unwrappedTime, categoryName: unwrappedCategory)
+                        self.dismissViewControllerAnimated(true, completion: {})
+                    }
+                } else {
+                    Factory.displayAlert(viewController: self, title: "Time Budgeted Not Selected", message: "You must select an amount of time to budget.")
+                }
+            } else {
+                Factory.displayAlert(viewController: self, title: "Category Not Selected", message: "You must select a Category")
+            }
+        } else {
+            Factory.displayAlert(viewController: self, title: "Name Not Given", message: "You must name the task before saving.")
+        }
     }
     
     @IBAction func cancelButtonPressed(sender: UIBarButtonItem) {
