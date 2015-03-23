@@ -26,6 +26,7 @@ public class Database {
     public class func newBudget() {
         let realm = Database.getRealm()
         
+        
         if Budget.objectsWhere("isCurrent = TRUE").count > 0 {
             let oldBudget = Budget.objectsWhere("isCurrent = TRUE").firstObject() as Budget
             
@@ -48,6 +49,8 @@ public class Database {
                 realm.addObject(newBudget)
             }
         }
+        
+        UIApplication.sharedApplication().scheduleLocalNotification(Factory.archiveBudgetNotification())
     }
     
     public class func migrateToNewBudget(#oldBudget: Budget, newBudget: Budget) {

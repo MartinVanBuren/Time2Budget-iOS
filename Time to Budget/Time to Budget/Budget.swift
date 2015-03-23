@@ -33,7 +33,7 @@ public class Budget: RLMObject {
         let cal = NSCalendar.currentCalendar()
         let currentDate = NSDate()
         let endingDate = endDate
-        let dif = cal.compareDate(currentDate, toDate: endingDate, toUnitGranularity: NSCalendarUnit.DayCalendarUnit)
+        let dif = cal.compareDate(currentDate, toDate: endingDate, toUnitGranularity: NSCalendarUnit.SecondCalendarUnit)
         
         if dif == NSComparisonResult.OrderedAscending
         {

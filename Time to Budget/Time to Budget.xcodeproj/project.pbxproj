@@ -36,7 +36,6 @@
 		93D4673C1A762C780016E875 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F0E5101A720BF4009D95EC /* Category.swift */; };
 		93D4673D1A762C780016E875 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F0E5171A720BF4009D95EC /* Task.swift */; };
 		93D4673E1A762C780016E875 /* Record.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F0E5151A720BF4009D95EC /* Record.swift */; };
-		93D4673F1A762CAE0016E875 /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F0E53B1A721396009D95EC /* Database.swift */; };
 		93D467401A76F26B0016E875 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93F0E5321A720D13009D95EC /* Realm.framework */; };
 		93F0E4ED1A720B64009D95EC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F0E4EC1A720B64009D95EC /* AppDelegate.swift */; };
 		93F0E4F41A720B64009D95EC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 93F0E4F31A720B64009D95EC /* Images.xcassets */; };
@@ -453,7 +452,6 @@
 				9320D5891A7476A50013018C /* Time_Tests.swift in Sources */,
 				93D4673D1A762C780016E875 /* Task.swift in Sources */,
 				93D4673E1A762C780016E875 /* Record.swift in Sources */,
-				93D4673F1A762CAE0016E875 /* Database.swift in Sources */,
 				93D4673C1A762C780016E875 /* Category.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

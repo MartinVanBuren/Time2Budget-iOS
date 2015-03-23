@@ -25,15 +25,11 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if Budget.objectsWhere("isCurrent = TRUE").count > 0 {
-            self.currentBudget = (Budget.objectsWhere("isCurrent = TRUE").firstObject() as Budget)
-        } else {
-            Database.newBudget()
-            self.currentBudget = (Budget.objectsWhere("isCurrent = TRUE").firstObject() as Budget)
-        }
+        self.currentBudget = (Budget.objectsWhere("isCurrent = TRUE").firstObject() as Budget)
         
         // Set realm notification block
         notificationToken = RLMRealm.defaultRealm().addNotificationBlock { note, realm in
+            
             if Budget.objectsWhere("isCurrent = TRUE").count > 0 {
                 self.currentBudget = (Budget.objectsWhere("isCurrent = TRUE").firstObject() as Budget)
             } else {
