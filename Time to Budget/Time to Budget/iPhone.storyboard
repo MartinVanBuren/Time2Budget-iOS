@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1510" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="1qN-jU-o94">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="1qN-jU-o94">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
@@ -867,11 +867,6 @@
                     <tabBarItem key="tabBarItem" title="Budget" id="qN5-Op-yog"/>
                     <navigationItem key="navigationItem" title="Budget" id="kgx-te-TR2">
                         <barButtonItem key="backBarButtonItem" title="Done" id="eMx-hT-IAU"/>
-                        <barButtonItem key="leftBarButtonItem" title="Archive" id="fNp-P6-mHm">
-                            <connections>
-                                <action selector="archiveButtonPressed:" destination="BYZ-38-t0r" id="v9q-NQ-F0M"/>
-                            </connections>
-                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="+ Record" id="Iiv-cw-nJj">
                             <connections>
                                 <action selector="addRecordButtonPressed:" destination="BYZ-38-t0r" id="muP-v5-WEt"/>

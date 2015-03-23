@@ -369,4 +369,15 @@ public class Factory {
         viewController.presentViewController(alert, animated: true, completion: {})
     }
     
+    class func archiveBudgetNotification() -> UILocalNotification {
+        let thisBudget = Budget.objectsWhere("isCurrent = TRUE").firstObject() as Budget
+        var localNotif = UILocalNotification()
+        
+        localNotif.alertTitle = "Budget Archived"
+        localNotif.alertBody = "You're fresh budget is ready!"
+        localNotif.fireDate = thisBudget.endDate
+        
+        return localNotif
+    }
+    
 }
