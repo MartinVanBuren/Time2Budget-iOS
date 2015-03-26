@@ -14,7 +14,7 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
     var currentTask:Task!
     var returning:Bool? = false
     var editRecord:Bool = false
-    var recordList:RLMArray!
+    var recordList:RLMResults!
     @IBOutlet weak var tableView: UITableView!
     var promptEnabled:Bool = false
     
@@ -30,7 +30,7 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
     override func viewWillAppear(animated: Bool) {
         navigationItem.title = currentTask.name
         
-        recordList = currentTask.records
+        recordList = currentTask.records.sortedResultsUsingProperty("date", ascending: false)
         
         if currentTask.memo != "" {
             navigationItem.prompt = currentTask.memo

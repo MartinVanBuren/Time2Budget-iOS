@@ -20,6 +20,8 @@ public class Factory {
         var taskArray = thisCategory.tasks
         
         preparedCell.sectionNameLabel.text = thisCategory.name
+        preparedCell.backgroundColor = UIColor(red: (204/255), green: (204/255), blue: (204/255), alpha: 0.65)
+        
         if !isEditor {
             preparedCell.remainingTimeLabel.text = Time.doubleToString(thisCategory.totalTimeRemaining)
             
@@ -210,7 +212,7 @@ public class Factory {
         return preparedCell
     }
     
-    class func prepareRecordCell(#tableView: UITableView, recordList: RLMArray, indexPath: NSIndexPath) -> UITableViewCell {
+    class func prepareRecordCell(#tableView: UITableView, recordList: RLMResults, indexPath: NSIndexPath) -> UITableViewCell {
         var preparedCell = tableView.dequeueReusableCellWithIdentifier("RecordCell") as SubtitleDetailCell
         let thisRecord = recordList.objectAtIndex(UInt(indexPath.row)) as Record
         

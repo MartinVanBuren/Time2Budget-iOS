@@ -12,6 +12,7 @@ import Realm
 class BudgetHistoryRecordsViewController: UITableViewController {
     
     var currentTask:Task?
+    var recordsList:RLMResults!
     var notificationToken: RLMNotificationToken?
 
     override func viewDidLoad() {
@@ -25,6 +26,7 @@ class BudgetHistoryRecordsViewController: UITableViewController {
     }
     
     override func viewWillAppear(animated: Bool) {
+        recordsList = currentTask?.records.sortedResultsUsingProperty("date", ascending: false)
         self.tableView.reloadData()
     }
     
@@ -56,7 +58,7 @@ class BudgetHistoryRecordsViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        return Factory.prepareRecordCell(tableView: self.tableView, recordList: currentTask!.records, indexPath: indexPath)
+        return Factory.prepareRecordCell(tableView: self.tableView, recordList: recordsList, indexPath: indexPath)
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
