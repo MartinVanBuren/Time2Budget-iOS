@@ -277,6 +277,20 @@ public class Factory {
         
         return preparedCell
     }
+    
+    class func prepareBasicHeader(#tableView: UITableView, titleText: String) -> UIView {
+        var preparedView = UIView()
+        var cell = tableView.dequeueReusableCellWithIdentifier("CategoryCell") as CategoryCell
+        
+        //cell.editButton.hidden = true
+        cell.remainingTimeLabel.hidden = true
+        cell.sectionNameLabel.text = titleText
+        cell.backgroundColor = UIColor(red: (204/255), green: (204/255), blue: (204/255), alpha: 0.65)
+        
+        preparedView.addSubview(cell)
+        
+        return preparedView
+    }
 
     class func displayDeleteTaskAlert(#viewController: BudgetEditorViewController, indexPath: NSIndexPath){
         let currentBudget = Budget.objectsWhere("isCurrent = TRUE").firstObject() as Budget
