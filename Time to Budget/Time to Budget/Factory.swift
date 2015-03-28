@@ -35,16 +35,6 @@ public class Factory {
         } else {
             preparedCell.remainingTimeLabel.text = Time.doubleToString(thisCategory.totalTimeBudgeted)
             preparedCell.remainingTimeLabel.textColor = UIColor.darkGrayColor()
-            
-            /*
-            if thisCategory.totalTimeBudgeted > 0.0 {
-                preparedCell.remainingTimeLabel.textColor = UIColor(red: 0.25, green: 0.65, blue: 0.05, alpha: 1.0)
-            } else if thisCategory.totalTimeBudgeted < 0.0 {
-                preparedCell.remainingTimeLabel.textColor = UIColor.redColor()
-            } else {
-                preparedCell.remainingTimeLabel.textColor = UIColor(red: 85/255, green: 85/255, blue: 85/255, alpha: 1.0)
-            }
-            */
         }
         
         let returnedView = UIView()
@@ -77,16 +67,6 @@ public class Factory {
         } else {
             preparedCell.detail.text = Time.doubleToString(thisTask.timeBudgeted)
             preparedCell.detail.textColor = UIColor.darkGrayColor()
-            
-            /*
-            if thisTask.timeBudgeted > 0.0 {
-                preparedCell.detail.textColor = UIColor(red: 0.25, green: 0.65, blue: 0.05, alpha: 1.0)
-            } else if thisTask.timeRemaining < 0.0 {
-                preparedCell.detail.textColor = UIColor.redColor()
-            } else {
-                preparedCell.detail.textColor = UIColor(red: 127/255, green: 127/255, blue: 127/255, alpha: 1.0)
-            }
-            */
         }
         
         
@@ -282,7 +262,6 @@ public class Factory {
         var preparedView = UIView()
         var cell = tableView.dequeueReusableCellWithIdentifier("CategoryCell") as CategoryCell
         
-        //cell.editButton.hidden = true
         cell.remainingTimeLabel.hidden = true
         cell.sectionNameLabel.text = titleText
         cell.backgroundColor = UIColor(red: (204/255), green: (204/255), blue: (204/255), alpha: 0.65)

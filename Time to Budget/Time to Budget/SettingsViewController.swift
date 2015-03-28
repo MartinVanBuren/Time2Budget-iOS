@@ -78,42 +78,9 @@ class SettingsViewController: UITableViewController {
         default:
             return UITableViewCell()
         }
-        /*
-        switch indexPath.row {
-        case 0:
-            return Factory.prepareBasicCell(tableView: self.tableView, titleText: "Clear Database")
-        case 1:
-            return Factory.prepareBasicCell(tableView: self.tableView, titleText: "Feedback")
-        case 2:
-            return Factory.prepareSettingsAboutCell(tableView: self.tableView)
-        default:
-            return UITableViewCell()
-        }
-        */
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        /*
-        switch indexPath.row {
-        case 0:
-            for views in tabBarController!.viewControllers! {
-                (views as UINavigationController).popToRootViewControllerAnimated(false)
-            }
-            let realm = Database.getRealm()
-            realm.beginWriteTransaction()
-            realm.deleteAllObjects()
-            realm.commitWriteTransaction()
-        case 1:
-            let url = NSURL(string: "https://bitbucket.org/arrkensoftware/timetobudget_ios/issues")
-            UIApplication.sharedApplication().openURL(url!)
-        case 2:
-            let url = NSURL(string: "https://arrken.com")
-            UIApplication.sharedApplication().openURL(url!)
-        default:
-            break
-        }
-        */
-        
         switch indexPath.section {
         case 0:
             let realm = Database.getRealm()
@@ -143,6 +110,9 @@ class SettingsViewController: UITableViewController {
                         let currentTask = currentCategory.tasks.objectAtIndex(x) as Task
                         realm.beginWriteTransaction()
                         realm.deleteObjects(currentTask.records)
+                        currentTask.records.removeAllObjects()
+                        currentTask.calcTime()
+                        currentCategory.calcTime()
                         realm.commitWriteTransaction()
                     }
                 }
