@@ -20,7 +20,6 @@ public class Factory {
         var taskArray = thisCategory.tasks
         
         preparedCell.sectionNameLabel.text = thisCategory.name
-        preparedCell.backgroundColor = UIColor(red: (204/255), green: (204/255), blue: (204/255), alpha: 0.65)
         
         if !isEditor {
             preparedCell.remainingTimeLabel.text = Time.doubleToString(thisCategory.totalTimeRemaining)
@@ -40,6 +39,7 @@ public class Factory {
         let returnedView = UIView()
         
         returnedView.addSubview(preparedCell)
+        returnedView.backgroundColor = UIColor(red: (204/255), green: (204/255), blue: (204/255), alpha: 0.65)
         
         return returnedView
     }
@@ -353,7 +353,7 @@ public class Factory {
     
     class func displayDeleteRecordAlert(viewController: UIViewController, record: Record) {
         
-        let alert = UIAlertController(title: "Are You Sure?", message: "Are you sure you wwant to delete this task?", preferredStyle: UIAlertControllerStyle.Alert)
+        let alert = UIAlertController(title: "Are You Sure?", message: "Are you sure you want to delete this record?", preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
             Database.deleteRecord(record: record)
             (viewController as RecordsViewController).tableView.reloadData()

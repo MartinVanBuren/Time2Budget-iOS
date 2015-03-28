@@ -90,32 +90,13 @@ class SettingsViewController: UITableViewController {
             
             switch indexPath.row {
             case 0:
-                realm.beginWriteTransaction()
-                realm.deleteAllObjects()
-                realm.commitWriteTransaction()
+                displayResetAllAlert()
             case 1:
-                realm.beginWriteTransaction()
-                realm.deleteObjects(Budget.objectsWhere("isCurrent = FALSE"))
-                realm.commitWriteTransaction()
+                displayResetHistoryAlert()
             case 2:
-                let currentBudget = Budget.objectsWhere("isCurrent = TRUE").firstObject() as Budget
-                realm.beginWriteTransaction()
-                realm.deleteObjects(currentBudget.categories)
-                realm.commitWriteTransaction()
+                displayResetCurrentBudgetAlert()
             case 3:
-                let currentBudget = Budget.objectsWhere("isCurrent = TRUE").firstObject() as Budget
-                for var i:UInt = 0; i < currentBudget.categories.count; i++ {
-                    let currentCategory = currentBudget.categories.objectAtIndex(i) as Category
-                    for var x:UInt = 0; x < currentCategory.tasks.count; x++ {
-                        let currentTask = currentCategory.tasks.objectAtIndex(x) as Task
-                        realm.beginWriteTransaction()
-                        realm.deleteObjects(currentTask.records)
-                        currentTask.records.removeAllObjects()
-                        currentTask.calcTime()
-                        currentCategory.calcTime()
-                        realm.commitWriteTransaction()
-                    }
-                }
+                displayResetCurrentRecordsAlert()
             default:
                 return
             }
@@ -133,5 +114,80 @@ class SettingsViewController: UITableViewController {
         default:
             return
         }
+    }
+    
+    func displayResetAllAlert() {
+        let realm = Database.getRealm()
+        let alert = UIAlertController(title: "Are You Sure?", message: "Are you sure you want to erase all information?", preferredStyle: UIAlertControllerStyle.Alert)
+        alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+            realm.beginWriteTransaction()
+            realm.deleteAllObjects()
+            realm.commitWriteTransaction()
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
+        
+        self.presentViewController(alert, animated: true, completion: {})
+    }
+    
+    func displayResetHistoryAlert() {
+        let realm = Database.getRealm()
+        let alert = UIAlertController(title: "Are You Sure?", message: "Are you sure you want to erase all non-current budgets?", preferredStyle: UIAlertControllerStyle.Alert)
+        alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+            realm.beginWriteTransaction()
+            realm.deleteObjects(Budget.objectsWhere("isCurrent = FALSE"))
+            realm.commitWriteTransaction()
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
+        
+        self.presentViewController(alert, animated: true, completion: {})
+    }
+    
+    func displayResetCurrentBudgetAlert() {
+        let realm = Database.getRealm()
+        let alert = UIAlertController(title: "Are You Sure?", message: "Are you sure you want to erase the entire current budget?", preferredStyle: UIAlertControllerStyle.Alert)
+        alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+            let currentBudget = Budget.objectsWhere("isCurrent = TRUE").firstObject() as Budget
+            for var i:UInt = 0; i < currentBudget.categories.count; i++ {
+                let currentCategory = currentBudget.categories[i] as Category
+                for var x:UInt = 0; x < currentCategory.tasks.count; x++ {
+                    let currentTask = currentCategory.tasks[x] as Task
+                    realm.beginWriteTransaction()
+                    realm.deleteObjects(currentTask.records)
+                    realm.commitWriteTransaction()
+                }
+                realm.beginWriteTransaction()
+                realm.deleteObjects(currentCategory.tasks)
+                realm.commitWriteTransaction()
+            }
+            realm.beginWriteTransaction()
+            realm.deleteObjects(currentBudget.categories)
+            realm.commitWriteTransaction()
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
+        
+        self.presentViewController(alert, animated: true, completion: {})
+    }
+    
+    func displayResetCurrentRecordsAlert() {
+        let realm = Database.getRealm()
+        let alert = UIAlertController(title: "Are You Sure?", message: "Are you sure you want to erase all records for the current budget?", preferredStyle: UIAlertControllerStyle.Alert)
+        alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+            let currentBudget = Budget.objectsWhere("isCurrent = TRUE").firstObject() as Budget
+            for var i:UInt = 0; i < currentBudget.categories.count; i++ {
+                let currentCategory = currentBudget.categories.objectAtIndex(i) as Category
+                for var x:UInt = 0; x < currentCategory.tasks.count; x++ {
+                    let currentTask = currentCategory.tasks.objectAtIndex(x) as Task
+                    realm.beginWriteTransaction()
+                    realm.deleteObjects(currentTask.records)
+                    currentTask.records.removeAllObjects()
+                    currentTask.calcTime()
+                    currentCategory.calcTime()
+                    realm.commitWriteTransaction()
+                }
+            }
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
+        
+        self.presentViewController(alert, animated: true, completion: {})
     }
 }
