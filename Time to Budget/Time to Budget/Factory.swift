@@ -375,7 +375,7 @@ public class Factory {
         var localNotif = UILocalNotification()
         
         localNotif.alertTitle = "Budget Archived"
-        localNotif.alertBody = "You're fresh budget is ready!"
+        localNotif.alertBody = "Your fresh budget is ready!"
         localNotif.fireDate = thisBudget.endDate
         
         return localNotif
