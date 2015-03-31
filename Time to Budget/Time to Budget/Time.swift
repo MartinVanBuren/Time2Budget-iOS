@@ -114,7 +114,20 @@ public class Time {
     **    Double: Value converted from self.hours and self.minutes
     */
     public func toDouble() -> Double {
-        return Double(self.hours) + Double(Double(self.minutes) / 100.0)
+        var tempMin:Double
+        
+        switch self.minutes {
+        case 15:
+            tempMin = 0.25
+        case 30:
+            tempMin = 0.5
+        case 45:
+            tempMin = 0.75
+        default:
+            tempMin = 0.0
+        }
+        
+        return (Double(self.hours) + tempMin)
     }
     
 
@@ -216,8 +229,15 @@ public class Time {
         var tempHours = String(digitHrs).toInt()!
         var tempMins = String(digitMins).toInt()!
         
-        if tempMins == 3 {
-            tempMins *= 10
+        switch tempMins {
+        case 25:
+            tempMins = 15
+        case 5:
+            tempMins = 30
+        case 75:
+            tempMins = 45
+        default:
+            tempMins = 0
         }
         
         let finalTime = Time(newHours: tempHours, newMinutes: tempMins)

@@ -50,6 +50,7 @@ public class Database {
             }
         }
         
+        UIApplication.sharedApplication().cancelAllLocalNotifications()
         UIApplication.sharedApplication().scheduleLocalNotification(Factory.archiveBudgetNotification())
     }
     

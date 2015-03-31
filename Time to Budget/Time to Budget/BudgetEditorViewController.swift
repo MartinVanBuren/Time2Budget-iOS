@@ -131,14 +131,20 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
     
     //==================== Helper Methods ====================
     func updateTimeRemaining() {
-        let taskList = Task.allObjects()
-        var tempTime = Time()
+        var taskList:[Time] = []
         let newTime = Time.doubleToTime(168.0)
         
-        for var i:UInt = 0; i < taskList.count; i++ {
-            tempTime = Time.doubleToTime((taskList.objectAtIndex(i) as Task).timeBudgeted)
-            newTime.hours -= tempTime.hours
-            newTime.minutes -= tempTime.minutes
+        for var i:UInt = 0; i < self.currentBudget?.categories.count; i++ {
+            let currentCategory = currentBudget?.categories[i] as Category
+            for var x:UInt = 0; x < currentCategory.tasks.count; x++ {
+                let currentTask = currentCategory.tasks[x] as Task
+                taskList.append(Time.doubleToTime(currentTask.timeBudgeted))
+            }
+        }
+        
+        for var i = 0; i < taskList.count; i++ {
+            newTime.hours -= taskList[i].hours
+            newTime.minutes -= taskList[i].minutes
         }
         
         newTime.cleanTime()
