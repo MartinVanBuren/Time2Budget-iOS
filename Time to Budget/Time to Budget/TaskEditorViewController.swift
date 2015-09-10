@@ -31,7 +31,7 @@ class TaskEditorViewController: UIViewController, UITableViewDataSource, UITable
         }
 
         // Do any additional setup after loading the view.
-        if let unwrappedTask = currentTask? {
+        if let unwrappedTask = currentTask {
             self.taskName = unwrappedTask.name
             self.taskMemo = unwrappedTask.memo
             self.taskCategory = unwrappedTask.parent.name
@@ -61,13 +61,13 @@ class TaskEditorViewController: UIViewController, UITableViewDataSource, UITable
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         switch indexPath.row {
         case 0:
-            return Factory.prepareAddTaskNameCell(tableView: self.tableView, name: self.taskName?)
+            return Factory.prepareAddTaskNameCell(tableView: self.tableView, name: self.taskName)
         case 1:
-            return Factory.prepareAddTaskMemoCell(tableView: self.tableView, memo: self.taskMemo?)
+            return Factory.prepareAddTaskMemoCell(tableView: self.tableView, memo: self.taskMemo)
         case 2:
-            return Factory.prepareAddTaskCategoryCell(tableView: self.tableView, categoryName: self.taskCategory?)
+            return Factory.prepareAddTaskCategoryCell(tableView: self.tableView, categoryName: self.taskCategory)
         default:
-            return Factory.prepareAddTaskTimeCell(tableView: self.tableView, time: self.taskTime?)
+            return Factory.prepareAddTaskTimeCell(tableView: self.tableView, time: self.taskTime)
         }
     }
     
@@ -85,10 +85,10 @@ class TaskEditorViewController: UIViewController, UITableViewDataSource, UITable
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if (segue.identifier == "showTaskEditorTimePickerView") {
-            let timePickerVC = segue.destinationViewController as TaskEditorTimePickerViewController
+            let timePickerVC = segue.destinationViewController as! TaskEditorTimePickerViewController
             timePickerVC.taskEditorVC = self
         } else if (segue.identifier == "showTaskEditorCategorySelectorView") {
-            let categorySelectorVC = segue.destinationViewController as TaskEditorCategorySelectorViewController
+            let categorySelectorVC = segue.destinationViewController as! TaskEditorCategorySelectorViewController
             categorySelectorVC.taskEditorVC = self
         }
         
@@ -119,16 +119,16 @@ class TaskEditorViewController: UIViewController, UITableViewDataSource, UITable
     @IBAction func saveButtonPressed(sender: UIButton) {
         var finalMemo = ""
         
-        if let unwrappedMemo = self.taskMemo? {
+        if let unwrappedMemo = self.taskMemo {
             finalMemo = unwrappedMemo
         }
         
-        if let unwrappedName = self.taskName? {
-            if let unwrappedCategory = self.taskCategory? {
-                if let unwrappedTime = self.taskTime? {
+        if let unwrappedName = self.taskName {
+            if let unwrappedCategory = self.taskCategory {
+                if let unwrappedTime = self.taskTime {
                     if self.editTask {
                         // Edit Task Mode
-                        if let unwrappedTask = currentTask? {
+                        if let unwrappedTask = currentTask {
                             Database.updateTask(task: unwrappedTask, name: unwrappedName, memo: finalMemo, time: unwrappedTime, categoryName: unwrappedCategory)
                             self.dismissViewControllerAnimated(true, completion: {})
                         } else {

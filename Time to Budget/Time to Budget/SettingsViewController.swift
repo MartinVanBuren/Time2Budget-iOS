@@ -85,7 +85,7 @@ class SettingsViewController: UITableViewController {
         case 0:
             let realm = Database.getRealm()
             for views in tabBarController!.viewControllers! {
-                (views as UINavigationController).popToRootViewControllerAnimated(false)
+                (views as! UINavigationController).popToRootViewControllerAnimated(false)
             }
             
             switch indexPath.row {
@@ -114,6 +114,8 @@ class SettingsViewController: UITableViewController {
         default:
             return
         }
+        
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
     
     func displayResetAllAlert() {

@@ -37,8 +37,8 @@ class BudgetHistoryRecordsViewController: UITableViewController {
         let indexPath = self.tableView.indexPathForSelectedRow()!
         
         if segue.identifier == "showHistoryRecord" {
-            let historyRecordVC = segue.destinationViewController as BudgetHistoryRecordViewController
-            historyRecordVC.currentRecord = (currentTask!.records[UInt(indexPath.row)] as Record)
+            let historyRecordVC = segue.destinationViewController as! BudgetHistoryRecordViewController
+            historyRecordVC.currentRecord = (currentTask!.records[UInt(indexPath.row)] as! Record)
             historyRecordVC.currentTask = self.currentTask!
         }
     }

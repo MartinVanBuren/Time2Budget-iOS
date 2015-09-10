@@ -47,14 +47,14 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "showTrackingViewAlt" {
             
-            let trackingVC = (segue.destinationViewController as UINavigationController).topViewController as RecordEditorViewController
+            let trackingVC = (segue.destinationViewController as! UINavigationController).topViewController as! RecordEditorViewController
             
             if self.editRecord {
                 let indexPath = self.tableView.indexPathForSelectedRow()!
                 
                 trackingVC.editRecord = true
                 trackingVC.currentTask = self.currentTask
-                trackingVC.currentRecord = (recordList.objectAtIndex(UInt(indexPath.row)) as Record)
+                trackingVC.currentRecord = (recordList.objectAtIndex(UInt(indexPath.row)) as! Record)
                 self.editRecord = false
             } else {
                 trackingVC.currentTask = self.currentTask
@@ -90,7 +90,7 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
     
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         
-        Factory.displayDeleteRecordAlert(self, record: recordList.objectAtIndex(UInt(indexPath.row)) as Record)
+        Factory.displayDeleteRecordAlert(self, record: recordList.objectAtIndex(UInt(indexPath.row)) as! Record)
     }
     
     // ============================= IBActions =============================

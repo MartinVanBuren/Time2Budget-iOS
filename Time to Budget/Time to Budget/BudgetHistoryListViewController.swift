@@ -33,9 +33,9 @@ class BudgetHistoryListViewController: UITableViewController {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "showHistoryBudget" {
-            let historyBudgetVC = segue.destinationViewController as BudgetHistoryViewController
+            let historyBudgetVC = segue.destinationViewController as! BudgetHistoryViewController
             let indexPath = self.tableView.indexPathForSelectedRow()!
-            historyBudgetVC.currentBudget = (self.budgetList[UInt(indexPath.row)] as Budget)
+            historyBudgetVC.currentBudget = (self.budgetList[UInt(indexPath.row)] as! Budget)
         }
     }
 
@@ -52,7 +52,7 @@ class BudgetHistoryListViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        return Factory.prepareBasicCell(tableView: self.tableView, titleText: (self.budgetList[UInt(indexPath.row)] as Budget).name)
+        return Factory.prepareBasicCell(tableView: self.tableView, titleText: (self.budgetList[UInt(indexPath.row)] as! Budget).name)
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {

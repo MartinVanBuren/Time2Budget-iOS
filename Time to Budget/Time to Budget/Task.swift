@@ -23,7 +23,7 @@ public class Task: RLMObject {
         self.timeRemaining = 0.0
             
         for var i:UInt = 0; i < self.records.count; i++ {
-            self.totalTimeSpent += (self.records.objectAtIndex(i) as Record).timeSpent
+            self.totalTimeSpent += (self.records.objectAtIndex(i) as! Record).timeSpent
         }
         
         self.timeRemaining = (self.timeBudgeted - self.totalTimeSpent)

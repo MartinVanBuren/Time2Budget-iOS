@@ -21,8 +21,8 @@ public class Category: RLMObject {
         self.totalTimeBudgeted = 0.0
         
         for var i:UInt = 0; i < self.tasks.count; i++ {
-            self.totalTimeRemaining += (self.tasks.objectAtIndex(i) as Task).timeRemaining
-            self.totalTimeBudgeted += (self.tasks.objectAtIndex(i) as Task).timeBudgeted
+            self.totalTimeRemaining += (self.tasks.objectAtIndex(i) as! Task).timeRemaining
+            self.totalTimeBudgeted += (self.tasks.objectAtIndex(i) as! Task).timeBudgeted
         }
     }
 }

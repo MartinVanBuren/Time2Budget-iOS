@@ -35,8 +35,8 @@ class BudgetHistoryViewController: UITableViewController {
         let indexPath = self.tableView.indexPathForSelectedRow()!
         
         if segue.identifier == "showHistoryRecords" {
-            let historyRecordsVC = segue.destinationViewController as BudgetHistoryRecordsViewController
-            historyRecordsVC.currentTask = ((currentBudget?.categories[UInt(indexPath.section)] as Category).tasks[UInt(indexPath.row)] as Task)
+            let historyRecordsVC = segue.destinationViewController as! BudgetHistoryRecordsViewController
+            historyRecordsVC.currentTask = ((currentBudget?.categories[UInt(indexPath.section)] as! Category).tasks[UInt(indexPath.row)] as! Task)
         }
     }
 
@@ -47,7 +47,7 @@ class BudgetHistoryViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return Int((currentBudget!.categories.objectAtIndex(UInt(section)) as Category).tasks.count)
+        return Int((currentBudget!.categories.objectAtIndex(UInt(section)) as! Category).tasks.count)
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {

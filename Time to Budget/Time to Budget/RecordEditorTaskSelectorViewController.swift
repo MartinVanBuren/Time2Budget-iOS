@@ -11,7 +11,7 @@ import UIKit
 class RecordEditorTaskSelectorViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     let realm = Database.getRealm()
-    let currentBudget = Budget.objectsWhere("isCurrent = TRUE").firstObject() as Budget
+    let currentBudget = Budget.objectsWhere("isCurrent = TRUE").firstObject() as! Budget
     var recordEditorVC:RecordEditorViewController!
     @IBOutlet weak var tableView: UITableView!
     var returning:Bool? = false
@@ -38,7 +38,7 @@ class RecordEditorTaskSelectorViewController: UIViewController, UITableViewDataS
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return Int((currentBudget.categories.objectAtIndex(UInt(section)) as Category).tasks.count)
+        return Int((currentBudget.categories.objectAtIndex(UInt(section)) as! Category).tasks.count)
         
     }
     
@@ -56,7 +56,7 @@ class RecordEditorTaskSelectorViewController: UIViewController, UITableViewDataS
     
     //==================== UITableViewDelegate Methods ====================
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        recordEditorVC.currentTask = ((currentBudget.categories.objectAtIndex(UInt(indexPath.section)) as Category).tasks.objectAtIndex(UInt(indexPath.row)) as Task)
+        recordEditorVC.currentTask = ((currentBudget.categories.objectAtIndex(UInt(indexPath.section)) as! Category).tasks.objectAtIndex(UInt(indexPath.row)) as! Task)
         self.navigationController?.popViewControllerAnimated(true)
     }
     

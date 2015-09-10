@@ -13,9 +13,9 @@ import Realm
 public class Factory {
     class func prepareCategoryCell(#tableView: UITableView, categoryList: RLMArray, section: Int, isEditor: Bool) -> UIView {
         
-        let thisCategory = categoryList.objectAtIndex(UInt(section)) as Category
+        let thisCategory = categoryList.objectAtIndex(UInt(section)) as! Category
         
-        var preparedCell:CategoryCell = tableView.dequeueReusableCellWithIdentifier("CategoryCell") as CategoryCell
+        var preparedCell:CategoryCell = tableView.dequeueReusableCellWithIdentifier("CategoryCell") as! CategoryCell
         
         var taskArray = thisCategory.tasks
         
@@ -46,9 +46,9 @@ public class Factory {
     
     class func prepareTaskCell(#tableView: UITableView, categoryList: RLMArray, indexPath: NSIndexPath, isEditor: Bool) -> UITableViewCell {
         
-        let thisTask = ((categoryList.objectAtIndex(UInt(indexPath.section)) as Category).tasks.objectAtIndex(UInt(indexPath.row)) as Task)
+        let thisTask = ((categoryList.objectAtIndex(UInt(indexPath.section)) as! Category).tasks.objectAtIndex(UInt(indexPath.row)) as! Task)
         
-        var preparedCell = tableView.dequeueReusableCellWithIdentifier("TaskCell") as SubtitleDetailCell
+        var preparedCell = tableView.dequeueReusableCellWithIdentifier("TaskCell") as! SubtitleDetailCell
         
         preparedCell.title.text = thisTask.name
         preparedCell.subtitle.text = thisTask.memo
@@ -113,7 +113,7 @@ public class Factory {
         
         dateCell.textLabel?.text = "Date"
         
-        if let unwrappedDate = date? {
+        if let unwrappedDate = date {
             var dateFormatter = NSDateFormatter()
             dateFormatter.dateFormat = "MMMM dd, yyyy"
             
@@ -129,9 +129,9 @@ public class Factory {
     }
     
     class func prepareAddRecordMemoCell(#tableView: UITableView, memo: String?) -> UITableViewCell {
-        var memoCell = tableView.dequeueReusableCellWithIdentifier("RecordMemoCell") as MemoCell
+        var memoCell = tableView.dequeueReusableCellWithIdentifier("RecordMemoCell") as! MemoCell
         
-        if let unwrappedMemo = memo? {
+        if let unwrappedMemo = memo {
             memoCell.memoTextField.text = unwrappedMemo
         } else {
             memoCell.memoTextField.placeholder = "(Optional) Enter a Memo"
@@ -141,9 +141,9 @@ public class Factory {
     }
     
     class func prepareAddTaskNameCell(#tableView: UITableView, name: String?) -> UITableViewCell {
-        var preparedCell = tableView.dequeueReusableCellWithIdentifier("taskNameCell") as TextfieldCell
+        var preparedCell = tableView.dequeueReusableCellWithIdentifier("taskNameCell") as! TextfieldCell
         
-        if let unwrappedName = name? {
+        if let unwrappedName = name {
             preparedCell.textField.text = unwrappedName
         } else {
             preparedCell.textField.placeholder = "Task Name"
@@ -153,9 +153,9 @@ public class Factory {
     }
     
     class func prepareAddTaskMemoCell(#tableView: UITableView, memo: String?) -> UITableViewCell {
-        var preparedCell = tableView.dequeueReusableCellWithIdentifier("taskMemoCell") as TextfieldCell
+        var preparedCell = tableView.dequeueReusableCellWithIdentifier("taskMemoCell") as! TextfieldCell
         
-        if let unwrappedMemo = memo? {
+        if let unwrappedMemo = memo {
             preparedCell.textField.text = unwrappedMemo
         } else {
             preparedCell.textField.placeholder = "Memo (Optional)"
@@ -169,7 +169,7 @@ public class Factory {
         
         preparedCell.textLabel?.text = "Category"
         
-        if let unwrappedCategoryName = categoryName? {
+        if let unwrappedCategoryName = categoryName {
             preparedCell.detailTextLabel?.text = categoryName
             preparedCell.detailTextLabel?.textColor = UIColor.blackColor()
         } else {
@@ -186,7 +186,7 @@ public class Factory {
         
         preparedCell.textLabel?.text = "Time Budgeted"
         
-        if let unwrappedTime = time? {
+        if let unwrappedTime = time {
             preparedCell.detailTextLabel?.text = Time.doubleToString(unwrappedTime)
             preparedCell.detailTextLabel?.textColor = UIColor.blackColor()
         } else {
@@ -198,9 +198,15 @@ public class Factory {
         return preparedCell
     }
     
+<<<<<<< Updated upstream
     class func prepareRecordCell(#tableView: UITableView, recordList: RLMResults, indexPath: NSIndexPath) -> UITableViewCell {
         var preparedCell = tableView.dequeueReusableCellWithIdentifier("RecordCell") as SubtitleDetailCell
         let thisRecord = recordList.objectAtIndex(UInt(indexPath.row)) as Record
+=======
+    class func prepareRecordCell(#tableView: UITableView, recordList: RLMArray, indexPath: NSIndexPath) -> UITableViewCell {
+        var preparedCell = tableView.dequeueReusableCellWithIdentifier("RecordCell") as! SubtitleDetailCell
+        let thisRecord = recordList.objectAtIndex(UInt(indexPath.row)) as! Record
+>>>>>>> Stashed changes
         
         preparedCell.title.text = thisRecord.note
         preparedCell.subtitle.text = thisRecord.dateToString()
@@ -233,7 +239,7 @@ public class Factory {
         var finalData:[String] = []
         
         for var i = 0; i < Int(categoryList.count); i++ {
-            finalData.append((categoryList.objectAtIndex(UInt(i)) as Category).name)
+            finalData.append((categoryList.objectAtIndex(UInt(i)) as! Category).name)
         }
         
         return finalData
@@ -272,9 +278,9 @@ public class Factory {
     }
 
     class func displayDeleteTaskAlert(#viewController: BudgetEditorViewController, indexPath: NSIndexPath){
-        let currentBudget = Budget.objectsWhere("isCurrent = TRUE").firstObject() as Budget
-        let currentCategory = currentBudget.categories[UInt(indexPath.section)] as Category
-        let currentTask = currentCategory.tasks[UInt(indexPath.row)] as Task
+        let currentBudget = Budget.objectsWhere("isCurrent = TRUE").firstObject() as! Budget
+        let currentCategory = currentBudget.categories[UInt(indexPath.section)] as! Category
+        let currentTask = currentCategory.tasks[UInt(indexPath.row)] as! Task
         
         let alert = UIAlertController(title: "Keep Records?", message: "Records will be moved to the 'Taskless Records' Task", preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
@@ -289,8 +295,8 @@ public class Factory {
     }
     
     class func displayDeleteCategoryAlert(#viewController: UIViewController, categoryName: String) {
-        let currentBudget = Budget.objectsWhere("isCurrent = TRUE").firstObject() as Budget
-        let currentCategory = currentBudget.categories.objectsWhere("name = '\(categoryName)'").firstObject() as Category
+        let currentBudget = Budget.objectsWhere("isCurrent = TRUE").firstObject() as! Budget
+        let currentCategory = currentBudget.categories.objectsWhere("name = '\(categoryName)'").firstObject() as! Category
         
         let alert = UIAlertController(title: "Keep Tasks?", message: "Tasks will be moved to the 'Uncategorized' Category", preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
@@ -328,9 +334,9 @@ public class Factory {
     }
     
     class func displayEditCategoryAlert(#viewController: UIViewController, categoryName: String) {
-        let currentBudget = Budget.objectsWhere("isCurrent = TRUE").firstObject() as Budget
+        let currentBudget = Budget.objectsWhere("isCurrent = TRUE").firstObject() as! Budget
         var inputTextField = UITextField()
-        let category = currentBudget.categories.objectsWhere("name = '\(categoryName)'").firstObject() as Category
+        let category = currentBudget.categories.objectsWhere("name = '\(categoryName)'").firstObject()as! Category
         
         let alert = UIAlertController(title: "Edit Category", message: "", preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Delete", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
@@ -356,7 +362,7 @@ public class Factory {
         let alert = UIAlertController(title: "Are You Sure?", message: "Are you sure you want to delete this record?", preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
             Database.deleteRecord(record: record)
-            (viewController as RecordsViewController).tableView.reloadData()
+            (viewController as! RecordsViewController).tableView.reloadData()
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
         
@@ -371,7 +377,7 @@ public class Factory {
     }
     
     class func archiveBudgetNotification() -> UILocalNotification {
-        let thisBudget = Budget.objectsWhere("isCurrent = TRUE").firstObject() as Budget
+        let thisBudget = Budget.objectsWhere("isCurrent = TRUE").firstObject() as! Budget
         var localNotif = UILocalNotification()
         
         localNotif.alertTitle = "Budget Archived"

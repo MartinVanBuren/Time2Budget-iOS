@@ -46,7 +46,7 @@ class BudgetHistoryRecordViewController: UITableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         switch indexPath.row {
         case 0:
-            let cell = Factory.prepareAddRecordTaskCell(tableView: tableView, currentTask: self.currentTask?)
+            let cell = Factory.prepareAddRecordTaskCell(tableView: tableView, currentTask: self.currentTask)
             cell.accessoryType = UITableViewCellAccessoryType.None
             return cell
         case 1:

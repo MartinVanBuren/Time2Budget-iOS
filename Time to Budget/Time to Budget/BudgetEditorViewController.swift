@@ -25,16 +25,16 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.currentBudget = (Budget.objectsWhere("isCurrent = TRUE").firstObject() as Budget)
+        self.currentBudget = (Budget.objectsWhere("isCurrent = TRUE").firstObject() as! Budget)
         
         // Set realm notification block
         notificationToken = RLMRealm.defaultRealm().addNotificationBlock { note, realm in
             
             if Budget.objectsWhere("isCurrent = TRUE").count > 0 {
-                self.currentBudget = (Budget.objectsWhere("isCurrent = TRUE").firstObject() as Budget)
+                self.currentBudget = (Budget.objectsWhere("isCurrent = TRUE").firstObject() as! Budget)
             } else {
                 Database.newBudget()
-                self.currentBudget = (Budget.objectsWhere("isCurrent = TRUE").firstObject() as Budget)
+                self.currentBudget = (Budget.objectsWhere("isCurrent = TRUE").firstObject() as! Budget)
             }
             
             self.tableView.reloadData()
@@ -59,12 +59,12 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
     //==================== Segue Preperation ====================
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "showTaskEditorView" {
-            let taskEditorVC:TaskEditorViewController = (segue.destinationViewController as UINavigationController).topViewController as TaskEditorViewController
+            let taskEditorVC:TaskEditorViewController = (segue.destinationViewController as! UINavigationController).topViewController as! TaskEditorViewController
             taskEditorVC.budgetEditorViewController = self
             
             if (!addTaskDialog) {
                 let indexPath = self.tableView.indexPathForSelectedRow()!
-                let thisTask = ((currentBudget!.categories.objectAtIndex(UInt(indexPath.section)) as Category).tasks.objectAtIndex(UInt(indexPath.row))) as Task
+                let thisTask = ((currentBudget!.categories.objectAtIndex(UInt(indexPath.section)) as! Category).tasks.objectAtIndex(UInt(indexPath.row))) as! Task
                 taskEditorVC.currentTask = thisTask
                 taskEditorVC.editTask = true
             }
@@ -79,7 +79,7 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return Int((currentBudget!.categories.objectAtIndex(UInt(section)) as Category).tasks.count)
+        return Int((currentBudget!.categories.objectAtIndex(UInt(section)) as! Category).tasks.count)
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -123,7 +123,7 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
     
     @IBAction func editCategoryButtonPressed(sender: UIButton) {
         
-        let cell = sender.superview?.superview as CategoryCell
+        let cell = sender.superview?.superview as! CategoryCell
 
         Factory.displayEditCategoryAlert(viewController: self, categoryName: cell.sectionNameLabel.text!)
     }
@@ -134,6 +134,7 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
         var taskList:[Time] = []
         let newTime = Time.doubleToTime(168.0)
         
+<<<<<<< Updated upstream
         for var i:UInt = 0; i < self.currentBudget?.categories.count; i++ {
             let currentCategory = currentBudget?.categories[i] as Category
             for var x:UInt = 0; x < currentCategory.tasks.count; x++ {
@@ -145,6 +146,12 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
         for var i = 0; i < taskList.count; i++ {
             newTime.hours -= taskList[i].hours
             newTime.minutes -= taskList[i].minutes
+=======
+        for var i:UInt = 0; i < taskList.count; i++ {
+            tempTime = Time.doubleToTime((taskList.objectAtIndex(i) as! Task).timeBudgeted)
+            newTime.hours -= tempTime.hours
+            newTime.minutes -= tempTime.minutes
+>>>>>>> Stashed changes
         }
         
         newTime.cleanTime()
