@@ -88,6 +88,8 @@ class SettingsViewController: UITableViewController {
                 (views as! UINavigationController).popToRootViewControllerAnimated(false)
             }
             
+            tableView.deselectRowAtIndexPath(indexPath, animated: true)
+            
             switch indexPath.row {
             case 0:
                 displayResetAllAlert()
@@ -114,8 +116,6 @@ class SettingsViewController: UITableViewController {
         default:
             return
         }
-        
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
     
     func displayResetAllAlert() {
@@ -148,11 +148,11 @@ class SettingsViewController: UITableViewController {
         let realm = Database.getRealm()
         let alert = UIAlertController(title: "Are You Sure?", message: "Are you sure you want to erase the entire current budget?", preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
-            let currentBudget = Budget.objectsWhere("isCurrent = TRUE").firstObject() as Budget
+            let currentBudget = Budget.objectsWhere("isCurrent = TRUE").firstObject() as! Budget
             for var i:UInt = 0; i < currentBudget.categories.count; i++ {
-                let currentCategory = currentBudget.categories[i] as Category
+                let currentCategory = currentBudget.categories[i] as! Category
                 for var x:UInt = 0; x < currentCategory.tasks.count; x++ {
-                    let currentTask = currentCategory.tasks[x] as Task
+                    let currentTask = currentCategory.tasks[x] as! Task
                     realm.beginWriteTransaction()
                     realm.deleteObjects(currentTask.records)
                     realm.commitWriteTransaction()
@@ -174,11 +174,11 @@ class SettingsViewController: UITableViewController {
         let realm = Database.getRealm()
         let alert = UIAlertController(title: "Are You Sure?", message: "Are you sure you want to erase all records for the current budget?", preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
-            let currentBudget = Budget.objectsWhere("isCurrent = TRUE").firstObject() as Budget
+            let currentBudget = Budget.objectsWhere("isCurrent = TRUE").firstObject() as! Budget
             for var i:UInt = 0; i < currentBudget.categories.count; i++ {
-                let currentCategory = currentBudget.categories.objectAtIndex(i) as Category
+                let currentCategory = currentBudget.categories.objectAtIndex(i) as! Category
                 for var x:UInt = 0; x < currentCategory.tasks.count; x++ {
-                    let currentTask = currentCategory.tasks.objectAtIndex(x) as Task
+                    let currentTask = currentCategory.tasks.objectAtIndex(x) as! Task
                     realm.beginWriteTransaction()
                     realm.deleteObjects(currentTask.records)
                     currentTask.records.removeAllObjects()

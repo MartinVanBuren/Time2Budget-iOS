@@ -129,7 +129,7 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
     func navSingleTap() {
         if displayPrompt == false {
             displayPrompt = true
-            self.navigationItem.prompt = "\(currentBudget!.name)"
+            self.navigationItem.prompt = "Budget: \(currentBudget!.name)"
         } else {
             clearPrompt()
         }

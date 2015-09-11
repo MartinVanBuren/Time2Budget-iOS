@@ -198,15 +198,9 @@ public class Factory {
         return preparedCell
     }
     
-<<<<<<< Updated upstream
     class func prepareRecordCell(#tableView: UITableView, recordList: RLMResults, indexPath: NSIndexPath) -> UITableViewCell {
-        var preparedCell = tableView.dequeueReusableCellWithIdentifier("RecordCell") as SubtitleDetailCell
-        let thisRecord = recordList.objectAtIndex(UInt(indexPath.row)) as Record
-=======
-    class func prepareRecordCell(#tableView: UITableView, recordList: RLMArray, indexPath: NSIndexPath) -> UITableViewCell {
         var preparedCell = tableView.dequeueReusableCellWithIdentifier("RecordCell") as! SubtitleDetailCell
         let thisRecord = recordList.objectAtIndex(UInt(indexPath.row)) as! Record
->>>>>>> Stashed changes
         
         preparedCell.title.text = thisRecord.note
         preparedCell.subtitle.text = thisRecord.dateToString()
@@ -266,7 +260,7 @@ public class Factory {
     
     class func prepareBasicHeader(#tableView: UITableView, titleText: String) -> UIView {
         var preparedView = UIView()
-        var cell = tableView.dequeueReusableCellWithIdentifier("CategoryCell") as CategoryCell
+        var cell = tableView.dequeueReusableCellWithIdentifier("CategoryCell") as! CategoryCell
         
         cell.remainingTimeLabel.hidden = true
         cell.sectionNameLabel.text = titleText
@@ -336,7 +330,7 @@ public class Factory {
     class func displayEditCategoryAlert(#viewController: UIViewController, categoryName: String) {
         let currentBudget = Budget.objectsWhere("isCurrent = TRUE").firstObject() as! Budget
         var inputTextField = UITextField()
-        let category = currentBudget.categories.objectsWhere("name = '\(categoryName)'").firstObject()as! Category
+        let category = currentBudget.categories.objectsWhere("name = '\(categoryName)'").firstObject() as! Category
         
         let alert = UIAlertController(title: "Edit Category", message: "", preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Delete", style: UIAlertActionStyle.Default, handler: { (action) -> Void in

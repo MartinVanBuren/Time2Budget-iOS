@@ -134,11 +134,10 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
         var taskList:[Time] = []
         let newTime = Time.doubleToTime(168.0)
         
-<<<<<<< Updated upstream
         for var i:UInt = 0; i < self.currentBudget?.categories.count; i++ {
-            let currentCategory = currentBudget?.categories[i] as Category
+            let currentCategory = currentBudget?.categories[i] as! Category
             for var x:UInt = 0; x < currentCategory.tasks.count; x++ {
-                let currentTask = currentCategory.tasks[x] as Task
+                let currentTask = currentCategory.tasks[x] as! Task
                 taskList.append(Time.doubleToTime(currentTask.timeBudgeted))
             }
         }
@@ -146,12 +145,6 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
         for var i = 0; i < taskList.count; i++ {
             newTime.hours -= taskList[i].hours
             newTime.minutes -= taskList[i].minutes
-=======
-        for var i:UInt = 0; i < taskList.count; i++ {
-            tempTime = Time.doubleToTime((taskList.objectAtIndex(i) as! Task).timeBudgeted)
-            newTime.hours -= tempTime.hours
-            newTime.minutes -= tempTime.minutes
->>>>>>> Stashed changes
         }
         
         newTime.cleanTime()
