@@ -76,6 +76,8 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
             recordEditorVC.currentTask = nil
             recordEditorVC.currentRecord = nil
         }
+        
+        tableView.deselectRowAtIndexPath(tableView.indexPathForSelectedRow()!, animated: true)
     }
     
     //==================== IBAction Methods ====================

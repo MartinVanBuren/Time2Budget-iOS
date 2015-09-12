@@ -69,6 +69,8 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
                 taskEditorVC.editTask = true
             }
         }
+        
+        tableView.deselectRowAtIndexPath(tableView.indexPathForSelectedRow()!, animated: true)
     }
     
     //==================== UITableViewDataSource Methods ====================
