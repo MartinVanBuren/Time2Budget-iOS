@@ -70,6 +70,7 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
             let indexPath = self.tableView.indexPathForSelectedRow()!
             let thisTask = ((currentBudget!.categories.objectAtIndex(UInt(indexPath.section)) as! Category).tasks.objectAtIndex(UInt(indexPath.row))) as! Task
             recordsVC.currentTask = thisTask
+            tableView.deselectRowAtIndexPath(indexPath, animated: true)
         }
         else if segue.identifier == "showTrackingView" {
             let recordEditorVC = (segue.destinationViewController as! UINavigationController).topViewController as! RecordEditorViewController
@@ -77,7 +78,6 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
             recordEditorVC.currentRecord = nil
         }
         
-        tableView.deselectRowAtIndexPath(tableView.indexPathForSelectedRow()!, animated: true)
     }
     
     //==================== IBAction Methods ====================

@@ -67,10 +67,10 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
                 let thisTask = ((currentBudget!.categories.objectAtIndex(UInt(indexPath.section)) as! Category).tasks.objectAtIndex(UInt(indexPath.row))) as! Task
                 taskEditorVC.currentTask = thisTask
                 taskEditorVC.editTask = true
+                tableView.deselectRowAtIndexPath(indexPath, animated: true)
             }
         }
         
-        tableView.deselectRowAtIndexPath(tableView.indexPathForSelectedRow()!, animated: true)
     }
     
     //==================== UITableViewDataSource Methods ====================
