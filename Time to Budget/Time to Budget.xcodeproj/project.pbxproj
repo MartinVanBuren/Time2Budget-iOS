@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5B880FA31BA776AB000D4EAB /* Splash Screen Art.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B880FA21BA776AB000D4EAB /* Splash Screen Art.png */; };
 		9320D56F1A74625B0013018C /* MarshalOperator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9320D56E1A74625B0013018C /* MarshalOperator.swift */; };
 		9320D5891A7476A50013018C /* Time_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9320D5881A7476A50013018C /* Time_Tests.swift */; };
 		93223B491A86840500365D3A /* RecordEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93223B481A86840500365D3A /* RecordEditorViewController.swift */; };
@@ -72,6 +73,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5B880FA21BA776AB000D4EAB /* Splash Screen Art.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Splash Screen Art.png"; sourceTree = "<group>"; };
 		9320D56E1A74625B0013018C /* MarshalOperator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarshalOperator.swift; sourceTree = "<group>"; };
 		9320D5751A746E8F0013018C /* Time to Budget Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Time to Budget Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9320D5781A746E900013018C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -274,6 +276,7 @@
 				93CBED521AAB505E00079482 /* CloudKit.framework */,
 				93CBED4E1AA7E38500079482 /* example.realm */,
 				93967CB11AB20CED00D46CF6 /* gear-7.png */,
+				5B880FA21BA776AB000D4EAB /* Splash Screen Art.png */,
 				93967CB71AB2297700D46CF6 /* list-simple-7.png */,
 				93967CB31AB20D0A00D46CF6 /* book-cover-7.png */,
 				93967CB51AB20D3800D46CF6 /* pencil-7.png */,
@@ -438,6 +441,7 @@
 				93967CB21AB20CED00D46CF6 /* gear-7.png in Resources */,
 				93967CB61AB20D3800D46CF6 /* pencil-7.png in Resources */,
 				93CBED501AA7E3DB00079482 /* example.realm in Resources */,
+				5B880FA31BA776AB000D4EAB /* Splash Screen Art.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
