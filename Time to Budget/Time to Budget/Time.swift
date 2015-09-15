@@ -34,6 +34,7 @@ public class Time {
     //============ Attributes ==========
     public var hours:Int = 0
     public var minutes:Int = 0
+    public var isNegative:Bool = false
     
     
     //============ Constructors ============
@@ -94,7 +95,9 @@ public class Time {
     */
     public func setByDouble(newTime: Double) {
         var tempTime:Time = Time.doubleToTime(newTime)
-        
+        if newTime < 0 {
+            tempTime.isNegative = true;
+        }
         tempTime.cleanTime()
         
         self.hours = tempTime.hours
@@ -149,7 +152,11 @@ public class Time {
             return "\(hours):00"
         }
         else if minutes != 0 && hours == 0 {
-            return "00:\(minutes)"
+            if self.isNegative {
+                return "-00:\(minutes)"
+            } else {
+                return "00:\(minutes)"
+            }
         }
         else if minutes == 0 && hours == 0 {
             return "00:00"
@@ -178,23 +185,12 @@ public class Time {
     */
     public class func doubleToString(time: Double) -> String {
         var finalTime:Time = doubleToTime(time)
+        if time < 0 {
+            finalTime.isNegative = true;
+        }
         finalTime.cleanTime()
         
-        if finalTime.minutes == 0 && finalTime.hours != 0 {
-            return "\(finalTime.hours):00"
-        }
-        else if finalTime.minutes != 0 && finalTime.hours == 0 {
-            return "00:\(finalTime.minutes)"
-        }
-        else if finalTime.minutes == 0 && finalTime.hours == 0 {
-            return "00:00"
-        }
-        else if finalTime.minutes != 0 && finalTime.hours != 0 {
-            return "\(finalTime.hours):\(finalTime.minutes)"
-        }
-        else {
-            return "Error in Time String Conversion!"
-        }
+        return finalTime.toString()
     }
     
 

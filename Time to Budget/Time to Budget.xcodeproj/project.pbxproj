@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		5B880FA31BA776AB000D4EAB /* Splash Screen Art.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B880FA21BA776AB000D4EAB /* Splash Screen Art.png */; };
+		5BB55CB71BA8ABF700F43891 /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB55CB61BA8ABF700F43891 /* Style.swift */; };
 		9320D56F1A74625B0013018C /* MarshalOperator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9320D56E1A74625B0013018C /* MarshalOperator.swift */; };
 		9320D5891A7476A50013018C /* Time_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9320D5881A7476A50013018C /* Time_Tests.swift */; };
 		93223B491A86840500365D3A /* RecordEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93223B481A86840500365D3A /* RecordEditorViewController.swift */; };
@@ -31,7 +32,6 @@
 		93B2E5FC1A905F990058372F /* MemoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B2E5FB1A905F990058372F /* MemoCell.swift */; };
 		93CBED4D1AA667AE00079482 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CBED4C1AA667AE00079482 /* Settings.swift */; };
 		93CBED501AA7E3DB00079482 /* example.realm in Resources */ = {isa = PBXBuildFile; fileRef = 93CBED4E1AA7E38500079482 /* example.realm */; };
-		93CBED531AAB505E00079482 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93CBED521AAB505E00079482 /* CloudKit.framework */; };
 		93CBED551AAB5BB000079482 /* CloudKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CBED541AAB5BB000079482 /* CloudKitManager.swift */; };
 		93D4673B1A762C780016E875 /* Budget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F0E53D1A7214E1009D95EC /* Budget.swift */; };
 		93D4673C1A762C780016E875 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F0E5101A720BF4009D95EC /* Category.swift */; };
@@ -74,6 +74,7 @@
 
 /* Begin PBXFileReference section */
 		5B880FA21BA776AB000D4EAB /* Splash Screen Art.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Splash Screen Art.png"; sourceTree = "<group>"; };
+		5BB55CB61BA8ABF700F43891 /* Style.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Style.swift; sourceTree = "<group>"; };
 		9320D56E1A74625B0013018C /* MarshalOperator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarshalOperator.swift; sourceTree = "<group>"; };
 		9320D5751A746E8F0013018C /* Time to Budget Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Time to Budget Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9320D5781A746E900013018C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -142,7 +143,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				93CBED531AAB505E00079482 /* CloudKit.framework in Frameworks */,
 				93F0E5371A720D79009D95EC /* libc++.dylib in Frameworks */,
 				93F0E5331A720D13009D95EC /* Realm.framework in Frameworks */,
 			);
@@ -298,6 +298,7 @@
 			isa = PBXGroup;
 			children = (
 				939DB88C1AA2A8AF0047C108 /* Cells */,
+				5BB55CB61BA8ABF700F43891 /* Style.swift */,
 				93F0E5141A720BF4009D95EC /* Factory.swift */,
 				93F0E51A1A720BF4009D95EC /* Time.swift */,
 				9320D56E1A74625B0013018C /* MarshalOperator.swift */,
@@ -471,6 +472,7 @@
 				93F0E5401A72194D009D95EC /* BudgetEditorViewController.swift in Sources */,
 				93F0E52C1A720BF4009D95EC /* TransitionDismissalAnimator.swift in Sources */,
 				93B2E5F51A903E790058372F /* RecordEditorTimePickerViewController.swift in Sources */,
+				5BB55CB71BA8ABF700F43891 /* Style.swift in Sources */,
 				93F0E5421A721960009D95EC /* BudgetViewController.swift in Sources */,
 				9385F17C1AA3C805000C8726 /* TaskEditorCategorySelectorViewController.swift in Sources */,
 				9385F1781AA3A248000C8726 /* TextfieldCell.swift in Sources */,

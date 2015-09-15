@@ -30,6 +30,9 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
     override func viewWillAppear(animated: Bool) {
         navigationItem.title = currentTask.name
         
+        var nav = self.navigationController?.navigationBar
+        Style.navbarSetColor(nav: nav!)
+        
         recordList = currentTask.records.sortedResultsUsingProperty("date", ascending: false)
         
         if currentTask.memo != "" {

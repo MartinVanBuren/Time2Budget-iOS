@@ -24,6 +24,9 @@ class TaskEditorViewController: UIViewController, UITableViewDataSource, UITable
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        var nav = self.navigationController?.navigationBar
+        Style.navbarSetColor(nav: nav!)
+        
         if editTask {
             self.navigationItem.title = "Edit \(currentTask!.name)"
         } else {

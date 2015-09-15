@@ -24,6 +24,9 @@ class RecordEditorViewController: UIViewController, UITableViewDataSource, UITab
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        var nav = self.navigationController?.navigationBar
+        Style.navbarSetColor(nav: nav!)
 
         if let unwrappedDate = self.date {
             

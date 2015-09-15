@@ -19,6 +19,9 @@ class BudgetHistoryListViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        var nav = self.navigationController?.navigationBar
+        Style.navbarSetColor(nav: nav!)
+        
         // Set realm notification block
         notificationToken = RLMRealm.defaultRealm().addNotificationBlock { note, realm in
             self.tableView.reloadData()

@@ -13,6 +13,9 @@ class SettingsViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        var nav = self.navigationController?.navigationBar
+        Style.navbarSetColor(nav: nav!)
+        
         self.navigationItem.title = "Settings"
     }
 

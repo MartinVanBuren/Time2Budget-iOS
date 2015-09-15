@@ -28,6 +28,9 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        var nav = self.navigationController?.navigationBar
+        Style.navbarSetColor(nav: nav!)
+        
         self.currentBudget = (Budget.objectsWhere("isCurrent = TRUE").firstObject() as! Budget)
         
         // Set realm notification block
@@ -131,7 +134,7 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
     func navSingleTap() {
         if displayPrompt == false {
             displayPrompt = true
-            self.navigationItem.prompt = "Budget: \(currentBudget!.name)"
+            self.navigationItem.prompt = "\(currentBudget!.name)"
         } else {
             clearPrompt()
         }

@@ -48,7 +48,8 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
     
     override func viewWillAppear(animated: Bool) {
         
-        
+        var nav = self.navigationController?.navigationBar
+        Style.navbarSetColor(nav: nav!)
     }
     
     override func didReceiveMemoryWarning() {
