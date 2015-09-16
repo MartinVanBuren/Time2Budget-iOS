@@ -40,6 +40,9 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
+                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                                        <rect key="frame" x="243.5" y="12" width="41.5" height="20.5"/>
+                                                    </variation>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nsu-iY-JFf">
                                                     <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
@@ -116,6 +119,9 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
+                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                                        <rect key="frame" x="138.5" y="12" width="112.5" height="19.5"/>
+                                                    </variation>
                                                 </label>
                                                 <button opaque="NO" tag="105" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kxh-wg-VZE">
                                                     <rect key="frame" x="-23" y="-15" width="46" height="30"/>
@@ -134,7 +140,8 @@
                                                             <exclude reference="st3-mo-1eS"/>
                                                         </mask>
                                                     </variation>
-                                                    <variation key="heightClass=regular-widthClass=compact">
+                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                                        <rect key="frame" x="272" y="7" width="40" height="30.5"/>
                                                         <mask key="constraints">
                                                             <include reference="st3-mo-1eS"/>
                                                         </mask>
@@ -731,6 +738,9 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
+                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                                        <rect key="frame" x="243.5" y="12" width="41.5" height="20.5"/>
+                                                    </variation>
                                                 </label>
                                             </subviews>
                                             <constraints>
@@ -753,14 +763,14 @@
                                                     <exclude reference="zng-j8-It5"/>
                                                 </mask>
                                                 <mask key="constraints">
+                                                    <exclude reference="3If-qD-HB5"/>
+                                                    <exclude reference="CBR-CD-EUm"/>
+                                                    <exclude reference="Hdp-2l-Ivj"/>
                                                     <exclude reference="3Ci-43-H6h"/>
                                                     <exclude reference="mGj-kP-0QR"/>
                                                     <exclude reference="nM5-Na-LKB"/>
                                                     <exclude reference="qGZ-yg-pMY"/>
                                                     <exclude reference="u3l-M3-WT4"/>
-                                                    <exclude reference="3If-qD-HB5"/>
-                                                    <exclude reference="CBR-CD-EUm"/>
-                                                    <exclude reference="Hdp-2l-Ivj"/>
                                                     <exclude reference="dgy-Bs-hmU"/>
                                                     <exclude reference="ePq-4q-Fi1"/>
                                                     <exclude reference="gjc-2n-l9n"/>
@@ -773,14 +783,14 @@
                                                     <include reference="zng-j8-It5"/>
                                                 </mask>
                                                 <mask key="constraints">
+                                                    <include reference="3If-qD-HB5"/>
+                                                    <include reference="CBR-CD-EUm"/>
+                                                    <exclude reference="Hdp-2l-Ivj"/>
                                                     <exclude reference="3Ci-43-H6h"/>
                                                     <include reference="mGj-kP-0QR"/>
                                                     <include reference="nM5-Na-LKB"/>
                                                     <include reference="qGZ-yg-pMY"/>
                                                     <exclude reference="u3l-M3-WT4"/>
-                                                    <include reference="3If-qD-HB5"/>
-                                                    <include reference="CBR-CD-EUm"/>
-                                                    <exclude reference="Hdp-2l-Ivj"/>
                                                     <include reference="dgy-Bs-hmU"/>
                                                     <include reference="ePq-4q-Fi1"/>
                                                     <include reference="gjc-2n-l9n"/>
@@ -849,9 +859,6 @@
                                                     <exclude reference="Imd-bJ-h7p"/>
                                                 </mask>
                                                 <mask key="constraints">
-                                                    <exclude reference="KZV-Sp-cF8"/>
-                                                    <exclude reference="iwL-jE-3gr"/>
-                                                    <exclude reference="wYj-eX-pmb"/>
                                                     <exclude reference="Cly-zL-cqI"/>
                                                     <exclude reference="EdP-QP-N2L"/>
                                                     <exclude reference="MPo-TT-aQw"/>
@@ -860,6 +867,9 @@
                                                     <exclude reference="fbu-Bb-gFN"/>
                                                     <exclude reference="mhD-De-AA8"/>
                                                     <exclude reference="q86-7l-0wM"/>
+                                                    <exclude reference="KZV-Sp-cF8"/>
+                                                    <exclude reference="iwL-jE-3gr"/>
+                                                    <exclude reference="wYj-eX-pmb"/>
                                                 </mask>
                                             </variation>
                                             <variation key="heightClass=regular-widthClass=compact">
@@ -868,9 +878,6 @@
                                                     <include reference="Imd-bJ-h7p"/>
                                                 </mask>
                                                 <mask key="constraints">
-                                                    <include reference="KZV-Sp-cF8"/>
-                                                    <include reference="iwL-jE-3gr"/>
-                                                    <include reference="wYj-eX-pmb"/>
                                                     <exclude reference="Cly-zL-cqI"/>
                                                     <exclude reference="EdP-QP-N2L"/>
                                                     <include reference="MPo-TT-aQw"/>
@@ -879,6 +886,9 @@
                                                     <exclude reference="fbu-Bb-gFN"/>
                                                     <include reference="mhD-De-AA8"/>
                                                     <exclude reference="q86-7l-0wM"/>
+                                                    <include reference="KZV-Sp-cF8"/>
+                                                    <include reference="iwL-jE-3gr"/>
+                                                    <include reference="wYj-eX-pmb"/>
                                                 </mask>
                                             </variation>
                                         </tableViewCellContentView>
@@ -970,6 +980,9 @@
                                                     <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
+                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                                        <rect key="frame" x="8" y="8" width="304" height="27.5"/>
+                                                    </variation>
                                                     <connections>
                                                         <action selector="memoTextFieldChanged:" destination="Ji8-4B-5Xa" eventType="editingChanged" id="MaL-Pr-RV2"/>
                                                         <outlet property="delegate" destination="Ji8-4B-5Xa" id="uSO-nF-w1R"/>
@@ -1450,6 +1463,9 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
+                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                                        <rect key="frame" x="144.5" y="12" width="112.5" height="19.5"/>
+                                                    </variation>
                                                 </label>
                                             </subviews>
                                             <constraints>
@@ -1494,7 +1510,7 @@
                                             <outlet property="sectionNameLabel" destination="uus-TM-Hy8" id="rud-jQ-O3e"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="TaskCell" id="tzk-oO-b01" customClass="SubtitleDetailCell" customModule="Time_to_Budget" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="TaskSubtitleCell" id="tzk-oO-b01" customClass="SubtitleDetailCell" customModule="Time_to_Budget" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="tzk-oO-b01" id="pDh-eK-k6r">
@@ -1517,6 +1533,9 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
+                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                                        <rect key="frame" x="243.5" y="12" width="41.5" height="20.5"/>
+                                                    </variation>
                                                 </label>
                                             </subviews>
                                             <constraints>
@@ -1732,7 +1751,7 @@
                                     <outlet property="sectionNameLabel" destination="aga-sH-iIz" id="BKm-Yq-63t"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="TaskCell" id="8qA-1l-VcZ" customClass="SubtitleDetailCell" customModule="Time_to_Budget" customModuleProvider="target">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="TaskSubtitleCell" id="8qA-1l-VcZ" customClass="SubtitleDetailCell" customModule="Time_to_Budget" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="8qA-1l-VcZ" id="aNa-pW-3en">
@@ -2074,6 +2093,9 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
+                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                                        <rect key="frame" x="243.5" y="12" width="41.5" height="20.5"/>
+                                                    </variation>
                                                 </label>
                                             </subviews>
                                             <constraints>

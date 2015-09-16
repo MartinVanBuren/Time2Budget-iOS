@@ -43,6 +43,8 @@ public class Factory {
         preparedCell.remainingTimeLabel.frame.inset(dx: CGFloat(5), dy: CGFloat(5))
         preparedCell.remainingTimeLabel.textColor = UIColor.whiteColor()
         preparedCell.backgroundColor = UIColor(red: 122/255, green: 158/255, blue: 224/255, alpha: 255/255)
+        preparedCell.opaque = false
+        preparedCell.alpha = 0.75
         
         let returnedView = UIView()
         
