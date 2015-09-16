@@ -14,7 +14,7 @@ public class Style {
         nav.barStyle = UIBarStyle.Black
         nav.tintColor = UIColor.whiteColor()
         nav.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
-        nav.barTintColor = UIColor(red: 122/255, green: 158/255, blue: 224/255, alpha: 255/255)
+        nav.barTintColor = UIColor(red: 29/255, green: 98/255, blue: 240/255, alpha: 255/255)
     }
     
     

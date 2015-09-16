@@ -20,21 +20,29 @@ public class Factory {
         var taskArray = thisCategory.tasks
         
         preparedCell.sectionNameLabel.text = thisCategory.name
+        preparedCell.sectionNameLabel.textColor = UIColor.whiteColor()
         
         if !isEditor {
             preparedCell.remainingTimeLabel.text = Time.doubleToString(thisCategory.totalTimeRemaining)
             
             if thisCategory.totalTimeRemaining > 0.0 {
-                preparedCell.remainingTimeLabel.textColor = UIColor(red: 0.25, green: 0.65, blue: 0.05, alpha: 1.0)
+                preparedCell.remainingTimeLabel.backgroundColor = UIColor(red: 0.25, green: 0.65, blue: 0.05, alpha: 1.0)
             } else if thisCategory.totalTimeRemaining < 0.0 {
-                preparedCell.remainingTimeLabel.textColor = UIColor.redColor()
+                preparedCell.remainingTimeLabel.backgroundColor = UIColor.redColor()
             } else {
-                preparedCell.remainingTimeLabel.textColor = UIColor(red: 85/255, green: 85/255, blue: 85/255, alpha: 1.0)
+                preparedCell.remainingTimeLabel.backgroundColor = UIColor(red: 85/255, green: 85/255, blue: 85/255, alpha: 1.0)
             }
         } else {
             preparedCell.remainingTimeLabel.text = Time.doubleToString(thisCategory.totalTimeBudgeted)
-            preparedCell.remainingTimeLabel.textColor = UIColor.darkGrayColor()
+            preparedCell.remainingTimeLabel.backgroundColor = UIColor.darkGrayColor()
         }
+        
+        preparedCell.remainingTimeLabel.layer.cornerRadius = CGRectGetWidth(preparedCell.remainingTimeLabel.frame)/8
+        preparedCell.remainingTimeLabel.layer.borderWidth = 1.0
+        preparedCell.remainingTimeLabel.layer.masksToBounds = true
+        preparedCell.remainingTimeLabel.frame.inset(dx: CGFloat(5), dy: CGFloat(5))
+        preparedCell.remainingTimeLabel.textColor = UIColor.whiteColor()
+        preparedCell.backgroundColor = UIColor(red: 122/255, green: 158/255, blue: 224/255, alpha: 255/255)
         
         let returnedView = UIView()
         
@@ -48,7 +56,7 @@ public class Factory {
         
         let thisTask = ((categoryList.objectAtIndex(UInt(indexPath.section)) as! Category).tasks.objectAtIndex(UInt(indexPath.row)) as! Task)
         
-        var preparedCell = tableView.dequeueReusableCellWithIdentifier("TaskCell") as! SubtitleDetailCell
+        var preparedCell = tableView.dequeueReusableCellWithIdentifier("TaskSubtitleCell") as! SubtitleDetailCell
         
         preparedCell.title.text = thisTask.name
         preparedCell.subtitle.text = thisTask.memo
@@ -68,8 +76,6 @@ public class Factory {
             preparedCell.detail.text = Time.doubleToString(thisTask.timeBudgeted)
             preparedCell.detail.textColor = UIColor.darkGrayColor()
         }
-        
-        
         
         return preparedCell
     }
@@ -264,7 +270,8 @@ public class Factory {
         
         cell.remainingTimeLabel.hidden = true
         cell.sectionNameLabel.text = titleText
-        cell.backgroundColor = UIColor(red: (204/255), green: (204/255), blue: (204/255), alpha: 0.65)
+        cell.sectionNameLabel.textColor = UIColor.whiteColor()
+        cell.backgroundColor = UIColor(red: 122/255, green: 158/255, blue: 224/255, alpha: 255/255)
         
         preparedView.addSubview(cell)
         
