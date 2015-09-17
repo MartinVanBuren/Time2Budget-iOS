@@ -41,6 +41,7 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
         Style.navbarSetColor(nav: nav!)
         
         let recordResults = currentTask.records.sorted("date", ascending: false)
+        self.recordList.removeAll()
         for rec in recordResults {
             self.recordList.append(rec)
         }
