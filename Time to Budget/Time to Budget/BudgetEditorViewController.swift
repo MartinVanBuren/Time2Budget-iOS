@@ -8,7 +8,7 @@
 
 import Foundation
 import UIKit
-import Realm
+import RealmSwift
 
 class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
@@ -16,25 +16,25 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
     
     var totalTime = Time(newHours: 168, newMinutes: 0)
     var addTaskDialog:Bool = false
-    var notificationToken: RLMNotificationToken?
+    var notificationToken: NotificationToken?
     
     //==================== Realm Properties ====================
-    let realm = Database.getRealm()
-    var currentBudget:Budget?
+    let realm = try! Realm()
+    var currentBudget:Budget!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.currentBudget = (Budget.objectsWhere("isCurrent = TRUE").firstObject() as! Budget)
+        self.currentBudget = realm.objects(Budget).filter("isCurrent = TRUE").first!
         
         // Set realm notification block
-        notificationToken = RLMRealm.defaultRealm().addNotificationBlock { note, realm in
+        notificationToken = realm.addNotificationBlock { note, realm in
             
-            if Budget.objectsWhere("isCurrent = TRUE").count > 0 {
-                self.currentBudget = (Budget.objectsWhere("isCurrent = TRUE").firstObject() as! Budget)
+            if realm.objects(Budget).filter("isCurrent = TRUE").count > 0 {
+                self.currentBudget = realm.objects(Budget).filter("isCurrent = TRUE").first!
             } else {
-                Database.newBudget()
-                self.currentBudget = (Budget.objectsWhere("isCurrent = TRUE").firstObject() as! Budget)
+                try! Database.newBudget()
+                self.currentBudget = realm.objects(Budget).filter("isCurrent = TRUE").first!
             }
             
             self.tableView.reloadData()
@@ -46,9 +46,16 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
         
     }
     
+    override func viewDidLayoutSubviews() {
+        if let rect = self.navigationController?.navigationBar.frame {
+            let y = rect.size.height + rect.origin.y
+            self.tableView.contentInset = UIEdgeInsetsMake(y, 0, 0, 0)
+        }
+    }
+    
     override func viewWillAppear(animated: Bool) {
         
-        var nav = self.navigationController?.navigationBar
+        let nav = self.navigationController?.navigationBar
         Style.navbarSetColor(nav: nav!)
     }
     
@@ -64,8 +71,8 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
             taskEditorVC.budgetEditorViewController = self
             
             if (!addTaskDialog) {
-                let indexPath = self.tableView.indexPathForSelectedRow()!
-                let thisTask = ((currentBudget!.categories.objectAtIndex(UInt(indexPath.section)) as! Category).tasks.objectAtIndex(UInt(indexPath.row))) as! Task
+                let indexPath = self.tableView.indexPathForSelectedRow!
+                let thisTask = currentBudget.categories[indexPath.section].tasks[indexPath.row]
                 taskEditorVC.currentTask = thisTask
                 taskEditorVC.editTask = true
                 tableView.deselectRowAtIndexPath(indexPath, animated: true)
@@ -82,7 +89,7 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return Int((currentBudget!.categories.objectAtIndex(UInt(section)) as! Category).tasks.count)
+        return currentBudget.categories[section].tasks.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -111,7 +118,7 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
     
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         
-        Factory.displayDeleteTaskAlert(viewController: self, indexPath: indexPath)
+        try! Factory.displayDeleteTaskAlert(viewController: self, indexPath: indexPath)
     }
 
     //==================== IB Actions ====================
@@ -128,7 +135,7 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
         
         let cell = sender.superview?.superview as! CategoryCell
 
-        Factory.displayEditCategoryAlert(viewController: self, categoryName: cell.sectionNameLabel.text!)
+        try! Factory.displayEditCategoryAlert(viewController: self, categoryName: cell.sectionNameLabel.text!)
     }
     
     
@@ -137,10 +144,10 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
         var taskList:[Time] = []
         let newTime = Time.doubleToTime(168.0)
         
-        for var i:UInt = 0; i < self.currentBudget?.categories.count; i++ {
-            let currentCategory = currentBudget?.categories[i] as! Category
-            for var x:UInt = 0; x < currentCategory.tasks.count; x++ {
-                let currentTask = currentCategory.tasks[x] as! Task
+        for var i = 0; i < self.currentBudget?.categories.count; i++ {
+            let currentCategory = currentBudget?.categories[i]
+            for var x = 0; x < currentCategory!.tasks.count; x++ {
+                let currentTask = currentCategory!.tasks[x]
                 taskList.append(Time.doubleToTime(currentTask.timeBudgeted))
             }
         }

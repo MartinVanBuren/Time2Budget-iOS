@@ -7,22 +7,22 @@
 //
 
 import Foundation
-import Realm
+import RealmSwift
 
-public class Category: RLMObject {
+public class Category: Object {
     public dynamic var name = ""
     public dynamic var totalTimeRemaining = 0.0
     public dynamic var totalTimeBudgeted = 0.0
     public dynamic var parent: Budget!
-    public dynamic var tasks = RLMArray(objectClassName: Task.className())
+    public let tasks = List<Task>()
     
     public func calcTime() {
         self.totalTimeRemaining = 0.0
         self.totalTimeBudgeted = 0.0
         
-        for var i:UInt = 0; i < self.tasks.count; i++ {
-            self.totalTimeRemaining += (self.tasks.objectAtIndex(i) as! Task).timeRemaining
-            self.totalTimeBudgeted += (self.tasks.objectAtIndex(i) as! Task).timeBudgeted
+        for var i = 0; i < self.tasks.count; i++ {
+            self.totalTimeRemaining += self.tasks[i].timeRemaining
+            self.totalTimeBudgeted += self.tasks[i].timeBudgeted
         }
     }
 }

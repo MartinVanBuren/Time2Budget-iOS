@@ -18,6 +18,13 @@ class BudgetHistoryViewController: UITableViewController {
         super.viewDidLoad()
 
     }
+    
+    override func viewDidLayoutSubviews() {
+        if let rect = self.navigationController?.navigationBar.frame {
+            let y = rect.size.height + rect.origin.y
+            self.tableView.contentInset = UIEdgeInsetsMake(y, 0, 0, 0)
+        }
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -32,11 +39,11 @@ class BudgetHistoryViewController: UITableViewController {
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        let indexPath = self.tableView.indexPathForSelectedRow()!
+        let indexPath = self.tableView.indexPathForSelectedRow!
         
         if segue.identifier == "showHistoryRecords" {
             let historyRecordsVC = segue.destinationViewController as! BudgetHistoryRecordsViewController
-            historyRecordsVC.currentTask = ((currentBudget?.categories[UInt(indexPath.section)] as! Category).tasks[UInt(indexPath.row)] as! Task)
+            historyRecordsVC.currentTask = currentBudget?.categories[indexPath.section].tasks[indexPath.row]
         }
     }
 
@@ -47,7 +54,7 @@ class BudgetHistoryViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return Int((currentBudget!.categories.objectAtIndex(UInt(section)) as! Category).tasks.count)
+        return currentBudget!.categories[section].tasks.count
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {

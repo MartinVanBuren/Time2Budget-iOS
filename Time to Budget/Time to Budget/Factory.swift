@@ -8,16 +8,16 @@
 
 import Foundation
 import UIKit
-import Realm
+import RealmSwift
 
 public class Factory {
-    class func prepareCategoryCell(#tableView: UITableView, categoryList: RLMArray, section: Int, isEditor: Bool) -> UIView {
+    class func prepareCategoryCell(tableView tableView: UITableView, categoryList: List<Category>, section: Int, isEditor: Bool) -> UIView {
         
-        let thisCategory = categoryList.objectAtIndex(UInt(section)) as! Category
+        let thisCategory = categoryList[section]
         
-        var preparedCell:CategoryCell = tableView.dequeueReusableCellWithIdentifier("CategoryCell") as! CategoryCell
+        let preparedCell:CategoryCell = tableView.dequeueReusableCellWithIdentifier("CategoryCell") as! CategoryCell
         
-        var taskArray = thisCategory.tasks
+        //var taskArray = thisCategory.tasks
         
         preparedCell.sectionNameLabel.text = thisCategory.name
         preparedCell.sectionNameLabel.textColor = UIColor.whiteColor()
@@ -40,7 +40,7 @@ public class Factory {
         preparedCell.remainingTimeLabel.layer.cornerRadius = CGRectGetWidth(preparedCell.remainingTimeLabel.frame)/8
         preparedCell.remainingTimeLabel.layer.borderWidth = 1.0
         preparedCell.remainingTimeLabel.layer.masksToBounds = true
-        preparedCell.remainingTimeLabel.frame.inset(dx: CGFloat(5), dy: CGFloat(5))
+        preparedCell.remainingTimeLabel.frame.insetInPlace(dx: CGFloat(5), dy: CGFloat(5))
         preparedCell.remainingTimeLabel.textColor = UIColor.whiteColor()
         preparedCell.backgroundColor = UIColor(red: 122/255, green: 158/255, blue: 224/255, alpha: 255/255)
         preparedCell.opaque = false
@@ -54,11 +54,11 @@ public class Factory {
         return returnedView
     }
     
-    class func prepareTaskCell(#tableView: UITableView, categoryList: RLMArray, indexPath: NSIndexPath, isEditor: Bool) -> UITableViewCell {
+    class func prepareTaskCell(tableView tableView: UITableView, categoryList: List<Category>, indexPath: NSIndexPath, isEditor: Bool) -> UITableViewCell {
         
-        let thisTask = ((categoryList.objectAtIndex(UInt(indexPath.section)) as! Category).tasks.objectAtIndex(UInt(indexPath.row)) as! Task)
+        let thisTask = categoryList[indexPath.section].tasks[indexPath.row]
         
-        var preparedCell = tableView.dequeueReusableCellWithIdentifier("TaskSubtitleCell") as! SubtitleDetailCell
+        let preparedCell = tableView.dequeueReusableCellWithIdentifier("TaskSubtitleCell") as! SubtitleDetailCell
         
         preparedCell.title.text = thisTask.name
         preparedCell.subtitle.text = thisTask.memo
@@ -82,8 +82,8 @@ public class Factory {
         return preparedCell
     }
     
-    class func prepareAddRecordTaskCell(#tableView: UITableView, currentTask:Task?) -> UITableViewCell {
-        var taskCell = UITableViewCell(style: UITableViewCellStyle.Value1, reuseIdentifier: "RecordRightDetailCell")
+    class func prepareAddRecordTaskCell(tableView tableView: UITableView, currentTask:Task?) -> UITableViewCell {
+        let taskCell = UITableViewCell(style: UITableViewCellStyle.Value1, reuseIdentifier: "RecordRightDetailCell")
         
         taskCell.textLabel?.text = "Task"
         
@@ -99,8 +99,8 @@ public class Factory {
         return taskCell
     }
     
-    class func prepareAddRecordTimeCell(#tableView: UITableView, timeSpent: Time?) -> UITableViewCell {
-        var timeSpentCell = UITableViewCell(style: UITableViewCellStyle.Value1, reuseIdentifier: "RecordRightDetailCell")
+    class func prepareAddRecordTimeCell(tableView tableView: UITableView, timeSpent: Time?) -> UITableViewCell {
+        let timeSpentCell = UITableViewCell(style: UITableViewCellStyle.Value1, reuseIdentifier: "RecordRightDetailCell")
         
         timeSpentCell.textLabel?.text = "Time Spent"
         
@@ -116,13 +116,13 @@ public class Factory {
         return timeSpentCell
     }
     
-    class func prepareAddRecordDateCell(#tableView: UITableView, date: NSDate?) -> UITableViewCell {
-        var dateCell = UITableViewCell(style: UITableViewCellStyle.Value1, reuseIdentifier: "RecordRightDetailCell")
+    class func prepareAddRecordDateCell(tableView tableView: UITableView, date: NSDate?) -> UITableViewCell {
+        let dateCell = UITableViewCell(style: UITableViewCellStyle.Value1, reuseIdentifier: "RecordRightDetailCell")
         
         dateCell.textLabel?.text = "Date"
         
         if let unwrappedDate = date {
-            var dateFormatter = NSDateFormatter()
+            let dateFormatter = NSDateFormatter()
             dateFormatter.dateFormat = "MMMM dd, yyyy"
             
             dateCell.detailTextLabel?.text = dateFormatter.stringFromDate(unwrappedDate)
@@ -136,8 +136,8 @@ public class Factory {
         return dateCell
     }
     
-    class func prepareAddRecordMemoCell(#tableView: UITableView, memo: String?) -> UITableViewCell {
-        var memoCell = tableView.dequeueReusableCellWithIdentifier("RecordMemoCell") as! MemoCell
+    class func prepareAddRecordMemoCell(tableView tableView: UITableView, memo: String?) -> UITableViewCell {
+        let memoCell = tableView.dequeueReusableCellWithIdentifier("RecordMemoCell") as! MemoCell
         
         if let unwrappedMemo = memo {
             memoCell.memoTextField.text = unwrappedMemo
@@ -148,8 +148,8 @@ public class Factory {
         return memoCell
     }
     
-    class func prepareAddTaskNameCell(#tableView: UITableView, name: String?) -> UITableViewCell {
-        var preparedCell = tableView.dequeueReusableCellWithIdentifier("taskNameCell") as! TextfieldCell
+    class func prepareAddTaskNameCell(tableView tableView: UITableView, name: String?) -> UITableViewCell {
+        let preparedCell = tableView.dequeueReusableCellWithIdentifier("taskNameCell") as! TextfieldCell
         
         if let unwrappedName = name {
             preparedCell.textField.text = unwrappedName
@@ -160,8 +160,8 @@ public class Factory {
         return preparedCell
     }
     
-    class func prepareAddTaskMemoCell(#tableView: UITableView, memo: String?) -> UITableViewCell {
-        var preparedCell = tableView.dequeueReusableCellWithIdentifier("taskMemoCell") as! TextfieldCell
+    class func prepareAddTaskMemoCell(tableView tableView: UITableView, memo: String?) -> UITableViewCell {
+        let preparedCell = tableView.dequeueReusableCellWithIdentifier("taskMemoCell") as! TextfieldCell
         
         if let unwrappedMemo = memo {
             preparedCell.textField.text = unwrappedMemo
@@ -172,13 +172,13 @@ public class Factory {
         return preparedCell
     }
     
-    class func prepareAddTaskCategoryCell(#tableView: UITableView, categoryName: String?) -> UITableViewCell {
-        var preparedCell = UITableViewCell(style: UITableViewCellStyle.Value1, reuseIdentifier: "rightDetailCell")
+    class func prepareAddTaskCategoryCell(tableView tableView: UITableView, categoryName: String?) -> UITableViewCell {
+        let preparedCell = UITableViewCell(style: UITableViewCellStyle.Value1, reuseIdentifier: "rightDetailCell")
         
         preparedCell.textLabel?.text = "Category"
         
         if let unwrappedCategoryName = categoryName {
-            preparedCell.detailTextLabel?.text = categoryName
+            preparedCell.detailTextLabel?.text = unwrappedCategoryName
             preparedCell.detailTextLabel?.textColor = UIColor.blackColor()
         } else {
             preparedCell.detailTextLabel?.text = "Choose Category"
@@ -189,8 +189,8 @@ public class Factory {
         return preparedCell
     }
     
-    class func prepareAddTaskTimeCell(#tableView: UITableView, time: Double?) -> UITableViewCell {
-        var preparedCell = UITableViewCell(style: UITableViewCellStyle.Value1, reuseIdentifier: "rightDetailCell")
+    class func prepareAddTaskTimeCell(tableView tableView: UITableView, time: Double?) -> UITableViewCell {
+        let preparedCell = UITableViewCell(style: UITableViewCellStyle.Value1, reuseIdentifier: "rightDetailCell")
         
         preparedCell.textLabel?.text = "Time Budgeted"
         
@@ -206,9 +206,9 @@ public class Factory {
         return preparedCell
     }
     
-    class func prepareRecordCell(#tableView: UITableView, recordList: RLMResults, indexPath: NSIndexPath) -> UITableViewCell {
-        var preparedCell = tableView.dequeueReusableCellWithIdentifier("RecordCell") as! SubtitleDetailCell
-        let thisRecord = recordList.objectAtIndex(UInt(indexPath.row)) as! Record
+    class func prepareRecordCell(tableView tableView: UITableView, recordList: List<Record>, indexPath: NSIndexPath) -> UITableViewCell {
+        let preparedCell = tableView.dequeueReusableCellWithIdentifier("RecordCell") as! SubtitleDetailCell
+        let thisRecord = recordList[indexPath.row]
         
         preparedCell.title.text = thisRecord.note
         preparedCell.subtitle.text = thisRecord.dateToString()
@@ -237,18 +237,18 @@ public class Factory {
         return finalValue
     }
     
-    class func prepareCategoryPickerData(categoryList: RLMResults) -> [String] {
+    class func prepareCategoryPickerData(categoryList: Results<Category>) -> [String] {
         var finalData:[String] = []
         
         for var i = 0; i < Int(categoryList.count); i++ {
-            finalData.append((categoryList.objectAtIndex(UInt(i)) as! Category).name)
+            finalData.append(categoryList[i].name)
         }
         
         return finalData
     }
     
-    class func prepareSettingsAboutCell(#tableView: UITableView) -> UITableViewCell {
-        var preparedCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "AboutCell")
+    class func prepareSettingsAboutCell(tableView tableView: UITableView) -> UITableViewCell {
+        let preparedCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "AboutCell")
         
         preparedCell.textLabel?.text = "©2015 Arrken Software LLC"
         preparedCell.detailTextLabel?.text = "Designed and Developed by Robert Kennedy"
@@ -257,8 +257,8 @@ public class Factory {
         return preparedCell
     }
     
-    class func prepareBasicCell(#tableView: UITableView, titleText: String) -> UITableViewCell {
-        var preparedCell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "BasicCell")
+    class func prepareBasicCell(tableView tableView: UITableView, titleText: String) -> UITableViewCell {
+        let preparedCell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "BasicCell")
         
         preparedCell.textLabel?.text = titleText
         preparedCell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
@@ -266,9 +266,9 @@ public class Factory {
         return preparedCell
     }
     
-    class func prepareBasicHeader(#tableView: UITableView, titleText: String) -> UIView {
-        var preparedView = UIView()
-        var cell = tableView.dequeueReusableCellWithIdentifier("CategoryCell") as! CategoryCell
+    class func prepareBasicHeader(tableView tableView: UITableView, titleText: String) -> UIView {
+        let preparedView = UIView()
+        let cell = tableView.dequeueReusableCellWithIdentifier("CategoryCell") as! CategoryCell
         
         cell.remainingTimeLabel.hidden = true
         cell.sectionNameLabel.text = titleText
@@ -280,48 +280,50 @@ public class Factory {
         return preparedView
     }
 
-    class func displayDeleteTaskAlert(#viewController: BudgetEditorViewController, indexPath: NSIndexPath){
-        let currentBudget = Budget.objectsWhere("isCurrent = TRUE").firstObject() as! Budget
-        let currentCategory = currentBudget.categories[UInt(indexPath.section)] as! Category
-        let currentTask = currentCategory.tasks[UInt(indexPath.row)] as! Task
+    class func displayDeleteTaskAlert(viewController viewController: BudgetEditorViewController, indexPath: NSIndexPath) throws {
+        let realm = try Realm()
+        let currentBudget = realm.objects(Budget).filter("isCurrent = TRUE").first!
+        let currentCategory = currentBudget.categories[indexPath.section]
+        let currentTask = currentCategory.tasks[indexPath.row]
         
         let alert = UIAlertController(title: "Keep Records?", message: "Records will be moved to the 'Taskless Records' Task", preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
-            Database.deleteTask(task: currentTask, retainRecords: true)
+            try! Database.deleteTask(task: currentTask, retainRecords: true)
         }))
         alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
-            Database.deleteTask(task: currentTask, retainRecords: false)
+            try! Database.deleteTask(task: currentTask, retainRecords: false)
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
             
         viewController.presentViewController(alert, animated: true, completion: {})
     }
     
-    class func displayDeleteCategoryAlert(#viewController: UIViewController, categoryName: String) {
-        let currentBudget = Budget.objectsWhere("isCurrent = TRUE").firstObject() as! Budget
-        let currentCategory = currentBudget.categories.objectsWhere("name = '\(categoryName)'").firstObject() as! Category
+    class func displayDeleteCategoryAlert(viewController viewController: UIViewController, categoryName: String) throws {
+        let realm = try Realm()
+        let currentBudget = realm.objects(Budget).filter("isCurrent = TRUE").first!
+        let currentCategory = currentBudget.categories.filter("name = '\(categoryName)'").first!
         
         let alert = UIAlertController(title: "Keep Tasks?", message: "Tasks will be moved to the 'Uncategorized' Category", preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
-            Database.deleteCategory(categoryName: currentCategory.name, retainTasks: true)
+            try! Database.deleteCategory(categoryName: currentCategory.name, retainTasks: true)
         }))
         alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
-            Database.deleteCategory(categoryName: currentCategory.name, retainTasks: false)
+            try! Database.deleteCategory(categoryName: currentCategory.name, retainTasks: false)
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
             
         viewController.presentViewController(alert, animated: true, completion: {})
     }
 
-    class func displayAddCategoryAlert(#viewController: UIViewController) {
+    class func displayAddCategoryAlert(viewController viewController: UIViewController) {
         var inputTextField = UITextField()
         inputTextField.placeholder = "Enter Category Name"
         
         let alert = UIAlertController(title: "New Category", message: "", preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Add", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
-            if (Database.checkCategoryName(name: inputTextField.text)) {
+            if (try! Database.checkCategoryName(name: inputTextField.text!)) {
                 
-                Database.addCategory(name: inputTextField.text)
+                try! Database.addCategory(name: inputTextField.text!)
             } else {
                 
                 Factory.displayAlert(viewController: viewController, title: "Category Name Taken", message: "'\(inputTextField.text)' is already a Category")
@@ -336,21 +338,22 @@ public class Factory {
         viewController.presentViewController(alert, animated: true, completion: {})
     }
     
-    class func displayEditCategoryAlert(#viewController: UIViewController, categoryName: String) {
-        let currentBudget = Budget.objectsWhere("isCurrent = TRUE").firstObject() as! Budget
+    class func displayEditCategoryAlert(viewController viewController: UIViewController, categoryName: String) throws {
+        let realm = try Realm()
+        let currentBudget = realm.objects(Budget).filter("isCurrent = TRUE").first!
         var inputTextField = UITextField()
-        let category = currentBudget.categories.objectsWhere("name = '\(categoryName)'").firstObject() as! Category
+        let category = currentBudget.categories.filter("name = '\(categoryName)'").first!
         
         let alert = UIAlertController(title: "Edit Category", message: "", preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Delete", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
-            Factory.displayDeleteCategoryAlert(viewController: viewController, categoryName: category.name)
+            try! Factory.displayDeleteCategoryAlert(viewController: viewController, categoryName: category.name)
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: { (action) -> Void in
             
         }))
         alert.addAction(UIAlertAction(title: "Save", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
-            if (Database.checkCategoryName(name: inputTextField.text) || category.name == inputTextField.text) {
-                Database.updateCategory(categoryName: category.name, newCategoryName: inputTextField.text)
+            if (try! Database.checkCategoryName(name: inputTextField.text!) || category.name == inputTextField.text) {
+                try! Database.updateCategory(categoryName: category.name, newCategoryName: inputTextField.text!)
             } else {
                 Factory.displayAlert(viewController: viewController, title: "Category Name Taken", message: "'\(inputTextField.text)' is already a Category")
             }
@@ -364,7 +367,7 @@ public class Factory {
         
         let alert = UIAlertController(title: "Are You Sure?", message: "Are you sure you want to delete this record?", preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
-            Database.deleteRecord(record: record)
+            try! Database.deleteRecord(record: record)
             (viewController as! RecordsViewController).tableView.reloadData()
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
@@ -372,16 +375,17 @@ public class Factory {
         viewController.presentViewController(alert, animated: true, completion: {})
     }
     
-    class func displayAlert(#viewController: UIViewController, title: String, message: String) {
+    class func displayAlert(viewController viewController: UIViewController, title: String, message: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Cancel, handler: nil))
         
         viewController.presentViewController(alert, animated: true, completion: {})
     }
     
-    class func archiveBudgetNotification() -> UILocalNotification {
-        let thisBudget = Budget.objectsWhere("isCurrent = TRUE").firstObject() as! Budget
-        var localNotif = UILocalNotification()
+    class func archiveBudgetNotification() throws -> UILocalNotification {
+        let realm = try Realm()
+        let thisBudget = realm.objects(Budget).filter("isCurrent = TRUE").first!
+        let localNotif = UILocalNotification()
         
         localNotif.alertTitle = "Budget Archived"
         localNotif.alertBody = "Your fresh budget is ready!"

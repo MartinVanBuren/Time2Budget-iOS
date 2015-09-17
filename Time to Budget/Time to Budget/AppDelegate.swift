@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,12 +17,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
-        application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: UIUserNotificationType.Sound | UIUserNotificationType.Alert | UIUserNotificationType.Badge, categories: nil))
+        application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: [UIUserNotificationType.Sound, UIUserNotificationType.Alert, UIUserNotificationType.Badge], categories: nil))
         
-        let budgetResults = Budget.objectsWhere("isCurrent = TRUE")
+        let realm = try! Realm()
         
-        if Budget.objectsWhere("isCurrent = TRUE").count == 0 {
-            Database.newBudget()
+        //let budgetResults = realm.objects(Budget).filter("isCurrent = TRUE")
+        
+        if realm.objects(Budget).filter("isCurrent = TRUE").count == 0 {
+            try! Database.newBudget()
         }
         
         return true
@@ -44,15 +47,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidBecomeActive(application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-        let budget = Budget.objectsWhere("isCurrent = TRUE").firstObject() as! Budget
+        let realm = try! Realm()
+        
+        let budget = realm.objects(Budget).filter("isCurrent = TRUE").first!
         
         if budget.checkPassedEndDate() {
-            Database.newBudget()
+            try! Database.newBudget()
         }
     }
     
     func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
-        Database.newBudget()
+        try! Database.newBudget()
     }
 
     func applicationWillTerminate(application: UIApplication) {

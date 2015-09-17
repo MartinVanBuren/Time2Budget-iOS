@@ -24,7 +24,7 @@ class TaskEditorViewController: UIViewController, UITableViewDataSource, UITable
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        var nav = self.navigationController?.navigationBar
+        let nav = self.navigationController?.navigationBar
         Style.navbarSetColor(nav: nav!)
         
         if editTask {
@@ -39,6 +39,13 @@ class TaskEditorViewController: UIViewController, UITableViewDataSource, UITable
             self.taskMemo = unwrappedTask.memo
             self.taskCategory = unwrappedTask.parent.name
             self.taskTime = unwrappedTask.timeBudgeted
+        }
+    }
+    
+    override func viewDidLayoutSubviews() {
+        if let rect = self.navigationController?.navigationBar.frame {
+            let y = rect.size.height + rect.origin.y
+            self.tableView.contentInset = UIEdgeInsetsMake(y, 0, 0, 0)
         }
     }
 
@@ -132,14 +139,14 @@ class TaskEditorViewController: UIViewController, UITableViewDataSource, UITable
                     if self.editTask {
                         // Edit Task Mode
                         if let unwrappedTask = currentTask {
-                            Database.updateTask(task: unwrappedTask, name: unwrappedName, memo: finalMemo, time: unwrappedTime, categoryName: unwrappedCategory)
+                            try! Database.updateTask(task: unwrappedTask, name: unwrappedName, memo: finalMemo, time: unwrappedTime, categoryName: unwrappedCategory)
                             self.dismissViewControllerAnimated(true, completion: {})
                         } else {
                             Factory.displayAlert(viewController: self, title: "Error: Task Missing", message: "Task missing while in edit mode. D':")
                         }
                     } else {
                         // New Task Mode
-                        Database.addTask(name: unwrappedName, memo: finalMemo, time: unwrappedTime, categoryName: unwrappedCategory)
+                        try! Database.addTask(name: unwrappedName, memo: finalMemo, time: unwrappedTime, categoryName: unwrappedCategory)
                         self.dismissViewControllerAnimated(true, completion: {})
                     }
                 } else {
@@ -157,7 +164,7 @@ class TaskEditorViewController: UIViewController, UITableViewDataSource, UITable
         self.dismissViewControllerAnimated(true, completion: {})
     }
     
-    func fixContentInset(#calledFromSegue: Bool) {
+    func fixContentInset(calledFromSegue calledFromSegue: Bool) {
         if calledFromSegue {
             if (returning != nil) {
                 self.returning = true

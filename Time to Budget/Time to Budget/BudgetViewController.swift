@@ -8,7 +8,7 @@
 
 import Foundation
 import UIKit
-import Realm
+import RealmSwift
 
 class BudgetViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
@@ -20,27 +20,29 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
     @IBOutlet weak var tableView: UITableView!
     
     //==================== Realm Properties ====================
-    let realm = Database.getRealm()
+    let realm = try! Realm()
     var currentBudget:Budget?
-    var notificationToken: RLMNotificationToken?
+    var notificationToken: NotificationToken?
     
     //==================== Pre-Generated Methods ====================
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        var nav = self.navigationController?.navigationBar
+        //self.tableView.contentInset = UIEdgeInsetsMake(44,0,0,0);
+        
+        let nav = self.navigationController?.navigationBar
         Style.navbarSetColor(nav: nav!)
         
-        self.currentBudget = (Budget.objectsWhere("isCurrent = TRUE").firstObject() as! Budget)
+        self.currentBudget = realm.objects(Budget).filter("isCurrent = TRUE").first!
         
         // Set realm notification block
-        notificationToken = RLMRealm.defaultRealm().addNotificationBlock { note, realm in
+        notificationToken = realm.addNotificationBlock { note, realm in
             
-            if Budget.objectsWhere("isCurrent = TRUE").count > 0 {
-                self.currentBudget = (Budget.objectsWhere("isCurrent = TRUE").firstObject() as! Budget)
+            if realm.objects(Budget).filter("isCurrent = TRUE").count > 0 {
+                self.currentBudget = realm.objects(Budget).filter("isCurrent = TRUE").first!
             } else {
-                Database.newBudget()
-                self.currentBudget = (Budget.objectsWhere("isCurrent = TRUE").firstObject() as! Budget)
+                try! Database.newBudget()
+                self.currentBudget = realm.objects(Budget).filter("isCurrent = TRUE").first!
             }
 
             self.tableView.reloadData()
@@ -50,6 +52,12 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
         
         // Run Display Prompt Code
         self.displayPromptControl()
+    }
+    override func viewDidLayoutSubviews() {
+        if let rect = self.navigationController?.navigationBar.frame {
+            let y = rect.size.height + rect.origin.y
+            self.tableView.contentInset = UIEdgeInsetsMake(y, 0, 0, 0)
+        }
     }
     override func viewWillAppear(animated: Bool) {
         self.tableView.reloadData()
@@ -70,8 +78,8 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
             clearPrompt()
             let recordsVC:RecordsViewController = segue.destinationViewController as! RecordsViewController
             
-            let indexPath = self.tableView.indexPathForSelectedRow()!
-            let thisTask = ((currentBudget!.categories.objectAtIndex(UInt(indexPath.section)) as! Category).tasks.objectAtIndex(UInt(indexPath.row))) as! Task
+            let indexPath = self.tableView.indexPathForSelectedRow!
+            let thisTask = currentBudget!.categories[indexPath.section].tasks[indexPath.row]
             recordsVC.currentTask = thisTask
             tableView.deselectRowAtIndexPath(indexPath, animated: true)
         }
@@ -97,7 +105,7 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return Int((currentBudget!.categories.objectAtIndex(UInt(section)) as! Category).tasks.count)
+        return currentBudget!.categories[section].tasks.count
         
     }
     
@@ -125,10 +133,10 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
     
     //==================== Helper Methods ====================
     func displayPromptControl() {
-        var navSingleTap = UITapGestureRecognizer(target: self, action: "navSingleTap")
+        let navSingleTap = UITapGestureRecognizer(target: self, action: "navSingleTap")
         navSingleTap.numberOfTapsRequired = 1
-        (self.navigationController?.navigationBar.subviews[1] as! UIView).userInteractionEnabled = true
-        (self.navigationController?.navigationBar.subviews[1] as! UIView).addGestureRecognizer(navSingleTap)
+        (self.navigationController?.navigationBar.subviews[1])!.userInteractionEnabled = true
+        (self.navigationController?.navigationBar.subviews[1])!.addGestureRecognizer(navSingleTap)
     }
     
     func navSingleTap() {

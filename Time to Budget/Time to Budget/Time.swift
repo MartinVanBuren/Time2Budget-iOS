@@ -94,7 +94,7 @@ public class Time {
     **    None
     */
     public func setByDouble(newTime: Double) {
-        var tempTime:Time = Time.doubleToTime(newTime)
+        let tempTime:Time = Time.doubleToTime(newTime)
         if newTime < 0 {
             tempTime.isNegative = true;
         }
@@ -184,7 +184,7 @@ public class Time {
     **    String: Value of Double as a String
     */
     public class func doubleToString(time: Double) -> String {
-        var finalTime:Time = doubleToTime(time)
+        let finalTime:Time = doubleToTime(time)
         if time < 0 {
             finalTime.isNegative = true;
         }
@@ -206,11 +206,11 @@ public class Time {
     **    Time: A Time instance containing the Time value of the Double parameter
     */
     public class func doubleToTime(newTime: Double) -> Time {
-        let arrayString = Array(String("\(newTime)"))
+        let arrayString = Array(String("\(newTime)").characters)
         var passDecimal:Bool = false
         
-        var digitHrs = Array("")
-        var digitMins = Array("")
+        var digitHrs = Array("".characters)
+        var digitMins = Array("".characters)
         
         for var i = 0; i < arrayString.count; i++ {
             if arrayString[i] != "." && passDecimal == false {
@@ -222,8 +222,8 @@ public class Time {
             }
         }
         
-        var tempHours = String(digitHrs).toInt()!
-        var tempMins = String(digitMins).toInt()!
+        let tempHours = Int(String(digitHrs))!
+        var tempMins = Int(String(digitMins))!
         
         switch tempMins {
         case 25:

@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5B7972C21BAA5AFA00BAF7C4 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B7972C01BAA5AFA00BAF7C4 /* Realm.framework */; };
+		5B7972C31BAA5AFA00BAF7C4 /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5B7972C01BAA5AFA00BAF7C4 /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		5B7972C41BAA5AFA00BAF7C4 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B7972C11BAA5AFA00BAF7C4 /* RealmSwift.framework */; };
+		5B7972C51BAA5AFA00BAF7C4 /* RealmSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5B7972C11BAA5AFA00BAF7C4 /* RealmSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5B880FA31BA776AB000D4EAB /* Splash Screen Art.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B880FA21BA776AB000D4EAB /* Splash Screen Art.png */; };
 		5BB55CB71BA8ABF700F43891 /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB55CB61BA8ABF700F43891 /* Style.swift */; };
 		9320D56F1A74625B0013018C /* MarshalOperator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9320D56E1A74625B0013018C /* MarshalOperator.swift */; };
@@ -37,7 +41,6 @@
 		93D4673C1A762C780016E875 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F0E5101A720BF4009D95EC /* Category.swift */; };
 		93D4673D1A762C780016E875 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F0E5171A720BF4009D95EC /* Task.swift */; };
 		93D4673E1A762C780016E875 /* Record.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F0E5151A720BF4009D95EC /* Record.swift */; };
-		93D467401A76F26B0016E875 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93F0E5321A720D13009D95EC /* Realm.framework */; };
 		93F0E4ED1A720B64009D95EC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F0E4EC1A720B64009D95EC /* AppDelegate.swift */; };
 		93F0E4F41A720B64009D95EC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 93F0E4F31A720B64009D95EC /* Images.xcassets */; };
 		93F0E4F71A720B64009D95EC /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93F0E4F51A720B64009D95EC /* LaunchScreen.xib */; };
@@ -53,9 +56,6 @@
 		93F0E52B1A720BF4009D95EC /* TransitionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F0E51B1A720BF4009D95EC /* TransitionDelegate.swift */; };
 		93F0E52C1A720BF4009D95EC /* TransitionDismissalAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F0E51C1A720BF4009D95EC /* TransitionDismissalAnimator.swift */; };
 		93F0E52D1A720BF4009D95EC /* TransitionPresentationAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F0E51D1A720BF4009D95EC /* TransitionPresentationAnimator.swift */; };
-		93F0E5331A720D13009D95EC /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93F0E5321A720D13009D95EC /* Realm.framework */; };
-		93F0E5351A720D20009D95EC /* RLMSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F0E5341A720D20009D95EC /* RLMSupport.swift */; };
-		93F0E5371A720D79009D95EC /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 93F0E5361A720D79009D95EC /* libc++.dylib */; };
 		93F0E53C1A721396009D95EC /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F0E53B1A721396009D95EC /* Database.swift */; };
 		93F0E53E1A7214E1009D95EC /* Budget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F0E53D1A7214E1009D95EC /* Budget.swift */; };
 		93F0E5401A72194D009D95EC /* BudgetEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F0E53F1A72194D009D95EC /* BudgetEditorViewController.swift */; };
@@ -72,7 +72,24 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		5B7972C61BAA5AFA00BAF7C4 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				5B7972C51BAA5AFA00BAF7C4 /* RealmSwift.framework in Embed Frameworks */,
+				5B7972C31BAA5AFA00BAF7C4 /* Realm.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		5B7972C01BAA5AFA00BAF7C4 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Realm.framework; sourceTree = "<group>"; };
+		5B7972C11BAA5AFA00BAF7C4 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RealmSwift.framework; sourceTree = "<group>"; };
 		5B880FA21BA776AB000D4EAB /* Splash Screen Art.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Splash Screen Art.png"; sourceTree = "<group>"; };
 		5BB55CB61BA8ABF700F43891 /* Style.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Style.swift; sourceTree = "<group>"; };
 		9320D56E1A74625B0013018C /* MarshalOperator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarshalOperator.swift; sourceTree = "<group>"; };
@@ -102,7 +119,6 @@
 		93CBED4C1AA667AE00079482 /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		93CBED4E1AA7E38500079482 /* example.realm */ = {isa = PBXFileReference; lastKnownFileType = file; name = example.realm; path = ../example.realm; sourceTree = "<group>"; };
 		93CBED511AAB4C2000079482 /* Time to Budget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Time to Budget.entitlements"; sourceTree = "<group>"; };
-		93CBED521AAB505E00079482 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		93CBED541AAB5BB000079482 /* CloudKitManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloudKitManager.swift; sourceTree = "<group>"; };
 		93F0E4E71A720B64009D95EC /* Time to Budget.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Time to Budget.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		93F0E4EB1A720B64009D95EC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -121,9 +137,6 @@
 		93F0E51B1A720BF4009D95EC /* TransitionDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransitionDelegate.swift; sourceTree = "<group>"; };
 		93F0E51C1A720BF4009D95EC /* TransitionDismissalAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransitionDismissalAnimator.swift; sourceTree = "<group>"; };
 		93F0E51D1A720BF4009D95EC /* TransitionPresentationAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransitionPresentationAnimator.swift; sourceTree = "<group>"; };
-		93F0E5321A720D13009D95EC /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Realm.framework; sourceTree = "<group>"; };
-		93F0E5341A720D20009D95EC /* RLMSupport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RLMSupport.swift; sourceTree = "<group>"; };
-		93F0E5361A720D79009D95EC /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
 		93F0E53B1A721396009D95EC /* Database.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
 		93F0E53D1A7214E1009D95EC /* Budget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Budget.swift; sourceTree = "<group>"; };
 		93F0E53F1A72194D009D95EC /* BudgetEditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BudgetEditorViewController.swift; sourceTree = "<group>"; };
@@ -135,7 +148,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				93D467401A76F26B0016E875 /* Realm.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -143,14 +155,24 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				93F0E5371A720D79009D95EC /* libc++.dylib in Frameworks */,
-				93F0E5331A720D13009D95EC /* Realm.framework in Frameworks */,
+				5B7972C41BAA5AFA00BAF7C4 /* RealmSwift.framework in Frameworks */,
+				5B7972C21BAA5AFA00BAF7C4 /* Realm.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5B7972C71BAA5B0300BAF7C4 /* Realm */ = {
+			isa = PBXGroup;
+			children = (
+				5B7972C01BAA5AFA00BAF7C4 /* Realm.framework */,
+				5B7972C11BAA5AFA00BAF7C4 /* RealmSwift.framework */,
+			);
+			name = Realm;
+			path = ..;
+			sourceTree = "<group>";
+		};
 		9320D5761A746E900013018C /* Time to Budget Tests */ = {
 			isa = PBXGroup;
 			children = (
@@ -272,8 +294,7 @@
 		93F0E4EA1A720B64009D95EC /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				93F0E5381A720D94009D95EC /* Realm */,
-				93CBED521AAB505E00079482 /* CloudKit.framework */,
+				5B7972C71BAA5B0300BAF7C4 /* Realm */,
 				93CBED4E1AA7E38500079482 /* example.realm */,
 				93967CB11AB20CED00D46CF6 /* gear-7.png */,
 				5B880FA21BA776AB000D4EAB /* Splash Screen Art.png */,
@@ -330,17 +351,6 @@
 			name = Transitions;
 			sourceTree = "<group>";
 		};
-		93F0E5381A720D94009D95EC /* Realm */ = {
-			isa = PBXGroup;
-			children = (
-				93F0E5361A720D79009D95EC /* libc++.dylib */,
-				93F0E5321A720D13009D95EC /* Realm.framework */,
-				93F0E5341A720D20009D95EC /* RLMSupport.swift */,
-			);
-			name = Realm;
-			path = ..;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -369,6 +379,7 @@
 				93F0E4E31A720B64009D95EC /* Sources */,
 				93F0E4E41A720B64009D95EC /* Frameworks */,
 				93F0E4E51A720B64009D95EC /* Resources */,
+				5B7972C61BAA5AFA00BAF7C4 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -385,7 +396,9 @@
 		93F0E4DF1A720B64009D95EC /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0610;
+				LastSwiftMigration = 0700;
+				LastSwiftUpdateCheck = 0700;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Arrken Games, LLC";
 				TargetAttributes = {
 					9320D5741A746E8F0013018C = {
@@ -467,7 +480,6 @@
 			files = (
 				93967CBD1AB22D4900D46CF6 /* BudgetHistoryRecordsViewController.swift in Sources */,
 				93F0E5241A720BF4009D95EC /* Factory.swift in Sources */,
-				93F0E5351A720D20009D95EC /* RLMSupport.swift in Sources */,
 				93F0E53E1A7214E1009D95EC /* Budget.swift in Sources */,
 				93F0E5401A72194D009D95EC /* BudgetEditorViewController.swift in Sources */,
 				93F0E52C1A720BF4009D95EC /* TransitionDismissalAnimator.swift in Sources */,
@@ -541,6 +553,7 @@
 				);
 				INFOPLIST_FILE = "Time to Budget Tests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.arrken.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Time to Budget.app/Time to Budget";
 			};
@@ -557,6 +570,7 @@
 				);
 				INFOPLIST_FILE = "Time to Budget Tests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.arrken.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Time to Budget.app/Time to Budget";
 			};
@@ -582,6 +596,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -596,7 +611,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -633,7 +648,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -655,6 +670,7 @@
 				);
 				INFOPLIST_FILE = "Time to Budget/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.arrken.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -676,6 +692,7 @@
 				INFOPLIST_FILE = "Time to Budget/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.arrken.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;

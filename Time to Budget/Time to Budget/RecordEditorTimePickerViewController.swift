@@ -62,7 +62,7 @@ class RecordEditorTimePickerViewController: UIViewController, UIPickerViewDataSo
     }
     
     //UIPicker Delegates
-    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String! {
+    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         if component == 0 {
             return "\(timeHourPickerData[row])"
         }
@@ -98,7 +98,7 @@ class RecordEditorTimePickerViewController: UIViewController, UIPickerViewDataSo
     
     // Helper Functions
     func updateTimer() {
-        var currentTime = NSDate.timeIntervalSinceReferenceDate()
+        let currentTime = NSDate.timeIntervalSinceReferenceDate()
         
         var elapsedTime = currentTime - self.startTime
         

@@ -7,16 +7,24 @@
 //
 
 import UIKit
+import RealmSwift
 
 class SettingsViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        var nav = self.navigationController?.navigationBar
+        let nav = self.navigationController?.navigationBar
         Style.navbarSetColor(nav: nav!)
         
         self.navigationItem.title = "Settings"
+    }
+    
+    override func viewDidLayoutSubviews() {
+        if let rect = self.navigationController?.navigationBar.frame {
+            let y = rect.size.height + rect.origin.y
+            self.tableView.contentInset = UIEdgeInsetsMake(y, 0, 0, 0)
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -86,7 +94,7 @@ class SettingsViewController: UITableViewController {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         switch indexPath.section {
         case 0:
-            let realm = Database.getRealm()
+            //let realm = try! Realm()
             for views in tabBarController!.viewControllers! {
                 (views as! UINavigationController).popToRootViewControllerAnimated(false)
             }
@@ -122,12 +130,12 @@ class SettingsViewController: UITableViewController {
     }
     
     func displayResetAllAlert() {
-        let realm = Database.getRealm()
+        let realm = try! Realm()
         let alert = UIAlertController(title: "Are You Sure?", message: "Are you sure you want to erase all information?", preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
-            realm.beginWriteTransaction()
-            realm.deleteAllObjects()
-            realm.commitWriteTransaction()
+            realm.write {
+                realm.deleteAll()
+            }
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
         
@@ -135,12 +143,13 @@ class SettingsViewController: UITableViewController {
     }
     
     func displayResetHistoryAlert() {
-        let realm = Database.getRealm()
+        let realm = try! Realm()
         let alert = UIAlertController(title: "Are You Sure?", message: "Are you sure you want to erase all non-current budgets?", preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
-            realm.beginWriteTransaction()
-            realm.deleteObjects(Budget.objectsWhere("isCurrent = FALSE"))
-            realm.commitWriteTransaction()
+            
+            realm.write {
+                realm.delete(realm.objects(Budget).filter("isCurrent = FALSE"))
+            }
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
         
@@ -148,25 +157,25 @@ class SettingsViewController: UITableViewController {
     }
     
     func displayResetCurrentBudgetAlert() {
-        let realm = Database.getRealm()
+        let realm = try! Realm()
         let alert = UIAlertController(title: "Are You Sure?", message: "Are you sure you want to erase the entire current budget?", preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
-            let currentBudget = Budget.objectsWhere("isCurrent = TRUE").firstObject() as! Budget
-            for var i:UInt = 0; i < currentBudget.categories.count; i++ {
-                let currentCategory = currentBudget.categories[i] as! Category
-                for var x:UInt = 0; x < currentCategory.tasks.count; x++ {
-                    let currentTask = currentCategory.tasks[x] as! Task
-                    realm.beginWriteTransaction()
-                    realm.deleteObjects(currentTask.records)
-                    realm.commitWriteTransaction()
+            let currentBudget = realm.objects(Budget).filter("isCurrent = TRUE").first!
+            for var i = 0; i < currentBudget.categories.count; i++ {
+                let currentCategory = currentBudget.categories[i]
+                for var x = 0; x < currentCategory.tasks.count; x++ {
+                    let currentTask = currentCategory.tasks[x]
+                    realm.write {
+                        realm.delete(currentTask.records)
+                    }
                 }
-                realm.beginWriteTransaction()
-                realm.deleteObjects(currentCategory.tasks)
-                realm.commitWriteTransaction()
+                realm.write {
+                    realm.delete(currentCategory.tasks)
+                }
             }
-            realm.beginWriteTransaction()
-            realm.deleteObjects(currentBudget.categories)
-            realm.commitWriteTransaction()
+            realm.write {
+                realm.delete(currentBudget.categories)
+            }
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
         
@@ -174,20 +183,20 @@ class SettingsViewController: UITableViewController {
     }
     
     func displayResetCurrentRecordsAlert() {
-        let realm = Database.getRealm()
+        let realm = try! Realm()
         let alert = UIAlertController(title: "Are You Sure?", message: "Are you sure you want to erase all records for the current budget?", preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
-            let currentBudget = Budget.objectsWhere("isCurrent = TRUE").firstObject() as! Budget
-            for var i:UInt = 0; i < currentBudget.categories.count; i++ {
-                let currentCategory = currentBudget.categories.objectAtIndex(i) as! Category
-                for var x:UInt = 0; x < currentCategory.tasks.count; x++ {
-                    let currentTask = currentCategory.tasks.objectAtIndex(x) as! Task
-                    realm.beginWriteTransaction()
-                    realm.deleteObjects(currentTask.records)
-                    currentTask.records.removeAllObjects()
-                    currentTask.calcTime()
-                    currentCategory.calcTime()
-                    realm.commitWriteTransaction()
+            let currentBudget = realm.objects(Budget).filter("isCurrent = TRUE").first!
+            for var i = 0; i < currentBudget.categories.count; i++ {
+                let currentCategory = currentBudget.categories[i]
+                for var x = 0; x < currentCategory.tasks.count; x++ {
+                    let currentTask = currentCategory.tasks[x]
+                    realm.write {
+                        realm.delete(currentTask.records)
+                        currentTask.records.removeAll()
+                        currentTask.calcTime()
+                        currentCategory.calcTime()
+                    }
                 }
             }
         }))

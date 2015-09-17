@@ -7,17 +7,24 @@
 //
 
 import UIKit
-import Realm
+import RealmSwift
 
 class BudgetHistoryRecordsViewController: UITableViewController {
     
     var currentTask:Task?
-    var recordsList:RLMResults!
-    var notificationToken: RLMNotificationToken?
+    var recordsList = List<Record>()
+    //var notificationToken: RLMNotificationToken?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+    }
+    
+    override func viewDidLayoutSubviews() {
+        if let rect = self.navigationController?.navigationBar.frame {
+            let y = rect.size.height + rect.origin.y
+            self.tableView.contentInset = UIEdgeInsetsMake(y, 0, 0, 0)
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -26,7 +33,10 @@ class BudgetHistoryRecordsViewController: UITableViewController {
     }
     
     override func viewWillAppear(animated: Bool) {
-        recordsList = currentTask?.records.sortedResultsUsingProperty("date", ascending: false)
+        let recordsResults = currentTask?.records.sorted("date", ascending: false)
+        for rec in recordsResults! {
+            self.recordsList.append(rec)
+        }
         self.tableView.reloadData()
     }
     
@@ -34,11 +44,11 @@ class BudgetHistoryRecordsViewController: UITableViewController {
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        let indexPath = self.tableView.indexPathForSelectedRow()!
+        let indexPath = self.tableView.indexPathForSelectedRow!
         
         if segue.identifier == "showHistoryRecord" {
             let historyRecordVC = segue.destinationViewController as! BudgetHistoryRecordViewController
-            historyRecordVC.currentRecord = (currentTask!.records[UInt(indexPath.row)] as! Record)
+            historyRecordVC.currentRecord = currentTask!.records[indexPath.row]
             historyRecordVC.currentTask = self.currentTask!
         }
     }

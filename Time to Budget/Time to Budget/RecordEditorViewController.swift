@@ -25,11 +25,11 @@ class RecordEditorViewController: UIViewController, UITableViewDataSource, UITab
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        var nav = self.navigationController?.navigationBar
+        let nav = self.navigationController?.navigationBar
         Style.navbarSetColor(nav: nav!)
 
         if let unwrappedDate = self.date {
-            
+            // Do nothing
         } else {
             self.date = NSDate()
         }
@@ -39,6 +39,13 @@ class RecordEditorViewController: UIViewController, UITableViewDataSource, UITab
             self.date = unwrappedRecord.date
             self.memo = unwrappedRecord.note
             self.navigationItem.title = "Edit Record"
+        }
+    }
+    
+    override func viewDidLayoutSubviews() {
+        if let rect = self.navigationController?.navigationBar.frame {
+            let y = rect.size.height + rect.origin.y
+            self.tableView.contentInset = UIEdgeInsetsMake(y, 0, 0, 0)
         }
     }
 
@@ -142,14 +149,14 @@ class RecordEditorViewController: UIViewController, UITableViewDataSource, UITab
                 if self.editRecord {
                     // Edit Record Mode
                     if let unwrappedRecord = self.currentRecord {
-                        Database.updateRecord(record: unwrappedRecord, taskName: unwrappedTask.name, note: finalMemo, timeSpent: unwrappedTime.toDouble(), date: self.date!)
+                        try! Database.updateRecord(record: unwrappedRecord, taskName: unwrappedTask.name, note: finalMemo, timeSpent: unwrappedTime.toDouble(), date: self.date!)
                         self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
                     } else {
                         Factory.displayAlert(viewController: self, title: "Error: Record Missing", message: "Record missing while in edit mode. D':")
                     }
                 } else {
                     // New Record Mode
-                    Database.addRecord(parentTask: unwrappedTask, note: finalMemo, timeSpent: unwrappedTime.toDouble(), date: self.date!)
+                    try! Database.addRecord(parentTask: unwrappedTask, note: finalMemo, timeSpent: unwrappedTime.toDouble(), date: self.date!)
                     self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
                 }
             } else {
@@ -160,7 +167,7 @@ class RecordEditorViewController: UIViewController, UITableViewDataSource, UITab
         }
     }
     
-    func fixContentInset(#calledFromSegue: Bool) {
+    func fixContentInset(calledFromSegue calledFromSegue: Bool) {
         if calledFromSegue {
             if (returning != nil) {
                 self.returning = true

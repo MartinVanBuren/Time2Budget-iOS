@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 public class Style {
-    class func navbarSetColor(#nav: UINavigationBar) {
+    class func navbarSetColor(nav nav: UINavigationBar) {
         nav.barStyle = UIBarStyle.Black
         nav.tintColor = UIColor.whiteColor()
         nav.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]

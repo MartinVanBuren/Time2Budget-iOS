@@ -7,19 +7,19 @@
 //
 
 import Foundation
-import Realm
+import RealmSwift
 
-public class Budget: RLMObject {
+public class Budget: Object {
     public dynamic var startDate = NSDate()
     public dynamic var endDate = NSDate()
     public dynamic var name = ""
     public dynamic var isCurrent = false
-    public dynamic var categories = RLMArray(objectClassName: Category.className())
+    public let categories = List<Category>()
     
     public func autoInit() {
         let dt = NSDate()
         let cal = NSCalendar.currentCalendar()
-        let dc = cal.components(NSCalendarUnit.WeekdayCalendarUnit|NSCalendarUnit.YearCalendarUnit|NSCalendarUnit.MonthCalendarUnit|NSCalendarUnit.DayCalendarUnit, fromDate: dt)
+        let dc = cal.components([NSCalendarUnit.NSWeekdayCalendarUnit, NSCalendarUnit.NSYearCalendarUnit, NSCalendarUnit.NSMonthCalendarUnit, NSCalendarUnit.NSDayCalendarUnit], fromDate: dt)
         let normDt = cal.dateFromComponents(dc)
         let shift = dc.weekday - cal.firstWeekday
         
@@ -33,7 +33,7 @@ public class Budget: RLMObject {
         let cal = NSCalendar.currentCalendar()
         let currentDate = NSDate()
         let endingDate = endDate
-        let dif = cal.compareDate(currentDate, toDate: endingDate, toUnitGranularity: NSCalendarUnit.SecondCalendarUnit)
+        let dif = cal.compareDate(currentDate, toDate: endingDate, toUnitGranularity: NSCalendarUnit.NSSecondCalendarUnit)
         
         if dif == NSComparisonResult.OrderedAscending
         {
@@ -50,7 +50,7 @@ public class Budget: RLMObject {
     }
     
     private func dateToString(dt: NSDate) -> String {
-        var dateFormatter = NSDateFormatter()
+        let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "MMMM dd, yy"
         
         return dateFormatter.stringFromDate(dt)

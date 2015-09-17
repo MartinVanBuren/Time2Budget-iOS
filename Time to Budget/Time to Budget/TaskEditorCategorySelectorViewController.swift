@@ -7,20 +7,31 @@
 //
 
 import UIKit
+import RealmSwift
 
 class TaskEditorCategorySelectorViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
-    let realm = Database.getRealm()
-    let currentBudget = Budget.objectsWhere("isCurrent = TRUE").firstObject() as! Budget
+    var realm:Realm!
+    var currentBudget:Budget!
     var taskEditorVC:TaskEditorViewController!
     var returning:Bool? = false
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
+        self.realm = try! Realm()
+        self.currentBudget = realm.objects(Budget).filter("isCurrent = TRUE").first!
+        
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         fixContentInset(calledFromSegue: false)
+    }
+    
+    override func viewDidLayoutSubviews() {
+        if let rect = self.navigationController?.navigationBar.frame {
+            let y = rect.size.height + rect.origin.y
+            self.tableView.contentInset = UIEdgeInsetsMake(y, 0, 0, 0)
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -42,8 +53,8 @@ class TaskEditorCategorySelectorViewController: UIViewController, UITableViewDat
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var finalCell = UITableViewCell()
-        var categoryView = Factory.prepareCategoryCell(tableView: self.tableView, categoryList: currentBudget.categories, section: indexPath.row, isEditor: false)
+        let finalCell = UITableViewCell()
+        let categoryView = Factory.prepareCategoryCell(tableView: self.tableView, categoryList: currentBudget.categories, section: indexPath.row, isEditor: false)
         
         categoryView.backgroundColor = UIColor.whiteColor()
         finalCell.addSubview(categoryView)
@@ -59,7 +70,7 @@ class TaskEditorCategorySelectorViewController: UIViewController, UITableViewDat
     
     //==================== UITableViewDelegate Methods ====================
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        taskEditorVC.taskCategory = (currentBudget.categories.objectAtIndex(UInt(indexPath.row)) as! Category).name
+        taskEditorVC.taskCategory = currentBudget.categories[indexPath.row].name
         self.navigationController?.popViewControllerAnimated(true)
     }
     
@@ -69,7 +80,7 @@ class TaskEditorCategorySelectorViewController: UIViewController, UITableViewDat
         return 0
     }
 
-    func fixContentInset(#calledFromSegue: Bool) {
+    func fixContentInset(calledFromSegue calledFromSegue: Bool) {
         if calledFromSegue {
             if (returning != nil) {
                 self.returning = true

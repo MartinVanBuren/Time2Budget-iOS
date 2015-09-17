@@ -52,7 +52,7 @@ class TaskEditorTimePickerViewController: UIViewController, UIPickerViewDataSour
     }
     
     //UIPicker Delegates
-    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String! {
+    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         if component == 0 {
             return "\(timeHourPickerData[row])"
         }
