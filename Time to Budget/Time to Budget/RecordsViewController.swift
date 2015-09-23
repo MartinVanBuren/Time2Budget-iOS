@@ -15,11 +15,25 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
     var returning:Bool? = false
     var editRecord:Bool = false
     var recordList = List<Record>()
+    let realm = try! Realm()
+    var notificationToken: NotificationToken?
     @IBOutlet weak var tableView: UITableView!
     var promptEnabled:Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Set realm notification block
+        notificationToken = realm.addNotificationBlock { note, realm in
+            
+            let recordResults = self.currentTask.records.sorted("date", ascending: false)
+            self.recordList.removeAll()
+            for rec in recordResults {
+                self.recordList.append(rec)
+            }
+
+            self.tableView.reloadData()
+        }
     }
 
     override func viewDidLayoutSubviews() {

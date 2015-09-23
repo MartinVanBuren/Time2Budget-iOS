@@ -296,10 +296,10 @@ public class Database {
     public class func deleteRecord(record record: Record) throws {
         let realm = try Realm()
         let parent = record.parent
-        let oldIndex = parent.records.indexOf(record)!
+        let index = parent.records.indexOf(record)!
 
         realm.write {
-            parent.records.removeAtIndex(oldIndex)
+            parent.records.removeAtIndex(index)
             realm.delete(record)
             parent.calcTime()
         }
