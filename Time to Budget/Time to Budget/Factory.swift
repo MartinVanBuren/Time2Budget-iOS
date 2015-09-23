@@ -17,8 +17,6 @@ public class Factory {
         
         let preparedCell:CategoryCell = tableView.dequeueReusableCellWithIdentifier("CategoryCell") as! CategoryCell
         
-        //var taskArray = thisCategory.tasks
-        
         preparedCell.sectionNameLabel.text = thisCategory.name
         preparedCell.sectionNameLabel.textColor = UIColor.whiteColor()
         
@@ -40,7 +38,6 @@ public class Factory {
         preparedCell.remainingTimeLabel.layer.cornerRadius = CGRectGetWidth(preparedCell.remainingTimeLabel.frame)/8
         preparedCell.remainingTimeLabel.layer.borderWidth = 1.0
         preparedCell.remainingTimeLabel.layer.masksToBounds = true
-        preparedCell.remainingTimeLabel.frame.insetInPlace(dx: CGFloat(5), dy: CGFloat(5))
         preparedCell.remainingTimeLabel.textColor = UIColor.whiteColor()
         preparedCell.backgroundColor = UIColor(red: 122/255, green: 158/255, blue: 224/255, alpha: 255/255)
         preparedCell.opaque = false

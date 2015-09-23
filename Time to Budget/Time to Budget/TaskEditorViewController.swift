@@ -11,6 +11,7 @@ import UIKit
 class TaskEditorViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate {
 
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var saveTask: UIButton!
     var budgetEditorViewController:BudgetEditorViewController!
     var currentTask:Task?
     var returning:Bool? = false
@@ -26,6 +27,9 @@ class TaskEditorViewController: UIViewController, UITableViewDataSource, UITable
         
         let nav = self.navigationController?.navigationBar
         Style.navbarSetColor(nav: nav!)
+        
+        saveTask.layer.cornerRadius = CGRectGetWidth(saveTask.frame)/8
+        saveTask.layer.masksToBounds = true
         
         if editTask {
             self.navigationItem.title = "Edit \(currentTask!.name)"
