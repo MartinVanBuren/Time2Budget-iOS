@@ -7,12 +7,12 @@
 //
 
 import UIKit
-import Realm
+import RealmSwift
 
 class BudgetHistoryViewController: UITableViewController {
     
     var currentBudget:Budget?
-    var notificationToken: RLMNotificationToken?
+    //var notificationToken: RLMNotificationToken?
 
     override func viewDidLoad() {
         super.viewDidLoad()

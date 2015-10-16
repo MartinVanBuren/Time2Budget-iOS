@@ -23,8 +23,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //let budgetResults = realm.objects(Budget).filter("isCurrent = TRUE")
         
-        if realm.objects(Budget).filter("isCurrent = TRUE").count == 0 {
-            try! Database.newBudget()
+        if realm.objects(Budget).filter("isCurrent == TRUE").count == 0 {
+            Database.newBudget()
         }
         
         return true
@@ -49,15 +49,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
         let realm = try! Realm()
         
-        let budget = realm.objects(Budget).filter("isCurrent = TRUE").first!
+        let budget = realm.objects(Budget).filter("isCurrent == TRUE").first!
         
         if budget.checkPassedEndDate() {
-            try! Database.newBudget()
+            Database.newBudget()
         }
     }
     
     func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
-        try! Database.newBudget()
+        Database.newBudget()
     }
 
     func applicationWillTerminate(application: UIApplication) {

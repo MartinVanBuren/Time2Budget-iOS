@@ -6,21 +6,19 @@
 //  Copyright (c) 2015 Arrken Games, LLC. All rights reserved.
 //
 
-import UIKit
 import XCTest
-import Time_to_Budget
+@testable import Time_to_Budget
 
 class Time_Tests: XCTestCase {
     var time: Time = Time()
 
     override func setUp() {
         super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        
         time = Time()
     }
     
     override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
     }
 
@@ -54,9 +52,9 @@ class Time_Tests: XCTestCase {
 
     func test_setByDouble() {
         
-        time.setByDouble(5.75)
+        time.setByDouble(3.45)
         
-        XCTAssert((time.hours == 6 && time.minutes == 15), "Failed to Set Value from a Double")
+        XCTAssert((time.hours == 3 && time.minutes == 45), "Failed to Set Value from a Double")
     }
     
     func test_toDouble() {
@@ -72,7 +70,24 @@ class Time_Tests: XCTestCase {
         time.hours = 5
         time.minutes = 0
         
-        XCTAssert((time.toString() == "5:00"), "Failed to Convert to String")
+        let zeroMinTest = (time.toString() == "5:00")
+        
+        time.hours = 0
+        time.minutes = 30
+        
+        let zeroHrTest = (time.toString() == "00:30")
+        
+        time.hours = 2
+        time.minutes = 15
+        
+        let noZeroTest = (time.toString() == "2:15")
+        
+        time.hours = -2
+        time.minutes = 15
+        
+        let negTest = (time.toString() == "-2:15")
+        
+        XCTAssert((zeroMinTest && zeroHrTest && noZeroTest && negTest), "Failed to Convert to String")
         
     }
     

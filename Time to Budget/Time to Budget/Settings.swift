@@ -7,8 +7,8 @@
 //
 
 import Foundation
-import Realm
+import RealmSwift
 
-public class Settings : RLMObject {
+public class Settings : Object {
     
 }

@@ -22,7 +22,7 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
     //==================== Realm Properties ====================
     let realm = try! Realm()
     var currentBudget:Budget?
-    var notificationToken: NotificationToken?
+    var notificationToken: NotificationToken!
     
     //==================== Pre-Generated Methods ====================
     override func viewDidLoad() {
@@ -33,19 +33,19 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
         let nav = self.navigationController?.navigationBar
         Style.navbarSetColor(nav: nav!)
         
-        self.currentBudget = realm.objects(Budget).filter("isCurrent = TRUE").first!
+        self.currentBudget = realm.objects(Budget).filter("isCurrent == TRUE").first!
         
         // Set realm notification block
-        notificationToken = realm.addNotificationBlock { note, realm in
+        notificationToken = realm.addNotificationBlock { notification, realm in
             
-            if realm.objects(Budget).filter("isCurrent = TRUE").count > 0 {
-                self.currentBudget = realm.objects(Budget).filter("isCurrent = TRUE").first!
+            if realm.objects(Budget).filter("isCurrent == TRUE").count > 0 {
+                self.currentBudget = realm.objects(Budget).filter("isCurrent == TRUE").first!
             } else {
-                try! Database.newBudget()
-                self.currentBudget = realm.objects(Budget).filter("isCurrent = TRUE").first!
+                Database.newBudget()
+                self.currentBudget = realm.objects(Budget).filter("isCurrent == TRUE").first!
             }
             
-            self.currentBudget = realm.objects(Budget).filter("isCurrent = TRUE").first!
+            //self.currentBudget = realm.objects(Budget).filter("isCurrent == TRUE").first!
 
             self.tableView.reloadData()
         }

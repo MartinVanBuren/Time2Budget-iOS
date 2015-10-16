@@ -1,5 +1,5 @@
 //
-//  TrackingViewController.swift
+//  RecordEditorViewController.swift
 //  Time to Budget
 //
 //  Created by Robert Kennedy on 2/7/15.
@@ -7,16 +7,17 @@
 //
 
 import UIKit
-import Realm
+import RealmSwift
 
-class RecordEditorViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate {
+class RecordEditorViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, writeValueBackDelegate {
     
+    @IBOutlet weak var saveRecordButton: UIButton!
     var editRecord:Bool = false
-    var currentTask:Task?
+    internal var currentTask:Task?
     var currentRecord:Record?
     
     var timeSpent:Time?
-    var date:NSDate?
+    var date:NSDate = NSDate()
     var memo:String?
     var returning:Bool? = false
     
@@ -27,12 +28,9 @@ class RecordEditorViewController: UIViewController, UITableViewDataSource, UITab
         
         let nav = self.navigationController?.navigationBar
         Style.navbarSetColor(nav: nav!)
-
-        if let unwrappedDate = self.date {
-            // Do nothing
-        } else {
-            self.date = NSDate()
-        }
+        
+        saveRecordButton.layer.cornerRadius = CGRectGetWidth(saveRecordButton.frame)/8
+        saveRecordButton.layer.masksToBounds = true
         
         if let unwrappedRecord = self.currentRecord {
             self.timeSpent = Time.doubleToTime(unwrappedRecord.timeSpent)
@@ -67,8 +65,10 @@ class RecordEditorViewController: UIViewController, UITableViewDataSource, UITab
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if (segue.identifier == "showTaskSelectorView") {
-            let taskSelectorVC = segue.destinationViewController as! RecordEditorTaskSelectorViewController
-            taskSelectorVC.recordEditorVC = self
+            //let taskSelectorVC = segue.destinationViewController as! RecordEditorTaskSelectorViewController
+            //taskSelectorVC.recordEditorVC = self
+            let taskSelectorVC = (segue.destinationViewController as! RecordEditorTaskSelectorViewController)
+            taskSelectorVC.delegate = self
         } else if (segue.identifier == "showTimePickerView") {
             let timePickerVC = segue.destinationViewController as! RecordEditorTimePickerViewController
             timePickerVC.recordEditorVC = self
@@ -78,6 +78,11 @@ class RecordEditorViewController: UIViewController, UITableViewDataSource, UITab
         }
         
         fixContentInset(calledFromSegue: true)
+    }
+    
+    func writeTaskBack(value: Task) {
+        self.currentTask = value
+        self.tableView.reloadData()
     }
     
     
@@ -149,14 +154,14 @@ class RecordEditorViewController: UIViewController, UITableViewDataSource, UITab
                 if self.editRecord {
                     // Edit Record Mode
                     if let unwrappedRecord = self.currentRecord {
-                        try! Database.updateRecord(record: unwrappedRecord, taskName: unwrappedTask.name, note: finalMemo, timeSpent: unwrappedTime.toDouble(), date: self.date!)
+                        Database.updateRecord(record: unwrappedRecord, taskName: unwrappedTask.name, note: finalMemo, timeSpent: unwrappedTime.toDouble(), date: self.date)
                         self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
                     } else {
                         Factory.displayAlert(viewController: self, title: "Error: Record Missing", message: "Record missing while in edit mode. D':")
                     }
                 } else {
                     // New Record Mode
-                    try! Database.addRecord(parentTask: unwrappedTask, note: finalMemo, timeSpent: unwrappedTime.toDouble(), date: self.date!)
+                    Database.addRecord(parentTask: unwrappedTask, note: finalMemo, timeSpent: unwrappedTime.toDouble(), date: self.date)
                     self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
                 }
             } else {

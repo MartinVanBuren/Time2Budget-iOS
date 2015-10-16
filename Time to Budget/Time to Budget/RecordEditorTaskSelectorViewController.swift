@@ -9,12 +9,13 @@
 import UIKit
 import RealmSwift
 
-class RecordEditorTaskSelectorViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class RecordEditorTaskSelectorViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, writeValueBackDelegate {
 
     var realm:Realm!
     var currentBudget:Budget!
     var recordEditorVC:RecordEditorViewController!
     @IBOutlet weak var tableView: UITableView!
+    var delegate: writeValueBackDelegate?
     var returning:Bool? = false
     
     
@@ -67,7 +68,9 @@ class RecordEditorTaskSelectorViewController: UIViewController, UITableViewDataS
     
     //==================== UITableViewDelegate Methods ====================
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        recordEditorVC.currentTask = currentBudget.categories[indexPath.section].tasks[indexPath.row]
+        
+        let currentTask = currentBudget.categories[indexPath.section].tasks[indexPath.row]
+        delegate?.writeTaskBack(currentTask)
         self.navigationController?.popViewControllerAnimated(true)
     }
     

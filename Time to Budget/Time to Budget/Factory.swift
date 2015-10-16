@@ -285,10 +285,10 @@ public class Factory {
         
         let alert = UIAlertController(title: "Keep Records?", message: "Records will be moved to the 'Taskless Records' Task", preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
-            try! Database.deleteTask(task: currentTask, retainRecords: true)
+            Database.deleteTask(task: currentTask, retainRecords: true)
         }))
         alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
-            try! Database.deleteTask(task: currentTask, retainRecords: false)
+            Database.deleteTask(task: currentTask, retainRecords: false)
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
             
@@ -302,10 +302,10 @@ public class Factory {
         
         let alert = UIAlertController(title: "Keep Tasks?", message: "Tasks will be moved to the 'Uncategorized' Category", preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
-            try! Database.deleteCategory(categoryName: currentCategory.name, retainTasks: true)
+            Database.deleteCategory(categoryName: currentCategory.name, retainTasks: true)
         }))
         alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
-            try! Database.deleteCategory(categoryName: currentCategory.name, retainTasks: false)
+            Database.deleteCategory(categoryName: currentCategory.name, retainTasks: false)
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
             
@@ -318,9 +318,9 @@ public class Factory {
         
         let alert = UIAlertController(title: "New Category", message: "", preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Add", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
-            if (try! Database.checkCategoryName(name: inputTextField.text!)) {
+            if (Database.checkCategoryName(name: inputTextField.text!)) {
                 
-                try! Database.addCategory(name: inputTextField.text!)
+                Database.addCategory(name: inputTextField.text!)
             } else {
                 
                 Factory.displayAlert(viewController: viewController, title: "Category Name Taken", message: "'\(inputTextField.text)' is already a Category")
@@ -349,8 +349,8 @@ public class Factory {
             
         }))
         alert.addAction(UIAlertAction(title: "Save", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
-            if (try! Database.checkCategoryName(name: inputTextField.text!) || category.name == inputTextField.text) {
-                try! Database.updateCategory(categoryName: category.name, newCategoryName: inputTextField.text!)
+            if (Database.checkCategoryName(name: inputTextField.text!) || category.name == inputTextField.text) {
+                Database.updateCategory(categoryName: category.name, newCategoryName: inputTextField.text!)
             } else {
                 Factory.displayAlert(viewController: viewController, title: "Category Name Taken", message: "'\(inputTextField.text)' is already a Category")
             }
@@ -364,7 +364,7 @@ public class Factory {
         
         let alert = UIAlertController(title: "Are You Sure?", message: "Are you sure you want to delete this record?", preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
-            try! Database.deleteRecord(record: record)
+            Database.deleteRecord(record: record)
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
         

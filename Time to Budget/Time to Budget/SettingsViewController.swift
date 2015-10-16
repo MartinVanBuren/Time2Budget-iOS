@@ -160,7 +160,7 @@ class SettingsViewController: UITableViewController {
         let realm = try! Realm()
         let alert = UIAlertController(title: "Are You Sure?", message: "Are you sure you want to erase the entire current budget?", preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
-            let currentBudget = realm.objects(Budget).filter("isCurrent = TRUE").first!
+            let currentBudget = realm.objects(Budget).filter("isCurrent == TRUE").first!
             for var i = 0; i < currentBudget.categories.count; i++ {
                 let currentCategory = currentBudget.categories[i]
                 for var x = 0; x < currentCategory.tasks.count; x++ {
@@ -186,7 +186,7 @@ class SettingsViewController: UITableViewController {
         let realm = try! Realm()
         let alert = UIAlertController(title: "Are You Sure?", message: "Are you sure you want to erase all records for the current budget?", preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
-            let currentBudget = realm.objects(Budget).filter("isCurrent = TRUE").first!
+            let currentBudget = realm.objects(Budget).filter("isCurrent == TRUE").first!
             for var i = 0; i < currentBudget.categories.count; i++ {
                 let currentCategory = currentBudget.categories[i]
                 for var x = 0; x < currentCategory.tasks.count; x++ {

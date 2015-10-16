@@ -11,7 +11,7 @@ import UIKit
 class TaskEditorViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate {
 
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var saveTask: UIButton!
+    @IBOutlet weak var saveTaskButton: UIButton!
     var budgetEditorViewController:BudgetEditorViewController!
     var currentTask:Task?
     var returning:Bool? = false
@@ -19,8 +19,8 @@ class TaskEditorViewController: UIViewController, UITableViewDataSource, UITable
     
     var taskName:String?
     var taskMemo:String?
-    var taskCategory:String?
-    var taskTime:Double?
+    internal var taskCategory:String?
+    internal var taskTime:Double?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,8 +28,8 @@ class TaskEditorViewController: UIViewController, UITableViewDataSource, UITable
         let nav = self.navigationController?.navigationBar
         Style.navbarSetColor(nav: nav!)
         
-        saveTask.layer.cornerRadius = CGRectGetWidth(saveTask.frame)/8
-        saveTask.layer.masksToBounds = true
+        saveTaskButton.layer.cornerRadius = CGRectGetWidth(saveTaskButton.frame)/8
+        saveTaskButton.layer.masksToBounds = true
         
         if editTask {
             self.navigationItem.title = "Edit \(currentTask!.name)"
@@ -143,14 +143,14 @@ class TaskEditorViewController: UIViewController, UITableViewDataSource, UITable
                     if self.editTask {
                         // Edit Task Mode
                         if let unwrappedTask = currentTask {
-                            try! Database.updateTask(task: unwrappedTask, name: unwrappedName, memo: finalMemo, time: unwrappedTime, categoryName: unwrappedCategory)
+                            Database.updateTask(task: unwrappedTask, name: unwrappedName, memo: finalMemo, time: unwrappedTime, categoryName: unwrappedCategory)
                             self.dismissViewControllerAnimated(true, completion: {})
                         } else {
                             Factory.displayAlert(viewController: self, title: "Error: Task Missing", message: "Task missing while in edit mode. D':")
                         }
                     } else {
                         // New Task Mode
-                        try! Database.addTask(name: unwrappedName, memo: finalMemo, time: unwrappedTime, categoryName: unwrappedCategory)
+                        Database.addTask(name: unwrappedName, memo: finalMemo, time: unwrappedTime, categoryName: unwrappedCategory)
                         self.dismissViewControllerAnimated(true, completion: {})
                     }
                 } else {

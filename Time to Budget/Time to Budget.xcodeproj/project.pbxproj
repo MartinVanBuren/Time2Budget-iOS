@@ -3,18 +3,20 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 47;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5B7972C21BAA5AFA00BAF7C4 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B7972C01BAA5AFA00BAF7C4 /* Realm.framework */; };
-		5B7972C31BAA5AFA00BAF7C4 /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5B7972C01BAA5AFA00BAF7C4 /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5B7972C41BAA5AFA00BAF7C4 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B7972C11BAA5AFA00BAF7C4 /* RealmSwift.framework */; };
 		5B7972C51BAA5AFA00BAF7C4 /* RealmSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5B7972C11BAA5AFA00BAF7C4 /* RealmSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		5B9679FC1BBE13D400DBEB61 /* Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9679FB1BBE13D400DBEB61 /* Protocol.swift */; settings = {ASSET_TAGS = (); }; };
+		5B9679FD1BBE219300DBEB61 /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5B7972C01BAA5AFA00BAF7C4 /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		5B9679FF1BBE22B800DBEB61 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B7972C01BAA5AFA00BAF7C4 /* Realm.framework */; };
 		5B9E81591BB3343600858CEA /* Splash Screen Art.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B9E81581BB3343600858CEA /* Splash Screen Art.png */; settings = {ASSET_TAGS = (); }; };
 		5BB55CB71BA8ABF700F43891 /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB55CB61BA8ABF700F43891 /* Style.swift */; };
+		5BB60D4C1BD00D54003408D0 /* Database_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93BC90441A74C84200A63932 /* Database_Tests.swift */; settings = {ASSET_TAGS = (); }; };
+		5BB60D4D1BD00D57003408D0 /* Time_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9320D5881A7476A50013018C /* Time_Tests.swift */; settings = {ASSET_TAGS = (); }; };
 		9320D56F1A74625B0013018C /* MarshalOperator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9320D56E1A74625B0013018C /* MarshalOperator.swift */; };
-		9320D5891A7476A50013018C /* Time_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9320D5881A7476A50013018C /* Time_Tests.swift */; };
 		93223B491A86840500365D3A /* RecordEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93223B481A86840500365D3A /* RecordEditorViewController.swift */; };
 		9385F1741AA397C8000C8726 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9385F1731AA397C8000C8726 /* SettingsViewController.swift */; };
 		9385F1761AA39D30000C8726 /* TaskEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9385F1751AA39D30000C8726 /* TaskEditorViewController.swift */; };
@@ -35,12 +37,6 @@
 		93B2E5F71A903E890058372F /* RecordEditorDatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B2E5F61A903E890058372F /* RecordEditorDatePickerViewController.swift */; };
 		93B2E5FC1A905F990058372F /* MemoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B2E5FB1A905F990058372F /* MemoCell.swift */; };
 		93CBED4D1AA667AE00079482 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CBED4C1AA667AE00079482 /* Settings.swift */; };
-		93CBED501AA7E3DB00079482 /* example.realm in Resources */ = {isa = PBXBuildFile; fileRef = 93CBED4E1AA7E38500079482 /* example.realm */; };
-		93CBED551AAB5BB000079482 /* CloudKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CBED541AAB5BB000079482 /* CloudKitManager.swift */; };
-		93D4673B1A762C780016E875 /* Budget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F0E53D1A7214E1009D95EC /* Budget.swift */; };
-		93D4673C1A762C780016E875 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F0E5101A720BF4009D95EC /* Category.swift */; };
-		93D4673D1A762C780016E875 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F0E5171A720BF4009D95EC /* Task.swift */; };
-		93D4673E1A762C780016E875 /* Record.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F0E5151A720BF4009D95EC /* Record.swift */; };
 		93F0E4ED1A720B64009D95EC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F0E4EC1A720B64009D95EC /* AppDelegate.swift */; };
 		93F0E4F41A720B64009D95EC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 93F0E4F31A720B64009D95EC /* Images.xcassets */; };
 		93F0E4F71A720B64009D95EC /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93F0E4F51A720B64009D95EC /* LaunchScreen.xib */; };
@@ -79,8 +75,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				5B9679FD1BBE219300DBEB61 /* Realm.framework in Embed Frameworks */,
 				5B7972C51BAA5AFA00BAF7C4 /* RealmSwift.framework in Embed Frameworks */,
-				5B7972C31BAA5AFA00BAF7C4 /* Realm.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -90,6 +86,7 @@
 /* Begin PBXFileReference section */
 		5B7972C01BAA5AFA00BAF7C4 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Realm.framework; sourceTree = "<group>"; };
 		5B7972C11BAA5AFA00BAF7C4 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RealmSwift.framework; sourceTree = "<group>"; };
+		5B9679FB1BBE13D400DBEB61 /* Protocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Protocol.swift; sourceTree = "<group>"; };
 		5B9E81581BB3343600858CEA /* Splash Screen Art.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Splash Screen Art.png"; sourceTree = "<group>"; };
 		5BB55CB61BA8ABF700F43891 /* Style.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Style.swift; sourceTree = "<group>"; };
 		9320D56E1A74625B0013018C /* MarshalOperator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarshalOperator.swift; sourceTree = "<group>"; };
@@ -117,9 +114,7 @@
 		93B2E5FB1A905F990058372F /* MemoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemoCell.swift; sourceTree = "<group>"; };
 		93BC90441A74C84200A63932 /* Database_Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Database_Tests.swift; sourceTree = "<group>"; };
 		93CBED4C1AA667AE00079482 /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
-		93CBED4E1AA7E38500079482 /* example.realm */ = {isa = PBXFileReference; lastKnownFileType = file; name = example.realm; path = ../example.realm; sourceTree = "<group>"; };
 		93CBED511AAB4C2000079482 /* Time to Budget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Time to Budget.entitlements"; sourceTree = "<group>"; };
-		93CBED541AAB5BB000079482 /* CloudKitManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloudKitManager.swift; sourceTree = "<group>"; };
 		93F0E4E71A720B64009D95EC /* Time to Budget.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Time to Budget.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		93F0E4EB1A720B64009D95EC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		93F0E4EC1A720B64009D95EC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -155,8 +150,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5B9679FF1BBE22B800DBEB61 /* Realm.framework in Frameworks */,
 				5B7972C41BAA5AFA00BAF7C4 /* RealmSwift.framework in Frameworks */,
-				5B7972C21BAA5AFA00BAF7C4 /* Realm.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -295,7 +290,6 @@
 			isa = PBXGroup;
 			children = (
 				5B7972C71BAA5B0300BAF7C4 /* Realm */,
-				93CBED4E1AA7E38500079482 /* example.realm */,
 				93967CB11AB20CED00D46CF6 /* gear-7.png */,
 				5B9E81581BB3343600858CEA /* Splash Screen Art.png */,
 				93967CB71AB2297700D46CF6 /* list-simple-7.png */,
@@ -323,6 +317,7 @@
 				93F0E5141A720BF4009D95EC /* Factory.swift */,
 				93F0E51A1A720BF4009D95EC /* Time.swift */,
 				9320D56E1A74625B0013018C /* MarshalOperator.swift */,
+				5B9679FB1BBE13D400DBEB61 /* Protocol.swift */,
 			);
 			name = "Support Classes";
 			sourceTree = "<group>";
@@ -331,7 +326,6 @@
 			isa = PBXGroup;
 			children = (
 				93F0E53B1A721396009D95EC /* Database.swift */,
-				93CBED541AAB5BB000079482 /* CloudKitManager.swift */,
 				93F0E53D1A7214E1009D95EC /* Budget.swift */,
 				93F0E5101A720BF4009D95EC /* Category.swift */,
 				93F0E5171A720BF4009D95EC /* Task.swift */,
@@ -410,14 +404,14 @@
 						DevelopmentTeam = 2LHJ7M29TL;
 						SystemCapabilities = {
 							com.apple.iCloud = {
-								enabled = 1;
+								enabled = 0;
 							};
 						};
 					};
 				};
 			};
 			buildConfigurationList = 93F0E4E21A720B64009D95EC /* Build configuration list for PBXProject "Time to Budget" */;
-			compatibilityVersion = "Xcode 3.2";
+			compatibilityVersion = "Xcode 6.3";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -454,7 +448,6 @@
 				93F0E4F41A720B64009D95EC /* Images.xcassets in Resources */,
 				93967CB21AB20CED00D46CF6 /* gear-7.png in Resources */,
 				93967CB61AB20D3800D46CF6 /* pencil-7.png in Resources */,
-				93CBED501AA7E3DB00079482 /* example.realm in Resources */,
 				5B9E81591BB3343600858CEA /* Splash Screen Art.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -466,11 +459,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				93D4673B1A762C780016E875 /* Budget.swift in Sources */,
-				9320D5891A7476A50013018C /* Time_Tests.swift in Sources */,
-				93D4673D1A762C780016E875 /* Task.swift in Sources */,
-				93D4673E1A762C780016E875 /* Record.swift in Sources */,
-				93D4673C1A762C780016E875 /* Category.swift in Sources */,
+				5BB60D4D1BD00D57003408D0 /* Time_Tests.swift in Sources */,
+				5BB60D4C1BD00D54003408D0 /* Database_Tests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -488,7 +478,6 @@
 				93F0E5421A721960009D95EC /* BudgetViewController.swift in Sources */,
 				9385F17C1AA3C805000C8726 /* TaskEditorCategorySelectorViewController.swift in Sources */,
 				9385F1781AA3A248000C8726 /* TextfieldCell.swift in Sources */,
-				93CBED551AAB5BB000079482 /* CloudKitManager.swift in Sources */,
 				93967CBF1AB22D5800D46CF6 /* BudgetHistoryRecordViewController.swift in Sources */,
 				93F0E52A1A720BF4009D95EC /* Time.swift in Sources */,
 				93F0E5251A720BF4009D95EC /* Record.swift in Sources */,
@@ -501,6 +490,7 @@
 				9320D56F1A74625B0013018C /* MarshalOperator.swift in Sources */,
 				93F0E5231A720BF4009D95EC /* EditTaskCell.swift in Sources */,
 				93B2E5FC1A905F990058372F /* MemoCell.swift in Sources */,
+				5B9679FC1BBE13D400DBEB61 /* Protocol.swift in Sources */,
 				93967CC11AB2310900D46CF6 /* BudgetHistoryViewController.swift in Sources */,
 				93F0E4ED1A720B64009D95EC /* AppDelegate.swift in Sources */,
 				93F0E53C1A721396009D95EC /* Database.swift in Sources */,
@@ -660,7 +650,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = "Time to Budget/Time to Budget.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = YES;
@@ -681,7 +670,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = "Time to Budget/Time to Budget.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = YES;

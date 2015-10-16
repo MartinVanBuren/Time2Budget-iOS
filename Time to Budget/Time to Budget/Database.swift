@@ -25,11 +25,13 @@ public class Database {
         return exampleRealm
     }
     
-    public class func newBudget() throws {
-        let realm = try Realm()
+    public class func newBudget() {
+        let realm = try! Realm()
         
-        if realm.objects(Budget).filter("isCurrent = TRUE").count > 0 {
-            let oldBudget = realm.objects(Budget).filter("isCurrent = TRUE").first!
+        let currentBudgetCount = realm.objects(Budget).filter("isCurrent == TRUE").count
+        
+        if  currentBudgetCount > 0 {
+            let oldBudget = realm.objects(Budget).filter("isCurrent == TRUE").first!
             
             realm.write {
                 oldBudget.isCurrent = false
@@ -89,8 +91,8 @@ public class Database {
         }
     }
     
-    public class func checkCategoryName(name name: String) throws -> Bool {
-        let realm = try Realm()
+    public class func checkCategoryName(name name: String) -> Bool {
+        let realm = try! Realm()
         
         let budget = realm.objects(Budget).filter("isCurrent = TRUE").first!
         let count = Int(budget.categories.filter("name = '\(name)'").count)
@@ -104,12 +106,12 @@ public class Database {
         }
     }
     
-    public class func addCategory(name name: String) throws {
-        let realm = try Realm()
+    public class func addCategory(name name: String) {
+        let realm = try! Realm()
         
         let currentBudget = realm.objects(Budget).filter("isCurrent = TRUE").first!
         
-        if (try Database.checkCategoryName(name: name)) {
+        if (Database.checkCategoryName(name: name)) {
             realm.write {
                 let newCategory = Category()
                 newCategory.name = name
@@ -121,8 +123,8 @@ public class Database {
         }
     }
     
-    public class func deleteCategory(categoryName categoryName: String, retainTasks: Bool) throws {
-        let realm = try Realm()
+    public class func deleteCategory(categoryName categoryName: String, retainTasks: Bool) {
+        let realm = try! Realm()
         
         let currentBudget = realm.objects(Budget).filter("isCurrent = TRUE").first!
         let currentCategory = currentBudget.categories.filter("name = '\(categoryName)'").first!
@@ -132,11 +134,11 @@ public class Database {
         
         if (retainTasks) {
             if realm.objects(Category).filter("name = 'Uncategorized'").count == 0 {
-                try Database.addCategory(name: "Uncategorized")
+                Database.addCategory(name: "Uncategorized")
             }
             
             for var i = 0; i < loopCount; ++i {
-                try Database.moveTask(task: currentCategoryTasks.first!, newCategoryName: "Uncategorized")
+                Database.moveTask(task: currentCategoryTasks.first!, newCategoryName: "Uncategorized")
             }
             
             realm.write {
@@ -145,7 +147,7 @@ public class Database {
             }
         } else {
             for var i = 0; i < loopCount; ++i {
-                try Database.deleteTask(task: currentCategoryTasks.first!, retainRecords: false)
+                Database.deleteTask(task: currentCategoryTasks.first!, retainRecords: false)
             }
             
             realm.write {
@@ -155,8 +157,8 @@ public class Database {
         }
     }
     
-    public class func updateCategory(categoryName categoryName: String, newCategoryName: String) throws {
-        let realm = try Realm()
+    public class func updateCategory(categoryName categoryName: String, newCategoryName: String) {
+        let realm = try! Realm()
         let currentBudget = realm.objects(Budget).filter("isCurrent = TRUE").first!
         let currentCategory = currentBudget.categories.filter("name = '\(categoryName)'").first!
         
@@ -165,8 +167,8 @@ public class Database {
         }
     }
     
-    public class func checkTaskName(name name: String, category: Category) throws -> Bool {
-        let realm = try Realm()
+    public class func checkTaskName(name name: String, category: Category) -> Bool {
+        let realm = try! Realm()
         let count = realm.objects(Task).filter("name = '\(name)'").count
         
         if (count == 0) {
@@ -178,12 +180,12 @@ public class Database {
         }
     }
     
-    public class func addTask(name name: String, memo: String, time: Double, categoryName: String) throws {
-        let realm = try Realm()
+    public class func addTask(name name: String, memo: String, time: Double, categoryName: String) {
+        let realm = try! Realm()
         let currentBudget = realm.objects(Budget).filter("isCurrent = TRUE").first!
         let parentCategory = (currentBudget.categories.filter("name = '\(categoryName)'")).first!
         
-        if (try Database.checkTaskName(name: name, category: parentCategory)) {
+        if (Database.checkTaskName(name: name, category: parentCategory)) {
             
             realm.write {
                 let newTask = Task()
@@ -202,8 +204,8 @@ public class Database {
         }
     }
     
-    public class func moveTask(task task: Task, newCategoryName: String) throws {
-        let realm = try Realm()
+    public class func moveTask(task task: Task, newCategoryName: String) {
+        let realm = try! Realm()
         let currentBudget = realm.objects(Budget).filter("isCurrent = TRUE").first!
         let oldCategory = task.parent
         let oldIndex = oldCategory.tasks.indexOf(task)!
@@ -218,8 +220,8 @@ public class Database {
         }
     }
     
-    public class func updateTask(task task: Task, name: String, memo: String, time: Double, categoryName: String) throws {
-        let realm = try Realm()
+    public class func updateTask(task task: Task, name: String, memo: String, time: Double, categoryName: String) {
+        let realm = try! Realm()
 
         realm.write {
             task.name = name
@@ -230,12 +232,12 @@ public class Database {
         }
         
         if task.parent.name != categoryName {
-            try Database.moveTask(task: task, newCategoryName: categoryName)
+            Database.moveTask(task: task, newCategoryName: categoryName)
         }
     }
     
-    public class func deleteTask(task task: Task, retainRecords: Bool) throws {
-        let realm = try Realm()
+    public class func deleteTask(task task: Task, retainRecords: Bool) {
+        let realm = try! Realm()
         //let currentBudget = realm.objects(Budget).filter("isCurrent = TRUE").first!
         let currentRecords = task.records
         let parent = task.parent
@@ -244,11 +246,11 @@ public class Database {
             let loopCount = task.records.count
             
             if realm.objects(Task).filter("name = 'Taskless Records'").count == 0 {
-                try Database.addTask(name: "Taskless Records", memo: "Retained records from a deleted Task.", time: 0.0, categoryName: "\(parent.name)")
+                Database.addTask(name: "Taskless Records", memo: "Retained records from a deleted Task.", time: 0.0, categoryName: "\(parent.name)")
             }
             
             for var i = 0; i < loopCount; ++i {
-                try Database.moveRecord(record: task.records.first!, newTaskName: "Taskless Records")
+                Database.moveRecord(record: task.records.first!, newTaskName: "Taskless Records")
             }
         } else {
             realm.write {
@@ -262,8 +264,8 @@ public class Database {
         }
     }
     
-    public class func addRecord(parentTask parentTask: Task, note: String, timeSpent: Double, date: NSDate) throws {
-        let realm = try Realm()
+    public class func addRecord(parentTask parentTask: Task, note: String, timeSpent: Double, date: NSDate) {
+        let realm = try! Realm()
 
         realm.write {
             let newRecord = Record()
@@ -278,8 +280,8 @@ public class Database {
         }
     }
     
-    public class func moveRecord(record record: Record, newTaskName: String) throws {
-        let realm = try Realm()
+    public class func moveRecord(record record: Record, newTaskName: String) {
+        let realm = try! Realm()
         let oldTask = record.parent
         let oldIndex = oldTask.records.indexOf(record)!
         let newTask = (realm.objects(Task).filter("name = '\(newTaskName)'")).first!
@@ -293,8 +295,8 @@ public class Database {
         }
     }
     
-    public class func deleteRecord(record record: Record) throws {
-        let realm = try Realm()
+    public class func deleteRecord(record record: Record) {
+        let realm = try! Realm()
         let parent = record.parent
         let index = parent.records.indexOf(record)!
 
@@ -305,8 +307,8 @@ public class Database {
         }
     }
     
-    public class func updateRecord(record record: Record, taskName: String, note: String, timeSpent: Double, date: NSDate) throws {
-        let realm = try Realm()
+    public class func updateRecord(record record: Record, taskName: String, note: String, timeSpent: Double, date: NSDate) {
+        let realm = try! Realm()
 
         realm.write {
             record.note = note
@@ -316,7 +318,7 @@ public class Database {
         }
         
         if record.parent.name != taskName {
-            try Database.moveRecord(record: record, newTaskName: taskName)
+            Database.moveRecord(record: record, newTaskName: taskName)
         }
     }
 }

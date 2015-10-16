@@ -33,7 +33,7 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
             if realm.objects(Budget).filter("isCurrent = TRUE").count > 0 {
                 self.currentBudget = realm.objects(Budget).filter("isCurrent = TRUE").first!
             } else {
-                try! Database.newBudget()
+                Database.newBudget()
                 self.currentBudget = realm.objects(Budget).filter("isCurrent = TRUE").first!
             }
             
