@@ -62,7 +62,9 @@ class Time_Tests: XCTestCase {
         time.hours = 5
         time.minutes = 15
         
-        XCTAssert((time.toDouble() == 5.15), "Failed to Convert to Double")
+        let testTime = time.toDouble()
+        
+        XCTAssert((testTime == 5.15), "Failed to Convert to Double")
     }
     
     func test_toString() {

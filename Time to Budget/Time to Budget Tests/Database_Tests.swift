@@ -26,7 +26,7 @@ class Database_Tests: XCTestCase {
     }
 
     func test_addCategory() {
-        let realm = try! Realm()
+        let realm = try! Realm(configuration: Realm.Configuration(inMemoryIdentifier: self.name))
         Database.addCategory(name: "TestCategory")
         let check = realm.objects(Category.self).filter("name = 'TestCategory'").first!
         
@@ -34,7 +34,7 @@ class Database_Tests: XCTestCase {
     }
 
     func test_addTask() {
-        let realm = try! Realm()
+        let realm = try! Realm(configuration: Realm.Configuration(inMemoryIdentifier: self.name))
         Database.addCategory(name: "TestCategory")
         Database.addTask(name: "TestTask", memo: "TestMemo", time: 5.15, categoryName: "TestCategory")
         
@@ -53,7 +53,7 @@ class Database_Tests: XCTestCase {
     }
     
     func test_moveTask() {
-        let realm = try! Realm()
+        let realm = try! Realm(configuration: Realm.Configuration(inMemoryIdentifier: self.name))
         Database.addCategory(name: "Test1")
         Database.addCategory(name: "Test2")
         Database.addTask(name: "TestTask", memo: "TestMemo", time: 5.45, categoryName: "Test1")
@@ -71,7 +71,7 @@ class Database_Tests: XCTestCase {
     }
     
     func test_updateTask() {
-        let realm = try! Realm()
+        let realm = try! Realm(configuration: Realm.Configuration(inMemoryIdentifier: self.name))
         Database.addCategory(name: "Test1")
         Database.addTask(name: "TestTask", memo: "TestMemo", time: 5.45, categoryName: "Test1")
         
@@ -101,7 +101,7 @@ class Database_Tests: XCTestCase {
     }
     
     func test_checkTaskName() {
-        let realm = try! Realm()
+        let realm = try! Realm(configuration: Realm.Configuration(inMemoryIdentifier: self.name))
         
         Database.addCategory(name: "TestCat")
         let category = realm.objects(Category.self).filter("name = 'TestCat'").first!
@@ -116,7 +116,7 @@ class Database_Tests: XCTestCase {
     }
     
     func test_deleteCategory() {
-        let realm = try! Realm()
+        let realm = try! Realm(configuration: Realm.Configuration(inMemoryIdentifier: self.name))
         
         Database.addCategory(name: "Test 1")
         Database.addCategory(name: "Test 2")
@@ -150,7 +150,7 @@ class Database_Tests: XCTestCase {
     }
     
     func test_deleteTask() {
-        let realm = try! Realm()
+        let realm = try! Realm(configuration: Realm.Configuration(inMemoryIdentifier: self.name))
         
         Database.addCategory(name: "Uncategorized")
         Database.addCategory(name: "Test")
@@ -192,7 +192,7 @@ class Database_Tests: XCTestCase {
     }
     
     func test_addRecord() {
-        let realm = try! Realm()
+        let realm = try! Realm(configuration: Realm.Configuration(inMemoryIdentifier: self.name))
         let testDate = NSDate()
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "dd-MM-yyyy"
@@ -212,7 +212,7 @@ class Database_Tests: XCTestCase {
     }
     
     func test_moveRecord() {
-        let realm = try! Realm()
+        let realm = try! Realm(configuration: Realm.Configuration(inMemoryIdentifier: self.name))
         let testDate = NSDate()
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "dd-MM-yyyy"
@@ -241,7 +241,7 @@ class Database_Tests: XCTestCase {
     }
     
     func test_deleteRecord() {
-        let realm = try! Realm()
+        let realm = try! Realm(configuration: Realm.Configuration(inMemoryIdentifier: self.name))
         Database.addCategory(name: "testCat")
         Database.addTask(name: "test", memo: "", time: 0.0, categoryName: "testCat")
         let testTask = realm.objects(Task).filter("name = 'test'").first!
@@ -256,7 +256,7 @@ class Database_Tests: XCTestCase {
     }
     
     func test_updateRecord() {
-        let realm = try! Realm()
+        let realm = try! Realm(configuration: Realm.Configuration(inMemoryIdentifier: self.name))
         Database.addCategory(name: "testCat")
         Database.addTask(name: "test", memo: "", time: 0.0, categoryName: "testCat")
         Database.addTask(name: "newTest", memo: "", time: 0.0, categoryName: "testCat")
@@ -273,7 +273,7 @@ class Database_Tests: XCTestCase {
     }
     
     func test_updateCategory() {
-        let realm = try! Realm()
+        let realm = try! Realm(configuration: Realm.Configuration(inMemoryIdentifier: self.name))
         Database.addCategory(name: "TestCat")
         
         Database.updateCategory(categoryName: "TestCat", newCategoryName: "TestCategory")
