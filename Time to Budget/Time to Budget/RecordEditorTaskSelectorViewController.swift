@@ -9,13 +9,13 @@
 import UIKit
 import RealmSwift
 
-class RecordEditorTaskSelectorViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, writeValueBackDelegate {
+class RecordEditorTaskSelectorViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     var realm:Realm!
     var currentBudget:Budget!
     var recordEditorVC:RecordEditorViewController!
     @IBOutlet weak var tableView: UITableView!
-    var delegate: writeValueBackDelegate?
+    var delegate: writeNameBackDelegate?
     var returning:Bool? = false
     
     
@@ -29,12 +29,14 @@ class RecordEditorTaskSelectorViewController: UIViewController, UITableViewDataS
         fixContentInset(calledFromSegue: false)
     }
     
+    /*
     override func viewDidLayoutSubviews() {
         if let rect = self.navigationController?.navigationBar.frame {
             let y = rect.size.height + rect.origin.y
             self.tableView.contentInset = UIEdgeInsetsMake(y, 0, 0, 0)
         }
     }
+    */
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -70,7 +72,8 @@ class RecordEditorTaskSelectorViewController: UIViewController, UITableViewDataS
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
         let currentTask = currentBudget.categories[indexPath.section].tasks[indexPath.row]
-        delegate?.writeTaskBack(currentTask)
+        print("RecordEditorTaskSelector->currentTask.name", currentTask.name)
+        self.delegate?.writeNameBack(currentTask.name)
         self.navigationController?.popViewControllerAnimated(true)
     }
     

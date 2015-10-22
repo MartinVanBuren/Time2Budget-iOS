@@ -9,11 +9,11 @@
 import UIKit
 import RealmSwift
 
-class RecordEditorViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, writeValueBackDelegate {
+class RecordEditorViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, writeNameBackDelegate {
     
     @IBOutlet weak var saveRecordButton: UIButton!
     var editRecord:Bool = false
-    internal var currentTask:Task?
+    var currentTask:Task?
     var currentRecord:Record?
     
     var timeSpent:Time?
@@ -40,12 +40,14 @@ class RecordEditorViewController: UIViewController, UITableViewDataSource, UITab
         }
     }
     
+    /*
     override func viewDidLayoutSubviews() {
         if let rect = self.navigationController?.navigationBar.frame {
             let y = rect.size.height + rect.origin.y
             self.tableView.contentInset = UIEdgeInsetsMake(y, 0, 0, 0)
         }
     }
+    */
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -80,8 +82,10 @@ class RecordEditorViewController: UIViewController, UITableViewDataSource, UITab
         fixContentInset(calledFromSegue: true)
     }
     
-    func writeTaskBack(value: Task) {
-        self.currentTask = value
+    func writeNameBack(name: String) {
+        print("RecordEditorViewController->writeTaskBack->name", name)
+        let realm = try! Realm()
+        self.currentTask = realm.objects(Task).filter("name = '\(name)'").first!
         self.tableView.reloadData()
     }
     

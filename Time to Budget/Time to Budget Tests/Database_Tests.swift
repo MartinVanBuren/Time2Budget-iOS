@@ -19,6 +19,8 @@ class Database_Tests: XCTestCase {
         // from other tests or the application itself, and because they're in-memory,
         // there's nothing that needs to be cleaned up.
         Realm.Configuration.defaultConfiguration.inMemoryIdentifier = self.name
+        
+        Database.newBudget()
     }
     
     override func tearDown() {
@@ -28,9 +30,12 @@ class Database_Tests: XCTestCase {
     func test_addCategory() {
         let realm = try! Realm(configuration: Realm.Configuration(inMemoryIdentifier: self.name))
         Database.addCategory(name: "TestCategory")
-        let check = realm.objects(Category.self).filter("name = 'TestCategory'").first!
         
-        XCTAssert((check.name == "TestCategory"), "Failed to Add Category")
+        let testCategory = realm.objects(Category.self).filter("name = 'TestCategory'").first!
+        
+        let result = (testCategory.name == "TestCategory")
+        
+        XCTAssert(result, "Failed to Add Category")
     }
 
     func test_addTask() {

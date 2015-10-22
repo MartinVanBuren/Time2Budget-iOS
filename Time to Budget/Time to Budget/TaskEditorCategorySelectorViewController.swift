@@ -14,6 +14,7 @@ class TaskEditorCategorySelectorViewController: UIViewController, UITableViewDat
     var realm:Realm!
     var currentBudget:Budget!
     var taskEditorVC:TaskEditorViewController!
+    var delegate: writeNameBackDelegate?
     var returning:Bool? = false
     @IBOutlet weak var tableView: UITableView!
     
@@ -27,12 +28,14 @@ class TaskEditorCategorySelectorViewController: UIViewController, UITableViewDat
         fixContentInset(calledFromSegue: false)
     }
     
+    /*
     override func viewDidLayoutSubviews() {
         if let rect = self.navigationController?.navigationBar.frame {
             let y = rect.size.height + rect.origin.y
             self.tableView.contentInset = UIEdgeInsetsMake(y, 0, 0, 0)
         }
     }
+    */
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -70,7 +73,7 @@ class TaskEditorCategorySelectorViewController: UIViewController, UITableViewDat
     
     //==================== UITableViewDelegate Methods ====================
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        taskEditorVC.taskCategory = currentBudget.categories[indexPath.row].name
+        self.delegate?.writeNameBack(currentBudget.categories[indexPath.row].name)
         self.navigationController?.popViewControllerAnimated(true)
     }
     

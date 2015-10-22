@@ -34,10 +34,10 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
                 self.currentBudget = realm.objects(Budget).filter("isCurrent = TRUE").first!
             } else {
                 Database.newBudget()
-                self.currentBudget = realm.objects(Budget).filter("isCurrent = TRUE").first!
+                //self.currentBudget = realm.objects(Budget).filter("isCurrent = TRUE").first!
             }
             
-            self.currentBudget = realm.objects(Budget).filter("isCurrent = TRUE").first!
+            //self.currentBudget = realm.objects(Budget).filter("isCurrent = TRUE").first!
             
             self.tableView.reloadData()
             self.updateTimeRemaining()
@@ -48,12 +48,16 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
         
     }
     
+    /*
     override func viewDidLayoutSubviews() {
-        if let rect = self.navigationController?.navigationBar.frame {
+        UIView.animateWithDuration(CATransaction.animationDuration(), animations: {
+            if let rect = self.navigationController?.navigationBar.frame {
             let y = rect.size.height + rect.origin.y
             self.tableView.contentInset = UIEdgeInsetsMake(y, 0, 0, 0)
-        }
+            }
+        })
     }
+    */
     
     override func viewWillAppear(animated: Bool) {
         

@@ -22,12 +22,12 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.automaticallyAdjustsScrollViewInsets = true
         // Set realm notification block
         notificationToken = realm.addNotificationBlock { note, realm in
             
             let recordResults = self.currentTask.records.sorted("date", ascending: false)
-            self.recordList.removeAll()
+            try! self.recordList.removeAll()
             for rec in recordResults {
                 self.recordList.append(rec)
             }
@@ -36,12 +36,16 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
         }
     }
 
+    /*
     override func viewDidLayoutSubviews() {
-        if let rect = self.navigationController?.navigationBar.frame {
-            let y = rect.size.height + rect.origin.y
-            self.tableView.contentInset = UIEdgeInsetsMake(y, 0, 0, 0)
-        }
+        UIView.animateWithDuration(CATransaction.animationDuration(), animations: {
+            if let rect = self.navigationController?.navigationBar.frame {
+                let y = rect.size.height + rect.origin.y
+                self.tableView.contentInset = UIEdgeInsetsMake(y, 0, 0, 0)
+            }
+        })
     }
+    */
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -67,7 +71,7 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
         
         self.tableView.reloadData()
         
-        fixContentInset(calledFromSegue: false)
+        //fixContentInset(calledFromSegue: false)
     }
 
     // ============================= Segue Preperation =============================
@@ -90,7 +94,7 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
             
         }
         
-        fixContentInset(calledFromSegue: true)
+        //fixContentInset(calledFromSegue: true)
     }
     
     // ============================= Table View Overrides =============================
@@ -128,7 +132,7 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     // ============================= Helper Functions =============================
-    
+    /*
     func fixContentInset(calledFromSegue calledFromSegue: Bool) {
         if calledFromSegue {
             if (returning != nil) {
@@ -149,4 +153,5 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
             }
         }
     }
+    */
 }

@@ -58,7 +58,11 @@ public class Factory {
         let preparedCell = tableView.dequeueReusableCellWithIdentifier("TaskSubtitleCell") as! SubtitleDetailCell
         
         preparedCell.title.text = thisTask.name
-        preparedCell.subtitle.text = thisTask.memo
+        if thisTask.memo == "" {
+            preparedCell.subtitle.text = ""
+        } else {
+            preparedCell.subtitle.text = thisTask.memo
+        }
         
         if !isEditor {
             preparedCell.detail.text = Time.doubleToString(thisTask.timeRemaining)
@@ -378,8 +382,8 @@ public class Factory {
         viewController.presentViewController(alert, animated: true, completion: {})
     }
     
-    class func archiveBudgetNotification() throws -> UILocalNotification {
-        let realm = try Realm()
+    class func archiveBudgetNotification() -> UILocalNotification {
+        let realm = try! Realm()
         let thisBudget = realm.objects(Budget).filter("isCurrent = TRUE").first!
         let localNotif = UILocalNotification()
         

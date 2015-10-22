@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TaskEditorViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate {
+class TaskEditorViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, writeNameBackDelegate {
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var saveTaskButton: UIButton!
@@ -19,7 +19,7 @@ class TaskEditorViewController: UIViewController, UITableViewDataSource, UITable
     
     var taskName:String?
     var taskMemo:String?
-    internal var taskCategory:String?
+    var taskCategory:String?
     internal var taskTime:Double?
     
     override func viewDidLoad() {
@@ -46,12 +46,14 @@ class TaskEditorViewController: UIViewController, UITableViewDataSource, UITable
         }
     }
     
+    /*
     override func viewDidLayoutSubviews() {
         if let rect = self.navigationController?.navigationBar.frame {
             let y = rect.size.height + rect.origin.y
             self.tableView.contentInset = UIEdgeInsetsMake(y, 0, 0, 0)
         }
     }
+    */
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -103,10 +105,14 @@ class TaskEditorViewController: UIViewController, UITableViewDataSource, UITable
             timePickerVC.taskEditorVC = self
         } else if (segue.identifier == "showTaskEditorCategorySelectorView") {
             let categorySelectorVC = segue.destinationViewController as! TaskEditorCategorySelectorViewController
-            categorySelectorVC.taskEditorVC = self
+            categorySelectorVC.delegate = self
         }
         
         fixContentInset(calledFromSegue: true)
+    }
+    
+    func writeNameBack(name: String) {
+        self.taskCategory = name
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {

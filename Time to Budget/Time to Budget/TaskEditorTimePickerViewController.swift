@@ -16,6 +16,7 @@ class TaskEditorTimePickerViewController: UIViewController, UIPickerViewDataSour
     var timePicked:Time = Time()
     var taskEditorVC:TaskEditorViewController!
     @IBOutlet weak var timePicker: UIPickerView!
+    @IBOutlet weak var doneButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,6 +29,9 @@ class TaskEditorTimePickerViewController: UIViewController, UIPickerViewDataSour
             timePicked.hours = 0
             timePicked.minutes = 0
         }
+        
+        doneButton.layer.cornerRadius = CGRectGetWidth(doneButton.frame)/8
+        doneButton.layer.masksToBounds = true
         
         timePicker.selectRow(getHourIndex(), inComponent: 0, animated: true)
         timePicker.selectRow(getMinIndex(), inComponent: 1, animated: true)

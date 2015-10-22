@@ -7,15 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5B7972C41BAA5AFA00BAF7C4 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B7972C11BAA5AFA00BAF7C4 /* RealmSwift.framework */; };
-		5B7972C51BAA5AFA00BAF7C4 /* RealmSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5B7972C11BAA5AFA00BAF7C4 /* RealmSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		5B9679FC1BBE13D400DBEB61 /* Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9679FB1BBE13D400DBEB61 /* Protocol.swift */; settings = {ASSET_TAGS = (); }; };
-		5B9679FD1BBE219300DBEB61 /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5B7972C01BAA5AFA00BAF7C4 /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		5B9679FF1BBE22B800DBEB61 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B7972C01BAA5AFA00BAF7C4 /* Realm.framework */; };
-		5B9E81591BB3343600858CEA /* Splash Screen Art.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B9E81581BB3343600858CEA /* Splash Screen Art.png */; settings = {ASSET_TAGS = (); }; };
+		5B9679FC1BBE13D400DBEB61 /* Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9679FB1BBE13D400DBEB61 /* Protocol.swift */; };
+		5B9E81591BB3343600858CEA /* Splash Screen Art.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B9E81581BB3343600858CEA /* Splash Screen Art.png */; };
 		5BB55CB71BA8ABF700F43891 /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB55CB61BA8ABF700F43891 /* Style.swift */; };
-		5BB60D4C1BD00D54003408D0 /* Database_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93BC90441A74C84200A63932 /* Database_Tests.swift */; settings = {ASSET_TAGS = (); }; };
-		5BB60D4D1BD00D57003408D0 /* Time_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9320D5881A7476A50013018C /* Time_Tests.swift */; settings = {ASSET_TAGS = (); }; };
+		5BB60D4D1BD00D57003408D0 /* Time_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9320D5881A7476A50013018C /* Time_Tests.swift */; };
+		5BF78C3C1BD85B420082F1BC /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BF78C321BD85A800082F1BC /* Realm.framework */; };
+		5BF78C3D1BD85B420082F1BC /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5BF78C321BD85A800082F1BC /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		5BF78C3E1BD85B420082F1BC /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BF78C331BD85A800082F1BC /* RealmSwift.framework */; };
+		5BF78C3F1BD85B420082F1BC /* RealmSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5BF78C331BD85A800082F1BC /* RealmSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		5BF78C481BD86F8A0082F1BC /* Time_to_Budget_UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF78C471BD86F8A0082F1BC /* Time_to_Budget_UITests.swift */; };
 		9320D56F1A74625B0013018C /* MarshalOperator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9320D56E1A74625B0013018C /* MarshalOperator.swift */; };
 		93223B491A86840500365D3A /* RecordEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93223B481A86840500365D3A /* RecordEditorViewController.swift */; };
 		9385F1741AA397C8000C8726 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9385F1731AA397C8000C8726 /* SettingsViewController.swift */; };
@@ -59,6 +59,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		5BF78C4A1BD86F8A0082F1BC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 93F0E4DF1A720B64009D95EC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 93F0E4E61A720B64009D95EC;
+			remoteInfo = "Time to Budget";
+		};
 		9320D57B1A746E900013018C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 93F0E4DF1A720B64009D95EC /* Project object */;
@@ -69,14 +76,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		5B7972C61BAA5AFA00BAF7C4 /* Embed Frameworks */ = {
+		5BF78C401BD85B420082F1BC /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				5B9679FD1BBE219300DBEB61 /* Realm.framework in Embed Frameworks */,
-				5B7972C51BAA5AFA00BAF7C4 /* RealmSwift.framework in Embed Frameworks */,
+				5BF78C3F1BD85B420082F1BC /* RealmSwift.framework in Embed Frameworks */,
+				5BF78C3D1BD85B420082F1BC /* Realm.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -84,11 +91,14 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		5B7972C01BAA5AFA00BAF7C4 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Realm.framework; sourceTree = "<group>"; };
-		5B7972C11BAA5AFA00BAF7C4 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RealmSwift.framework; sourceTree = "<group>"; };
 		5B9679FB1BBE13D400DBEB61 /* Protocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Protocol.swift; sourceTree = "<group>"; };
 		5B9E81581BB3343600858CEA /* Splash Screen Art.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Splash Screen Art.png"; sourceTree = "<group>"; };
 		5BB55CB61BA8ABF700F43891 /* Style.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Style.swift; sourceTree = "<group>"; };
+		5BF78C321BD85A800082F1BC /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Realm.framework; sourceTree = "<group>"; };
+		5BF78C331BD85A800082F1BC /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RealmSwift.framework; sourceTree = "<group>"; };
+		5BF78C451BD86F8A0082F1BC /* Time to Budget UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Time to Budget UITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5BF78C471BD86F8A0082F1BC /* Time_to_Budget_UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Time_to_Budget_UITests.swift; sourceTree = "<group>"; };
+		5BF78C491BD86F8A0082F1BC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9320D56E1A74625B0013018C /* MarshalOperator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarshalOperator.swift; sourceTree = "<group>"; };
 		9320D5751A746E8F0013018C /* Time to Budget Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Time to Budget Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9320D5781A746E900013018C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -139,6 +149,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		5BF78C421BD86F8A0082F1BC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		9320D5721A746E8F0013018C /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -150,8 +167,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5B9679FF1BBE22B800DBEB61 /* Realm.framework in Frameworks */,
-				5B7972C41BAA5AFA00BAF7C4 /* RealmSwift.framework in Frameworks */,
+				5BF78C3E1BD85B420082F1BC /* RealmSwift.framework in Frameworks */,
+				5BF78C3C1BD85B420082F1BC /* Realm.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -161,11 +178,20 @@
 		5B7972C71BAA5B0300BAF7C4 /* Realm */ = {
 			isa = PBXGroup;
 			children = (
-				5B7972C01BAA5AFA00BAF7C4 /* Realm.framework */,
-				5B7972C11BAA5AFA00BAF7C4 /* RealmSwift.framework */,
+				5BF78C321BD85A800082F1BC /* Realm.framework */,
+				5BF78C331BD85A800082F1BC /* RealmSwift.framework */,
 			);
 			name = Realm;
 			path = ..;
+			sourceTree = "<group>";
+		};
+		5BF78C461BD86F8A0082F1BC /* Time to Budget UITests */ = {
+			isa = PBXGroup;
+			children = (
+				5BF78C471BD86F8A0082F1BC /* Time_to_Budget_UITests.swift */,
+				5BF78C491BD86F8A0082F1BC /* Info.plist */,
+			);
+			path = "Time to Budget UITests";
 			sourceTree = "<group>";
 		};
 		9320D5761A746E900013018C /* Time to Budget Tests */ = {
@@ -173,17 +199,9 @@
 			children = (
 				93BC90441A74C84200A63932 /* Database_Tests.swift */,
 				9320D5881A7476A50013018C /* Time_Tests.swift */,
-				9320D5771A746E900013018C /* Supporting Files */,
-			);
-			path = "Time to Budget Tests";
-			sourceTree = "<group>";
-		};
-		9320D5771A746E900013018C /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
 				9320D5781A746E900013018C /* Info.plist */,
 			);
-			name = "Supporting Files";
+			path = "Time to Budget Tests";
 			sourceTree = "<group>";
 		};
 		9385F1661AA36B63000C8726 /* Task Editor */ = {
@@ -256,6 +274,7 @@
 			children = (
 				93F0E4E91A720B64009D95EC /* Time to Budget */,
 				9320D5761A746E900013018C /* Time to Budget Tests */,
+				5BF78C461BD86F8A0082F1BC /* Time to Budget UITests */,
 				93F0E4E81A720B64009D95EC /* Products */,
 			);
 			sourceTree = "<group>";
@@ -265,6 +284,7 @@
 			children = (
 				93F0E4E71A720B64009D95EC /* Time to Budget.app */,
 				9320D5751A746E8F0013018C /* Time to Budget Tests.xctest */,
+				5BF78C451BD86F8A0082F1BC /* Time to Budget UITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -348,6 +368,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		5BF78C441BD86F8A0082F1BC /* Time to Budget UITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5BF78C4C1BD86F8A0082F1BC /* Build configuration list for PBXNativeTarget "Time to Budget UITests" */;
+			buildPhases = (
+				5BF78C411BD86F8A0082F1BC /* Sources */,
+				5BF78C421BD86F8A0082F1BC /* Frameworks */,
+				5BF78C431BD86F8A0082F1BC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				5BF78C4B1BD86F8A0082F1BC /* PBXTargetDependency */,
+			);
+			name = "Time to Budget UITests";
+			productName = "Time to Budget UITests";
+			productReference = 5BF78C451BD86F8A0082F1BC /* Time to Budget UITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		9320D5741A746E8F0013018C /* Time to Budget Tests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9320D57D1A746E900013018C /* Build configuration list for PBXNativeTarget "Time to Budget Tests" */;
@@ -373,7 +411,7 @@
 				93F0E4E31A720B64009D95EC /* Sources */,
 				93F0E4E41A720B64009D95EC /* Frameworks */,
 				93F0E4E51A720B64009D95EC /* Resources */,
-				5B7972C61BAA5AFA00BAF7C4 /* Embed Frameworks */,
+				5BF78C401BD85B420082F1BC /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -391,10 +429,14 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftMigration = 0700;
-				LastSwiftUpdateCheck = 0700;
+				LastSwiftUpdateCheck = 0710;
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Arrken Games, LLC";
 				TargetAttributes = {
+					5BF78C441BD86F8A0082F1BC = {
+						CreatedOnToolsVersion = 7.1;
+						TestTargetID = 93F0E4E61A720B64009D95EC;
+					};
 					9320D5741A746E8F0013018C = {
 						CreatedOnToolsVersion = 6.1.1;
 						TestTargetID = 93F0E4E61A720B64009D95EC;
@@ -425,11 +467,19 @@
 			targets = (
 				93F0E4E61A720B64009D95EC /* Time to Budget */,
 				9320D5741A746E8F0013018C /* Time to Budget Tests */,
+				5BF78C441BD86F8A0082F1BC /* Time to Budget UITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		5BF78C431BD86F8A0082F1BC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		9320D5731A746E8F0013018C /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -455,12 +505,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		5BF78C411BD86F8A0082F1BC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5BF78C481BD86F8A0082F1BC /* Time_to_Budget_UITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		9320D5711A746E8F0013018C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				5BB60D4D1BD00D57003408D0 /* Time_Tests.swift in Sources */,
-				5BB60D4C1BD00D54003408D0 /* Database_Tests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -509,6 +566,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		5BF78C4B1BD86F8A0082F1BC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 93F0E4E61A720B64009D95EC /* Time to Budget */;
+			targetProxy = 5BF78C4A1BD86F8A0082F1BC /* PBXContainerItemProxy */;
+		};
 		9320D57C1A746E900013018C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 93F0E4E61A720B64009D95EC /* Time to Budget */;
@@ -528,6 +590,37 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		5BF78C4D1BD86F8A0082F1BC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "Time to Budget UITests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "arrken.Time-to-Budget-UITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = "Time to Budget";
+				USES_XCTRUNNER = YES;
+			};
+			name = Debug;
+		};
+		5BF78C4E1BD86F8A0082F1BC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "Time to Budget UITests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "arrken.Time-to-Budget-UITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = "Time to Budget";
+				USES_XCTRUNNER = YES;
+			};
+			name = Release;
+		};
 		9320D57E1A746E900013018C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -690,6 +783,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		5BF78C4C1BD86F8A0082F1BC /* Build configuration list for PBXNativeTarget "Time to Budget UITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5BF78C4D1BD86F8A0082F1BC /* Debug */,
+				5BF78C4E1BD86F8A0082F1BC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		9320D57D1A746E900013018C /* Build configuration list for PBXNativeTarget "Time to Budget Tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

@@ -28,8 +28,6 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //self.tableView.contentInset = UIEdgeInsetsMake(44,0,0,0);
-        
         let nav = self.navigationController?.navigationBar
         Style.navbarSetColor(nav: nav!)
         
@@ -42,10 +40,8 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
                 self.currentBudget = realm.objects(Budget).filter("isCurrent == TRUE").first!
             } else {
                 Database.newBudget()
-                self.currentBudget = realm.objects(Budget).filter("isCurrent == TRUE").first!
+                //self.currentBudget = realm.objects(Budget).filter("isCurrent == TRUE").first!
             }
-            
-            //self.currentBudget = realm.objects(Budget).filter("isCurrent == TRUE").first!
 
             self.tableView.reloadData()
         }
@@ -55,12 +51,18 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
         // Run Display Prompt Code
         self.displayPromptControl()
     }
+    
+    /*
     override func viewDidLayoutSubviews() {
-        if let rect = self.navigationController?.navigationBar.frame {
-            let y = rect.size.height + rect.origin.y
-            self.tableView.contentInset = UIEdgeInsetsMake(y, 0, 0, 0)
-        }
+        UIView.animateWithDuration(CATransaction.animationDuration(), animations: {
+            if let rect = self.navigationController?.navigationBar.frame {
+                let y = rect.size.height + rect.origin.y
+                self.tableView.contentInset = UIEdgeInsetsMake(y, 0, 0, 0)
+            }
+        })
     }
+    */
+    
     override func viewWillAppear(animated: Bool) {
         self.tableView.reloadData()
     }

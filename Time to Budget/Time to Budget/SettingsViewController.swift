@@ -20,12 +20,14 @@ class SettingsViewController: UITableViewController {
         self.navigationItem.title = "Settings"
     }
     
+    /*
     override func viewDidLayoutSubviews() {
         if let rect = self.navigationController?.navigationBar.frame {
             let y = rect.size.height + rect.origin.y
             self.tableView.contentInset = UIEdgeInsetsMake(y, 0, 0, 0)
         }
     }
+    */
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -133,7 +135,7 @@ class SettingsViewController: UITableViewController {
         let realm = try! Realm()
         let alert = UIAlertController(title: "Are You Sure?", message: "Are you sure you want to erase all information?", preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
-            realm.write {
+            try! realm.write {
                 realm.deleteAll()
             }
         }))
@@ -147,7 +149,7 @@ class SettingsViewController: UITableViewController {
         let alert = UIAlertController(title: "Are You Sure?", message: "Are you sure you want to erase all non-current budgets?", preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
             
-            realm.write {
+            try! realm.write {
                 realm.delete(realm.objects(Budget).filter("isCurrent = FALSE"))
             }
         }))
@@ -165,15 +167,15 @@ class SettingsViewController: UITableViewController {
                 let currentCategory = currentBudget.categories[i]
                 for var x = 0; x < currentCategory.tasks.count; x++ {
                     let currentTask = currentCategory.tasks[x]
-                    realm.write {
+                    try! realm.write {
                         realm.delete(currentTask.records)
                     }
                 }
-                realm.write {
+                try! realm.write {
                     realm.delete(currentCategory.tasks)
                 }
             }
-            realm.write {
+            try! realm.write {
                 realm.delete(currentBudget.categories)
             }
         }))
@@ -191,7 +193,7 @@ class SettingsViewController: UITableViewController {
                 let currentCategory = currentBudget.categories[i]
                 for var x = 0; x < currentCategory.tasks.count; x++ {
                     let currentTask = currentCategory.tasks[x]
-                    realm.write {
+                    try! realm.write {
                         realm.delete(currentTask.records)
                         currentTask.records.removeAll()
                         currentTask.calcTime()
