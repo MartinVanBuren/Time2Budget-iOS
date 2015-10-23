@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5B922F0A1BDA7C4E00F851D3 /* DetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B922F091BDA7C4E00F851D3 /* DetailCell.swift */; };
 		5B9679FC1BBE13D400DBEB61 /* Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9679FB1BBE13D400DBEB61 /* Protocol.swift */; };
 		5B9E81591BB3343600858CEA /* Splash Screen Art.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B9E81581BB3343600858CEA /* Splash Screen Art.png */; };
 		5BB55CB71BA8ABF700F43891 /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB55CB61BA8ABF700F43891 /* Style.swift */; };
@@ -91,6 +92,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		5B922F091BDA7C4E00F851D3 /* DetailCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailCell.swift; sourceTree = "<group>"; };
 		5B9679FB1BBE13D400DBEB61 /* Protocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Protocol.swift; sourceTree = "<group>"; };
 		5B9E81581BB3343600858CEA /* Splash Screen Art.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Splash Screen Art.png"; sourceTree = "<group>"; };
 		5BB55CB61BA8ABF700F43891 /* Style.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Style.swift; sourceTree = "<group>"; };
@@ -233,6 +235,7 @@
 				93B2E5FB1A905F990058372F /* MemoCell.swift */,
 				939DB88F1AA2CD330047C108 /* SubtitleDetailCell.swift */,
 				9385F1771AA3A248000C8726 /* TextfieldCell.swift */,
+				5B922F091BDA7C4E00F851D3 /* DetailCell.swift */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -527,6 +530,7 @@
 			files = (
 				93967CBD1AB22D4900D46CF6 /* BudgetHistoryRecordsViewController.swift in Sources */,
 				93F0E5241A720BF4009D95EC /* Factory.swift in Sources */,
+				5B922F0A1BDA7C4E00F851D3 /* DetailCell.swift in Sources */,
 				93F0E53E1A7214E1009D95EC /* Budget.swift in Sources */,
 				93F0E5401A72194D009D95EC /* BudgetEditorViewController.swift in Sources */,
 				93F0E52C1A720BF4009D95EC /* TransitionDismissalAnimator.swift in Sources */,
@@ -790,6 +794,7 @@
 				5BF78C4E1BD86F8A0082F1BC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		9320D57D1A746E900013018C /* Build configuration list for PBXNativeTarget "Time to Budget Tests" */ = {
 			isa = XCConfigurationList;

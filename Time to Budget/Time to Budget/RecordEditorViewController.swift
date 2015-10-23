@@ -129,6 +129,8 @@ class RecordEditorViewController: UIViewController, UITableViewDataSource, UITab
         default:
             break
         }
+        
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
     
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {

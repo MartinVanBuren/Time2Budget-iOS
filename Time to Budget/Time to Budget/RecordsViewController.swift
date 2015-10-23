@@ -16,34 +16,24 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
     var editRecord:Bool = false
     var recordList = List<Record>()
     let realm = try! Realm()
-    var notificationToken: NotificationToken?
     @IBOutlet weak var tableView: UITableView!
     var promptEnabled:Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.automaticallyAdjustsScrollViewInsets = true
-        // Set realm notification block
-        notificationToken = realm.addNotificationBlock { note, realm in
-            
-            let recordResults = self.currentTask.records.sorted("date", ascending: false)
-            try! self.recordList.removeAll()
-            for rec in recordResults {
-                self.recordList.append(rec)
-            }
-
-            self.tableView.reloadData()
-        }
+        
     }
-
+    
     /*
     override func viewDidLayoutSubviews() {
-        UIView.animateWithDuration(CATransaction.animationDuration(), animations: {
-            if let rect = self.navigationController?.navigationBar.frame {
-                let y = rect.size.height + rect.origin.y
-                self.tableView.contentInset = UIEdgeInsetsMake(y, 0, 0, 0)
-            }
-        })
+        if self.currentTask.memo == "" {
+            UIView.animateWithDuration(CATransaction.animationDuration(), animations: {
+                if let rect = self.navigationController?.navigationBar.frame {
+                    let y = rect.size.height + rect.origin.y
+                    self.tableView.contentInset = UIEdgeInsetsMake(y, 0, 0, 0)
+                }
+            })
+        }
     }
     */
     
@@ -59,7 +49,7 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
         Style.navbarSetColor(nav: nav!)
         
         let recordResults = currentTask.records.sorted("date", ascending: false)
-        self.recordList.removeAll()
+        self.recordList = List<Record>()
         for rec in recordResults {
             self.recordList.append(rec)
         }
@@ -71,7 +61,7 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
         
         self.tableView.reloadData()
         
-        //fixContentInset(calledFromSegue: false)
+        fixContentInset(calledFromSegue: false)
     }
 
     // ============================= Segue Preperation =============================
@@ -94,7 +84,7 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
             
         }
         
-        //fixContentInset(calledFromSegue: true)
+        fixContentInset(calledFromSegue: true)
     }
     
     // ============================= Table View Overrides =============================
@@ -132,7 +122,7 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     // ============================= Helper Functions =============================
-    /*
+    
     func fixContentInset(calledFromSegue calledFromSegue: Bool) {
         if calledFromSegue {
             if (returning != nil) {
@@ -153,5 +143,5 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
             }
         }
     }
-    */
+    
 }

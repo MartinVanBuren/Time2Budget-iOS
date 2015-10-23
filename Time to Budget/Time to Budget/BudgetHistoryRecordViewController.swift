@@ -61,4 +61,8 @@ class BudgetHistoryRecordViewController: UITableViewController {
             return Factory.prepareAddRecordMemoCell(tableView: tableView, memo: currentRecord?.note)
         }
     }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    }
 }

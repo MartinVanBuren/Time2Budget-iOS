@@ -40,7 +40,6 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
                 self.currentBudget = realm.objects(Budget).filter("isCurrent == TRUE").first!
             } else {
                 Database.newBudget()
-                //self.currentBudget = realm.objects(Budget).filter("isCurrent == TRUE").first!
             }
 
             self.tableView.reloadData()

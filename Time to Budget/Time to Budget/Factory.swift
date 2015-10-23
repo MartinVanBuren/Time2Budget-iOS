@@ -55,32 +55,53 @@ public class Factory {
         
         let thisTask = categoryList[indexPath.section].tasks[indexPath.row]
         
-        let preparedCell = tableView.dequeueReusableCellWithIdentifier("TaskSubtitleCell") as! SubtitleDetailCell
+        var preparedDetailCell:DetailCell?
+        var preparedSubtitleCell:SubtitleDetailCell?
         
-        preparedCell.title.text = thisTask.name
         if thisTask.memo == "" {
-            preparedCell.subtitle.text = ""
-        } else {
-            preparedCell.subtitle.text = thisTask.memo
-        }
-        
-        if !isEditor {
-            preparedCell.detail.text = Time.doubleToString(thisTask.timeRemaining)
+            preparedDetailCell = (tableView.dequeueReusableCellWithIdentifier("TaskCell") as! DetailCell)
+            preparedDetailCell!.title.text = thisTask.name
             
-            if thisTask.timeRemaining > 0.0 {
-                preparedCell.detail.textColor = UIColor(red: 0.25, green: 0.65, blue: 0.05, alpha: 1.0)
-            } else if thisTask.timeRemaining < 0.0 {
-                preparedCell.detail.textColor = UIColor.redColor()
+            if !isEditor {
+                preparedDetailCell!.detail.text = Time.doubleToString(thisTask.timeRemaining)
+                
+                if thisTask.timeRemaining > 0.0 {
+                    preparedDetailCell!.detail.textColor = UIColor(red: 0.25, green: 0.65, blue: 0.05, alpha: 1.0)
+                } else if thisTask.timeRemaining < 0.0 {
+                    preparedDetailCell!.detail.textColor = UIColor.redColor()
+                } else {
+                    preparedDetailCell!.detail.textColor = UIColor(red: 127/255, green: 127/255, blue: 127/255, alpha: 1.0)
+                }
+                
             } else {
-                preparedCell.detail.textColor = UIColor(red: 127/255, green: 127/255, blue: 127/255, alpha: 1.0)
+                preparedDetailCell!.detail.text = Time.doubleToString(thisTask.timeBudgeted)
+                preparedDetailCell!.detail.textColor = UIColor.darkGrayColor()
             }
             
+            return preparedDetailCell!
         } else {
-            preparedCell.detail.text = Time.doubleToString(thisTask.timeBudgeted)
-            preparedCell.detail.textColor = UIColor.darkGrayColor()
+            preparedSubtitleCell = (tableView.dequeueReusableCellWithIdentifier("TaskSubtitleCell") as! SubtitleDetailCell)
+            preparedSubtitleCell!.title.text = thisTask.name
+            preparedSubtitleCell!.subtitle.text = thisTask.memo
+            
+            if !isEditor {
+                preparedSubtitleCell!.detail.text = Time.doubleToString(thisTask.timeRemaining)
+                
+                if thisTask.timeRemaining > 0.0 {
+                    preparedSubtitleCell!.detail.textColor = UIColor(red: 0.25, green: 0.65, blue: 0.05, alpha: 1.0)
+                } else if thisTask.timeRemaining < 0.0 {
+                    preparedSubtitleCell!.detail.textColor = UIColor.redColor()
+                } else {
+                    preparedSubtitleCell!.detail.textColor = UIColor(red: 127/255, green: 127/255, blue: 127/255, alpha: 1.0)
+                }
+                
+            } else {
+                preparedSubtitleCell!.detail.text = Time.doubleToString(thisTask.timeBudgeted)
+                preparedSubtitleCell!.detail.textColor = UIColor.darkGrayColor()
+            }
+            
+            return preparedSubtitleCell!
         }
-        
-        return preparedCell
     }
     
     class func prepareAddRecordTaskCell(tableView tableView: UITableView, currentTask:Task?) -> UITableViewCell {

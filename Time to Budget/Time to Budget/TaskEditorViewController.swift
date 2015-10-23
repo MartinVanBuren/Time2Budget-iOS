@@ -97,6 +97,8 @@ class TaskEditorViewController: UIViewController, UITableViewDataSource, UITable
         } else if indexPath.row == 3 {
             performSegueWithIdentifier("showTaskEditorTimePickerView", sender: self)
         }
+        
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
