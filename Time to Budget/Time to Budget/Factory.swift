@@ -11,44 +11,24 @@ import UIKit
 import RealmSwift
 
 public class Factory {
-    class func prepareCategoryCell(tableView tableView: UITableView, categoryList: List<Category>, section: Int, isEditor: Bool) -> UIView {
+    class func prepareCategoryCell(tableView tableView: UITableView, categoryList: List<Category>, section: Int, isEditor: Bool) -> UITableViewCell {
         
         let thisCategory = categoryList[section]
         
-        let preparedCell:CategoryCell = tableView.dequeueReusableCellWithIdentifier("CategoryCell") as! CategoryCell
+        var preparedCell:CategoryCell = tableView.dequeueReusableCellWithIdentifier("CategoryCell") as! CategoryCell
         
         preparedCell.sectionNameLabel.text = thisCategory.name
-        preparedCell.sectionNameLabel.textColor = UIColor.whiteColor()
         
         if !isEditor {
             preparedCell.remainingTimeLabel.text = Time.doubleToString(thisCategory.totalTimeRemaining)
-            
-            if thisCategory.totalTimeRemaining > 0.0 {
-                preparedCell.remainingTimeLabel.backgroundColor = UIColor(red: 0.25, green: 0.65, blue: 0.05, alpha: 1.0)
-            } else if thisCategory.totalTimeRemaining < 0.0 {
-                preparedCell.remainingTimeLabel.backgroundColor = UIColor.redColor()
-            } else {
-                preparedCell.remainingTimeLabel.backgroundColor = UIColor(red: 85/255, green: 85/255, blue: 85/255, alpha: 1.0)
-            }
         } else {
             preparedCell.remainingTimeLabel.text = Time.doubleToString(thisCategory.totalTimeBudgeted)
-            preparedCell.remainingTimeLabel.backgroundColor = UIColor.darkGrayColor()
         }
         
-        preparedCell.remainingTimeLabel.layer.cornerRadius = CGRectGetWidth(preparedCell.remainingTimeLabel.frame)/8
-        preparedCell.remainingTimeLabel.layer.borderWidth = 1.0
-        preparedCell.remainingTimeLabel.layer.masksToBounds = true
-        preparedCell.remainingTimeLabel.textColor = UIColor.whiteColor()
-        preparedCell.backgroundColor = UIColor(red: 122/255, green: 158/255, blue: 224/255, alpha: 255/255)
-        preparedCell.opaque = false
-        preparedCell.alpha = 0.75
+        preparedCell = Style.categoryCellTimeRemainingLabelStyle(preparedCell, category: thisCategory, editor: isEditor)
+        preparedCell = Style.categoryCellBackgroundColors(preparedCell)
         
-        let returnedView = UIView()
-        
-        returnedView.addSubview(preparedCell)
-        returnedView.backgroundColor = UIColor(red: (204/255), green: (204/255), blue: (204/255), alpha: 0.65)
-        
-        return returnedView
+        return preparedCell
     }
     
     class func prepareTaskCell(tableView tableView: UITableView, categoryList: List<Category>, indexPath: NSIndexPath, isEditor: Bool) -> UITableViewCell {
@@ -64,19 +44,11 @@ public class Factory {
             
             if !isEditor {
                 preparedDetailCell!.detail.text = Time.doubleToString(thisTask.timeRemaining)
-                
-                if thisTask.timeRemaining > 0.0 {
-                    preparedDetailCell!.detail.textColor = UIColor(red: 0.25, green: 0.65, blue: 0.05, alpha: 1.0)
-                } else if thisTask.timeRemaining < 0.0 {
-                    preparedDetailCell!.detail.textColor = UIColor.redColor()
-                } else {
-                    preparedDetailCell!.detail.textColor = UIColor(red: 127/255, green: 127/255, blue: 127/255, alpha: 1.0)
-                }
-                
             } else {
                 preparedDetailCell!.detail.text = Time.doubleToString(thisTask.timeBudgeted)
-                preparedDetailCell!.detail.textColor = UIColor.darkGrayColor()
             }
+            
+            preparedDetailCell = Style.taskDetailCellTimeRemainingLabelStyle(preparedDetailCell!, task: thisTask, editor: isEditor)
             
             return preparedDetailCell!
         } else {
@@ -86,19 +58,11 @@ public class Factory {
             
             if !isEditor {
                 preparedSubtitleCell!.detail.text = Time.doubleToString(thisTask.timeRemaining)
-                
-                if thisTask.timeRemaining > 0.0 {
-                    preparedSubtitleCell!.detail.textColor = UIColor(red: 0.25, green: 0.65, blue: 0.05, alpha: 1.0)
-                } else if thisTask.timeRemaining < 0.0 {
-                    preparedSubtitleCell!.detail.textColor = UIColor.redColor()
-                } else {
-                    preparedSubtitleCell!.detail.textColor = UIColor(red: 127/255, green: 127/255, blue: 127/255, alpha: 1.0)
-                }
-                
             } else {
                 preparedSubtitleCell!.detail.text = Time.doubleToString(thisTask.timeBudgeted)
-                preparedSubtitleCell!.detail.textColor = UIColor.darkGrayColor()
             }
+            
+            preparedSubtitleCell = Style.taskSubtitleDetailCellTimeRemainingLabelStyle(preparedSubtitleCell!, task: thisTask, editor: isEditor)
             
             return preparedSubtitleCell!
         }

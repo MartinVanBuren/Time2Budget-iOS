@@ -58,6 +58,7 @@ public class Time {
     **    None
     */
     public func cleanTime() {
+        
         if (self.hours >= 0) {
             while (self.minutes >= 60) {
                 self.hours += 1
@@ -94,10 +95,13 @@ public class Time {
     **    None
     */
     public func setByDouble(newTime: Double) {
+        
         let tempTime:Time = Time.doubleToTime(newTime)
+        
         if newTime < 0 {
             tempTime.isNegative = true;
         }
+        
         tempTime.cleanTime()
         
         self.hours = tempTime.hours
@@ -117,20 +121,19 @@ public class Time {
     **    Double: Value converted from self.hours and self.minutes
     */
     public func toDouble() -> Double {
-        var tempMin:Double
         
-        switch self.minutes {
-        case 15:
-            tempMin = 0.25
-        case 30:
-            tempMin = 0.5
-        case 45:
-            tempMin = 0.75
-        default:
-            tempMin = 0.0
+        var tempMin:Double
+        tempMin = Double(self.minutes)/100
+        
+        var finalDouble:Double!
+        
+        if self.isNegative {
+            finalDouble = (Double(self.hours) + tempMin) * -1
+        } else {
+            finalDouble = (Double(self.hours) + tempMin)
         }
         
-        return (Double(self.hours) + tempMin)
+        return (finalDouble)
     }
     
 
@@ -206,39 +209,17 @@ public class Time {
     **    Time: A Time instance containing the Time value of the Double parameter
     */
     public class func doubleToTime(newTime: Double) -> Time {
-        let arrayString = Array(String("\(newTime)").characters)
-        var passDecimal:Bool = false
         
-        var digitHrs = Array("".characters)
-        var digitMins = Array("".characters)
+        let tempHrs = atof(String(format: "%.0f", newTime))
+        var tempMins = atof(String(format: "%.2f", newTime))
+        tempMins -= tempHrs
+        tempMins *= 100
         
-        for var i = 0; i < arrayString.count; i++ {
-            if arrayString[i] != "." && passDecimal == false {
-                digitHrs.append(arrayString[i])
-            } else if arrayString[i] != "." && passDecimal == true {
-                digitMins.append(arrayString[i])
-            } else if arrayString[i] == "." {
-                passDecimal = true
-            }
-        }
+        let tempIntHrs = Int(tempHrs)
+        let tempIntMins = Int(tempMins)
         
-        let tempHours = Int(String(digitHrs))!
-        var tempMins = Int(String(digitMins))!
-        
-        switch tempMins {
-        case 25:
-            tempMins = 15
-        case 5:
-            tempMins = 30
-        case 75:
-            tempMins = 45
-        default:
-            tempMins = 0
-        }
-        
-        let finalTime = Time(newHours: tempHours, newMinutes: tempMins)
-        finalTime.cleanTime()
-        
+        let finalTime = Time(newHours: tempIntHrs, newMinutes: tempIntMins)
+
         return finalTime
     }
 }

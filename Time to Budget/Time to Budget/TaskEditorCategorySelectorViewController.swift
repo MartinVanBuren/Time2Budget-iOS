@@ -56,13 +56,9 @@ class TaskEditorCategorySelectorViewController: UIViewController, UITableViewDat
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let finalCell = UITableViewCell()
-        let categoryView = Factory.prepareCategoryCell(tableView: self.tableView, categoryList: currentBudget.categories, section: indexPath.row, isEditor: false)
+        let categoryCell = Factory.prepareCategoryCell(tableView: self.tableView, categoryList: currentBudget.categories, section: indexPath.row, isEditor: false)
         
-        categoryView.backgroundColor = UIColor.whiteColor()
-        finalCell.addSubview(categoryView)
-        
-        return finalCell
+        return categoryCell
     }
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
