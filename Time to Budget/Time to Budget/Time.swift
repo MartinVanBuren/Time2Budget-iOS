@@ -80,6 +80,12 @@ public class Time {
                 self.minutes += 60
             }
         }
+        
+        if self.hours < 0 {
+            self.isNegative = true
+        } else {
+            self.isNegative = false
+        }
     }
 
 
@@ -97,10 +103,6 @@ public class Time {
     public func setByDouble(newTime: Double) {
         
         let tempTime:Time = Time.doubleToTime(newTime)
-        
-        if newTime < 0 {
-            tempTime.isNegative = true;
-        }
         
         tempTime.cleanTime()
         
@@ -122,13 +124,25 @@ public class Time {
     */
     public func toDouble() -> Double {
         
-        var tempMin:Double
-        tempMin = Double(self.minutes)/100
+        print(self.hours, ":", self.minutes)
+        
+        var tempMin:Double!
+        
+        switch self.minutes {
+        case 15:
+            tempMin = 0.25
+        case 30:
+            tempMin = 0.50
+        case 45:
+            tempMin = 0.75
+        default:
+            tempMin = 0
+        }
         
         var finalDouble:Double!
         
         if self.isNegative {
-            finalDouble = (Double(self.hours) + tempMin) * -1
+            finalDouble = (Double(self.hours) - tempMin)
         } else {
             finalDouble = (Double(self.hours) + tempMin)
         }
@@ -210,15 +224,36 @@ public class Time {
     */
     public class func doubleToTime(newTime: Double) -> Time {
         
-        let tempHrs = atof(String(format: "%.0f", newTime))
-        var tempMins = atof(String(format: "%.2f", newTime))
-        tempMins -= tempHrs
-        tempMins *= 100
+        var tempHrs:Double!
+        var tempMins:Double!
         
-        let tempIntHrs = Int(tempHrs)
-        let tempIntMins = Int(tempMins)
+        if newTime < 0 {
+            tempHrs = ceil(atof(String(format: "%f", newTime)))
+            tempMins = atof(String(format: "%f", newTime))
+            tempMins = tempHrs - tempMins
+        } else {
+            tempHrs = floor(atof(String(format: "%f", newTime)))
+            tempMins = atof(String(format: "%f", newTime))
+            tempMins = tempMins - tempHrs
+        }
+        
+        switch tempMins {
+        case 0.25:
+            tempMins = 15.0
+        case 0.5:
+            tempMins = 30.0
+        case 0.75:
+            tempMins = 45.0
+        default:
+            tempMins = 0.0
+        }
+        
+        let tempIntHrs = Int(round(tempHrs))
+        let tempIntMins = Int(round(tempMins))
         
         let finalTime = Time(newHours: tempIntHrs, newMinutes: tempIntMins)
+        
+        finalTime.cleanTime()
 
         return finalTime
     }

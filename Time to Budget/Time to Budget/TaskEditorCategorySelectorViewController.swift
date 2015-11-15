@@ -19,10 +19,13 @@ class TaskEditorCategorySelectorViewController: UIViewController, UITableViewDat
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        let nib = UINib(nibName: "CategoryView", bundle: nil)
+        self.tableView.registerNib(nib, forHeaderFooterViewReuseIdentifier: "CategoryView")
+        
         self.realm = try! Realm()
         self.currentBudget = realm.objects(Budget).filter("isCurrent = TRUE").first!
-        
-        super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         fixContentInset(calledFromSegue: false)
@@ -56,7 +59,7 @@ class TaskEditorCategorySelectorViewController: UIViewController, UITableViewDat
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let categoryCell = Factory.prepareCategoryCell(tableView: self.tableView, categoryList: currentBudget.categories, section: indexPath.row, isEditor: false)
+        let categoryCell = Factory.prepareCategoryCell(tableView: self.tableView, categoryList: currentBudget.categories, section: indexPath.row)
         
         return categoryCell
     }

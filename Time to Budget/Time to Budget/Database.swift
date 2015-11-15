@@ -12,6 +12,24 @@ import RealmSwift
 
 public class Database {
     
+    public class func migrationHandling() {
+        let config = Realm.Configuration(
+            
+            schemaVersion: 0,
+            
+            migrationBlock: { migration, oldSchemaVersion in
+                
+                if (oldSchemaVersion < 1) {
+                    // Nothing to do!
+                    // Realm will automatically detect new properties and removed properties
+                    // And will update the schema on disk automatically
+                }
+        })
+        
+        // Tell Realm to use this new configuration object for the default Realm
+        Realm.Configuration.defaultConfiguration = config
+    }
+    
     public class func getExampleRealm() -> Realm {
         let path = NSBundle.mainBundle().pathForResource("example", ofType: "realm")
         let exampleRealm: Realm!

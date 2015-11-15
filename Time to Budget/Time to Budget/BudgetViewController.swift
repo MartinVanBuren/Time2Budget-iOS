@@ -28,6 +28,9 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let nib = UINib(nibName: "CategoryView", bundle: nil)
+        self.tableView.registerNib(nib, forHeaderFooterViewReuseIdentifier: "CategoryView")
+        
         let nav = self.navigationController?.navigationBar
         Style.navbarSetColor(nav: nav!)
         
@@ -120,7 +123,7 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
-        return Factory.prepareCategoryCell(tableView: tableView, categoryList: currentBudget!.categories, section: section, isEditor: false)
+        return Factory.prepareCategoryView(tableView: tableView, categoryList: currentBudget!.categories, section: section)
         
     }
     

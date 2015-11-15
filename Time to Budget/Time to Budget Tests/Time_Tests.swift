@@ -52,41 +52,48 @@ class Time_Tests: XCTestCase {
     func test_setByDouble() {
         let time = Time()
         
-        time.setByDouble(3.45)
+        time.setByDouble(3.75)
         
         XCTAssert((time.hours == 3 && time.minutes == 45), "Failed to Set Value from a Double")
     }
     
     func test_toDouble() {
-        let time = Time()
         
+        var time = Time()
         time.hours = 5
         time.minutes = 15
+        time.cleanTime()
         
         var testTime = time.toDouble()
         
-        let posTest = (testTime == 5.15)
+        let posTest = (testTime == 5.25)
         
+        time = Time()
         time.hours = -6
         time.minutes = 30
+        time.cleanTime()
         
         testTime = time.toDouble()
         
-        let negTest = (testTime == -6.30)
+        let negTest = (testTime == -6.5)
         
+        time = Time()
         time.hours = 7
         time.minutes = 45
+        time.cleanTime()
         
         testTime = time.toDouble()
         
-        let otherTest = (testTime == 7.45)
+        let otherTest = (testTime == 7.75)
         
+        time = Time()
         time.hours = 0
         time.minutes = 15
+        time.cleanTime()
         
         testTime = time.toDouble()
         
-        let zeroTest = (testTime == 0.15)
+        let zeroTest = (testTime == 0.25)
         
         XCTAssert((posTest && negTest && otherTest && zeroTest), "Failed to Convert to Double")
     }
@@ -120,10 +127,15 @@ class Time_Tests: XCTestCase {
     
     func test_doubleToString() {
         
-        let negTest = (Time.doubleToString(-5.15) == "-5.15")
-        let posTest = (Time.doubleToString(4.30) == "4:30")
-        let otherTest = (Time.doubleToString(3.45) == "3:45")
-        let zeroTest = (Time.doubleToString(6.0) == "6:00")
+        let neg = Time.doubleToString(-5.25)
+        let pos = Time.doubleToString(4.50)
+        let other = Time.doubleToString(3.75)
+        let zero = Time.doubleToString(6.0)
+        
+        let negTest = (neg == "-5:15")
+        let posTest = (pos == "4:30")
+        let otherTest = (other == "3:45")
+        let zeroTest = (zero == "6:00")
         
         XCTAssert((negTest && posTest && otherTest && zeroTest), "Failed to Convert Double to String")
         
@@ -132,7 +144,7 @@ class Time_Tests: XCTestCase {
     func test_doubleToTime() {
         var time = Time()
         
-        time = Time.doubleToTime(6.15)
+        time = Time.doubleToTime(6.25)
         
         XCTAssert((time.hours == 6 && time.minutes == 15), "Failed to Convert Double to Time")
     }

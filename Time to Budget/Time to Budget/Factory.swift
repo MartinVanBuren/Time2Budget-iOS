@@ -11,24 +11,45 @@ import UIKit
 import RealmSwift
 
 public class Factory {
-    class func prepareCategoryCell(tableView tableView: UITableView, categoryList: List<Category>, section: Int, isEditor: Bool) -> UITableViewCell {
+    class func prepareCategoryCell(tableView tableView: UITableView, categoryList: List<Category>, section: Int) -> UITableViewCell {
         
         let thisCategory = categoryList[section]
         
         var preparedCell:CategoryCell = tableView.dequeueReusableCellWithIdentifier("CategoryCell") as! CategoryCell
         
         preparedCell.sectionNameLabel.text = thisCategory.name
+        preparedCell.remainingTimeLabel.text = Time.doubleToString(thisCategory.totalTimeRemaining)
         
-        if !isEditor {
-            preparedCell.remainingTimeLabel.text = Time.doubleToString(thisCategory.totalTimeRemaining)
-        } else {
-            preparedCell.remainingTimeLabel.text = Time.doubleToString(thisCategory.totalTimeBudgeted)
-        }
-        
-        preparedCell = Style.categoryCellTimeRemainingLabelStyle(preparedCell, category: thisCategory, editor: isEditor)
+        preparedCell = Style.categoryCellTimeRemainingLabelStyle(preparedCell, category: thisCategory)
         preparedCell = Style.categoryCellBackgroundColors(preparedCell)
         
         return preparedCell
+    }
+    
+    class func prepareCategoryView(tableView tableView: UITableView, categoryList: List<Category>, section: Int, editorViewController: BudgetEditorViewController?=nil) -> CategoryView {
+        
+        let thisCategory = categoryList[section]
+        var isEditor = false
+        
+        var preparedView:CategoryView = tableView.dequeueReusableHeaderFooterViewWithIdentifier("CategoryView") as! CategoryView
+        
+        if let unwrappedVC = editorViewController {
+            preparedView.VC = unwrappedVC
+            preparedView.editButton.enabled = true
+            preparedView.editButton.hidden = false
+            isEditor = true
+        } else {
+            preparedView.editButton.enabled = false
+            preparedView.editButton.hidden = true
+        }
+        
+        preparedView.sectionNameLabel.text = thisCategory.name
+        preparedView.remainingTimeLabel.text = Time.doubleToString(thisCategory.totalTimeBudgeted)
+        
+        preparedView = Style.categoryViewTimeRemainingLabelStyle(preparedView, category: thisCategory, isEditor: isEditor)
+        preparedView = Style.categoryViewBackgroundColors(preparedView)
+        
+        return preparedView
     }
     
     class func prepareTaskCell(tableView tableView: UITableView, categoryList: List<Category>, indexPath: NSIndexPath, isEditor: Bool) -> UITableViewCell {
@@ -266,8 +287,8 @@ public class Factory {
         return preparedView
     }
 
-    class func displayDeleteTaskAlert(viewController viewController: BudgetEditorViewController, indexPath: NSIndexPath) throws {
-        let realm = try Realm()
+    class func displayDeleteTaskAlert(viewController viewController: BudgetEditorViewController, indexPath: NSIndexPath) {
+        let realm = try! Realm()
         let currentBudget = realm.objects(Budget).filter("isCurrent = TRUE").first!
         let currentCategory = currentBudget.categories[indexPath.section]
         let currentTask = currentCategory.tasks[indexPath.row]
@@ -284,8 +305,8 @@ public class Factory {
         viewController.presentViewController(alert, animated: true, completion: {})
     }
     
-    class func displayDeleteCategoryAlert(viewController viewController: UIViewController, categoryName: String) throws {
-        let realm = try Realm()
+    class func displayDeleteCategoryAlert(viewController viewController: UIViewController, categoryName: String) {
+        let realm = try! Realm()
         let currentBudget = realm.objects(Budget).filter("isCurrent = TRUE").first!
         let currentCategory = currentBudget.categories.filter("name = '\(categoryName)'").first!
         
@@ -324,15 +345,15 @@ public class Factory {
         viewController.presentViewController(alert, animated: true, completion: {})
     }
     
-    class func displayEditCategoryAlert(viewController viewController: UIViewController, categoryName: String) throws {
-        let realm = try Realm()
+    class func displayEditCategoryAlert(viewController viewController: UIViewController, categoryName: String) {
+        let realm = try! Realm()
         let currentBudget = realm.objects(Budget).filter("isCurrent = TRUE").first!
         var inputTextField = UITextField()
         let category = currentBudget.categories.filter("name = '\(categoryName)'").first!
         
         let alert = UIAlertController(title: "Edit Category", message: "", preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Delete", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
-            try! Factory.displayDeleteCategoryAlert(viewController: viewController, categoryName: category.name)
+            Factory.displayDeleteCategoryAlert(viewController: viewController, categoryName: category.name)
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: { (action) -> Void in
             

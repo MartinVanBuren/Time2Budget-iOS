@@ -48,7 +48,7 @@ class BudgetHistoryRecordsViewController: UITableViewController {
         
         if segue.identifier == "showHistoryRecord" {
             let historyRecordVC = segue.destinationViewController as! BudgetHistoryRecordViewController
-            historyRecordVC.currentRecord = currentTask!.records[indexPath.row]
+            historyRecordVC.currentRecord = self.recordsList[indexPath.row]
             historyRecordVC.currentTask = self.currentTask!
         }
     }

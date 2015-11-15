@@ -25,16 +25,13 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let nib = UINib(nibName: "CategoryView", bundle: nil)
+        self.tableView.registerNib(nib, forHeaderFooterViewReuseIdentifier: "CategoryView")
+        
         self.currentBudget = realm.objects(Budget).filter("isCurrent = TRUE").first!
         
         // Set realm notification block
         notificationToken = realm.addNotificationBlock { note, realm in
-            
-            if realm.objects(Budget).filter("isCurrent = TRUE").count > 0 {
-                self.currentBudget = realm.objects(Budget).filter("isCurrent = TRUE").first!
-            } else {
-                Database.newBudget()
-            }
             
             self.tableView.reloadData()
             self.updateTimeRemaining()
@@ -57,6 +54,12 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
     */
     
     override func viewWillAppear(animated: Bool) {
+        
+        if realm.objects(Budget).filter("isCurrent = TRUE").count > 0 {
+            self.currentBudget = realm.objects(Budget).filter("isCurrent = TRUE").first!
+        } else {
+            Database.newBudget()
+        }
         
         let nav = self.navigationController?.navigationBar
         Style.navbarSetColor(nav: nav!)
@@ -102,7 +105,7 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
-        return Factory.prepareCategoryCell(tableView: tableView, categoryList: currentBudget!.categories, section: section, isEditor: true)
+        return Factory.prepareCategoryView(tableView: tableView, categoryList: currentBudget.categories, section: section, editorViewController: self)
         
     }
     
@@ -121,7 +124,7 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
     
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         
-        try! Factory.displayDeleteTaskAlert(viewController: self, indexPath: indexPath)
+        Factory.displayDeleteTaskAlert(viewController: self, indexPath: indexPath)
     }
 
     //==================== IB Actions ====================
@@ -132,13 +135,6 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
     
     @IBAction func addCategoryButtonPressed(sender: UIBarButtonItem) {
         Factory.displayAddCategoryAlert(viewController: self)
-    }
-    
-    @IBAction func editCategoryButtonPressed(sender: UIButton) {
-        
-        let cell = sender.superview?.superview as! CategoryCell
-
-        try! Factory.displayEditCategoryAlert(viewController: self, categoryName: cell.sectionNameLabel.text!)
     }
     
     
