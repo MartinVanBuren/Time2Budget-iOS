@@ -15,6 +15,7 @@ class TaskEditorCategorySelectorViewController: UIViewController, UITableViewDat
     var currentBudget:Budget!
     var taskEditorVC:TaskEditorViewController!
     var delegate: writeNameBackDelegate?
+    var notificationToken:NotificationToken!
     var returning:Bool? = false
     @IBOutlet weak var tableView: UITableView!
     
@@ -29,6 +30,13 @@ class TaskEditorCategorySelectorViewController: UIViewController, UITableViewDat
 
         // Do any additional setup after loading the view.
         fixContentInset(calledFromSegue: false)
+        
+        notificationToken = realm.addNotificationBlock { notification, realm in
+            
+            self.tableView.reloadData()
+        }
+        
+        
     }
     
     /*
@@ -82,6 +90,10 @@ class TaskEditorCategorySelectorViewController: UIViewController, UITableViewDat
         return 0
     }
 
+    @IBAction func addCategoryButtonPressed(sender: UIBarButtonItem) {
+        Factory.displayAddCategoryAlert(viewController: self)
+    }
+    
     func fixContentInset(calledFromSegue calledFromSegue: Bool) {
         if calledFromSegue {
             if (returning != nil) {

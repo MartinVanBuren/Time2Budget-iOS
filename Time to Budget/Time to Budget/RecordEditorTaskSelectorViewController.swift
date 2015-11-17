@@ -28,7 +28,10 @@ class RecordEditorTaskSelectorViewController: UIViewController, UITableViewDataS
         self.realm = try! Realm()
         self.currentBudget = realm.objects(Budget).filter("isCurrent = TRUE").first!
 
-        // Do any additional setup after loading the view.
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        self.tableView.reloadData()
         fixContentInset(calledFromSegue: false)
     }
     
@@ -84,6 +87,11 @@ class RecordEditorTaskSelectorViewController: UIViewController, UITableViewDataS
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         
         return 44
+    }
+    
+    @IBAction func addTaskButtonPressed(sender: UIBarButtonItem) {
+        performSegueWithIdentifier("showTaskEditorFromRecordEditor", sender: self)
+        fixContentInset(calledFromSegue: true)
     }
     
     func fixContentInset(calledFromSegue calledFromSegue: Bool) {

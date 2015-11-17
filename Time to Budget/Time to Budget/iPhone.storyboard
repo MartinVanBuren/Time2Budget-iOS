@@ -267,7 +267,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jx8-Dx-BM2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4275" y="2628"/>
+            <point key="canvasLocation" x="5541" y="1083"/>
         </scene>
         <!--Task Editor View Controller-->
         <scene sceneID="edI-4F-PXW">
@@ -539,7 +539,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qqZ-6t-f3k" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5862" y="2628"/>
+            <point key="canvasLocation" x="7128" y="1083"/>
         </scene>
         <!--Task Editor Category Selector View Controller-->
         <scene sceneID="qyK-UQ-bzY">
@@ -685,14 +685,20 @@
                             </mask>
                         </variation>
                     </view>
-                    <navigationItem key="navigationItem" title="Choose Category" id="CaI-tj-qR1"/>
+                    <navigationItem key="navigationItem" title="Choose Category" id="CaI-tj-qR1">
+                        <barButtonItem key="rightBarButtonItem" title="+ Category" id="NoY-s9-58O">
+                            <connections>
+                                <action selector="addCategoryButtonPressed:" destination="hqG-Tg-S5U" id="fWD-LL-RZ3"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="Cnw-LJ-Ex6" id="U4V-Po-JPY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Zed-13-ywZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6633" y="2880"/>
+            <point key="canvasLocation" x="7899" y="1335"/>
         </scene>
         <!--Task Editor Time Picker View-->
         <scene sceneID="DoT-CR-8tl">
@@ -813,7 +819,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hFf-2c-cOp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6633" y="2196"/>
+            <point key="canvasLocation" x="7899" y="651"/>
         </scene>
         <!--Budget View-->
         <scene sceneID="tne-QT-ifu">
@@ -1469,7 +1475,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fHS-nB-gUa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="7736" y="-1085"/>
+            <point key="canvasLocation" x="7729.5" y="-1643.25"/>
         </scene>
         <!--Record Editor Date Picker View Controller-->
         <scene sceneID="swB-09-Tzt">
@@ -1608,7 +1614,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kDA-HJ-nrZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="7736" y="-157"/>
+            <point key="canvasLocation" x="7729.5" y="-943.5"/>
         </scene>
         <!--Record Editor Task Selector View Controller-->
         <scene sceneID="alh-v7-VGE">
@@ -1838,14 +1844,20 @@
                     </view>
                     <navigationItem key="navigationItem" title="Choose Task" id="NyX-dq-fJy">
                         <barButtonItem key="backBarButtonItem" title="Cancel" id="dSD-FM-jN5"/>
+                        <barButtonItem key="rightBarButtonItem" title="+ Task" id="3us-hj-Pvh">
+                            <connections>
+                                <action selector="addTaskButtonPressed:" destination="pK4-2A-tVc" id="fae-9H-xv8"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="pfG-b8-dnE" id="u1a-5q-EKM"/>
+                        <segue destination="6hC-85-Dev" kind="presentation" identifier="showTaskEditorFromRecordEditor" id="Lon-Ra-yro"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="p6t-qf-qPY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="7736" y="-1971"/>
+            <point key="canvasLocation" x="7729.5" y="-288"/>
         </scene>
         <!--Budget History List View-->
         <scene sceneID="pWH-Uw-1YI">
@@ -1895,7 +1907,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Svi-u3-IeT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5054" y="1146"/>
+            <point key="canvasLocation" x="4350" y="1953"/>
         </scene>
         <!--Budget History View-->
         <scene sceneID="TiM-Kp-oHT">
@@ -1908,7 +1920,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="TaskCell" id="rmX-II-gbm" customClass="DetailCell" customModule="Time_to_Budget" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="130" width="600" height="44"/>
+                                <rect key="frame" x="0.0" y="86" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="rmX-II-gbm" id="U3F-9M-EZ1">
                                     <rect key="frame" x="0.0" y="0.0" width="567" height="43.5"/>
@@ -2000,7 +2012,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="TaskSubtitleCell" id="8qA-1l-VcZ" customClass="SubtitleDetailCell" customModule="Time_to_Budget" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="174" width="600" height="44"/>
+                                <rect key="frame" x="0.0" y="130" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="8qA-1l-VcZ" id="aNa-pW-3en">
                                     <rect key="frame" x="0.0" y="0.0" width="567" height="43.5"/>
@@ -2096,7 +2108,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SDO-ie-46i" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5838" y="1149"/>
+            <point key="canvasLocation" x="5134.5" y="1956"/>
         </scene>
         <!--Budget History Records View-->
         <scene sceneID="Na1-YS-zaj">
@@ -2205,7 +2217,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4g3-Fe-HBJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6606" y="1146"/>
+            <point key="canvasLocation" x="5902.5" y="1953"/>
         </scene>
         <!--Budget History Record Viewer-->
         <scene sceneID="n5i-Ij-FEh">
@@ -2325,7 +2337,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lQD-dK-dnJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="7359" y="1149"/>
+            <point key="canvasLocation" x="6655.5" y="1956"/>
         </scene>
         <!--Records View Controller-->
         <scene sceneID="DSz-ax-U1S">
@@ -2707,7 +2719,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VbU-c3-FCn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5058" y="2628"/>
+            <point key="canvasLocation" x="6324" y="1083"/>
         </scene>
         <!--Budget Editor Navigation Controller-->
         <scene sceneID="Tg8-bU-HeC">
@@ -2727,7 +2739,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rWU-XK-bjo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3492" y="2628"/>
+            <point key="canvasLocation" x="4758" y="1083"/>
         </scene>
         <!--Main Tab Bar Controller-->
         <scene sceneID="ktH-DB-Xvo">
@@ -2775,7 +2787,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7Db-nf-P44" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4280" y="1146"/>
+            <point key="canvasLocation" x="3576" y="1953"/>
         </scene>
     </scenes>
     <resources>
@@ -2786,5 +2798,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="Bp2-lw-sqJ"/>
+        <segue reference="Lon-Ra-yro"/>
     </inferredMetricsTieBreakers>
 </document>
