@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: [UIUserNotificationType.Sound, UIUserNotificationType.Alert, UIUserNotificationType.Badge], categories: nil))
         
-        let realm = try! Realm()
+        let realm = Database.getRealm()
         
         let currentBudget = realm.objects(Budget).filter("isCurrent = TRUE")
         
@@ -53,7 +53,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidBecomeActive(application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-        let realm = try! Realm()
+        let realm = Database.getRealm()
         
         let budget = realm.objects(Budget).filter("isCurrent == TRUE").first!
         

@@ -84,7 +84,7 @@ class RecordEditorViewController: UIViewController, UITableViewDataSource, UITab
     
     func writeNameBack(name: String) {
         print("RecordEditorViewController->writeTaskBack->name", name)
-        let realm = try! Realm()
+        let realm = Database.getRealm()
         self.currentTask = realm.objects(Task).filter("name = '\(name)'").first!
         self.tableView.reloadData()
     }

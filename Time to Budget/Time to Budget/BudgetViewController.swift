@@ -20,7 +20,7 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
     @IBOutlet weak var tableView: UITableView!
     
     //==================== Realm Properties ====================
-    let realm = try! Realm()
+    let realm = Database.getRealm()
     var currentBudget:Budget?
     var notificationToken: NotificationToken!
     

@@ -25,7 +25,7 @@ class TaskEditorCategorySelectorViewController: UIViewController, UITableViewDat
         let nib = UINib(nibName: "CategoryView", bundle: nil)
         self.tableView.registerNib(nib, forHeaderFooterViewReuseIdentifier: "CategoryView")
         
-        self.realm = try! Realm()
+        self.realm = Database.getRealm()
         self.currentBudget = realm.objects(Budget).filter("isCurrent = TRUE").first!
 
         // Do any additional setup after loading the view.

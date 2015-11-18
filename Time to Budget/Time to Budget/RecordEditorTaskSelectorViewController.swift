@@ -25,7 +25,7 @@ class RecordEditorTaskSelectorViewController: UIViewController, UITableViewDataS
         let nib = UINib(nibName: "CategoryView", bundle: nil)
         self.tableView.registerNib(nib, forHeaderFooterViewReuseIdentifier: "CategoryView")
         
-        self.realm = try! Realm()
+        self.realm = Database.getRealm()
         self.currentBudget = realm.objects(Budget).filter("isCurrent = TRUE").first!
 
     }

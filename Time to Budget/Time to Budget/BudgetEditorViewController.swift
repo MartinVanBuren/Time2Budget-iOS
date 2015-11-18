@@ -19,7 +19,7 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
     var notificationToken: NotificationToken?
     
     //==================== Realm Properties ====================
-    let realm = try! Realm()
+    let realm = Database.getRealm()
     var currentBudget:Budget!
     
     override func viewDidLoad() {

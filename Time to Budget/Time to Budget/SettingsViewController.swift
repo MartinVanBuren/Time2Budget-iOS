@@ -96,7 +96,7 @@ class SettingsViewController: UITableViewController {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         switch indexPath.section {
         case 0:
-            //let realm = try! Realm()
+            //let realm = Database.getRealm()
             for views in tabBarController!.viewControllers! {
                 (views as! UINavigationController).popToRootViewControllerAnimated(false)
             }
@@ -132,7 +132,7 @@ class SettingsViewController: UITableViewController {
     }
     
     func displayResetAllAlert() {
-        let realm = try! Realm()
+        let realm = Database.getRealm()
         let alert = UIAlertController(title: "Are You Sure?", message: "Are you sure you want to erase all information?", preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
             try! realm.write {
@@ -145,7 +145,7 @@ class SettingsViewController: UITableViewController {
     }
     
     func displayResetHistoryAlert() {
-        let realm = try! Realm()
+        let realm = Database.getRealm()
         let alert = UIAlertController(title: "Are You Sure?", message: "Are you sure you want to erase all non-current budgets?", preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
             
@@ -159,7 +159,7 @@ class SettingsViewController: UITableViewController {
     }
     
     func displayResetCurrentBudgetAlert() {
-        let realm = try! Realm()
+        let realm = Database.getRealm()
         let alert = UIAlertController(title: "Are You Sure?", message: "Are you sure you want to erase the entire current budget?", preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
             let currentBudget = realm.objects(Budget).filter("isCurrent == TRUE").first!
@@ -185,7 +185,7 @@ class SettingsViewController: UITableViewController {
     }
     
     func displayResetCurrentRecordsAlert() {
-        let realm = try! Realm()
+        let realm = Database.getRealm()
         let alert = UIAlertController(title: "Are You Sure?", message: "Are you sure you want to erase all records for the current budget?", preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
             let currentBudget = realm.objects(Budget).filter("isCurrent == TRUE").first!

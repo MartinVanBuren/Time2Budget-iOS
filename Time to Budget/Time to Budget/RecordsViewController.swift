@@ -15,7 +15,7 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
     var returning:Bool? = false
     var editRecord:Bool = false
     var recordList = List<Record>()
-    let realm = try! Realm()
+    let realm = Database.getRealm()
     @IBOutlet weak var tableView: UITableView!
     var promptEnabled:Bool = false
     

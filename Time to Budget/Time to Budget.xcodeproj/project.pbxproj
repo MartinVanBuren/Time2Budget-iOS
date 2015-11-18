@@ -11,6 +11,7 @@
 		5B17E2411BDF2EE70014CF2D /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5B17E23C1BDF2ED20014CF2D /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5B17E2421BDF2EE70014CF2D /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B17E23D1BDF2ED20014CF2D /* RealmSwift.framework */; };
 		5B17E2431BDF2EE70014CF2D /* RealmSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5B17E23D1BDF2ED20014CF2D /* RealmSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		5B3140401BFBA2DA003644D9 /* Database_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93BC90441A74C84200A63932 /* Database_Tests.swift */; };
 		5B7F21581BE5A96D00781A03 /* CategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7F21571BE5A96D00781A03 /* CategoryView.swift */; };
 		5B922F0A1BDA7C4E00F851D3 /* DetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B922F091BDA7C4E00F851D3 /* DetailCell.swift */; };
 		5B9679FC1BBE13D400DBEB61 /* Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9679FB1BBE13D400DBEB61 /* Protocol.swift */; };
@@ -224,7 +225,6 @@
 			isa = PBXGroup;
 			children = (
 				93967CB91AB22D2000D46CF6 /* BudgetHistoryListViewController.swift */,
-				93967CC01AB2310900D46CF6 /* BudgetHistoryViewController.swift */,
 				93967CBC1AB22D4900D46CF6 /* BudgetHistoryRecordsViewController.swift */,
 				93967CBE1AB22D5800D46CF6 /* BudgetHistoryRecordViewController.swift */,
 			);
@@ -262,19 +262,10 @@
 				93F0E5411A721960009D95EC /* BudgetViewController.swift */,
 				93F0E5161A720BF4009D95EC /* RecordsViewController.swift */,
 				9385F1731AA397C8000C8726 /* SettingsViewController.swift */,
-				93967CBB1AB22D2600D46CF6 /* Budget History View */,
+				93F0E53F1A72194D009D95EC /* BudgetEditorViewController.swift */,
+				93967CC01AB2310900D46CF6 /* BudgetHistoryViewController.swift */,
 			);
 			name = "Main Views";
-			sourceTree = "<group>";
-		};
-		93B2E5FA1A903ED50058372F /* Editor Views */ = {
-			isa = PBXGroup;
-			children = (
-				93F0E53F1A72194D009D95EC /* BudgetEditorViewController.swift */,
-				9385F1661AA36B63000C8726 /* Task Editor */,
-				93B2E5F81A903EA80058372F /* Record Editor */,
-			);
-			name = "Editor Views";
 			sourceTree = "<group>";
 		};
 		93F0E4DE1A720B64009D95EC = {
@@ -333,7 +324,9 @@
 			isa = PBXGroup;
 			children = (
 				93B2E5F91A903EC40058372F /* Main Views */,
-				93B2E5FA1A903ED50058372F /* Editor Views */,
+				93B2E5F81A903EA80058372F /* Record Editor */,
+				9385F1661AA36B63000C8726 /* Task Editor */,
+				93967CBB1AB22D2600D46CF6 /* Budget History View */,
 			);
 			name = "iPhone Views";
 			sourceTree = "<group>";
@@ -544,6 +537,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5B3140401BFBA2DA003644D9 /* Database_Tests.swift in Sources */,
 				5BB60D4D1BD00D57003408D0 /* Time_Tests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

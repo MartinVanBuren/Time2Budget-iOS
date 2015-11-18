@@ -288,7 +288,7 @@ public class Factory {
     }
 
     class func displayDeleteTaskAlert(viewController viewController: BudgetEditorViewController, indexPath: NSIndexPath) {
-        let realm = try! Realm()
+        let realm = Database.getRealm()
         let currentBudget = realm.objects(Budget).filter("isCurrent = TRUE").first!
         let currentCategory = currentBudget.categories[indexPath.section]
         let currentTask = currentCategory.tasks[indexPath.row]
@@ -306,7 +306,7 @@ public class Factory {
     }
     
     class func displayDeleteCategoryAlert(viewController viewController: UIViewController, categoryName: String) {
-        let realm = try! Realm()
+        let realm = Database.getRealm()
         let currentBudget = realm.objects(Budget).filter("isCurrent = TRUE").first!
         let currentCategory = currentBudget.categories.filter("name = '\(categoryName)'").first!
         
@@ -346,7 +346,7 @@ public class Factory {
     }
     
     class func displayEditCategoryAlert(viewController viewController: UIViewController, categoryName: String) {
-        let realm = try! Realm()
+        let realm = Database.getRealm()
         let currentBudget = realm.objects(Budget).filter("isCurrent = TRUE").first!
         var inputTextField = UITextField()
         let category = currentBudget.categories.filter("name = '\(categoryName)'").first!
@@ -389,7 +389,7 @@ public class Factory {
     }
     
     class func archiveBudgetNotification() -> UILocalNotification {
-        let realm = try! Realm()
+        let realm = Database.getRealm()
         let thisBudget = realm.objects(Budget).filter("isCurrent = TRUE").first!
         let localNotif = UILocalNotification()
         
