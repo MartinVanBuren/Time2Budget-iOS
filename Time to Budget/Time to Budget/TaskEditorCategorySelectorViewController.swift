@@ -33,6 +33,8 @@ class TaskEditorCategorySelectorViewController: UIViewController, UITableViewDat
         
         notificationToken = realm.addNotificationBlock { notification, realm in
             
+            self.currentBudget = Database.budgetSafetyNet()
+            
             self.tableView.reloadData()
         }
         

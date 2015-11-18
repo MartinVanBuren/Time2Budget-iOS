@@ -33,6 +33,8 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
         // Set realm notification block
         notificationToken = realm.addNotificationBlock { note, realm in
             
+            self.currentBudget = Database.budgetSafetyNet()
+            
             self.tableView.reloadData()
             self.updateTimeRemaining()
         }

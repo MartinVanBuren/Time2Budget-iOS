@@ -18,7 +18,7 @@ class BudgetHistoryListViewController: UITableViewController {
     override func viewDidLoad() {
         //==================== Realm Properties ====================
         self.realm = Database.getRealm()
-        self.budgetList = realm.objects(Budget).filter("isCurrent = FALSE").sorted("endDate", ascending: false)
+        self.budgetList = realm.objects(Budget).filter("isCurrent = false").sorted("endDate", ascending: false)
         
         super.viewDidLoad()
         

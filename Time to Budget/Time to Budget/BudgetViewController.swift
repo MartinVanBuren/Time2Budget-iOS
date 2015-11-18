@@ -39,11 +39,7 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
         // Set realm notification block
         notificationToken = realm.addNotificationBlock { notification, realm in
             
-            if realm.objects(Budget).filter("isCurrent == TRUE").count > 0 {
-                self.currentBudget = realm.objects(Budget).filter("isCurrent == TRUE").first!
-            } else {
-                Database.newBudget()
-            }
+            self.currentBudget = Database.budgetSafetyNet()
 
             self.tableView.reloadData()
         }
