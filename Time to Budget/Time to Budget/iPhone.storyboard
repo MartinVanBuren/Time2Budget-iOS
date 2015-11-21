@@ -2504,7 +2504,7 @@
         <scene sceneID="vWo-Qf-c5o">
             <objects>
                 <navigationController title="Budget View Navigation Controller" automaticallyAdjustsScrollViewInsets="NO" id="vNu-tz-Fky" userLabel="Main Navigation Controller" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Budget" image="list-simple-7.png" id="cp4-1U-Sch"/>
+                    <tabBarItem key="tabBarItem" title="Budget" image="budgetTabBar" id="cp4-1U-Sch"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="C4i-AT-vHI">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -2689,7 +2689,7 @@
         <scene sceneID="zr5-NJ-WvN">
             <objects>
                 <navigationController title="Settings Navigation Controller" automaticallyAdjustsScrollViewInsets="NO" id="iBz-P8-bvG" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Settings" image="gear-7.png" id="3Nc-zS-6mX"/>
+                    <tabBarItem key="tabBarItem" title="Settings" image="settingsTabBar" id="3Nc-zS-6mX"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="SBn-kX-pP5">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -2728,7 +2728,7 @@
         <scene sceneID="Tg8-bU-HeC">
             <objects>
                 <navigationController title="Budget Editor Navigation Controller" automaticallyAdjustsScrollViewInsets="NO" id="JIZ-0u-c6h" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Editor" image="pencil-7.png" id="DCa-bD-8jL"/>
+                    <tabBarItem key="tabBarItem" title="Editor" image="editorTabBar" id="DCa-bD-8jL"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="4ZV-Up-8DL">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -2776,7 +2776,7 @@
         <scene sceneID="tn7-Pc-MgE">
             <objects>
                 <navigationController title="Budget History Navigation Controller" automaticallyAdjustsScrollViewInsets="NO" id="FWf-tO-pAV" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="History" image="book-cover-7.png" id="ndd-8Q-8Hb"/>
+                    <tabBarItem key="tabBarItem" title="History" image="historyTabBar" id="ndd-8Q-8Hb"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="DX9-Ed-fmD">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -2794,10 +2794,10 @@
         </scene>
     </scenes>
     <resources>
-        <image name="book-cover-7.png" width="30" height="30"/>
-        <image name="gear-7.png" width="30" height="30"/>
-        <image name="list-simple-7.png" width="30" height="30"/>
-        <image name="pencil-7.png" width="30" height="30"/>
+        <image name="budgetTabBar" width="30" height="30"/>
+        <image name="editorTabBar" width="30" height="30"/>
+        <image name="historyTabBar" width="30" height="30"/>
+        <image name="settingsTabBar" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="Bp2-lw-sqJ"/>

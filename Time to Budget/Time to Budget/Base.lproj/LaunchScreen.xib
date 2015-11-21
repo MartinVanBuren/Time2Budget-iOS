@@ -12,7 +12,7 @@
             <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Splash Screen Art.png" translatesAutoresizingMaskIntoConstraints="NO" id="DKt-jd-VXK">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launchScreenImage" translatesAutoresizingMaskIntoConstraints="NO" id="DKt-jd-VXK">
                     <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
                     <animations/>
                     <constraints>
@@ -42,6 +42,6 @@
         </view>
     </objects>
     <resources>
-        <image name="Splash Screen Art.png" width="1024" height="1024"/>
+        <image name="launchScreenImage" width="1024" height="1024"/>
     </resources>
 </document>
