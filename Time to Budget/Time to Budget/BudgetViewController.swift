@@ -34,7 +34,7 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
         let nav = self.navigationController?.navigationBar
         Style.navbarSetColor(nav: nav!)
         
-        self.currentBudget = realm.objects(Budget).filter("isCurrent == TRUE").first!
+        self.currentBudget = realm.objects(Budget).filter("isCurrent = true").first!
         
         // Set realm notification block
         notificationToken = realm.addNotificationBlock { notification, realm in

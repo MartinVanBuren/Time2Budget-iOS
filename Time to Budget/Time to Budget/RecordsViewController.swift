@@ -14,6 +14,7 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
     var currentTask:Task!
     var returning:Bool? = false
     var editRecord:Bool = false
+    var notificationToken: NotificationToken!
     var recordList = List<Record>()
     let realm = Database.getRealm()
     @IBOutlet weak var tableView: UITableView!
@@ -21,6 +22,19 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Set realm notification block
+        notificationToken = realm.addNotificationBlock { notification, realm in
+            
+            let recordResults = self.currentTask.records.sorted("date", ascending: false)
+            self.recordList = List<Record>()
+            for rec in recordResults {
+                self.recordList.append(rec)
+            }
+            
+            self.tableView.reloadData()
+        }
+
         
     }
     

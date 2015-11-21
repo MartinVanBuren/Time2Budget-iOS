@@ -9,7 +9,7 @@
 import UIKit
 import RealmSwift
 
-class RecordEditorViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, writeNameBackDelegate {
+class RecordEditorViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, writeTaskBackDelegate {
     
     @IBOutlet weak var saveRecordButton: UIButton!
     var editRecord:Bool = false
@@ -82,10 +82,8 @@ class RecordEditorViewController: UIViewController, UITableViewDataSource, UITab
         fixContentInset(calledFromSegue: true)
     }
     
-    func writeNameBack(name: String) {
-        print("RecordEditorViewController->writeTaskBack->name", name)
-        let realm = Database.getRealm()
-        self.currentTask = realm.objects(Task).filter("name = '\(name)'").first!
+    func writeTaskBack(task: Task) {
+        self.currentTask = task
         self.tableView.reloadData()
     }
     

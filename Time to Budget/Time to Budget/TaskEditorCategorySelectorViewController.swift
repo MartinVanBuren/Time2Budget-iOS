@@ -14,7 +14,7 @@ class TaskEditorCategorySelectorViewController: UIViewController, UITableViewDat
     var realm:Realm!
     var currentBudget:Budget!
     var taskEditorVC:TaskEditorViewController!
-    var delegate: writeNameBackDelegate?
+    var delegate: writeCategoryBackDelegate?
     var notificationToken:NotificationToken!
     var returning:Bool? = false
     @IBOutlet weak var tableView: UITableView!
@@ -82,7 +82,7 @@ class TaskEditorCategorySelectorViewController: UIViewController, UITableViewDat
     
     //==================== UITableViewDelegate Methods ====================
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        self.delegate?.writeNameBack(currentBudget.categories[indexPath.row].name)
+        self.delegate?.writeCategoryBack(currentBudget.categories[indexPath.row])
         self.navigationController?.popViewControllerAnimated(true)
     }
     

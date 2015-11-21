@@ -6,6 +6,10 @@
 //  Copyright © 2015 Arrken Games, LLC. All rights reserved.
 //
 
-protocol writeNameBackDelegate {
-    func writeNameBack(name: String)
+protocol writeTaskBackDelegate {
+    func writeTaskBack(task: Task)
+}
+
+protocol writeCategoryBackDelegate {
+    func writeCategoryBack(cat: Category)
 }

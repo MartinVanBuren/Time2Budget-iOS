@@ -15,7 +15,7 @@ class RecordEditorTaskSelectorViewController: UIViewController, UITableViewDataS
     var currentBudget:Budget!
     var recordEditorVC:RecordEditorViewController!
     @IBOutlet weak var tableView: UITableView!
-    var delegate: writeNameBackDelegate?
+    var delegate: writeTaskBackDelegate?
     var returning:Bool? = false
     
     
@@ -79,7 +79,7 @@ class RecordEditorTaskSelectorViewController: UIViewController, UITableViewDataS
         
         let currentTask = currentBudget.categories[indexPath.section].tasks[indexPath.row]
         print("RecordEditorTaskSelector->currentTask.name", currentTask.name)
-        self.delegate?.writeNameBack(currentTask.name)
+        self.delegate?.writeTaskBack(currentTask)
         self.navigationController?.popViewControllerAnimated(true)
     }
     

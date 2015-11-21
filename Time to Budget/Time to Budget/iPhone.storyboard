@@ -298,6 +298,9 @@
                                                     <animations/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
+                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                                        <rect key="frame" x="8" y="8" width="304" height="27.5"/>
+                                                    </variation>
                                                     <connections>
                                                         <action selector="taskNameTextfieldChanged:" destination="21N-Ja-fue" eventType="editingChanged" id="bzT-JN-oOK"/>
                                                         <outlet property="delegate" destination="21N-Ja-fue" id="GK2-Xu-4Be"/>

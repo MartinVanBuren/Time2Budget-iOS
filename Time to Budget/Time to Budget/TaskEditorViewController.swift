@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TaskEditorViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, writeNameBackDelegate {
+class TaskEditorViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, writeCategoryBackDelegate {
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var saveTaskButton: UIButton!
@@ -113,8 +113,8 @@ class TaskEditorViewController: UIViewController, UITableViewDataSource, UITable
         fixContentInset(calledFromSegue: true)
     }
     
-    func writeNameBack(name: String) {
-        self.taskCategory = name
+    func writeCategoryBack(cat: Category) {
+        self.taskCategory = cat.name
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
