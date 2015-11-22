@@ -7,24 +7,39 @@
 //
 
 import UIKit
-import Realm
+import RealmSwift
 
 class BudgetHistoryListViewController: UITableViewController {
     
-    //==================== Realm Properties ====================
-    let realm = Database.getRealm()
-    var budgetList = Budget.objectsWhere("isCurrent = FALSE").sortedResultsUsingProperty("endDate", ascending: false)
-    var notificationToken: RLMNotificationToken?
+    var realm:Realm!
+    var budgetList:Results<Budget>!
+    var notificationToken: NotificationToken?
 
     override func viewDidLoad() {
+        //==================== Realm Properties ====================
+        self.realm = Database.getRealm()
+        self.budgetList = realm.objects(Budget).filter("isCurrent = false").sorted("endDate", ascending: false)
+        
         super.viewDidLoad()
         
+        let nav = self.navigationController?.navigationBar
+        Style.navbarSetColor(nav: nav!)
+        
         // Set realm notification block
-        notificationToken = RLMRealm.defaultRealm().addNotificationBlock { note, realm in
+        notificationToken = realm.addNotificationBlock { note, realm in
             self.tableView.reloadData()
             //self.budgetList = Budget.objectsWhere("isCurrent = FALSE").sortedResultsUsingProperty("endDate", ascending: false)
         }
     }
+    
+    /*
+    override func viewDidLayoutSubviews() {
+        if let rect = self.navigationController?.navigationBar.frame {
+            let y = rect.size.height + rect.origin.y
+            self.tableView.contentInset = UIEdgeInsetsMake(y, 0, 0, 0)
+        }
+    }
+    */
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -33,9 +48,9 @@ class BudgetHistoryListViewController: UITableViewController {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "showHistoryBudget" {
-            let historyBudgetVC = segue.destinationViewController as BudgetHistoryViewController
-            let indexPath = self.tableView.indexPathForSelectedRow()!
-            historyBudgetVC.currentBudget = (self.budgetList[UInt(indexPath.row)] as Budget)
+            let historyBudgetVC = segue.destinationViewController as! BudgetHistoryViewController
+            let indexPath = self.tableView.indexPathForSelectedRow!
+            historyBudgetVC.currentBudget = self.budgetList[indexPath.row]
         }
     }
 
@@ -52,7 +67,7 @@ class BudgetHistoryListViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        return Factory.prepareBasicCell(tableView: self.tableView, titleText: (self.budgetList[UInt(indexPath.row)] as Budget).name)
+        return Factory.prepareBasicCell(tableView: self.tableView, titleText: self.budgetList[indexPath.row].name)
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {

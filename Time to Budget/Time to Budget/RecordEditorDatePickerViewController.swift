@@ -13,11 +13,15 @@ class RecordEditorDatePickerViewController: UIViewController {
     var recordEditorVC:RecordEditorViewController!
     var datePicked:NSDate!
     @IBOutlet weak var datePicker: UIDatePicker!
+    @IBOutlet weak var doneButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
+        doneButton.layer.cornerRadius = CGRectGetWidth(doneButton.frame)/8
+        doneButton.layer.masksToBounds = true
         
         self.datePicked = self.recordEditorVC.date
         

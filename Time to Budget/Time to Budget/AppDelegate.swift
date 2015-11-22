@@ -7,20 +7,29 @@
 //
 
 import UIKit
+import RealmSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
-        application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: UIUserNotificationType.Sound | UIUserNotificationType.Alert | UIUserNotificationType.Badge, categories: nil))
+        application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: [UIUserNotificationType.Sound, UIUserNotificationType.Alert, UIUserNotificationType.Badge], categories: nil))
         
-        let budgetResults = Budget.objectsWhere("isCurrent = TRUE")
+        let realm = Database.getRealm()
         
-        if Budget.objectsWhere("isCurrent = TRUE").count == 0 {
+        let currentBudget = realm.objects(Budget).filter("isCurrent = TRUE")
+        
+        print("AppDelegate->Current Budgets:")
+        for current in currentBudget {
+            print(current.name)
+        }
+        
+        print("AppDelegate->CurrentBudgetCount: ", currentBudget.count)
+        
+        if currentBudget.count == 0 {
             Database.newBudget()
         }
         
@@ -44,7 +53,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidBecomeActive(application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-        let budget = Budget.objectsWhere("isCurrent = TRUE").firstObject() as Budget
+        let realm = Database.getRealm()
+        
+        let budget = realm.objects(Budget).filter("isCurrent == TRUE").first!
         
         if budget.checkPassedEndDate() {
             Database.newBudget()

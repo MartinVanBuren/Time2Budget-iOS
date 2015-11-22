@@ -16,6 +16,7 @@ class RecordEditorTimePickerViewController: UIViewController, UIPickerViewDataSo
     var timePicked:Time = Time()
     var recordEditorVC:RecordEditorViewController!
     @IBOutlet weak var timePicker: UIPickerView!
+    @IBOutlet weak var doneButton: UIButton!
     
     // Stop watch Declarations
     @IBOutlet weak var startButton: UIButton!
@@ -37,6 +38,12 @@ class RecordEditorTimePickerViewController: UIViewController, UIPickerViewDataSo
             timePicked.hours = 0
             timePicked.minutes = 0
         }
+        
+        startButton.layer.cornerRadius = CGRectGetWidth(startButton.frame)/8
+        startButton.layer.masksToBounds = true
+        
+        doneButton.layer.cornerRadius = CGRectGetWidth(doneButton.frame)/8
+        doneButton.layer.masksToBounds = true
         
         timePicker.selectRow(getHourIndex(), inComponent: 0, animated: true)
         timePicker.selectRow(getMinIndex(), inComponent: 1, animated: true)
@@ -62,7 +69,7 @@ class RecordEditorTimePickerViewController: UIViewController, UIPickerViewDataSo
     }
     
     //UIPicker Delegates
-    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String! {
+    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         if component == 0 {
             return "\(timeHourPickerData[row])"
         }
@@ -98,7 +105,7 @@ class RecordEditorTimePickerViewController: UIViewController, UIPickerViewDataSo
     
     // Helper Functions
     func updateTimer() {
-        var currentTime = NSDate.timeIntervalSinceReferenceDate()
+        let currentTime = NSDate.timeIntervalSinceReferenceDate()
         
         var elapsedTime = currentTime - self.startTime
         

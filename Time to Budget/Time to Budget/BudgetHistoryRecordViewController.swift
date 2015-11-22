@@ -7,13 +7,13 @@
 //
 
 import UIKit
-import Realm
+import RealmSwift
 
 class BudgetHistoryRecordViewController: UITableViewController {
 
     var currentRecord:Record?
     var currentTask:Task?
-    var notificationToken: RLMNotificationToken?
+    //var notificationToken: RLMNotificationToken?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,7 +46,7 @@ class BudgetHistoryRecordViewController: UITableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         switch indexPath.row {
         case 0:
-            let cell = Factory.prepareAddRecordTaskCell(tableView: tableView, currentTask: self.currentTask?)
+            let cell = Factory.prepareAddRecordTaskCell(tableView: tableView, currentTask: self.currentTask)
             cell.accessoryType = UITableViewCellAccessoryType.None
             return cell
         case 1:
@@ -60,5 +60,9 @@ class BudgetHistoryRecordViewController: UITableViewController {
         default:
             return Factory.prepareAddRecordMemoCell(tableView: tableView, memo: currentRecord?.note)
         }
+    }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
 }

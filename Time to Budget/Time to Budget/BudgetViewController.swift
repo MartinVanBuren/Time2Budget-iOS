@@ -8,7 +8,7 @@
 
 import Foundation
 import UIKit
-import Realm
+import RealmSwift
 
 class BudgetViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
@@ -22,23 +22,24 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
     //==================== Realm Properties ====================
     let realm = Database.getRealm()
     var currentBudget:Budget?
-    var notificationToken: RLMNotificationToken?
+    var notificationToken: NotificationToken!
     
     //==================== Pre-Generated Methods ====================
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.currentBudget = (Budget.objectsWhere("isCurrent = TRUE").firstObject() as Budget)
+        let nib = UINib(nibName: "CategoryView", bundle: nil)
+        self.tableView.registerNib(nib, forHeaderFooterViewReuseIdentifier: "CategoryView")
+        
+        let nav = self.navigationController?.navigationBar
+        Style.navbarSetColor(nav: nav!)
+        
+        self.currentBudget = realm.objects(Budget).filter("isCurrent = true").first!
         
         // Set realm notification block
-        notificationToken = RLMRealm.defaultRealm().addNotificationBlock { note, realm in
+        notificationToken = realm.addNotificationBlock { notification, realm in
             
-            if Budget.objectsWhere("isCurrent = TRUE").count > 0 {
-                self.currentBudget = (Budget.objectsWhere("isCurrent = TRUE").firstObject() as Budget)
-            } else {
-                Database.newBudget()
-                self.currentBudget = (Budget.objectsWhere("isCurrent = TRUE").firstObject() as Budget)
-            }
+            self.currentBudget = Database.budgetSafetyNet()
 
             self.tableView.reloadData()
         }
@@ -48,6 +49,18 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
         // Run Display Prompt Code
         self.displayPromptControl()
     }
+    
+    /*
+    override func viewDidLayoutSubviews() {
+        UIView.animateWithDuration(CATransaction.animationDuration(), animations: {
+            if let rect = self.navigationController?.navigationBar.frame {
+                let y = rect.size.height + rect.origin.y
+                self.tableView.contentInset = UIEdgeInsetsMake(y, 0, 0, 0)
+            }
+        })
+    }
+    */
+    
     override func viewWillAppear(animated: Bool) {
         self.tableView.reloadData()
     }
@@ -65,17 +78,19 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "showRecordsView" {
             clearPrompt()
-            let recordsVC:RecordsViewController = segue.destinationViewController as RecordsViewController
+            let recordsVC:RecordsViewController = segue.destinationViewController as! RecordsViewController
             
-            let indexPath = self.tableView.indexPathForSelectedRow()!
-            let thisTask = ((currentBudget!.categories.objectAtIndex(UInt(indexPath.section)) as Category).tasks.objectAtIndex(UInt(indexPath.row))) as Task
+            let indexPath = self.tableView.indexPathForSelectedRow!
+            let thisTask = currentBudget!.categories[indexPath.section].tasks[indexPath.row]
             recordsVC.currentTask = thisTask
+            tableView.deselectRowAtIndexPath(indexPath, animated: true)
         }
         else if segue.identifier == "showTrackingView" {
-            let recordEditorVC = (segue.destinationViewController as UINavigationController).topViewController as RecordEditorViewController
+            let recordEditorVC = (segue.destinationViewController as! UINavigationController).topViewController as! RecordEditorViewController
             recordEditorVC.currentTask = nil
             recordEditorVC.currentRecord = nil
         }
+        
     }
     
     //==================== IBAction Methods ====================
@@ -92,7 +107,7 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return Int((currentBudget!.categories.objectAtIndex(UInt(section)) as Category).tasks.count)
+        return currentBudget!.categories[section].tasks.count
         
     }
     
@@ -104,7 +119,7 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
-        return Factory.prepareCategoryCell(tableView: tableView, categoryList: currentBudget!.categories, section: section, isEditor: false)
+        return Factory.prepareCategoryView(tableView: tableView, categoryList: currentBudget!.categories, section: section)
         
     }
     
@@ -120,16 +135,16 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
     
     //==================== Helper Methods ====================
     func displayPromptControl() {
-        var navSingleTap = UITapGestureRecognizer(target: self, action: "navSingleTap")
+        let navSingleTap = UITapGestureRecognizer(target: self, action: "navSingleTap")
         navSingleTap.numberOfTapsRequired = 1
-        (self.navigationController?.navigationBar.subviews[1] as UIView).userInteractionEnabled = true
-        (self.navigationController?.navigationBar.subviews[1] as UIView).addGestureRecognizer(navSingleTap)
+        (self.navigationController?.navigationBar.subviews[1])!.userInteractionEnabled = true
+        (self.navigationController?.navigationBar.subviews[1])!.addGestureRecognizer(navSingleTap)
     }
     
     func navSingleTap() {
         if displayPrompt == false {
             displayPrompt = true
-            self.navigationItem.prompt = "Budget: \(currentBudget!.name)"
+            self.navigationItem.prompt = "\(currentBudget!.name)"
         } else {
             clearPrompt()
         }

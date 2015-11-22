@@ -7,21 +7,50 @@
 //
 
 import UIKit
-import Realm
+import RealmSwift
 
 class RecordsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     var currentTask:Task!
     var returning:Bool? = false
     var editRecord:Bool = false
-    var recordList:RLMArray!
+    var notificationToken: NotificationToken!
+    var recordList = List<Record>()
+    let realm = Database.getRealm()
     @IBOutlet weak var tableView: UITableView!
     var promptEnabled:Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    }
+        
+        // Set realm notification block
+        notificationToken = realm.addNotificationBlock { notification, realm in
+            
+            let recordResults = self.currentTask.records.sorted("date", ascending: false)
+            self.recordList = List<Record>()
+            for rec in recordResults {
+                self.recordList.append(rec)
+            }
+            
+            self.tableView.reloadData()
+        }
 
+        
+    }
+    
+    /*
+    override func viewDidLayoutSubviews() {
+        if self.currentTask.memo == "" {
+            UIView.animateWithDuration(CATransaction.animationDuration(), animations: {
+                if let rect = self.navigationController?.navigationBar.frame {
+                    let y = rect.size.height + rect.origin.y
+                    self.tableView.contentInset = UIEdgeInsetsMake(y, 0, 0, 0)
+                }
+            })
+        }
+    }
+    */
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -30,7 +59,14 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
     override func viewWillAppear(animated: Bool) {
         navigationItem.title = currentTask.name
         
-        recordList = currentTask.records
+        let nav = self.navigationController?.navigationBar
+        Style.navbarSetColor(nav: nav!)
+        
+        let recordResults = currentTask.records.sorted("date", ascending: false)
+        self.recordList = List<Record>()
+        for rec in recordResults {
+            self.recordList.append(rec)
+        }
         
         if currentTask.memo != "" {
             navigationItem.prompt = currentTask.memo
@@ -47,14 +83,14 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "showTrackingViewAlt" {
             
-            let trackingVC = (segue.destinationViewController as UINavigationController).topViewController as RecordEditorViewController
+            let trackingVC = (segue.destinationViewController as! UINavigationController).topViewController as! RecordEditorViewController
             
             if self.editRecord {
-                let indexPath = self.tableView.indexPathForSelectedRow()!
+                let indexPath = self.tableView.indexPathForSelectedRow!
                 
                 trackingVC.editRecord = true
                 trackingVC.currentTask = self.currentTask
-                trackingVC.currentRecord = (recordList.objectAtIndex(UInt(indexPath.row)) as Record)
+                trackingVC.currentRecord = recordList[indexPath.row]
                 self.editRecord = false
             } else {
                 trackingVC.currentTask = self.currentTask
@@ -72,7 +108,7 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return Int(self.recordList.count)
+        return self.recordList.count
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -90,7 +126,7 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
     
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         
-        Factory.displayDeleteRecordAlert(self, record: recordList.objectAtIndex(UInt(indexPath.row)) as Record)
+        Factory.displayDeleteRecordAlert(self, record: recordList[indexPath.row])
     }
     
     // ============================= IBActions =============================
@@ -101,7 +137,7 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
     
     // ============================= Helper Functions =============================
     
-    func fixContentInset(#calledFromSegue: Bool) {
+    func fixContentInset(calledFromSegue calledFromSegue: Bool) {
         if calledFromSegue {
             if (returning != nil) {
                 self.returning = true
@@ -121,4 +157,5 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
             }
         }
     }
+    
 }

@@ -7,22 +7,42 @@
 //
 
 import UIKit
+import RealmSwift
 
 class RecordEditorTaskSelectorViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
-    let realm = Database.getRealm()
-    let currentBudget = Budget.objectsWhere("isCurrent = TRUE").firstObject() as Budget
+    var realm:Realm!
+    var currentBudget:Budget!
     var recordEditorVC:RecordEditorViewController!
     @IBOutlet weak var tableView: UITableView!
+    var delegate: writeTaskBackDelegate?
     var returning:Bool? = false
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let nib = UINib(nibName: "CategoryView", bundle: nil)
+        self.tableView.registerNib(nib, forHeaderFooterViewReuseIdentifier: "CategoryView")
+        
+        self.realm = Database.getRealm()
+        self.currentBudget = realm.objects(Budget).filter("isCurrent = TRUE").first!
 
-        // Do any additional setup after loading the view.
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        self.tableView.reloadData()
         fixContentInset(calledFromSegue: false)
     }
+    
+    /*
+    override func viewDidLayoutSubviews() {
+        if let rect = self.navigationController?.navigationBar.frame {
+            let y = rect.size.height + rect.origin.y
+            self.tableView.contentInset = UIEdgeInsetsMake(y, 0, 0, 0)
+        }
+    }
+    */
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -38,7 +58,7 @@ class RecordEditorTaskSelectorViewController: UIViewController, UITableViewDataS
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return Int((currentBudget.categories.objectAtIndex(UInt(section)) as Category).tasks.count)
+        return currentBudget.categories[section].tasks.count
         
     }
     
@@ -50,13 +70,16 @@ class RecordEditorTaskSelectorViewController: UIViewController, UITableViewDataS
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
-        return Factory.prepareCategoryCell(tableView: tableView, categoryList: currentBudget.categories, section: section, isEditor: false)
+        return Factory.prepareCategoryView(tableView: tableView, categoryList: currentBudget.categories, section: section)
         
     }
     
     //==================== UITableViewDelegate Methods ====================
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        recordEditorVC.currentTask = ((currentBudget.categories.objectAtIndex(UInt(indexPath.section)) as Category).tasks.objectAtIndex(UInt(indexPath.row)) as Task)
+        
+        let currentTask = currentBudget.categories[indexPath.section].tasks[indexPath.row]
+        print("RecordEditorTaskSelector->currentTask.name", currentTask.name)
+        self.delegate?.writeTaskBack(currentTask)
         self.navigationController?.popViewControllerAnimated(true)
     }
     
@@ -66,7 +89,12 @@ class RecordEditorTaskSelectorViewController: UIViewController, UITableViewDataS
         return 44
     }
     
-    func fixContentInset(#calledFromSegue: Bool) {
+    @IBAction func addTaskButtonPressed(sender: UIBarButtonItem) {
+        performSegueWithIdentifier("showTaskEditorFromRecordEditor", sender: self)
+        fixContentInset(calledFromSegue: true)
+    }
+    
+    func fixContentInset(calledFromSegue calledFromSegue: Bool) {
         if calledFromSegue {
             if (returning != nil) {
                 self.returning = true

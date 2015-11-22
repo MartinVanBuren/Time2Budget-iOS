@@ -6,88 +6,102 @@
 //  Copyright (c) 2015 Arrken Games, LLC. All rights reserved.
 //
 
-import UIKit
 import XCTest
-import Realm
-import Time_to_Budget
+import RealmSwift
+@testable import Time_to_Budget
 
 class Database_Tests: XCTestCase {
-    let defaultRealmPath = RLMRealm.defaultRealmPath()
-    let testRealmPath = RLMRealm.defaultRealmPath() + "test"
     
     override func setUp() {
         super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-        RLMRealm.setDefaultRealmPath(testRealmPath)
-        Database.getRealm().beginWriteTransaction()
-        RLMRealm.defaultRealm().deleteAllObjects()
-        Database.getRealm().commitWriteTransaction()
+        // Use an in-memory Realm identified by the name of the current test.
+        // This ensures that each test can't accidentally access or modify the data
+        // from other tests or the application itself, and because they're in-memory,
+        // there's nothing that needs to be cleaned up.
+        Realm.Configuration.defaultConfiguration.inMemoryIdentifier = "DatabaseTest"
+        Database.testingEnabled = true
+        
+        Database.newBudget()
     }
     
     override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-        Database.getRealm().beginWriteTransaction()
-        RLMRealm.defaultRealm().deleteAllObjects()
-        Database.getRealm().commitWriteTransaction()
-        RLMRealm.setDefaultRealmPath(defaultRealmPath)
         super.tearDown()
+        
+        let realm = Database.getRealm()
+        try! realm.write({
+            realm.deleteAll()
+        })
+        Database.testingEnabled = false
+        
     }
 
     func test_addCategory() {
-        
+        let realm = Database.getRealm()
         Database.addCategory(name: "TestCategory")
-        let check = (Category.objectsWhere("name = 'TestCategory'").objectAtIndex(0) as Category)
         
-        XCTAssert((check.name == "TestCategory"), "Failed to Add Category")
+        let testCategory = realm.objects(Category.self).filter("name = 'TestCategory'").first!
+        
+        let result = (testCategory.name == "TestCategory")
+        
+        XCTAssert(result, "Failed to Add Category")
     }
 
     func test_addTask() {
+        let realm = Database.getRealm()
         Database.addCategory(name: "TestCategory")
-        Database.addTask(name: "TestTask", memo: "TestMemo", time: 5.15, categoryName: "TestCategory")
+        Database.addTask(name: "TestTask", memo: "TestMemo", time: 5.25, categoryName: "TestCategory")
         
-        let task = Task.objectsWhere("name = 'TestTask'").objectAtIndex(0) as Task
-        let category = (Category.objectsWhere("name = 'TestCategory'").objectAtIndex(0) as Category).tasks
+        let taskResults = realm.objects(Task.self).filter("name = 'TestTask'")
+        let categoryResults = realm.objects(Category.self).filter("name = 'TestCategory'")
+        let task = taskResults.first!
+        let category = categoryResults.first!
         
-        let categoryCheck:Bool = ((category.objectAtIndex(0) as Task).name == "TestTask")
+        let resultsNumCheck:Bool = (taskResults.count == 1 && categoryResults.count == 1)
+        let categoryCheck:Bool = (category.tasks.first!.name == "TestTask")
         let nameCheck:Bool = (task.name == "TestTask")
         let memoCheck:Bool = (task.memo == "TestMemo")
-        let timeCheck:Bool = (task.timeRemaining == 5.15)
+        let timeCheck:Bool = (task.timeRemaining == 5.25)
         
-        XCTAssert((nameCheck && memoCheck && timeCheck && categoryCheck), "Failed to Add Task")
+        XCTAssert((nameCheck && memoCheck && timeCheck && categoryCheck && resultsNumCheck), "Failed to Add Task")
     }
     
     func test_moveTask() {
-        
+        let realm = Database.getRealm()
         Database.addCategory(name: "Test1")
         Database.addCategory(name: "Test2")
-        Database.addTask(name: "TestTask", memo: "TestMemo", time: 5.45, categoryName: "Test1")
+        Database.addTask(name: "TestTask", memo: "TestMemo", time: 5.75, categoryName: "Test1")
         
-        let task = Task.objectsWhere("name = 'TestTask'").objectAtIndex(0) as Task
+        let taskResult = realm.objects(Task.self).filter("name = 'TestTask'")
         
-        Database.moveTask(taskName: task.name, newCategoryName: "Test2")
+        let task = taskResult.first!
         
-        let cat1 = Category.objectsWhere("name = 'Test1'").objectAtIndex(0) as Category
-        let cat2 = Category.objectsWhere("name = 'Test2'").objectAtIndex(0) as Category
+        print(taskResult.count, task.name)
         
-        let moveCheck = (cat1.tasks.count == 0 && cat2.tasks.count == 1 && (cat2.tasks.objectAtIndex(0) as Task).name == "TestTask")
+        Database.moveTask(task: task, newCategoryName: "Test2")
+        
+        let cat1 = realm.objects(Category.self).filter("name = 'Test1'").first!
+        let cat2 = realm.objects(Category.self).filter("name = 'Test2'").first!
+        
+        let moveCheck = (cat1.tasks.count == 0 && cat2.tasks.count == 1 && cat2.tasks.first!.name == "TestTask")
         
         XCTAssert(moveCheck, "Failed to Move Task")
     }
     
     func test_updateTask() {
-        
+        let realm = Database.getRealm()
         Database.addCategory(name: "Test1")
-        Database.addTask(name: "TestTask", memo: "TestMemo", time: 5.45, categoryName: "Test1")
-        let task = Task.objectsWhere("name = 'TestTask'").objectAtIndex(0) as Task
+        Database.addTask(name: "TestTask", memo: "TestMemo", time: 5.75, categoryName: "Test1")
         
-        Database.updateTask(taskName: task.name, name: "TestTaskUpdated", memo: "TestMemoUpdated", time: 1.15, categoryName: "Test1")
+        let task = realm.objects(Task).filter("name = 'TestTask'").first!
         
-        let newTask = (Category.objectsWhere("name = 'Test1'").objectAtIndex(0) as Category).tasks.objectAtIndex(0) as Task
+        Database.updateTask(task: task, name: "TestTaskUpdated", memo: "TestMemoUpdated", time: 1.25, categoryName: "Test1")
         
-        let moveCheck = ((Category.objectsWhere("name = 'Test1'").objectAtIndex(0) as Category).tasks.count == 1)
+        let newTask = realm.objects(Category.self).filter("name = 'Test1'").first!.tasks.first!
+        
+        let moveCheck = (realm.objects(Category.self).filter("name = 'Test1'").first!.tasks.count == 1)
         let nameCheck = (newTask.name == "TestTaskUpdated")
         let memoCheck = (newTask.memo == "TestMemoUpdated")
-        let timeCheck = (newTask.timeRemaining == 1.15)
+        let timeCheck = (newTask.timeRemaining == 1.25)
         
         XCTAssert((moveCheck && nameCheck && memoCheck && timeCheck), "Failed to Update Task")
     }
@@ -104,18 +118,25 @@ class Database_Tests: XCTestCase {
     }
     
     func test_checkTaskName() {
-        
-        let trueTest = Database.checkTaskName(name: "Test1")
+        let realm = Database.getRealm()
         
         Database.addCategory(name: "TestCat")
+        let category = realm.objects(Category.self).filter("name = 'TestCat'").first!
+        
+        let trueTest = Database.checkTaskName(name: "Test1", category: category)
+        
         Database.addTask(name: "Test2", memo: "", time: 0.0, categoryName: "TestCat")
         
-        let falseTest = !Database.checkTaskName(name: "Test2")
+        let falseTest = Database.checkTaskName(name: "Test2", category: category)
         
-        XCTAssert((trueTest && falseTest), "Failed to Detect Name Availability")
+        let finalTest = (!falseTest && trueTest)
+        
+        XCTAssert(finalTest, "Failed to Detect Name Availability")
     }
     
     func test_deleteCategory() {
+        let realm = Database.getRealm()
+        
         Database.addCategory(name: "Test 1")
         Database.addCategory(name: "Test 2")
         Database.addCategory(name: "Uncategorized")
@@ -131,23 +152,25 @@ class Database_Tests: XCTestCase {
         Database.deleteCategory(categoryName: "Test 1", retainTasks: false)
         Database.deleteCategory(categoryName: "Test 2", retainTasks: true)
         
-        let retainedTask1Test = ((Task.objectsWhere("name = 'test1'").objectAtIndex(0) as Task).name == "test1")
-        let retainedTask2Test = ((Task.objectsWhere("name = 'test2'").objectAtIndex(0) as Task).name == "test2")
-        let retainedTask3Test = ((Task.objectsWhere("name = 'test3'").objectAtIndex(0) as Task).name == "test3")
+        let retainedTask1Test = (realm.objects(Task.self).filter("name = 'test1'").first!.name == "test1")
+        let retainedTask2Test = (realm.objects(Task.self).filter("name = 'test2'").first!.name == "test2")
+        let retainedTask3Test = (realm.objects(Task.self).filter("name = 'test3'").first!.name == "test3")
         
-        let deletedTask1Test = (Task.objectsWhere("name = 'dtest1'").count == 0)
-        let deletedTask2Test = (Task.objectsWhere("name = 'dtest2'").count == 0)
-        let deletedTask3Test = (Task.objectsWhere("name = 'dtest3'").count == 0)
+        let deletedTask1Test = (realm.objects(Task.self).filter("name = 'dtest1'").count == 0)
+        let deletedTask2Test = (realm.objects(Task.self).filter("name = 'dtest2'").count == 0)
+        let deletedTask3Test = (realm.objects(Task.self).filter("name = 'dtest3'").count == 0)
         
-        let deletedTest:Bool = (Category.objectsWhere("name = 'Test 1'").count == 0 && Category.objectsWhere("name = 'Test 2'").count == 0)
+        let deletedTest:Bool = (realm.objects(Category.self).filter("name = 'Test 1'").count == 0 && realm.objects(Category.self).filter("name = 'Test 2'").count == 0)
         let retainedTasksTest = (retainedTask1Test && retainedTask2Test && retainedTask3Test)
         let deletedTasksTest = (deletedTask1Test && deletedTask2Test && deletedTask3Test)
-        let tasklessCountTest = ((Category.objectsWhere("name = 'Uncategorized'").objectAtIndex(0) as Category).tasks.count == 3)
+        let tasklessCountTest = (realm.objects(Category.self).filter("name = 'Uncategorized'").first!.tasks.count == 3)
         
-        XCTAssert((retainedTasksTest && deletedTasksTest && deletedTest), "Failed to Delete Category Properly")
+        XCTAssert((retainedTasksTest && deletedTasksTest && deletedTest && tasklessCountTest), "Failed to Delete Category Properly")
     }
     
     func test_deleteTask() {
+        let realm = Database.getRealm()
+        
         Database.addCategory(name: "Uncategorized")
         Database.addCategory(name: "Test")
         
@@ -155,115 +178,126 @@ class Database_Tests: XCTestCase {
         Database.addTask(name: "Test1", memo: "", time: 0.0, categoryName: "Test")
         Database.addTask(name: "Test2", memo: "", time: 0.0, categoryName: "Test")
         
-        Database.addRecord(taskName: "Test1", note: "darn1", timeSpent: 0.0, date: NSDate())
-        Database.addRecord(taskName: "Test1", note: "darn2", timeSpent: 0.0, date: NSDate())
-        Database.addRecord(taskName: "Test1", note: "darn3", timeSpent: 0.0, date: NSDate())
+        let testTask1 = realm.objects(Task).filter("name = 'Test1'").first!
+        let testTask2 = realm.objects(Task).filter("name = 'Test2'").first!
         
-        Database.addRecord(taskName: "Test2", note: "woo1", timeSpent: 0.0, date: NSDate())
-        Database.addRecord(taskName: "Test2", note: "woo2", timeSpent: 0.0, date: NSDate())
-        Database.addRecord(taskName: "Test2", note: "woo3", timeSpent: 0.0, date: NSDate())
+        Database.addRecord(parentTask: testTask1, note: "darn1", timeSpent: 0.0, date: NSDate())
+        Database.addRecord(parentTask: testTask1, note: "darn2", timeSpent: 0.0, date: NSDate())
+        Database.addRecord(parentTask: testTask1, note: "darn3", timeSpent: 0.0, date: NSDate())
         
-        Database.deleteTask(taskName: "Test1", retainRecords: false)
-        Database.deleteTask(taskName: "Test2", retainRecords: true)
+        Database.addRecord(parentTask: testTask2, note: "woo1", timeSpent: 0.0, date: NSDate())
+        Database.addRecord(parentTask: testTask2, note: "woo2", timeSpent: 0.0, date: NSDate())
+        Database.addRecord(parentTask: testTask2, note: "woo3", timeSpent: 0.0, date: NSDate())
         
-        let tasklessList = (Task.objectsWhere("name = 'Taskless Records'").objectAtIndex(0) as Task).records
+        Database.deleteTask(task: testTask1, retainRecords: false)
+        Database.deleteTask(task: testTask2, retainRecords: true)
         
-        let woo1Test = (tasklessList.objectsWhere("note = 'woo1'").objectAtIndex(0) as Record).note == "woo1"
-        let woo2Test = (tasklessList.objectsWhere("note = 'woo2'").objectAtIndex(0) as Record).note == "woo2"
-        let woo3Test = (tasklessList.objectsWhere("note = 'woo3'").objectAtIndex(0) as Record).note == "woo3"
+        let tasklessList = realm.objects(Task).filter("name = 'Taskless Records'").first!.records
         
-        let darn1Test = (tasklessList.objectsWhere("note = 'darn1'").count == 0)
-        let darn2Test = (tasklessList.objectsWhere("note = 'darn2'").count == 0)
-        let darn3Test = (tasklessList.objectsWhere("note = 'darn3'").count == 0)
+        let woo1Test = tasklessList.filter("note = 'woo1'").first!.note == "woo1"
+        let woo2Test = tasklessList.filter("note = 'woo2'").first!.note == "woo2"
+        let woo3Test = tasklessList.filter("note = 'woo3'").first!.note == "woo3"
         
-        let deletedTest:Bool = (Task.objectsWhere("name = 'Test1'").count == 0 && Task.objectsWhere("name = 'Test2'").count == 0)
+        let darn1Test = (tasklessList.filter("note = 'darn1'").count == 0)
+        let darn2Test = (tasklessList.filter("note = 'darn2'").count == 0)
+        let darn3Test = (tasklessList.filter("note = 'darn3'").count == 0)
+        
+        let deletedTest:Bool = (realm.objects(Task).filter("name = 'Test1'").count == 0 && realm.objects(Task).filter("name = 'Test2'").count == 0)
         let retainedRecordsTest = (woo1Test && woo2Test && woo3Test)
         let deletedRecordsTest = (darn1Test && darn2Test && darn3Test)
         let tasklessCountTest = (tasklessList.count == 3)
         
-        XCTAssert((deletedTest && retainedRecordsTest), "Failed to Delete Task Properly")
+        XCTAssert((deletedTest && retainedRecordsTest && deletedRecordsTest && tasklessCountTest), "Failed to Delete Task Properly")
     }
     
     func test_addRecord() {
+        let realm = Database.getRealm()
         let testDate = NSDate()
         let dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = "dd-MM-yyyy"
+        dateFormatter.dateFormat = "MMMM dd, yyyy"
         
         Database.addCategory(name: "TestCat")
         Database.addTask(name: "TestTask", memo: "test", time: 0.0, categoryName: "TestCat")
-        Database.addRecord(taskName: "TestTask", note: "testNote", timeSpent: 5.30, date: testDate)
+        let testTask = realm.objects(Task).filter("name = 'TestTask'").first!
+        Database.addRecord(parentTask: testTask, note: "testNote", timeSpent: 5.50, date: testDate)
         
-        let record = (((Category.objectsWhere("name = 'TestCat'").objectAtIndex(0) as Category).tasks.objectAtIndex(0) as Task).records.objectAtIndex(0) as Record)
+        let record = realm.objects(Category.self).filter("name = 'TestCat'").first!.tasks.first!.records.first!
         
         let noteTest:Bool = (record.note == "testNote")
-        let timeTest:Bool = (record.timeSpent == 5.30)
+        let timeTest:Bool = (record.timeSpent == 5.50)
         let dateTest:Bool = (record.dateToString() == dateFormatter.stringFromDate(testDate))
         
         XCTAssert((noteTest && timeTest && dateTest), "Failed to Add Record Properly")
     }
     
     func test_moveRecord() {
-        
+        let realm = Database.getRealm()
         let testDate = NSDate()
         let dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = "dd-MM-yyyy"
+        dateFormatter.dateFormat = "MMMM dd, yyyy"
         
         Database.addCategory(name: "Test1")
         Database.addCategory(name: "Test2")
         
         Database.addTask(name: "TestTask1", memo: "", time: 0.0, categoryName: "Test1")
         Database.addTask(name: "TestTask2", memo: "", time: 0.0, categoryName: "Test2")
+        let testTask1 = realm.objects(Task).filter("name = 'TestTask1'").first!
         
-        Database.addRecord(taskName: "TestTask1", note: "testNote", timeSpent: 6.45, date: testDate)
+        Database.addRecord(parentTask: testTask1, note: "testNote", timeSpent: 6.75, date: testDate)
         
-        let record = (Task.objectsWhere("name = 'TestTask1'").objectAtIndex(0) as Task).records.objectAtIndex(0) as Record
+        let record = realm.objects(Task).filter("name = 'TestTask1'").first!.records.first!
         
         Database.moveRecord(record: record, newTaskName: "TestTask2")
         
-        let movedRecord = (Task.objectsWhere("name = 'TestTask2'").objectAtIndex(0) as Task).records.objectAtIndex(0) as Record
+        let movedRecord = realm.objects(Task).filter("name = 'TestTask2'").first!.records.first!
         
-        let recordRemovedTest:Bool = ((Task.objectsWhere("name = 'TestTask1'").objectAtIndex(0) as Task).records.count == 0)
-        let recordAddedTest:Bool = ((Task.objectsWhere("name = 'TestTask2'").objectAtIndex(0) as Task).records.count == 1)
-        let recordInfoTest:Bool = (movedRecord.note == "testNote" && movedRecord.timeSpent == 6.45 && movedRecord.dateToString() == dateFormatter.stringFromDate(testDate))
+        let recordRemovedTest:Bool = (realm.objects(Task).filter("name = 'TestTask1'").first!.records.count == 0)
+        let recordAddedTest:Bool = (realm.objects(Task).filter("name = 'TestTask2'").first!.records.count == 1)
+        let recordInfoTest:Bool = (movedRecord.note == "testNote" && movedRecord.timeSpent == 6.75 && movedRecord.dateToString() == dateFormatter.stringFromDate(testDate))
 
         
         XCTAssert((recordRemovedTest && recordAddedTest && recordInfoTest), "Failed to Move Record Properly")
     }
     
     func test_deleteRecord() {
+        let realm = Database.getRealm()
         Database.addCategory(name: "testCat")
         Database.addTask(name: "test", memo: "", time: 0.0, categoryName: "testCat")
-        Database.addRecord(taskName: "test", note: "testNote", timeSpent: 0.0, date: NSDate())
+        let testTask = realm.objects(Task).filter("name = 'test'").first!
+        Database.addRecord(parentTask: testTask, note: "testNote", timeSpent: 0.0, date: NSDate())
         
-        Database.deleteRecord(record: Record.objectsWhere("note = 'testNote'").objectAtIndex(0) as Record)
+        Database.deleteRecord(record: realm.objects(Record).filter("note = 'testNote'").first!)
         
-        let deletedTest = (Record.objectsWhere("note = 'testNote'").count == 0)
-        let deletedFromTaskTest = ((Task.objectsWhere("name = 'test'").objectAtIndex(0) as Task).records.count == 0)
+        let deletedTest = (realm.objects(Record).filter("note = 'testNote'").count == 0)
+        let deletedFromTaskTest = (realm.objects(Task).filter("name = 'test'").first!.records.count == 0)
         
         XCTAssert((deletedTest && deletedFromTaskTest), "Failed to Delete Record Properly")
     }
     
     func test_updateRecord() {
+        let realm = Database.getRealm()
         Database.addCategory(name: "testCat")
         Database.addTask(name: "test", memo: "", time: 0.0, categoryName: "testCat")
         Database.addTask(name: "newTest", memo: "", time: 0.0, categoryName: "testCat")
-        Database.addRecord(taskName: "test", note: "testNote", timeSpent: 0.0, date: NSDate())
+        let testTask = realm.objects(Task).filter("name = 'test'").first!
+        Database.addRecord(parentTask: testTask, note: "testNote", timeSpent: 0.0, date: NSDate())
         
-        Database.updateRecord(record: (Task.objectsWhere("name = 'test'").objectAtIndex(0) as Task).records.objectAtIndex(0) as Record, taskName: "newTest", note: "testTestNote", timeSpent: 4.30, date: NSDate())
+        Database.updateRecord(record: realm.objects(Task).filter("name = 'test'").first!.records.first!, taskName: "newTest", note: "testTestNote", timeSpent: 4.50, date: NSDate())
         
-        let movedTest = ((Task.objectsWhere("name = 'newTest'").objectAtIndex(0) as Task).records.count == 1 && (Task.objectsWhere("name = 'test'").objectAtIndex(0) as Task).records.count == 0)
-        let noteTest = (((Task.objectsWhere("name = 'newTest'").objectAtIndex(0) as Task).records.objectAtIndex(0) as Record).note == "testTestNote")
-        let timeSpentTest = (((Task.objectsWhere("name = 'newTest'").objectAtIndex(0) as Task).records.objectAtIndex(0) as Record).timeSpent == 4.30)
+        let movedTest = (realm.objects(Task).filter("name = 'newTest'").first!.records.count == 1 && realm.objects(Task).filter("name = 'test'").first!.records.count == 0)
+        let noteTest = (realm.objects(Task).filter("name = 'newTest'").first!.records.first!.note == "testTestNote")
+        let timeSpentTest = (realm.objects(Task).filter("name = 'newTest'").first!.records.first!.timeSpent == 4.50)
         
         XCTAssert((movedTest && noteTest && timeSpentTest), "Failed to Update Record Properly")
     }
     
     func test_updateCategory() {
+        let realm = Database.getRealm()
         Database.addCategory(name: "TestCat")
         
         Database.updateCategory(categoryName: "TestCat", newCategoryName: "TestCategory")
         
-        let updatedTest = (Category.objectsWhere("name = 'TestCategory'").count == 1 && Category.objectsWhere("name = 'TestCat'").count == 0)
+        let updatedTest = (realm.objects(Category.self).filter("name = 'TestCategory'").count == 1 && realm.objects(Category.self).filter("name = 'TestCat'").count == 0)
         
         XCTAssert(updatedTest, "Failed to Update Category Properly")
     }

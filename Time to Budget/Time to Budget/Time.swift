@@ -34,6 +34,7 @@ public class Time {
     //============ Attributes ==========
     public var hours:Int = 0
     public var minutes:Int = 0
+    public var isNegative:Bool = false
     
     
     //============ Constructors ============
@@ -57,6 +58,7 @@ public class Time {
     **    None
     */
     public func cleanTime() {
+        
         if (self.hours >= 0) {
             while (self.minutes >= 60) {
                 self.hours += 1
@@ -78,6 +80,12 @@ public class Time {
                 self.minutes += 60
             }
         }
+        
+        if self.hours < 0 {
+            self.isNegative = true
+        } else {
+            self.isNegative = false
+        }
     }
 
 
@@ -93,7 +101,8 @@ public class Time {
     **    None
     */
     public func setByDouble(newTime: Double) {
-        var tempTime:Time = Time.doubleToTime(newTime)
+        
+        let tempTime:Time = Time.doubleToTime(newTime)
         
         tempTime.cleanTime()
         
@@ -114,7 +123,31 @@ public class Time {
     **    Double: Value converted from self.hours and self.minutes
     */
     public func toDouble() -> Double {
-        return Double(self.hours) + Double(Double(self.minutes) / 100.0)
+        
+        print(self.hours, ":", self.minutes)
+        
+        var tempMin:Double!
+        
+        switch self.minutes {
+        case 15:
+            tempMin = 0.25
+        case 30:
+            tempMin = 0.50
+        case 45:
+            tempMin = 0.75
+        default:
+            tempMin = 0
+        }
+        
+        var finalDouble:Double!
+        
+        if self.isNegative {
+            finalDouble = (Double(self.hours) - tempMin)
+        } else {
+            finalDouble = (Double(self.hours) + tempMin)
+        }
+        
+        return (finalDouble)
     }
     
 
@@ -136,7 +169,11 @@ public class Time {
             return "\(hours):00"
         }
         else if minutes != 0 && hours == 0 {
-            return "00:\(minutes)"
+            if self.isNegative {
+                return "-00:\(minutes)"
+            } else {
+                return "00:\(minutes)"
+            }
         }
         else if minutes == 0 && hours == 0 {
             return "00:00"
@@ -164,24 +201,13 @@ public class Time {
     **    String: Value of Double as a String
     */
     public class func doubleToString(time: Double) -> String {
-        var finalTime:Time = doubleToTime(time)
+        let finalTime:Time = doubleToTime(time)
+        if time < 0 {
+            finalTime.isNegative = true;
+        }
         finalTime.cleanTime()
         
-        if finalTime.minutes == 0 && finalTime.hours != 0 {
-            return "\(finalTime.hours):00"
-        }
-        else if finalTime.minutes != 0 && finalTime.hours == 0 {
-            return "00:\(finalTime.minutes)"
-        }
-        else if finalTime.minutes == 0 && finalTime.hours == 0 {
-            return "00:00"
-        }
-        else if finalTime.minutes != 0 && finalTime.hours != 0 {
-            return "\(finalTime.hours):\(finalTime.minutes)"
-        }
-        else {
-            return "Error in Time String Conversion!"
-        }
+        return finalTime.toString()
     }
     
 
@@ -197,32 +223,38 @@ public class Time {
     **    Time: A Time instance containing the Time value of the Double parameter
     */
     public class func doubleToTime(newTime: Double) -> Time {
-        let arrayString = Array(String("\(newTime)"))
-        var passDecimal:Bool = false
         
-        var digitHrs = Array("")
-        var digitMins = Array("")
+        var tempHrs:Double!
+        var tempMins:Double!
         
-        for var i = 0; i < arrayString.count; i++ {
-            if arrayString[i] != "." && passDecimal == false {
-                digitHrs.append(arrayString[i])
-            } else if arrayString[i] != "." && passDecimal == true {
-                digitMins.append(arrayString[i])
-            } else if arrayString[i] == "." {
-                passDecimal = true
-            }
+        if newTime < 0 {
+            tempHrs = ceil(atof(String(format: "%f", newTime)))
+            tempMins = atof(String(format: "%f", newTime))
+            tempMins = tempHrs - tempMins
+        } else {
+            tempHrs = floor(atof(String(format: "%f", newTime)))
+            tempMins = atof(String(format: "%f", newTime))
+            tempMins = tempMins - tempHrs
         }
         
-        var tempHours = String(digitHrs).toInt()!
-        var tempMins = String(digitMins).toInt()!
-        
-        if tempMins == 3 {
-            tempMins *= 10
+        switch tempMins {
+        case 0.25:
+            tempMins = 15.0
+        case 0.5:
+            tempMins = 30.0
+        case 0.75:
+            tempMins = 45.0
+        default:
+            tempMins = 0.0
         }
         
-        let finalTime = Time(newHours: tempHours, newMinutes: tempMins)
+        let tempIntHrs = Int(round(tempHrs))
+        let tempIntMins = Int(round(tempMins))
+        
+        let finalTime = Time(newHours: tempIntHrs, newMinutes: tempIntMins)
+        
         finalTime.cleanTime()
-        
+
         return finalTime
     }
 }

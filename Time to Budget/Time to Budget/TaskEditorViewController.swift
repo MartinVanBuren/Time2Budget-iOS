@@ -8,9 +8,10 @@
 
 import UIKit
 
-class TaskEditorViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate {
+class TaskEditorViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, writeCategoryBackDelegate {
 
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var saveTaskButton: UIButton!
     var budgetEditorViewController:BudgetEditorViewController!
     var currentTask:Task?
     var returning:Bool? = false
@@ -19,10 +20,16 @@ class TaskEditorViewController: UIViewController, UITableViewDataSource, UITable
     var taskName:String?
     var taskMemo:String?
     var taskCategory:String?
-    var taskTime:Double?
+    internal var taskTime:Double?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let nav = self.navigationController?.navigationBar
+        Style.navbarSetColor(nav: nav!)
+        
+        saveTaskButton.layer.cornerRadius = CGRectGetWidth(saveTaskButton.frame)/8
+        saveTaskButton.layer.masksToBounds = true
         
         if editTask {
             self.navigationItem.title = "Edit \(currentTask!.name)"
@@ -31,13 +38,22 @@ class TaskEditorViewController: UIViewController, UITableViewDataSource, UITable
         }
 
         // Do any additional setup after loading the view.
-        if let unwrappedTask = currentTask? {
+        if let unwrappedTask = currentTask {
             self.taskName = unwrappedTask.name
             self.taskMemo = unwrappedTask.memo
             self.taskCategory = unwrappedTask.parent.name
             self.taskTime = unwrappedTask.timeBudgeted
         }
     }
+    
+    /*
+    override func viewDidLayoutSubviews() {
+        if let rect = self.navigationController?.navigationBar.frame {
+            let y = rect.size.height + rect.origin.y
+            self.tableView.contentInset = UIEdgeInsetsMake(y, 0, 0, 0)
+        }
+    }
+    */
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -61,13 +77,13 @@ class TaskEditorViewController: UIViewController, UITableViewDataSource, UITable
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         switch indexPath.row {
         case 0:
-            return Factory.prepareAddTaskNameCell(tableView: self.tableView, name: self.taskName?)
+            return Factory.prepareAddTaskNameCell(tableView: self.tableView, name: self.taskName)
         case 1:
-            return Factory.prepareAddTaskMemoCell(tableView: self.tableView, memo: self.taskMemo?)
+            return Factory.prepareAddTaskMemoCell(tableView: self.tableView, memo: self.taskMemo)
         case 2:
-            return Factory.prepareAddTaskCategoryCell(tableView: self.tableView, categoryName: self.taskCategory?)
+            return Factory.prepareAddTaskCategoryCell(tableView: self.tableView, categoryName: self.taskCategory)
         default:
-            return Factory.prepareAddTaskTimeCell(tableView: self.tableView, time: self.taskTime?)
+            return Factory.prepareAddTaskTimeCell(tableView: self.tableView, time: self.taskTime)
         }
     }
     
@@ -81,18 +97,24 @@ class TaskEditorViewController: UIViewController, UITableViewDataSource, UITable
         } else if indexPath.row == 3 {
             performSegueWithIdentifier("showTaskEditorTimePickerView", sender: self)
         }
+        
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if (segue.identifier == "showTaskEditorTimePickerView") {
-            let timePickerVC = segue.destinationViewController as TaskEditorTimePickerViewController
+            let timePickerVC = segue.destinationViewController as! TaskEditorTimePickerViewController
             timePickerVC.taskEditorVC = self
         } else if (segue.identifier == "showTaskEditorCategorySelectorView") {
-            let categorySelectorVC = segue.destinationViewController as TaskEditorCategorySelectorViewController
-            categorySelectorVC.taskEditorVC = self
+            let categorySelectorVC = segue.destinationViewController as! TaskEditorCategorySelectorViewController
+            categorySelectorVC.delegate = self
         }
         
         fixContentInset(calledFromSegue: true)
+    }
+    
+    func writeCategoryBack(cat: Category) {
+        self.taskCategory = cat.name
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
@@ -119,16 +141,16 @@ class TaskEditorViewController: UIViewController, UITableViewDataSource, UITable
     @IBAction func saveButtonPressed(sender: UIButton) {
         var finalMemo = ""
         
-        if let unwrappedMemo = self.taskMemo? {
+        if let unwrappedMemo = self.taskMemo {
             finalMemo = unwrappedMemo
         }
         
-        if let unwrappedName = self.taskName? {
-            if let unwrappedCategory = self.taskCategory? {
-                if let unwrappedTime = self.taskTime? {
+        if let unwrappedName = self.taskName {
+            if let unwrappedCategory = self.taskCategory {
+                if let unwrappedTime = self.taskTime {
                     if self.editTask {
                         // Edit Task Mode
-                        if let unwrappedTask = currentTask? {
+                        if let unwrappedTask = currentTask {
                             Database.updateTask(task: unwrappedTask, name: unwrappedName, memo: finalMemo, time: unwrappedTime, categoryName: unwrappedCategory)
                             self.dismissViewControllerAnimated(true, completion: {})
                         } else {
@@ -154,7 +176,7 @@ class TaskEditorViewController: UIViewController, UITableViewDataSource, UITable
         self.dismissViewControllerAnimated(true, completion: {})
     }
     
-    func fixContentInset(#calledFromSegue: Bool) {
+    func fixContentInset(calledFromSegue calledFromSegue: Bool) {
         if calledFromSegue {
             if (returning != nil) {
                 self.returning = true
