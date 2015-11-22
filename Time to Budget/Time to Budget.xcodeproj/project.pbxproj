@@ -419,7 +419,7 @@
 				LastSwiftMigration = 0700;
 				LastSwiftUpdateCheck = 0710;
 				LastUpgradeCheck = 0700;
-				ORGANIZATIONNAME = "Arrken Games, LLC";
+				ORGANIZATIONNAME = "Arrken Software, LLC";
 				TargetAttributes = {
 					5BF78C441BD86F8A0082F1BC = {
 						CreatedOnToolsVersion = 7.1;

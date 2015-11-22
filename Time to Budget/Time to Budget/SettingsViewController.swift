@@ -101,8 +101,6 @@ class SettingsViewController: UITableViewController {
                 (views as! UINavigationController).popToRootViewControllerAnimated(false)
             }
             
-            tableView.deselectRowAtIndexPath(indexPath, animated: true)
-            
             switch indexPath.row {
             case 0:
                 displayResetAllAlert()
@@ -129,6 +127,8 @@ class SettingsViewController: UITableViewController {
         default:
             return
         }
+        
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
     
     func displayResetAllAlert() {

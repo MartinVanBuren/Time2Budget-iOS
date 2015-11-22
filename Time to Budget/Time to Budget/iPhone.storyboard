@@ -1033,7 +1033,7 @@
                             </tableView>
                         </subviews>
                         <animations/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="awM-vd-cc1" secondAttribute="trailing" constant="-16" id="0sK-fg-7e1"/>
                             <constraint firstItem="awM-vd-cc1" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-16" id="j6i-E6-jLj"/>
@@ -2794,10 +2794,10 @@
         </scene>
     </scenes>
     <resources>
-        <image name="budgetTabBar" width="30" height="30"/>
-        <image name="editorTabBar" width="30" height="30"/>
-        <image name="historyTabBar" width="30" height="30"/>
-        <image name="settingsTabBar" width="30" height="30"/>
+        <image name="budgetTabBar" width="25" height="25"/>
+        <image name="editorTabBar" width="25" height="25"/>
+        <image name="historyTabBar" width="25" height="25"/>
+        <image name="settingsTabBar" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="Bp2-lw-sqJ"/>

@@ -25,12 +25,29 @@ class Time_to_Budget_UITests: XCTestCase {
     
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
+        
+        let app = XCUIApplication()
+        app.tabBars.buttons["Settings"].tap()
+        app.tables.staticTexts["Reset All"].tap()
+        app.alerts["Are You Sure?"].collectionViews.buttons["Yes"].tap()
         super.tearDown()
     }
     
-    func testExample() {
+    func testAddCategory() {
         // Use recording to get started writing UI tests.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
+        
+        let app = XCUIApplication()
+        app.tabBars.buttons["Editor"].tap()
+        app.navigationBars["168:00"].buttons["+ Category"].tap()
+        //app.typeText("Test Category")
+        app.alerts["New Category"].collectionViews.buttons["Add"].tap()
+        let addCategoryTest = app.tables.staticTexts[""].exists
+        XCTAssert(addCategoryTest)
     }
     
+    func testAddTask() {
+        
+        XCTAssert(false)
+    }
 }
