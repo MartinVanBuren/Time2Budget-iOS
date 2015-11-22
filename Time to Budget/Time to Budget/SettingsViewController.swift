@@ -116,10 +116,10 @@ class SettingsViewController: UITableViewController {
         case 1:
             switch indexPath.row {
             case 0:
-                let url = NSURL(string: "https://bitbucket.org/arrkensoftware/timetobudget_ios/issues")
+                let url = NSURL(string: "https://drive.google.com/open?id=12NlkoJnnjjaXK5Ruc9JV-xGqpk3uHLlHHTOvoiqmQ2U")
                 UIApplication.sharedApplication().openURL(url!)
             case 1:
-                let url = NSURL(string: "https://arrken.com")
+                let url = NSURL(string: "http://robertkennedy.me/blog/")
                 UIApplication.sharedApplication().openURL(url!)
             default:
                 return
