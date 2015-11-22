@@ -22,12 +22,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let currentBudget = realm.objects(Budget).filter("isCurrent = TRUE")
         
-        print("AppDelegate->Current Budgets:")
-        for current in currentBudget {
-            print(current.name)
+        if Database.debugEnabled {
+            print("AppDelegate->Current Budgets:")
+            for current in currentBudget {
+                print(current.name)
+            }
+            
+            print("AppDelegate->CurrentBudgetCount: ", currentBudget.count)
         }
-        
-        print("AppDelegate->CurrentBudgetCount: ", currentBudget.count)
         
         if currentBudget.count == 0 {
             Database.newBudget()

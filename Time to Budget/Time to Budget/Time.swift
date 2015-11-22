@@ -124,8 +124,6 @@ public class Time {
     */
     public func toDouble() -> Double {
         
-        print(self.hours, ":", self.minutes)
-        
         var tempMin:Double!
         
         switch self.minutes {

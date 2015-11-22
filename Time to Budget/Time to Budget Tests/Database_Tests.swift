@@ -75,8 +75,6 @@ class Database_Tests: XCTestCase {
         
         let task = taskResult.first!
         
-        print(taskResult.count, task.name)
-        
         Database.moveTask(task: task, newCategoryName: "Test2")
         
         let cat1 = realm.objects(Category.self).filter("name = 'Test1'").first!
