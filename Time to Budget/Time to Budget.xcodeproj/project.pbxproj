@@ -21,14 +21,13 @@
 		5BF78C481BD86F8A0082F1BC /* Time_to_Budget_UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF78C471BD86F8A0082F1BC /* Time_to_Budget_UITests.swift */; };
 		5BF979491C0290CB00F005EC /* CategoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BF979441C0290CB00F005EC /* CategoryCell.xib */; };
 		5BF9794A1C0290CB00F005EC /* DetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BF979451C0290CB00F005EC /* DetailCell.xib */; };
-		5BF9794B1C0290CB00F005EC /* MemoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BF979461C0290CB00F005EC /* MemoCell.xib */; };
 		5BF9794C1C0290CB00F005EC /* SubtitleDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BF979471C0290CB00F005EC /* SubtitleDetailCell.xib */; };
-		5BF9794D1C0290CB00F005EC /* TextfieldCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BF979481C0290CB00F005EC /* TextfieldCell.xib */; };
+		5BF979511C02A7F400F005EC /* MemoTextfieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF979501C02A7F400F005EC /* MemoTextfieldCell.swift */; };
 		9320D56F1A74625B0013018C /* MarshalOperator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9320D56E1A74625B0013018C /* MarshalOperator.swift */; };
 		93223B491A86840500365D3A /* RecordEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93223B481A86840500365D3A /* RecordEditorViewController.swift */; };
 		9385F1741AA397C8000C8726 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9385F1731AA397C8000C8726 /* SettingsViewController.swift */; };
 		9385F1761AA39D30000C8726 /* TaskEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9385F1751AA39D30000C8726 /* TaskEditorViewController.swift */; };
-		9385F1781AA3A248000C8726 /* TextfieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9385F1771AA3A248000C8726 /* TextfieldCell.swift */; };
+		9385F1781AA3A248000C8726 /* NameTextfieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9385F1771AA3A248000C8726 /* NameTextfieldCell.swift */; };
 		9385F17A1AA3C3A3000C8726 /* TaskEditorTimePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9385F1791AA3C3A3000C8726 /* TaskEditorTimePickerViewController.swift */; };
 		9385F17C1AA3C805000C8726 /* TaskEditorCategorySelectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9385F17B1AA3C805000C8726 /* TaskEditorCategorySelectorViewController.swift */; };
 		93967CBA1AB22D2000D46CF6 /* BudgetHistoryListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93967CB91AB22D2000D46CF6 /* BudgetHistoryListViewController.swift */; };
@@ -39,7 +38,6 @@
 		93B2E5F31A9032B80058372F /* RecordEditorTaskSelectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B2E5F21A9032B80058372F /* RecordEditorTaskSelectorViewController.swift */; };
 		93B2E5F51A903E790058372F /* RecordEditorTimePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B2E5F41A903E790058372F /* RecordEditorTimePickerViewController.swift */; };
 		93B2E5F71A903E890058372F /* RecordEditorDatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B2E5F61A903E890058372F /* RecordEditorDatePickerViewController.swift */; };
-		93B2E5FC1A905F990058372F /* MemoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B2E5FB1A905F990058372F /* MemoCell.swift */; };
 		93CBED4D1AA667AE00079482 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CBED4C1AA667AE00079482 /* Settings.swift */; };
 		93F0E4ED1A720B64009D95EC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F0E4EC1A720B64009D95EC /* AppDelegate.swift */; };
 		93F0E4F41A720B64009D95EC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 93F0E4F31A720B64009D95EC /* Images.xcassets */; };
@@ -47,7 +45,6 @@
 		93F0E50D1A720BD4009D95EC /* iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 93F0E50C1A720BD4009D95EC /* iPhone.storyboard */; };
 		93F0E5201A720BF4009D95EC /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F0E5101A720BF4009D95EC /* Category.swift */; };
 		93F0E5211A720BF4009D95EC /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F0E5111A720BF4009D95EC /* CategoryCell.swift */; };
-		93F0E5231A720BF4009D95EC /* EditTaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F0E5131A720BF4009D95EC /* EditTaskCell.swift */; };
 		93F0E5241A720BF4009D95EC /* Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F0E5141A720BF4009D95EC /* Factory.swift */; };
 		93F0E5251A720BF4009D95EC /* Record.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F0E5151A720BF4009D95EC /* Record.swift */; };
 		93F0E5261A720BF4009D95EC /* RecordsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F0E5161A720BF4009D95EC /* RecordsViewController.swift */; };
@@ -107,9 +104,8 @@
 		5BF78C491BD86F8A0082F1BC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5BF979441C0290CB00F005EC /* CategoryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CategoryCell.xib; sourceTree = "<group>"; };
 		5BF979451C0290CB00F005EC /* DetailCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailCell.xib; sourceTree = "<group>"; };
-		5BF979461C0290CB00F005EC /* MemoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MemoCell.xib; sourceTree = "<group>"; };
 		5BF979471C0290CB00F005EC /* SubtitleDetailCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SubtitleDetailCell.xib; sourceTree = "<group>"; };
-		5BF979481C0290CB00F005EC /* TextfieldCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TextfieldCell.xib; sourceTree = "<group>"; };
+		5BF979501C02A7F400F005EC /* MemoTextfieldCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemoTextfieldCell.swift; sourceTree = "<group>"; };
 		9320D56E1A74625B0013018C /* MarshalOperator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarshalOperator.swift; sourceTree = "<group>"; };
 		9320D5751A746E8F0013018C /* Time to Budget Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Time to Budget Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9320D5781A746E900013018C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -117,7 +113,7 @@
 		93223B481A86840500365D3A /* RecordEditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordEditorViewController.swift; sourceTree = "<group>"; };
 		9385F1731AA397C8000C8726 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		9385F1751AA39D30000C8726 /* TaskEditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskEditorViewController.swift; sourceTree = "<group>"; };
-		9385F1771AA3A248000C8726 /* TextfieldCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextfieldCell.swift; sourceTree = "<group>"; };
+		9385F1771AA3A248000C8726 /* NameTextfieldCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NameTextfieldCell.swift; sourceTree = "<group>"; };
 		9385F1791AA3C3A3000C8726 /* TaskEditorTimePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskEditorTimePickerViewController.swift; sourceTree = "<group>"; };
 		9385F17B1AA3C805000C8726 /* TaskEditorCategorySelectorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskEditorCategorySelectorViewController.swift; sourceTree = "<group>"; };
 		93967CB91AB22D2000D46CF6 /* BudgetHistoryListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BudgetHistoryListViewController.swift; sourceTree = "<group>"; };
@@ -128,7 +124,6 @@
 		93B2E5F21A9032B80058372F /* RecordEditorTaskSelectorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordEditorTaskSelectorViewController.swift; sourceTree = "<group>"; };
 		93B2E5F41A903E790058372F /* RecordEditorTimePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordEditorTimePickerViewController.swift; sourceTree = "<group>"; };
 		93B2E5F61A903E890058372F /* RecordEditorDatePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordEditorDatePickerViewController.swift; sourceTree = "<group>"; };
-		93B2E5FB1A905F990058372F /* MemoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemoCell.swift; sourceTree = "<group>"; };
 		93BC90441A74C84200A63932 /* Database_Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Database_Tests.swift; sourceTree = "<group>"; };
 		93CBED4C1AA667AE00079482 /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		93CBED511AAB4C2000079482 /* Time to Budget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Time to Budget.entitlements"; sourceTree = "<group>"; };
@@ -140,7 +135,6 @@
 		93F0E50C1A720BD4009D95EC /* iPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = iPhone.storyboard; sourceTree = "<group>"; };
 		93F0E5101A720BF4009D95EC /* Category.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		93F0E5111A720BF4009D95EC /* CategoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
-		93F0E5131A720BF4009D95EC /* EditTaskCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditTaskCell.swift; sourceTree = "<group>"; };
 		93F0E5141A720BF4009D95EC /* Factory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Factory.swift; sourceTree = "<group>"; };
 		93F0E5151A720BF4009D95EC /* Record.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Record.swift; sourceTree = "<group>"; };
 		93F0E5161A720BF4009D95EC /* RecordsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordsViewController.swift; sourceTree = "<group>"; };
@@ -214,12 +208,16 @@
 		5BF9794F1C0290FF00F005EC /* Headers & Cells */ = {
 			isa = PBXGroup;
 			children = (
-				5BC7813E1BF69C7500EBB395 /* CategoryView.xib */,
+				93F0E5111A720BF4009D95EC /* CategoryCell.swift */,
 				5BF979441C0290CB00F005EC /* CategoryCell.xib */,
+				5B7F21571BE5A96D00781A03 /* CategoryView.swift */,
+				5BC7813E1BF69C7500EBB395 /* CategoryView.xib */,
+				5B922F091BDA7C4E00F851D3 /* DetailCell.swift */,
 				5BF979451C0290CB00F005EC /* DetailCell.xib */,
-				5BF979461C0290CB00F005EC /* MemoCell.xib */,
+				939DB88F1AA2CD330047C108 /* SubtitleDetailCell.swift */,
 				5BF979471C0290CB00F005EC /* SubtitleDetailCell.xib */,
-				5BF979481C0290CB00F005EC /* TextfieldCell.xib */,
+				9385F1771AA3A248000C8726 /* NameTextfieldCell.swift */,
+				5BF979501C02A7F400F005EC /* MemoTextfieldCell.swift */,
 			);
 			name = "Headers & Cells";
 			sourceTree = "<group>";
@@ -252,20 +250,6 @@
 				93967CBE1AB22D5800D46CF6 /* BudgetHistoryRecordViewController.swift */,
 			);
 			name = "Budget History View";
-			sourceTree = "<group>";
-		};
-		939DB88C1AA2A8AF0047C108 /* Cells */ = {
-			isa = PBXGroup;
-			children = (
-				93F0E5111A720BF4009D95EC /* CategoryCell.swift */,
-				5B7F21571BE5A96D00781A03 /* CategoryView.swift */,
-				93F0E5131A720BF4009D95EC /* EditTaskCell.swift */,
-				93B2E5FB1A905F990058372F /* MemoCell.swift */,
-				939DB88F1AA2CD330047C108 /* SubtitleDetailCell.swift */,
-				9385F1771AA3A248000C8726 /* TextfieldCell.swift */,
-				5B922F091BDA7C4E00F851D3 /* DetailCell.swift */,
-			);
-			name = Cells;
 			sourceTree = "<group>";
 		};
 		93B2E5F81A903EA80058372F /* Record Editor */ = {
@@ -350,12 +334,11 @@
 		93F0E52F1A720C38009D95EC /* Support Classes */ = {
 			isa = PBXGroup;
 			children = (
-				939DB88C1AA2A8AF0047C108 /* Cells */,
-				5BB55CB61BA8ABF700F43891 /* Style.swift */,
 				93F0E5141A720BF4009D95EC /* Factory.swift */,
-				93F0E51A1A720BF4009D95EC /* Time.swift */,
 				9320D56E1A74625B0013018C /* MarshalOperator.swift */,
 				5B9679FB1BBE13D400DBEB61 /* Protocol.swift */,
+				5BB55CB61BA8ABF700F43891 /* Style.swift */,
+				93F0E51A1A720BF4009D95EC /* Time.swift */,
 			);
 			name = "Support Classes";
 			sourceTree = "<group>";
@@ -363,12 +346,12 @@
 		93F0E5301A720C6D009D95EC /* Database */ = {
 			isa = PBXGroup;
 			children = (
-				93F0E53B1A721396009D95EC /* Database.swift */,
 				93F0E53D1A7214E1009D95EC /* Budget.swift */,
 				93F0E5101A720BF4009D95EC /* Category.swift */,
-				93F0E5171A720BF4009D95EC /* Task.swift */,
+				93F0E53B1A721396009D95EC /* Database.swift */,
 				93F0E5151A720BF4009D95EC /* Record.swift */,
 				93CBED4C1AA667AE00079482 /* Settings.swift */,
+				93F0E5171A720BF4009D95EC /* Task.swift */,
 			);
 			name = Database;
 			sourceTree = "<group>";
@@ -514,9 +497,7 @@
 				5BC7813F1BF69C7500EBB395 /* CategoryView.xib in Resources */,
 				5BF9794A1C0290CB00F005EC /* DetailCell.xib in Resources */,
 				93F0E4F71A720B64009D95EC /* LaunchScreen.xib in Resources */,
-				5BF9794D1C0290CB00F005EC /* TextfieldCell.xib in Resources */,
 				93F0E50D1A720BD4009D95EC /* iPhone.storyboard in Resources */,
-				5BF9794B1C0290CB00F005EC /* MemoCell.xib in Resources */,
 				5BF9794C1C0290CB00F005EC /* SubtitleDetailCell.xib in Resources */,
 				93F0E4F41A720B64009D95EC /* Images.xcassets in Resources */,
 			);
@@ -572,7 +553,7 @@
 				5BB55CB71BA8ABF700F43891 /* Style.swift in Sources */,
 				93F0E5421A721960009D95EC /* BudgetViewController.swift in Sources */,
 				9385F17C1AA3C805000C8726 /* TaskEditorCategorySelectorViewController.swift in Sources */,
-				9385F1781AA3A248000C8726 /* TextfieldCell.swift in Sources */,
+				9385F1781AA3A248000C8726 /* NameTextfieldCell.swift in Sources */,
 				93967CBF1AB22D5800D46CF6 /* BudgetHistoryRecordViewController.swift in Sources */,
 				93F0E52A1A720BF4009D95EC /* Time.swift in Sources */,
 				93F0E5251A720BF4009D95EC /* Record.swift in Sources */,
@@ -583,12 +564,11 @@
 				93F0E52D1A720BF4009D95EC /* TransitionPresentationAnimator.swift in Sources */,
 				9385F1761AA39D30000C8726 /* TaskEditorViewController.swift in Sources */,
 				9320D56F1A74625B0013018C /* MarshalOperator.swift in Sources */,
-				93F0E5231A720BF4009D95EC /* EditTaskCell.swift in Sources */,
-				93B2E5FC1A905F990058372F /* MemoCell.swift in Sources */,
 				5B9679FC1BBE13D400DBEB61 /* Protocol.swift in Sources */,
 				93967CC11AB2310900D46CF6 /* BudgetHistoryViewController.swift in Sources */,
 				93F0E4ED1A720B64009D95EC /* AppDelegate.swift in Sources */,
 				93F0E53C1A721396009D95EC /* Database.swift in Sources */,
+				5BF979511C02A7F400F005EC /* MemoTextfieldCell.swift in Sources */,
 				93F0E5201A720BF4009D95EC /* Category.swift in Sources */,
 				93967CBA1AB22D2000D46CF6 /* BudgetHistoryListViewController.swift in Sources */,
 				5B7F21581BE5A96D00781A03 /* CategoryView.swift in Sources */,

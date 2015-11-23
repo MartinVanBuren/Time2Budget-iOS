@@ -20,7 +20,7 @@ public class Style {
     
     class func categoryCellBackgroundColors(cell: CategoryCell) -> CategoryCell {
         
-        cell.contentView.backgroundColor = UIColor.whiteColor()
+        cell.customContentView.backgroundColor = UIColor.whiteColor()
         
         return cell
     }

@@ -77,9 +77,13 @@ class TaskEditorViewController: UIViewController, UITableViewDataSource, UITable
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         switch indexPath.row {
         case 0:
-            return Factory.prepareAddTaskNameCell(tableView: self.tableView, name: self.taskName)
+            let preparedCell = Factory.prepareNameTextfieldCell(tableView: self.tableView, name: self.taskName)
+            preparedCell.textField.delegate = self
+            return preparedCell
         case 1:
-            return Factory.prepareAddTaskMemoCell(tableView: self.tableView, memo: self.taskMemo)
+            let preparedCell = Factory.prepareMemoTextfieldCell(tableView: self.tableView, memo: self.taskMemo)
+            preparedCell.textField.delegate = self
+            return preparedCell
         case 2:
             return Factory.prepareAddTaskCategoryCell(tableView: self.tableView, categoryName: self.taskCategory)
         default:

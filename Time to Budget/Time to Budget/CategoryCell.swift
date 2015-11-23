@@ -12,7 +12,7 @@ class CategoryCell: UITableViewCell {
 
     @IBOutlet weak var sectionNameLabel: UILabel!
     @IBOutlet weak var remainingTimeLabel: UILabel!
-    @IBOutlet weak var editButton: UIButton!
+    @IBOutlet weak var customContentView: UIView!
     
     override func awakeFromNib() {
         super.awakeFromNib()

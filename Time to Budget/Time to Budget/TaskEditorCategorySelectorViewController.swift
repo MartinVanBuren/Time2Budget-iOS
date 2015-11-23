@@ -22,8 +22,8 @@ class TaskEditorCategorySelectorViewController: UIViewController, UITableViewDat
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let nib = UINib(nibName: "CategoryView", bundle: nil)
-        self.tableView.registerNib(nib, forHeaderFooterViewReuseIdentifier: "CategoryView")
+        let nib = UINib(nibName: "CategoryCell", bundle: nil)
+        self.tableView.registerNib(nib, forCellReuseIdentifier: "CategoryCell")
         
         self.realm = Database.getRealm()
         self.currentBudget = realm.objects(Budget).filter("isCurrent = TRUE").first!
@@ -38,7 +38,7 @@ class TaskEditorCategorySelectorViewController: UIViewController, UITableViewDat
             self.tableView.reloadData()
         }
         
-        
+        self.tableView.reloadData()
     }
     
     /*

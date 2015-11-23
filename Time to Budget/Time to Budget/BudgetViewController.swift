@@ -28,8 +28,14 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let nib = UINib(nibName: "CategoryView", bundle: nil)
+        var nib = UINib(nibName: "CategoryView", bundle: nil)
         self.tableView.registerNib(nib, forHeaderFooterViewReuseIdentifier: "CategoryView")
+        
+        nib = UINib(nibName: "DetailCell", bundle: nil)
+        self.tableView.registerNib(nib, forCellReuseIdentifier: "DetailCell")
+        
+        nib = UINib(nibName: "SubtitleDetailCell", bundle: nil)
+        self.tableView.registerNib(nib, forCellReuseIdentifier: "SubtitleDetailCell")
         
         let nav = self.navigationController?.navigationBar
         Style.navbarSetColor(nav: nav!)

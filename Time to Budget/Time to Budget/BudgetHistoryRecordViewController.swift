@@ -17,7 +17,6 @@ class BudgetHistoryRecordViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
     }
 
     override func didReceiveMemoryWarning() {
@@ -48,17 +47,22 @@ class BudgetHistoryRecordViewController: UITableViewController {
         case 0:
             let cell = Factory.prepareAddRecordTaskCell(tableView: tableView, currentTask: self.currentTask)
             cell.accessoryType = UITableViewCellAccessoryType.None
+            cell.userInteractionEnabled = false
             return cell
         case 1:
             let cell =  Factory.prepareAddRecordTimeCell(tableView: tableView, timeSpent: Time.doubleToTime(currentRecord!.timeSpent))
             cell.accessoryType = UITableViewCellAccessoryType.None
+            cell.userInteractionEnabled = false
             return cell
         case 2:
             let cell =  Factory.prepareAddRecordDateCell(tableView: tableView, date: currentRecord?.date)
             cell.accessoryType = UITableViewCellAccessoryType.None
+            cell.userInteractionEnabled = false
             return cell
         default:
-            return Factory.prepareAddRecordMemoCell(tableView: tableView, memo: currentRecord?.note)
+            let cell = Factory.prepareMemoTextfieldCell(tableView: tableView, memo: currentRecord?.note)
+            cell.userInteractionEnabled = false
+            return cell
         }
     }
     

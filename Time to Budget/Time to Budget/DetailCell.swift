@@ -12,6 +12,7 @@ class DetailCell: UITableViewCell {
     
     @IBOutlet weak var title: UILabel!
     @IBOutlet weak var detail: UILabel!
+    @IBOutlet weak var customContentView: UIView!
     
     override func awakeFromNib() {
         super.awakeFromNib()

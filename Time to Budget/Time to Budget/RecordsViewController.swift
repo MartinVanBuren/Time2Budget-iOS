@@ -23,6 +23,12 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        var nib = UINib(nibName: "SubtitleDetailCell", bundle: nil)
+        self.tableView.registerNib(nib, forCellReuseIdentifier: "SubtitleDetailCell")
+        
+        nib = UINib(nibName: "DetailCell", bundle: nil)
+        self.tableView.registerNib(nib, forCellReuseIdentifier: "DetailCell")
+        
         // Set realm notification block
         notificationToken = realm.addNotificationBlock { notification, realm in
             

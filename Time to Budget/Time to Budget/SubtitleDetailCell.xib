@@ -2,19 +2,67 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9060"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="iN0-l3-epB">
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="SubtitleDetailCell" customModule="Time_to_Budget" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="392" height="44"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x7f-5z-uR1" userLabel="ContentView">
                     <rect key="frame" x="0.0" y="0.0" width="392" height="44"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bHC-HZ-Wr1">
+                            <rect key="frame" x="35" y="26" width="40.5" height="14"/>
+                            <animations/>
+                            <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kdt-9U-AHZ">
+                            <rect key="frame" x="35" y="5" width="33.5" height="21"/>
+                            <animations/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="21" id="4g4-Gv-9m8"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                            <variation key="default">
+                                <mask key="constraints">
+                                    <exclude reference="4g4-Gv-9m8"/>
+                                </mask>
+                            </variation>
+                            <variation key="heightClass=regular-widthClass=compact">
+                                <mask key="constraints">
+                                    <include reference="4g4-Gv-9m8"/>
+                                </mask>
+                            </variation>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Detail" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kZO-si-wI7">
+                            <rect key="frame" x="318" y="11" width="44" height="20.5"/>
+                            <animations/>
+                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                            <color key="textColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                            <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                <rect key="frame" x="243.5" y="12" width="41.5" height="20.5"/>
+                            </variation>
+                        </label>
+                    </subviews>
                     <animations/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="bHC-HZ-Wr1" secondAttribute="bottom" constant="4" id="HGg-Ne-uEC"/>
+                        <constraint firstItem="bHC-HZ-Wr1" firstAttribute="top" secondItem="kdt-9U-AHZ" secondAttribute="bottom" id="IEP-d0-Mxe"/>
+                        <constraint firstAttribute="trailing" secondItem="kZO-si-wI7" secondAttribute="trailing" constant="30" id="QD4-v9-yL7"/>
+                        <constraint firstItem="kdt-9U-AHZ" firstAttribute="leading" secondItem="x7f-5z-uR1" secondAttribute="leading" constant="35" id="bTV-S0-2x9"/>
+                        <constraint firstItem="kZO-si-wI7" firstAttribute="centerY" secondItem="x7f-5z-uR1" secondAttribute="centerY" id="eVl-c1-9jg"/>
+                        <constraint firstItem="bHC-HZ-Wr1" firstAttribute="leading" secondItem="x7f-5z-uR1" secondAttribute="leading" constant="35" id="gnm-cF-H5o"/>
+                        <constraint firstItem="kdt-9U-AHZ" firstAttribute="top" secondItem="x7f-5z-uR1" secondAttribute="top" constant="5" id="h3g-Yh-QZ2"/>
+                    </constraints>
                 </view>
             </subviews>
             <animations/>
@@ -29,6 +77,11 @@
             <nil key="simulatedTopBarMetrics"/>
             <nil key="simulatedBottomBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="detail" destination="kZO-si-wI7" id="TFf-37-BwR"/>
+                <outlet property="subtitle" destination="bHC-HZ-Wr1" id="ErD-ls-2co"/>
+                <outlet property="title" destination="kdt-9U-AHZ" id="F2P-Jp-nJo"/>
+            </connections>
             <point key="canvasLocation" x="334" y="329"/>
         </view>
     </objects>

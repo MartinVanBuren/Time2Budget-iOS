@@ -26,6 +26,9 @@ class RecordEditorViewController: UIViewController, UITableViewDataSource, UITab
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let nib = UINib(nibName: "TextfieldCell", bundle: nil)
+        self.tableView.registerNib(nib, forCellReuseIdentifier: "TextfieldCell")
+        
         let nav = self.navigationController?.navigationBar
         Style.navbarSetColor(nav: nav!)
         
@@ -107,7 +110,9 @@ class RecordEditorViewController: UIViewController, UITableViewDataSource, UITab
         case 2:
             return Factory.prepareAddRecordDateCell(tableView: tableView, date: self.date)
         default:
-            return Factory.prepareAddRecordMemoCell(tableView: tableView, memo: self.memo)
+            let preparedCell = Factory.prepareMemoTextfieldCell(tableView: tableView, memo: self.memo)
+            preparedCell.textField.delegate = self
+            return preparedCell
         }
     }
     

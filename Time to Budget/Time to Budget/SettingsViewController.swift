@@ -14,6 +14,9 @@ class SettingsViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let nib = UINib(nibName: "CategoryView", bundle: nil)
+        self.tableView.registerNib(nib, forHeaderFooterViewReuseIdentifier: "CategoryView")
+        
         let nav = self.navigationController?.navigationBar
         Style.navbarSetColor(nav: nav!)
         
