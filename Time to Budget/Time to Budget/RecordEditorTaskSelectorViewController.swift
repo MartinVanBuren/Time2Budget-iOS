@@ -31,6 +31,8 @@ class RecordEditorTaskSelectorViewController: UIViewController, UITableViewDataS
         nib = UINib(nibName: "SubtitleDetailCell", bundle: nil)
         self.tableView.registerNib(nib, forCellReuseIdentifier: "SubtitleDetailCell")
         
+        Style.viewController(self, tableView: self.tableView)
+        
         self.realm = Database.getRealm()
         self.currentBudget = realm.objects(Budget).filter("isCurrent = TRUE").first!
 
@@ -65,12 +67,11 @@ class RecordEditorTaskSelectorViewController: UIViewController, UITableViewDataS
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         return currentBudget.categories[section].tasks.count
-        
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        return Factory.prepareTaskCell(tableView: tableView, categoryList: currentBudget.categories, indexPath: indexPath, isEditor: false)
+        return Factory.prepareTaskCell(tableView: tableView, categoryList: currentBudget.categories, indexPath: indexPath, editor: false)
         
     }
     

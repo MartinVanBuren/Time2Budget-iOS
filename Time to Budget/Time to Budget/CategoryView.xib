@@ -52,7 +52,7 @@
                         </button>
                     </subviews>
                     <animations/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="trailing" secondItem="xu4-ja-feV" secondAttribute="trailing" constant="8" id="9pZ-Lx-L05"/>
                         <constraint firstItem="C06-x6-TKh" firstAttribute="centerY" secondItem="MEv-Rh-0xg" secondAttribute="centerY" id="FuH-ov-9x8"/>

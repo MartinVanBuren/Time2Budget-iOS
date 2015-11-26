@@ -10,14 +10,11 @@ import Foundation
 import UIKit
 import RealmSwift
 
-class BudgetViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class BudgetViewController: UITableViewController {
     
     //==================== Properties ====================
     var editMode:Bool = false
     var displayPrompt:Bool = false
-    
-    //==================== IBOutlets ====================
-    @IBOutlet weak var tableView: UITableView!
     
     //==================== Realm Properties ====================
     let realm = Database.getRealm()
@@ -37,8 +34,11 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
         nib = UINib(nibName: "SubtitleDetailCell", bundle: nil)
         self.tableView.registerNib(nib, forCellReuseIdentifier: "SubtitleDetailCell")
         
-        let nav = self.navigationController?.navigationBar
-        Style.navbarSetColor(nav: nav!)
+        let nav = self.navigationController!.navigationBar
+        Style.navbar(nav)
+        
+        
+        Style.viewController(self)
         
         self.currentBudget = realm.objects(Budget).filter("isCurrent = true").first!
         
@@ -105,37 +105,37 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     //==================== UITableViewDataSource Methods ====================
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         
         return Int(currentBudget!.categories.count)
         
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         return currentBudget!.categories[section].tasks.count
         
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        return Factory.prepareTaskCell(tableView: tableView, categoryList: currentBudget!.categories, indexPath: indexPath, isEditor: false)
+        return Factory.prepareTaskCell(tableView: tableView, categoryList: currentBudget!.categories, indexPath: indexPath, editor: false)
         
     }
     
-    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
         return Factory.prepareCategoryView(tableView: tableView, categoryList: currentBudget!.categories, section: section)
         
     }
     
     //==================== UITableViewDelegate Methods ====================
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         performSegueWithIdentifier("showRecordsView", sender: self)
     }
     
     
-    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 44
     }
     

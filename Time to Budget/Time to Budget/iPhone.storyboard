@@ -8,85 +8,57 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--Budget Editor View-->
-        <scene sceneID="8X2-cY-4rB">
+        <!--Budget Editor-->
+        <scene sceneID="OFD-hG-kbG">
             <objects>
-                <viewController title="Budget Editor View" id="gDl-Q2-PJ8" customClass="BudgetEditorViewController" customModule="Time_to_Budget" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="SBO-u1-sWM"/>
-                        <viewControllerLayoutGuide type="bottom" id="kOq-EG-P1D"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="G99-jg-v3U">
+                <tableViewController title="Budget Editor" id="yfQ-pB-fsv" customClass="BudgetEditorViewController" customModule="Time_to_Budget" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="GAm-Po-S3k">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="iCZ-3c-YIX">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                                <animations/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <connections>
-                                    <outlet property="dataSource" destination="gDl-Q2-PJ8" id="8pa-Zq-VwU"/>
-                                    <outlet property="delegate" destination="gDl-Q2-PJ8" id="ygY-ma-k73"/>
-                                </connections>
-                            </tableView>
-                        </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="iCZ-3c-YIX" firstAttribute="leading" secondItem="G99-jg-v3U" secondAttribute="leadingMargin" constant="-16" id="0bO-fe-heX"/>
-                            <constraint firstItem="kOq-EG-P1D" firstAttribute="top" secondItem="iCZ-3c-YIX" secondAttribute="bottom" id="LFJ-Yf-6dk"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="iCZ-3c-YIX" secondAttribute="trailing" constant="-16" id="eyB-gj-Led"/>
-                            <constraint firstItem="iCZ-3c-YIX" firstAttribute="top" secondItem="G99-jg-v3U" secondAttribute="topMargin" id="n4H-3i-WSE"/>
-                        </constraints>
-                        <variation key="default">
-                            <mask key="subviews">
-                                <exclude reference="iCZ-3c-YIX"/>
-                            </mask>
-                            <mask key="constraints">
-                                <exclude reference="LFJ-Yf-6dk"/>
-                                <exclude reference="0bO-fe-heX"/>
-                                <exclude reference="eyB-gj-Led"/>
-                                <exclude reference="n4H-3i-WSE"/>
-                            </mask>
-                        </variation>
-                        <variation key="heightClass=regular-widthClass=compact">
-                            <mask key="subviews">
-                                <include reference="iCZ-3c-YIX"/>
-                            </mask>
-                            <mask key="constraints">
-                                <include reference="LFJ-Yf-6dk"/>
-                                <include reference="0bO-fe-heX"/>
-                                <include reference="eyB-gj-Led"/>
-                                <include reference="n4H-3i-WSE"/>
-                            </mask>
-                        </variation>
-                    </view>
-                    <navigationItem key="navigationItem" title="Budget Editor" id="ZeR-F0-wkc" userLabel="budgetEditor">
-                        <barButtonItem key="backBarButtonItem" title="Save" id="nPH-ac-IaR"/>
-                        <barButtonItem key="leftBarButtonItem" title="+ Category" id="0YG-91-XNI">
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="aXX-Zx-7Nt">
+                                <rect key="frame" x="0.0" y="92" width="600" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="aXX-Zx-7Nt" id="14h-VI-1Tk">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <animations/>
+                                </tableViewCellContentView>
+                                <animations/>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="yfQ-pB-fsv" id="lte-BY-XbR"/>
+                            <outlet property="delegate" destination="yfQ-pB-fsv" id="Uaa-GM-dfv"/>
+                        </connections>
+                    </tableView>
+                    <tabBarItem key="tabBarItem" title="Editor" id="M4u-FS-6K4"/>
+                    <navigationItem key="navigationItem" title="00:00" id="9Rd-Ut-1oG">
+                        <barButtonItem key="leftBarButtonItem" title="+ Category" id="WqI-MB-jdI">
                             <connections>
-                                <action selector="addCategoryButtonPressed:" destination="gDl-Q2-PJ8" id="pyI-fE-3Wa"/>
+                                <action selector="addCategoryButtonPressed:" destination="yfQ-pB-fsv" id="3x5-bR-cui"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="+ Task" id="Vci-CI-tEa">
+                        <barButtonItem key="rightBarButtonItem" title="+ Task" id="cJm-Fk-2KR">
                             <connections>
-                                <action selector="addTaskButtonPressed:" destination="gDl-Q2-PJ8" id="juv-bb-fFM"/>
+                                <action selector="addTaskButtonPressed:" destination="yfQ-pB-fsv" id="nEv-bc-Ffm"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="tableView" destination="iCZ-3c-YIX" id="O8J-ba-cEx"/>
-                        <segue destination="6hC-85-Dev" kind="presentation" identifier="showTaskEditorView" modalPresentationStyle="fullScreen" modalTransitionStyle="coverVertical" id="eAs-zS-ECb"/>
+                        <segue destination="6hC-85-Dev" kind="presentation" identifier="showTaskEditorView" modalPresentationStyle="fullScreen" modalTransitionStyle="coverVertical" id="J5a-kI-5kJ"/>
                     </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Jx8-Dx-BM2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uDH-yd-VvP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5541" y="1083"/>
+            <point key="canvasLocation" x="5565" y="1083"/>
         </scene>
-        <!--Task Editor View Controller-->
+        <!--Task Editor-->
         <scene sceneID="edI-4F-PXW">
             <objects>
-                <viewController title="Task Editor View Controller" id="21N-Ja-fue" customClass="TaskEditorViewController" customModule="Time_to_Budget" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Task Editor" id="21N-Ja-fue" customClass="TaskEditorViewController" customModule="Time_to_Budget" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ItB-nd-hEM"/>
                         <viewControllerLayoutGuide type="bottom" id="gzE-gj-CMG"/>
@@ -100,51 +72,18 @@
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="rightDetailCell" textLabel="Np5-ha-NcG" detailTextLabel="8Hs-XX-0Zg" style="IBUITableViewCellStyleValue1" id="RmM-6g-L2y">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="RmM-6g-L2y" id="u8I-xa-coV">
-                                            <rect key="frame" x="0.0" y="0.0" width="287" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Np5-ha-NcG">
-                                                    <rect key="frame" x="15" y="12" width="33.5" height="20.5"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <animations/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                    <variation key="heightClass=regular-widthClass=compact">
-                                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    </variation>
-                                                </label>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="8Hs-XX-0Zg">
-                                                    <rect key="frame" x="241" y="12" width="44" height="20.5"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <animations/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                    <variation key="heightClass=regular-widthClass=compact">
-                                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    </variation>
-                                                </label>
-                                            </subviews>
-                                            <animations/>
-                                        </tableViewCellContentView>
-                                        <animations/>
-                                    </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="NameTextfieldCell" id="3Go-qk-ieK" userLabel="nameTextfieldCell" customClass="NameTextfieldCell" customModule="Time_to_Budget" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3Go-qk-ieK" id="WkA-2F-07a">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="qiA-ls-IZn">
                                                     <rect key="frame" x="-25" y="-30" width="97" height="30"/>
                                                     <animations/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="done"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="words" keyboardAppearance="alert" returnKeyType="done"/>
                                                     <connections>
                                                         <action selector="taskNameTextfieldChanged:" destination="21N-Ja-fue" eventType="editingDidEnd" id="9cG-j0-AUJ"/>
                                                     </connections>
@@ -186,13 +125,14 @@
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dPS-8F-1at" id="aGf-k2-JMW">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="qh9-mT-dAv">
                                                     <rect key="frame" x="-25" y="-30" width="97" height="30"/>
                                                     <animations/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences" keyboardAppearance="alert" returnKeyType="done"/>
                                                     <connections>
                                                         <action selector="taskMemoTextfieldChanged:" destination="21N-Ja-fue" eventType="editingDidEnd" id="gEL-hw-ttC"/>
                                                     </connections>
@@ -209,8 +149,8 @@
                                                     <exclude reference="qh9-mT-dAv"/>
                                                 </mask>
                                                 <mask key="constraints">
-                                                    <exclude reference="61Q-Gb-5xa"/>
                                                     <exclude reference="1e2-kA-56V"/>
+                                                    <exclude reference="61Q-Gb-5xa"/>
                                                     <exclude reference="fU6-rg-8Me"/>
                                                 </mask>
                                             </variation>
@@ -219,8 +159,8 @@
                                                     <include reference="qh9-mT-dAv"/>
                                                 </mask>
                                                 <mask key="constraints">
-                                                    <include reference="61Q-Gb-5xa"/>
                                                     <include reference="1e2-kA-56V"/>
+                                                    <include reference="61Q-Gb-5xa"/>
                                                     <include reference="fU6-rg-8Me"/>
                                                 </mask>
                                             </variation>
@@ -342,10 +282,10 @@
             </objects>
             <point key="canvasLocation" x="7128" y="1083"/>
         </scene>
-        <!--Task Editor Category Selector View Controller-->
+        <!--Task Editor Category Selector-->
         <scene sceneID="qyK-UQ-bzY">
             <objects>
-                <viewController title="Task Editor Category Selector View Controller" id="hqG-Tg-S5U" customClass="TaskEditorCategorySelectorViewController" customModule="Time_to_Budget" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Task Editor Category Selector" id="hqG-Tg-S5U" customClass="TaskEditorCategorySelectorViewController" customModule="Time_to_Budget" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="wfg-bt-YAb"/>
                         <viewControllerLayoutGuide type="bottom" id="3Tg-QH-nER"/>
@@ -410,10 +350,10 @@
             </objects>
             <point key="canvasLocation" x="7899" y="1335"/>
         </scene>
-        <!--Task Editor Time Picker View-->
+        <!--Task Editor Time Picker-->
         <scene sceneID="DoT-CR-8tl">
             <objects>
-                <viewController title="Task Editor Time Picker View" id="DG2-bh-kEb" customClass="TaskEditorTimePickerViewController" customModule="Time_to_Budget" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Task Editor Time Picker" id="DG2-bh-kEb" customClass="TaskEditorTimePickerViewController" customModule="Time_to_Budget" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="wPe-MQ-Qhx"/>
                         <viewControllerLayoutGuide type="bottom" id="eaL-EE-FLT"/>
@@ -531,82 +471,43 @@
             </objects>
             <point key="canvasLocation" x="7899" y="651"/>
         </scene>
-        <!--Budget View-->
-        <scene sceneID="tne-QT-ifu">
+        <!--Budget-->
+        <scene sceneID="jct-G9-ElQ">
             <objects>
-                <viewController title="Budget View" id="BYZ-38-t0r" customClass="BudgetViewController" customModule="Time_to_Budget" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
-                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                <tableViewController title="Budget" id="Cfz-Cj-7rU" customClass="BudgetViewController" customModule="Time_to_Budget" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="rcD-ZA-NIL">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="awM-vd-cc1">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                                <animations/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <connections>
-                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="Ttr-kY-AoB"/>
-                                    <outlet property="delegate" destination="BYZ-38-t0r" id="4g0-qc-LSA"/>
-                                </connections>
-                            </tableView>
-                        </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="awM-vd-cc1" secondAttribute="trailing" constant="-16" id="0sK-fg-7e1"/>
-                            <constraint firstItem="awM-vd-cc1" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-16" id="j6i-E6-jLj"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="awM-vd-cc1" secondAttribute="bottom" id="leT-OM-dnk"/>
-                            <constraint firstItem="awM-vd-cc1" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" id="nJe-hw-hJf"/>
-                        </constraints>
-                        <variation key="default">
-                            <mask key="subviews">
-                                <exclude reference="awM-vd-cc1"/>
-                            </mask>
-                            <mask key="constraints">
-                                <exclude reference="leT-OM-dnk"/>
-                                <exclude reference="0sK-fg-7e1"/>
-                                <exclude reference="j6i-E6-jLj"/>
-                                <exclude reference="nJe-hw-hJf"/>
-                            </mask>
-                        </variation>
-                        <variation key="heightClass=regular-widthClass=compact">
-                            <mask key="subviews">
-                                <include reference="awM-vd-cc1"/>
-                            </mask>
-                            <mask key="constraints">
-                                <include reference="leT-OM-dnk"/>
-                                <include reference="0sK-fg-7e1"/>
-                                <include reference="j6i-E6-jLj"/>
-                                <include reference="nJe-hw-hJf"/>
-                            </mask>
-                        </variation>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="Budget" id="qN5-Op-yog"/>
-                    <navigationItem key="navigationItem" title="Budget" id="kgx-te-TR2">
-                        <barButtonItem key="backBarButtonItem" title="Done" id="eMx-hT-IAU"/>
-                        <barButtonItem key="rightBarButtonItem" title="+ Record" id="Iiv-cw-nJj">
+                        <connections>
+                            <outlet property="dataSource" destination="Cfz-Cj-7rU" id="go7-eJ-roa"/>
+                            <outlet property="delegate" destination="Cfz-Cj-7rU" id="uSs-fb-uGw"/>
+                        </connections>
+                    </tableView>
+                    <tabBarItem key="tabBarItem" title="Budget" id="xLz-f1-odg"/>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="Budget" id="TVh-rw-s2k">
+                        <barButtonItem key="rightBarButtonItem" title="+ Record" id="CqI-oX-NZI">
                             <connections>
-                                <action selector="addRecordButtonPressed:" destination="BYZ-38-t0r" id="muP-v5-WEt"/>
+                                <action selector="addRecordButtonPressed:" destination="Cfz-Cj-7rU" id="Bec-Q0-yhp"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="tableView" destination="awM-vd-cc1" id="kVU-H8-Kj6"/>
-                        <segue destination="sxO-VC-seW" kind="show" identifier="showRecordsView" id="eNE-Hf-gai"/>
-                        <segue destination="waX-jO-hTd" kind="presentation" identifier="showTrackingView" modalPresentationStyle="fullScreen" modalTransitionStyle="coverVertical" id="Bp2-lw-sqJ"/>
+                        <segue destination="waX-jO-hTd" kind="presentation" identifier="showTrackingView" modalPresentationStyle="fullScreen" modalTransitionStyle="coverVertical" id="EIf-10-VyY"/>
+                        <segue destination="V2o-uB-YSp" kind="show" identifier="showRecordsView" id="6ii-DA-fj0"/>
                     </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wlR-fa-nU7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5076" y="-861"/>
+            <point key="canvasLocation" x="5076" y="-856.5"/>
         </scene>
-        <!--Record Editor View Controller-->
+        <!--Record Editor-->
         <scene sceneID="K5g-JQ-wx4">
             <objects>
-                <viewController title="Record Editor View Controller" id="Ji8-4B-5Xa" customClass="RecordEditorViewController" customModule="Time_to_Budget" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Record Editor" id="Ji8-4B-5Xa" customClass="RecordEditorViewController" customModule="Time_to_Budget" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="9fg-aX-evn"/>
                         <viewControllerLayoutGuide type="bottom" id="6bD-W8-5dF"/>
@@ -620,51 +521,18 @@
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="RecordRightDetailCell" textLabel="hiT-pO-7Zh" detailTextLabel="RGb-P6-1cJ" style="IBUITableViewCellStyleValue1" id="YB5-KC-a6V">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="YB5-KC-a6V" id="LVX-Yb-Rj3">
-                                            <rect key="frame" x="0.0" y="0.0" width="287" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="hiT-pO-7Zh">
-                                                    <rect key="frame" x="15" y="12" width="33.5" height="20.5"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <animations/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                    <variation key="heightClass=regular-widthClass=compact">
-                                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    </variation>
-                                                </label>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="RGb-P6-1cJ">
-                                                    <rect key="frame" x="241" y="12" width="44" height="20.5"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <animations/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                    <variation key="heightClass=regular-widthClass=compact">
-                                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    </variation>
-                                                </label>
-                                            </subviews>
-                                            <animations/>
-                                        </tableViewCellContentView>
-                                        <animations/>
-                                    </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MemoTextfieldCell" id="aU6-d1-zbt" userLabel="memoTextfieldCell" customClass="MemoTextfieldCell" customModule="Time_to_Budget" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="aU6-d1-zbt" id="NEY-uk-1qQ">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Hko-E9-eM2">
                                                     <rect key="frame" x="-25" y="-30" width="97" height="30"/>
                                                     <animations/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences" keyboardAppearance="alert" returnKeyType="done"/>
                                                     <connections>
                                                         <action selector="memoTextFieldChanged:" destination="Ji8-4B-5Xa" eventType="editingDidEnd" id="Xc8-6q-TTw"/>
                                                     </connections>
@@ -682,8 +550,8 @@
                                                 </mask>
                                                 <mask key="constraints">
                                                     <exclude reference="0Zr-Xe-cxK"/>
-                                                    <exclude reference="sVC-Iv-BqI"/>
                                                     <exclude reference="Sto-PO-Czi"/>
+                                                    <exclude reference="sVC-Iv-BqI"/>
                                                 </mask>
                                             </variation>
                                             <variation key="heightClass=regular-widthClass=compact">
@@ -692,8 +560,8 @@
                                                 </mask>
                                                 <mask key="constraints">
                                                     <include reference="0Zr-Xe-cxK"/>
-                                                    <include reference="sVC-Iv-BqI"/>
                                                     <include reference="Sto-PO-Czi"/>
+                                                    <include reference="sVC-Iv-BqI"/>
                                                 </mask>
                                             </variation>
                                         </tableViewCellContentView>
@@ -734,7 +602,6 @@
                                     </mask>
                                 </variation>
                                 <connections>
-                                    <action selector="addRecordButtonPressed:" destination="sxO-VC-seW" eventType="touchUpInside" id="37O-Jr-HUM"/>
                                     <action selector="saveRecordButtonPressed:" destination="Ji8-4B-5Xa" eventType="touchUpInside" id="ugZ-5y-Te8"/>
                                 </connections>
                             </button>
@@ -813,7 +680,7 @@
         <!--Record Editor Time Picker View Controller-->
         <scene sceneID="Vux-cj-SqD">
             <objects>
-                <viewController id="F8n-Iw-4On" userLabel="Record Editor Time Picker View Controller" customClass="RecordEditorTimePickerViewController" customModule="Time_to_Budget" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Record Editor Time Picker" id="F8n-Iw-4On" userLabel="Record Editor Time Picker View Controller" customClass="RecordEditorTimePickerViewController" customModule="Time_to_Budget" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="OLb-lH-p0b"/>
                         <viewControllerLayoutGuide type="bottom" id="Oka-Vc-d0X"/>
@@ -854,9 +721,7 @@
                                     </mask>
                                 </variation>
                                 <connections>
-                                    <action selector="addRecordButtonPressed:" destination="sxO-VC-seW" eventType="touchUpInside" id="pB2-SF-1Le"/>
                                     <action selector="saveButtonPressed:" destination="F8n-Iw-4On" eventType="touchUpInside" id="r4m-8Q-Gax"/>
-                                    <action selector="saveRecordButtonPressed:" destination="Ji8-4B-5Xa" eventType="touchUpInside" id="SV8-kV-X8d"/>
                                 </connections>
                             </button>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cjm-F8-kVz">
@@ -911,9 +776,15 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="YNy-BW-eM1" firstAttribute="leading" secondItem="APc-0A-bjE" secondAttribute="leadingMargin" constant="56" id="1dy-Yj-yDj"/>
-                            <constraint firstItem="icw-38-pqv" firstAttribute="top" secondItem="cjm-F8-kVz" secondAttribute="bottom" constant="32" id="3ap-QF-KYr"/>
-                            <constraint firstItem="icw-38-pqv" firstAttribute="leading" secondItem="APc-0A-bjE" secondAttribute="leadingMargin" constant="-16" id="B6T-ld-YGJ"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="icw-38-pqv" secondAttribute="trailing" constant="-16" id="Gj5-Rw-Gr7"/>
+                            <constraint firstItem="icw-38-pqv" firstAttribute="top" secondItem="cjm-F8-kVz" secondAttribute="bottom" constant="32" id="3ap-QF-KYr">
+                                <variation key="heightClass=regular-widthClass=compact" constant="44"/>
+                            </constraint>
+                            <constraint firstItem="icw-38-pqv" firstAttribute="leading" secondItem="APc-0A-bjE" secondAttribute="leadingMargin" constant="-16" id="B6T-ld-YGJ">
+                                <variation key="heightClass=regular-widthClass=compact" constant="-5"/>
+                            </constraint>
+                            <constraint firstAttribute="trailingMargin" secondItem="icw-38-pqv" secondAttribute="trailing" constant="-16" id="Gj5-Rw-Gr7">
+                                <variation key="heightClass=regular-widthClass=compact" constant="-5"/>
+                            </constraint>
                             <constraint firstItem="cjm-F8-kVz" firstAttribute="top" secondItem="OLb-lH-p0b" secondAttribute="bottom" constant="72" id="Gxt-Vk-c33"/>
                             <constraint firstItem="YNy-BW-eM1" firstAttribute="leading" secondItem="APc-0A-bjE" secondAttribute="leadingMargin" constant="-5" id="RjG-QI-YO5"/>
                             <constraint firstItem="Oka-Vc-d0X" firstAttribute="top" secondItem="YNy-BW-eM1" secondAttribute="bottom" constant="10" id="Y12-8l-oGu"/>
@@ -985,7 +856,7 @@
         <!--Record Editor Date Picker View Controller-->
         <scene sceneID="swB-09-Tzt">
             <objects>
-                <viewController id="x6k-sM-pnq" userLabel="Record Editor Date Picker View Controller" customClass="RecordEditorDatePickerViewController" customModule="Time_to_Budget" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Record Editor Date Picker" id="x6k-sM-pnq" userLabel="Record Editor Date Picker View Controller" customClass="RecordEditorDatePickerViewController" customModule="Time_to_Budget" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Kce-md-Hch"/>
                         <viewControllerLayoutGuide type="bottom" id="DlX-u1-FDE"/>
@@ -994,7 +865,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" useCurrentDate="NO" translatesAutoresizingMaskIntoConstraints="NO" id="04R-3c-mEo">
+                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="04R-3c-mEo">
                                 <rect key="frame" x="-160" y="-81" width="320" height="162"/>
                                 <animations/>
                                 <constraints>
@@ -1052,9 +923,7 @@
                                     </mask>
                                 </variation>
                                 <connections>
-                                    <action selector="addRecordButtonPressed:" destination="sxO-VC-seW" eventType="touchUpInside" id="MU4-CP-CDp"/>
                                     <action selector="saveButtonPressed:" destination="x6k-sM-pnq" eventType="touchUpInside" id="lbB-HJ-4St"/>
-                                    <action selector="saveRecordButtonPressed:" destination="Ji8-4B-5Xa" eventType="touchUpInside" id="S4y-yC-Pxk"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -1124,7 +993,7 @@
         <!--Record Editor Task Selector View Controller-->
         <scene sceneID="alh-v7-VGE">
             <objects>
-                <viewController id="pK4-2A-tVc" userLabel="Record Editor Task Selector View Controller" customClass="RecordEditorTaskSelectorViewController" customModule="Time_to_Budget" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Record Editor Task Selector" id="pK4-2A-tVc" userLabel="Record Editor Task Selector View Controller" customClass="RecordEditorTaskSelectorViewController" customModule="Time_to_Budget" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="lKb-7F-cX3"/>
                         <viewControllerLayoutGuide type="bottom" id="gA8-l3-2k7"/>
@@ -1191,10 +1060,10 @@
             </objects>
             <point key="canvasLocation" x="7729.5" y="-288"/>
         </scene>
-        <!--Budget History List View-->
+        <!--Budget History-->
         <scene sceneID="pWH-Uw-1YI">
             <objects>
-                <tableViewController title="Budget History List View" id="Q0K-kL-n9w" customClass="BudgetHistoryListViewController" customModule="Time_to_Budget" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="Budget History" id="Q0K-kL-n9w" customClass="BudgetHistoryListViewController" customModule="Time_to_Budget" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Ax6-Mi-xQv">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1241,10 +1110,10 @@
             </objects>
             <point key="canvasLocation" x="4350" y="1953"/>
         </scene>
-        <!--Budget History View-->
+        <!--Budget History Budget-->
         <scene sceneID="TiM-Kp-oHT">
             <objects>
-                <tableViewController title="Budget History View" id="Ibx-B3-h6c" customClass="BudgetHistoryViewController" customModule="Time_to_Budget" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="Budget History Budget" id="Ibx-B3-h6c" customClass="BudgetHistoryViewController" customModule="Time_to_Budget" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="3yc-kD-9JF">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1266,10 +1135,10 @@
             </objects>
             <point key="canvasLocation" x="5134.5" y="1956"/>
         </scene>
-        <!--Budget History Records View-->
+        <!--Budget History Records-->
         <scene sceneID="Na1-YS-zaj">
             <objects>
-                <tableViewController title="Budget History Records View" id="aLd-KV-d2p" customClass="BudgetHistoryRecordsViewController" customModule="Time_to_Budget" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="Budget History Records" id="aLd-KV-d2p" customClass="BudgetHistoryRecordsViewController" customModule="Time_to_Budget" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="IgE-UO-c6F">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1291,10 +1160,10 @@
             </objects>
             <point key="canvasLocation" x="5902.5" y="1953"/>
         </scene>
-        <!--Budget History Record Viewer-->
+        <!--Budget History Record-->
         <scene sceneID="n5i-Ij-FEh">
             <objects>
-                <tableViewController title="Budget History Record Viewer" id="iwe-4h-iXA" customClass="BudgetHistoryRecordViewController" customModule="Time_to_Budget" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="Budget History Record" id="iwe-4h-iXA" customClass="BudgetHistoryRecordViewController" customModule="Time_to_Budget" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="t6e-4z-uWs">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1336,9 +1205,10 @@
                                 <animations/>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MemoTextfieldCell" id="a93-xH-gPm" userLabel="memoTextfieldCell" customClass="MemoTextfieldCell" customModule="Time_to_Budget" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="130" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="a93-xH-gPm" id="a2d-mc-lvl">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DxO-NE-59e">
@@ -1360,8 +1230,8 @@
                                         </mask>
                                         <mask key="constraints">
                                             <exclude reference="ew1-fT-I82"/>
-                                            <exclude reference="wvl-T7-9sg"/>
                                             <exclude reference="tAK-pA-Neq"/>
+                                            <exclude reference="wvl-T7-9sg"/>
                                         </mask>
                                     </variation>
                                     <variation key="heightClass=regular-widthClass=compact">
@@ -1370,8 +1240,8 @@
                                         </mask>
                                         <mask key="constraints">
                                             <include reference="ew1-fT-I82"/>
-                                            <include reference="wvl-T7-9sg"/>
                                             <include reference="tAK-pA-Neq"/>
+                                            <include reference="wvl-T7-9sg"/>
                                         </mask>
                                     </variation>
                                 </tableViewCellContentView>
@@ -1392,76 +1262,34 @@
             </objects>
             <point key="canvasLocation" x="6655.5" y="1956"/>
         </scene>
-        <!--Records View Controller-->
-        <scene sceneID="DSz-ax-U1S">
+        <!--Records View-->
+        <scene sceneID="GCT-y2-RAA">
             <objects>
-                <viewController title="Task Records" id="sxO-VC-seW" userLabel="Records View Controller" customClass="RecordsViewController" customModule="Time_to_Budget" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="7V4-K6-PRs"/>
-                        <viewControllerLayoutGuide type="bottom" id="Wdc-EV-pUD"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Q4B-Ge-ble">
+                <tableViewController title="Records View" id="V2o-uB-YSp" customClass="RecordsViewController" customModule="Time_to_Budget" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="xjS-iT-rFN">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="wrW-sg-9w8">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                                <animations/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <connections>
-                                    <outlet property="dataSource" destination="sxO-VC-seW" id="xKV-ny-hZX"/>
-                                    <outlet property="delegate" destination="sxO-VC-seW" id="IK1-T3-eIS"/>
-                                </connections>
-                            </tableView>
-                        </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="wrW-sg-9w8" firstAttribute="leading" secondItem="Q4B-Ge-ble" secondAttribute="leadingMargin" constant="-16" id="23u-pG-udb"/>
-                            <constraint firstItem="wrW-sg-9w8" firstAttribute="top" secondItem="Q4B-Ge-ble" secondAttribute="topMargin" id="TQ0-q5-hKy"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="wrW-sg-9w8" secondAttribute="trailing" constant="-16" id="l14-pK-Xeo"/>
-                            <constraint firstItem="Wdc-EV-pUD" firstAttribute="top" secondItem="wrW-sg-9w8" secondAttribute="bottom" id="vhi-3Y-QOJ"/>
-                        </constraints>
-                        <variation key="default">
-                            <mask key="subviews">
-                                <exclude reference="wrW-sg-9w8"/>
-                            </mask>
-                            <mask key="constraints">
-                                <exclude reference="vhi-3Y-QOJ"/>
-                                <exclude reference="23u-pG-udb"/>
-                                <exclude reference="TQ0-q5-hKy"/>
-                                <exclude reference="l14-pK-Xeo"/>
-                            </mask>
-                        </variation>
-                        <variation key="heightClass=regular-widthClass=compact">
-                            <mask key="subviews">
-                                <include reference="wrW-sg-9w8"/>
-                            </mask>
-                            <mask key="constraints">
-                                <include reference="vhi-3Y-QOJ"/>
-                                <include reference="23u-pG-udb"/>
-                                <include reference="TQ0-q5-hKy"/>
-                                <include reference="l14-pK-Xeo"/>
-                            </mask>
-                        </variation>
-                    </view>
-                    <toolbarItems/>
-                    <navigationItem key="navigationItem" title="Title" id="VYr-cZ-5Vi">
-                        <barButtonItem key="rightBarButtonItem" title="+ Record" id="hhe-Vc-KD8">
+                        <connections>
+                            <outlet property="dataSource" destination="V2o-uB-YSp" id="Hno-W7-tZm"/>
+                            <outlet property="delegate" destination="V2o-uB-YSp" id="2vu-LD-2RB"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Record Name" id="Y0I-6A-T69">
+                        <barButtonItem key="rightBarButtonItem" title="+ Record" id="Heq-y5-jim">
                             <connections>
-                                <action selector="addRecordButtonPressed:" destination="sxO-VC-seW" id="RYn-C8-euc"/>
+                                <action selector="addRecordButtonPressed:" destination="V2o-uB-YSp" id="GLt-Hr-ECc"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
-                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="tableView" destination="wrW-sg-9w8" id="zMo-8T-Auz"/>
-                        <segue destination="waX-jO-hTd" kind="presentation" identifier="showTrackingViewAlt" modalPresentationStyle="fullScreen" modalTransitionStyle="coverVertical" id="ALJ-4Q-4lf"/>
+                        <segue destination="waX-jO-hTd" kind="presentation" identifier="showTrackingViewAlt" modalPresentationStyle="fullScreen" modalTransitionStyle="coverVertical" id="nzI-MA-cks"/>
                     </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="6aa-zH-TIl" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5wL-kU-PVo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5076" y="-121.5"/>
+            <point key="canvasLocation" x="5076" y="-96.75"/>
         </scene>
         <!--Main Navigation Controller-->
         <scene sceneID="vWo-Qf-c5o">
@@ -1476,12 +1304,12 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="pyN-ev-jO9"/>
+                        <segue destination="Cfz-Cj-7rU" kind="relationship" relationship="rootViewController" id="xTf-7u-RjB"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fba-lr-XFA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4314" y="-861"/>
+            <point key="canvasLocation" x="4314" y="-856.5"/>
         </scene>
         <!--Settings View-->
         <scene sceneID="5ZG-bn-gz3">
@@ -1580,7 +1408,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2at-9N-kKV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6255" y="-865"/>
+            <point key="canvasLocation" x="6027" y="-850.5"/>
         </scene>
         <!--Settings Navigation Controller-->
         <scene sceneID="zr5-NJ-WvN">
@@ -1634,7 +1462,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="gDl-Q2-PJ8" kind="relationship" relationship="rootViewController" id="sC8-Oh-idV"/>
+                        <segue destination="yfQ-pB-fsv" kind="relationship" relationship="rootViewController" id="i1x-fU-RJg"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rWU-XK-bjo" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1648,10 +1476,10 @@
                     <toolbarItems/>
                     <keyCommands/>
                     <nil key="simulatedBottomBarMetrics"/>
-                    <tabBar key="tabBar" contentMode="scaleToFill" id="i6c-Ba-ARD">
+                    <tabBar key="tabBar" contentMode="scaleToFill" barStyle="black" id="i6c-Ba-ARD">
                         <autoresizingMask key="autoresizingMask"/>
                         <animations/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <color key="barTintColor" red="0.20392156862745098" green="0.2196078431372549" blue="0.2196078431372549" alpha="1" colorSpace="calibratedRGB"/>
                     </tabBar>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="selectedIndex">
@@ -1667,7 +1495,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="a0z-xZ-xrX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3492" y="-136.5"/>
+            <point key="canvasLocation" x="2772" y="-214.5"/>
         </scene>
         <!--Budget History Navigation Controller-->
         <scene sceneID="tn7-Pc-MgE">
@@ -1697,7 +1525,7 @@
         <image name="settingsTabBar" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Bp2-lw-sqJ"/>
-        <segue reference="eAs-zS-ECb"/>
+        <segue reference="EIf-10-VyY"/>
+        <segue reference="J5a-kI-5kJ"/>
     </inferredMetricsTieBreakers>
 </document>

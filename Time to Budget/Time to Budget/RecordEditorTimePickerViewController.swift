@@ -27,6 +27,10 @@ class RecordEditorTimePickerViewController: UIViewController, UIPickerViewDataSo
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        Style.viewController(self)
+        Style.button(self.doneButton)
+        Style.button(self.startButton)
 
         // Time Picker Setup
         timePicker.dataSource = self
@@ -69,12 +73,12 @@ class RecordEditorTimePickerViewController: UIViewController, UIPickerViewDataSo
     }
     
     //UIPicker Delegates
-    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+    func pickerView(pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
         if component == 0 {
-            return "\(timeHourPickerData[row])"
+            return Style.picker(timeHourPickerData[row])
         }
         else {
-            return "\(timeMinutePickerData[row])"
+            return Style.picker(timeMinutePickerData[row])
         }
     }
     

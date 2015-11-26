@@ -17,8 +17,10 @@ class RecordEditorDatePickerViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        Style.viewController(self)
+        Style.button(self.doneButton)
+        Style.picker(self.datePicker)
         
         doneButton.layer.cornerRadius = CGRectGetWidth(doneButton.frame)/8
         doneButton.layer.masksToBounds = true

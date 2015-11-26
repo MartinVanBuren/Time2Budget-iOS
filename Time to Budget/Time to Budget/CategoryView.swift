@@ -15,6 +15,8 @@ class CategoryView: UITableViewHeaderFooterView {
     @IBOutlet weak var editButton: UIButton!
     @IBOutlet weak var customContentView: UIView!
     internal var VC: BudgetEditorViewController?
+    var category: Category?
+    var editor: Bool?
     
     
     @IBAction func editCategoryButtonPressed(sender: UIButton) {

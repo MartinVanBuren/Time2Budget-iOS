@@ -17,8 +17,9 @@ class SettingsViewController: UITableViewController {
         let nib = UINib(nibName: "CategoryView", bundle: nil)
         self.tableView.registerNib(nib, forHeaderFooterViewReuseIdentifier: "CategoryView")
         
-        let nav = self.navigationController?.navigationBar
-        Style.navbarSetColor(nav: nav!)
+        let nav = self.navigationController!.navigationBar
+        Style.navbar(nav)
+        Style.viewController(self)
         
         self.navigationItem.title = "Settings"
     }

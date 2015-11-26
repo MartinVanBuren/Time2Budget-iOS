@@ -12,6 +12,7 @@ import RealmSwift
 class RecordEditorViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, writeTaskBackDelegate {
     
     @IBOutlet weak var saveRecordButton: UIButton!
+    @IBOutlet weak var tableView: UITableView!
     var editRecord:Bool = false
     var currentTask:Task?
     var currentRecord:Record?
@@ -20,17 +21,17 @@ class RecordEditorViewController: UIViewController, UITableViewDataSource, UITab
     var date:NSDate = NSDate()
     var memo:String?
     var returning:Bool? = false
-    
-    @IBOutlet weak var tableView: UITableView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let nib = UINib(nibName: "TextfieldCell", bundle: nil)
-        self.tableView.registerNib(nib, forCellReuseIdentifier: "TextfieldCell")
+        let nib = UINib(nibName: "DetailCell", bundle: nil)
+        self.tableView.registerNib(nib, forCellReuseIdentifier: "DetailCell")
         
-        let nav = self.navigationController?.navigationBar
-        Style.navbarSetColor(nav: nav!)
+        let nav = self.navigationController!.navigationBar
+        Style.navbar(nav)
+        Style.viewController(self, tableView: self.tableView)
+        Style.button(self.saveRecordButton)
         
         saveRecordButton.layer.cornerRadius = CGRectGetWidth(saveRecordButton.frame)/8
         saveRecordButton.layer.masksToBounds = true

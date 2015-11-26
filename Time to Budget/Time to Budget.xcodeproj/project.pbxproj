@@ -176,6 +176,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5B6937391C067FC4002847B0 /* Budget View */ = {
+			isa = PBXGroup;
+			children = (
+				93F0E5161A720BF4009D95EC /* RecordsViewController.swift */,
+			);
+			name = "Budget View";
+			sourceTree = "<group>";
+		};
 		5B7972C71BAA5B0300BAF7C4 /* Realm */ = {
 			isa = PBXGroup;
 			children = (
@@ -236,8 +244,8 @@
 			isa = PBXGroup;
 			children = (
 				9385F1751AA39D30000C8726 /* TaskEditorViewController.swift */,
-				9385F1791AA3C3A3000C8726 /* TaskEditorTimePickerViewController.swift */,
 				9385F17B1AA3C805000C8726 /* TaskEditorCategorySelectorViewController.swift */,
+				9385F1791AA3C3A3000C8726 /* TaskEditorTimePickerViewController.swift */,
 			);
 			name = "Task Editor";
 			sourceTree = "<group>";
@@ -245,7 +253,7 @@
 		93967CBB1AB22D2600D46CF6 /* Budget History View */ = {
 			isa = PBXGroup;
 			children = (
-				93967CB91AB22D2000D46CF6 /* BudgetHistoryListViewController.swift */,
+				93967CC01AB2310900D46CF6 /* BudgetHistoryViewController.swift */,
 				93967CBC1AB22D4900D46CF6 /* BudgetHistoryRecordsViewController.swift */,
 				93967CBE1AB22D5800D46CF6 /* BudgetHistoryRecordViewController.swift */,
 			);
@@ -263,16 +271,15 @@
 			name = "Record Editor";
 			sourceTree = "<group>";
 		};
-		93B2E5F91A903EC40058372F /* Main Views */ = {
+		93B2E5F91A903EC40058372F /* Tab Bar Views */ = {
 			isa = PBXGroup;
 			children = (
 				93F0E5411A721960009D95EC /* BudgetViewController.swift */,
-				93F0E5161A720BF4009D95EC /* RecordsViewController.swift */,
 				9385F1731AA397C8000C8726 /* SettingsViewController.swift */,
 				93F0E53F1A72194D009D95EC /* BudgetEditorViewController.swift */,
-				93967CC01AB2310900D46CF6 /* BudgetHistoryViewController.swift */,
+				93967CB91AB22D2000D46CF6 /* BudgetHistoryListViewController.swift */,
 			);
-			name = "Main Views";
+			name = "Tab Bar Views";
 			sourceTree = "<group>";
 		};
 		93F0E4DE1A720B64009D95EC = {
@@ -323,7 +330,8 @@
 		93F0E52E1A720BFD009D95EC /* iPhone Views */ = {
 			isa = PBXGroup;
 			children = (
-				93B2E5F91A903EC40058372F /* Main Views */,
+				93B2E5F91A903EC40058372F /* Tab Bar Views */,
+				5B6937391C067FC4002847B0 /* Budget View */,
 				93B2E5F81A903EA80058372F /* Record Editor */,
 				9385F1661AA36B63000C8726 /* Task Editor */,
 				93967CBB1AB22D2600D46CF6 /* Budget History View */,

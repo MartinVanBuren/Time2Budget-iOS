@@ -21,7 +21,8 @@ class TaskEditorTimePickerViewController: UIViewController, UIPickerViewDataSour
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        Style.viewController(self)
+        Style.button(self.doneButton)
         
         if let unwrappedTime = taskEditorVC.taskTime {
             timePicked = Time.doubleToTime(unwrappedTime)
@@ -56,12 +57,12 @@ class TaskEditorTimePickerViewController: UIViewController, UIPickerViewDataSour
     }
     
     //UIPicker Delegates
-    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+    func pickerView(pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
         if component == 0 {
-            return "\(timeHourPickerData[row])"
+            return Style.picker(timeHourPickerData[row])
         }
         else {
-            return "\(timeMinutePickerData[row])"
+            return Style.picker(timeMinutePickerData[row])
         }
     }
     

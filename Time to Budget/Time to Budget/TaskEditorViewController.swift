@@ -25,8 +25,13 @@ class TaskEditorViewController: UIViewController, UITableViewDataSource, UITable
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let nav = self.navigationController?.navigationBar
-        Style.navbarSetColor(nav: nav!)
+        let nav = self.navigationController!.navigationBar
+        Style.navbar(nav)
+        Style.viewController(self, tableView: self.tableView)
+        Style.button(self.saveTaskButton)
+        
+        let nib = UINib(nibName: "DetailCell", bundle: nil)
+        self.tableView.registerNib(nib, forCellReuseIdentifier: "DetailCell")
         
         saveTaskButton.layer.cornerRadius = CGRectGetWidth(saveTaskButton.frame)/8
         saveTaskButton.layer.masksToBounds = true

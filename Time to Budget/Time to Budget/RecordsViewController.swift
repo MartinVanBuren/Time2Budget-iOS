@@ -9,7 +9,7 @@
 import UIKit
 import RealmSwift
 
-class RecordsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class RecordsViewController: UITableViewController {
 
     var currentTask:Task!
     var returning:Bool? = false
@@ -17,7 +17,6 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
     var notificationToken: NotificationToken!
     var recordList = List<Record>()
     let realm = Database.getRealm()
-    @IBOutlet weak var tableView: UITableView!
     var promptEnabled:Bool = false
     
     override func viewDidLoad() {
@@ -28,6 +27,8 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
         
         nib = UINib(nibName: "DetailCell", bundle: nil)
         self.tableView.registerNib(nib, forCellReuseIdentifier: "DetailCell")
+        
+        Style.viewController(self)
         
         // Set realm notification block
         notificationToken = realm.addNotificationBlock { notification, realm in
@@ -65,8 +66,8 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
     override func viewWillAppear(animated: Bool) {
         navigationItem.title = currentTask.name
         
-        let nav = self.navigationController?.navigationBar
-        Style.navbarSetColor(nav: nav!)
+        //let nav = self.navigationController!.navigationBar
+        //Style.navbar(nav)
         
         let recordResults = currentTask.records.sorted("date", ascending: false)
         self.recordList = List<Record>()
@@ -109,28 +110,28 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
     
     // ============================= Table View Overrides =============================
 
-    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 0
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.recordList.count
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         self.editRecord = true
         performSegueWithIdentifier("showTrackingViewAlt", sender: self)
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         return Factory.prepareRecordCell(tableView: tableView, recordList: self.recordList, indexPath: indexPath)
     }
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
     
-    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         
         Factory.displayDeleteRecordAlert(self, record: recordList[indexPath.row])
     }

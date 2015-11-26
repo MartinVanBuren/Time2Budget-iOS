@@ -22,8 +22,9 @@ class BudgetHistoryListViewController: UITableViewController {
         
         super.viewDidLoad()
         
-        let nav = self.navigationController?.navigationBar
-        Style.navbarSetColor(nav: nav!)
+        let nav = self.navigationController!.navigationBar
+        Style.navbar(nav)
+        Style.viewController(self)
         
         // Set realm notification block
         notificationToken = realm.addNotificationBlock { note, realm in

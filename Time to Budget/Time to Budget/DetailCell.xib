@@ -46,7 +46,7 @@
                         </label>
                     </subviews>
                     <animations/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="trailing" secondItem="YZc-Ma-IT3" secondAttribute="trailing" constant="30" id="VrG-uj-RPi"/>
                         <constraint firstItem="o0g-nf-WTC" firstAttribute="centerY" secondItem="VjT-Xy-1qa" secondAttribute="centerY" id="Yl5-s9-l8f"/>
@@ -56,7 +56,7 @@
                 </view>
             </subviews>
             <animations/>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="VjT-Xy-1qa" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="DAD-9w-P6z"/>
                 <constraint firstAttribute="bottom" secondItem="VjT-Xy-1qa" secondAttribute="bottom" id="MbN-KG-Nrs"/>
