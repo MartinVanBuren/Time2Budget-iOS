@@ -9,9 +9,9 @@
 import UIKit
 import RealmSwift
 
-class RecordsViewController: UITableViewController {
+class RecordsViewController: UITableViewController, UITabBarControllerDelegate {
 
-    var currentTask:Task!
+    var currentTask:Task?
     var returning:Bool? = false
     var editRecord:Bool = false
     var notificationToken: NotificationToken!
@@ -21,6 +21,8 @@ class RecordsViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.tabBarController?.delegate = self
         
         var nib = UINib(nibName: "SubtitleDetailCell", bundle: nil)
         self.tableView.registerNib(nib, forCellReuseIdentifier: "SubtitleDetailCell")
@@ -33,15 +35,16 @@ class RecordsViewController: UITableViewController {
         // Set realm notification block
         notificationToken = realm.addNotificationBlock { notification, realm in
             
-            let recordResults = self.currentTask.records.sorted("date", ascending: false)
-            self.recordList = List<Record>()
-            for rec in recordResults {
-                self.recordList.append(rec)
+            if let unwrappedTask = self.currentTask {
+                let recordResults = unwrappedTask.records.sorted("date", ascending: false)
+                self.recordList = List<Record>()
+                for rec in recordResults {
+                    self.recordList.append(rec)
+                }
+                
+                self.tableView.reloadData()
             }
-            
-            self.tableView.reloadData()
         }
-
         
     }
     
@@ -64,25 +67,37 @@ class RecordsViewController: UITableViewController {
     }
     
     override func viewWillAppear(animated: Bool) {
-        navigationItem.title = currentTask.name
+        navigationItem.title = currentTask!.name
         
         //let nav = self.navigationController!.navigationBar
         //Style.navbar(nav)
-        
-        let recordResults = currentTask.records.sorted("date", ascending: false)
+        let recordResults = self.currentTask!.records.sorted("date", ascending: false)
         self.recordList = List<Record>()
         for rec in recordResults {
             self.recordList.append(rec)
         }
         
-        if currentTask.memo != "" {
-            navigationItem.prompt = currentTask.memo
+        if currentTask!.memo != "" {
+            navigationItem.prompt = currentTask!.memo
             self.promptEnabled = true
         }
         
         self.tableView.reloadData()
         
-        fixContentInset(calledFromSegue: false)
+        //fixContentInset(calledFromSegue: false)
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        if (self.isMovingFromParentViewController()){
+            self.currentTask = nil
+        }
+    }
+    
+    func tabBarController(tabBarController: UITabBarController, didSelectViewController viewController: UIViewController) {
+        if (viewController != self.navigationController) {
+            self.navigationController?.popToRootViewControllerAnimated(false)
+            self.currentTask = nil
+        }
     }
 
     // ============================= Segue Preperation =============================
@@ -132,7 +147,6 @@ class RecordsViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        
         Factory.displayDeleteRecordAlert(self, record: recordList[indexPath.row])
     }
     

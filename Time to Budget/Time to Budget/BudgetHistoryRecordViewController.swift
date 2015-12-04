@@ -17,6 +17,13 @@ class BudgetHistoryRecordViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let nib = UINib(nibName: "DetailCell", bundle: nil)
+        self.tableView.registerNib(nib, forCellReuseIdentifier: "DetailCell")
+        
+        let nav = self.navigationController!.navigationBar
+        Style.navbar(nav)
+        Style.viewController(self)
     }
 
     override func didReceiveMemoryWarning() {
@@ -61,6 +68,7 @@ class BudgetHistoryRecordViewController: UITableViewController {
             return cell
         default:
             let cell = Factory.prepareMemoTextfieldCell(tableView: tableView, memo: currentRecord?.note)
+            cell.textField.placeholder = "No Memo"
             cell.userInteractionEnabled = false
             return cell
         }

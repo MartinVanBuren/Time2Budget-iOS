@@ -59,6 +59,41 @@ public class Factory {
         return preparedView
     }
     
+    class func testPrepareNewCategoryView(tableView tableView: UITableView, categoryList: List<Category>, section: Int) -> NewCategoryView {
+        
+        let thisCategory = categoryList[section]
+        
+        let preparedView:NewCategoryView = tableView.dequeueReusableHeaderFooterViewWithIdentifier("NewCategoryView") as! NewCategoryView
+        
+        preparedView.sectionNameLabel.text = thisCategory.name
+        preparedView.sectionNameLabel.textColor = UIColor.whiteColor()
+        preparedView.remainingTimeLabel.text = Time.doubleToString(thisCategory.totalTimeRemaining)
+        preparedView.remainingTimeLabel.textColor = UIColor.whiteColor()
+        preparedView.category = thisCategory
+        
+        preparedView.remainingTimeBarOutline.layer.cornerRadius = 60/8
+        preparedView.remainingTimeBar.layer.cornerRadius = 60/8
+        preparedView.remainingTimeBarOutline.layer.masksToBounds = true
+        preparedView.remainingTimeBar.layer.masksToBounds = true
+        preparedView.remainingTimeBarOutline.layer.borderWidth = 1.0
+        preparedView.remainingTimeBarOutline.layer.borderColor = UIColor.greenColor().CGColor
+        preparedView.remainingTimeBar.backgroundColor = UIColor.blueColor()
+        
+        let barRatio = CGFloat(thisCategory.totalTimeRemaining/thisCategory.totalTimeBudgeted)
+        print(barRatio)
+        let newWidth = preparedView.remainingTimeBar.frame.size.width * barRatio
+        print("newWidth = ", newWidth)
+        print("oldWidth = ", preparedView.remainingTimeBar.frame.width)
+        let newRect = CGRectMake(0.0, 0.0, 40, 22)
+        print(newRect)
+        let mask = UIView(frame: newRect)
+        mask.alpha = 1.0
+        preparedView.remainingTimeBar.layer.mask = mask.layer
+        preparedView.remainingTimeBar.layer.masksToBounds = true
+        
+        return preparedView
+    }
+    
     class func prepareTaskCell(tableView tableView: UITableView, categoryList: List<Category>, indexPath: NSIndexPath, editor: Bool) -> UITableViewCell {
         
         let thisTask = categoryList[indexPath.section].tasks[indexPath.row]

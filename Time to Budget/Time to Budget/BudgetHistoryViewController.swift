@@ -25,6 +25,8 @@ class BudgetHistoryViewController: UITableViewController {
 
         nib = UINib(nibName: "SubtitleDetailCell", bundle: nil)
         self.tableView.registerNib(nib, forCellReuseIdentifier: "SubtitleDetailCell")
+        
+        Style.viewController(self)
     }
     
     override func viewDidLayoutSubviews() {

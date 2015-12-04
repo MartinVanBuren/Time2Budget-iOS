@@ -23,6 +23,8 @@ class BudgetHistoryRecordsViewController: UITableViewController {
         
         nib = UINib(nibName: "DetailCell", bundle: nil)
         self.tableView.registerNib(nib, forCellReuseIdentifier: "DetailCell")
+        
+        Style.viewController(self)
     }
     
     override func viewDidLayoutSubviews() {

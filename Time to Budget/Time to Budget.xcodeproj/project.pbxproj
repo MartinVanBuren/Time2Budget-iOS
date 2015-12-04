@@ -12,6 +12,8 @@
 		5B17E2421BDF2EE70014CF2D /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B17E23D1BDF2ED20014CF2D /* RealmSwift.framework */; };
 		5B17E2431BDF2EE70014CF2D /* RealmSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5B17E23D1BDF2ED20014CF2D /* RealmSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5B3140401BFBA2DA003644D9 /* Database_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93BC90441A74C84200A63932 /* Database_Tests.swift */; };
+		5B3BCDEE1C07B1C2007C8A2E /* NewCategoryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B3BCDED1C07B1C2007C8A2E /* NewCategoryView.xib */; };
+		5B3BCDF01C07B5B9007C8A2E /* NewCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3BCDEF1C07B5B9007C8A2E /* NewCategoryView.swift */; };
 		5B7F21581BE5A96D00781A03 /* CategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7F21571BE5A96D00781A03 /* CategoryView.swift */; };
 		5B922F0A1BDA7C4E00F851D3 /* DetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B922F091BDA7C4E00F851D3 /* DetailCell.swift */; };
 		5B9679FC1BBE13D400DBEB61 /* Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9679FB1BBE13D400DBEB61 /* Protocol.swift */; };
@@ -50,9 +52,6 @@
 		93F0E5261A720BF4009D95EC /* RecordsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F0E5161A720BF4009D95EC /* RecordsViewController.swift */; };
 		93F0E5271A720BF4009D95EC /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F0E5171A720BF4009D95EC /* Task.swift */; };
 		93F0E52A1A720BF4009D95EC /* Time.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F0E51A1A720BF4009D95EC /* Time.swift */; };
-		93F0E52B1A720BF4009D95EC /* TransitionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F0E51B1A720BF4009D95EC /* TransitionDelegate.swift */; };
-		93F0E52C1A720BF4009D95EC /* TransitionDismissalAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F0E51C1A720BF4009D95EC /* TransitionDismissalAnimator.swift */; };
-		93F0E52D1A720BF4009D95EC /* TransitionPresentationAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F0E51D1A720BF4009D95EC /* TransitionPresentationAnimator.swift */; };
 		93F0E53C1A721396009D95EC /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F0E53B1A721396009D95EC /* Database.swift */; };
 		93F0E53E1A7214E1009D95EC /* Budget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F0E53D1A7214E1009D95EC /* Budget.swift */; };
 		93F0E5401A72194D009D95EC /* BudgetEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F0E53F1A72194D009D95EC /* BudgetEditorViewController.swift */; };
@@ -94,6 +93,8 @@
 /* Begin PBXFileReference section */
 		5B17E23C1BDF2ED20014CF2D /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Realm.framework; sourceTree = "<group>"; };
 		5B17E23D1BDF2ED20014CF2D /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RealmSwift.framework; sourceTree = "<group>"; };
+		5B3BCDED1C07B1C2007C8A2E /* NewCategoryView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewCategoryView.xib; sourceTree = "<group>"; };
+		5B3BCDEF1C07B5B9007C8A2E /* NewCategoryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewCategoryView.swift; sourceTree = "<group>"; };
 		5B7F21571BE5A96D00781A03 /* CategoryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryView.swift; sourceTree = "<group>"; };
 		5B922F091BDA7C4E00F851D3 /* DetailCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailCell.swift; sourceTree = "<group>"; };
 		5B9679FB1BBE13D400DBEB61 /* Protocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Protocol.swift; sourceTree = "<group>"; };
@@ -140,9 +141,6 @@
 		93F0E5161A720BF4009D95EC /* RecordsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordsViewController.swift; sourceTree = "<group>"; };
 		93F0E5171A720BF4009D95EC /* Task.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		93F0E51A1A720BF4009D95EC /* Time.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Time.swift; sourceTree = "<group>"; };
-		93F0E51B1A720BF4009D95EC /* TransitionDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransitionDelegate.swift; sourceTree = "<group>"; };
-		93F0E51C1A720BF4009D95EC /* TransitionDismissalAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransitionDismissalAnimator.swift; sourceTree = "<group>"; };
-		93F0E51D1A720BF4009D95EC /* TransitionPresentationAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransitionPresentationAnimator.swift; sourceTree = "<group>"; };
 		93F0E53B1A721396009D95EC /* Database.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
 		93F0E53D1A7214E1009D95EC /* Budget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Budget.swift; sourceTree = "<group>"; };
 		93F0E53F1A72194D009D95EC /* BudgetEditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BudgetEditorViewController.swift; sourceTree = "<group>"; };
@@ -222,10 +220,12 @@
 				5BC7813E1BF69C7500EBB395 /* CategoryView.xib */,
 				5B922F091BDA7C4E00F851D3 /* DetailCell.swift */,
 				5BF979451C0290CB00F005EC /* DetailCell.xib */,
+				5BF979501C02A7F400F005EC /* MemoTextfieldCell.swift */,
+				9385F1771AA3A248000C8726 /* NameTextfieldCell.swift */,
+				5B3BCDEF1C07B5B9007C8A2E /* NewCategoryView.swift */,
+				5B3BCDED1C07B1C2007C8A2E /* NewCategoryView.xib */,
 				939DB88F1AA2CD330047C108 /* SubtitleDetailCell.swift */,
 				5BF979471C0290CB00F005EC /* SubtitleDetailCell.xib */,
-				9385F1771AA3A248000C8726 /* NameTextfieldCell.swift */,
-				5BF979501C02A7F400F005EC /* MemoTextfieldCell.swift */,
 			);
 			name = "Headers & Cells";
 			sourceTree = "<group>";
@@ -310,7 +310,6 @@
 				93F0E52E1A720BFD009D95EC /* iPhone Views */,
 				93F0E52F1A720C38009D95EC /* Support Classes */,
 				93F0E5301A720C6D009D95EC /* Database */,
-				93F0E5311A720C78009D95EC /* Transitions */,
 				93F0E4F31A720B64009D95EC /* Images.xcassets */,
 				5BF9794E1C0290EF00F005EC /* UI */,
 				93F0E4EA1A720B64009D95EC /* Supporting Files */,
@@ -362,16 +361,6 @@
 				93F0E5171A720BF4009D95EC /* Task.swift */,
 			);
 			name = Database;
-			sourceTree = "<group>";
-		};
-		93F0E5311A720C78009D95EC /* Transitions */ = {
-			isa = PBXGroup;
-			children = (
-				93F0E51B1A720BF4009D95EC /* TransitionDelegate.swift */,
-				93F0E51C1A720BF4009D95EC /* TransitionDismissalAnimator.swift */,
-				93F0E51D1A720BF4009D95EC /* TransitionPresentationAnimator.swift */,
-			);
-			name = Transitions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -508,6 +497,7 @@
 				93F0E50D1A720BD4009D95EC /* iPhone.storyboard in Resources */,
 				5BF9794C1C0290CB00F005EC /* SubtitleDetailCell.xib in Resources */,
 				93F0E4F41A720B64009D95EC /* Images.xcassets in Resources */,
+				5B3BCDEE1C07B1C2007C8A2E /* NewCategoryView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -551,12 +541,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5B3BCDF01C07B5B9007C8A2E /* NewCategoryView.swift in Sources */,
 				93967CBD1AB22D4900D46CF6 /* BudgetHistoryRecordsViewController.swift in Sources */,
 				93F0E5241A720BF4009D95EC /* Factory.swift in Sources */,
 				5B922F0A1BDA7C4E00F851D3 /* DetailCell.swift in Sources */,
 				93F0E53E1A7214E1009D95EC /* Budget.swift in Sources */,
 				93F0E5401A72194D009D95EC /* BudgetEditorViewController.swift in Sources */,
-				93F0E52C1A720BF4009D95EC /* TransitionDismissalAnimator.swift in Sources */,
 				93B2E5F51A903E790058372F /* RecordEditorTimePickerViewController.swift in Sources */,
 				5BB55CB71BA8ABF700F43891 /* Style.swift in Sources */,
 				93F0E5421A721960009D95EC /* BudgetViewController.swift in Sources */,
@@ -566,10 +556,8 @@
 				93F0E52A1A720BF4009D95EC /* Time.swift in Sources */,
 				93F0E5251A720BF4009D95EC /* Record.swift in Sources */,
 				93223B491A86840500365D3A /* RecordEditorViewController.swift in Sources */,
-				93F0E52B1A720BF4009D95EC /* TransitionDelegate.swift in Sources */,
 				939DB8901AA2CD330047C108 /* SubtitleDetailCell.swift in Sources */,
 				93F0E5271A720BF4009D95EC /* Task.swift in Sources */,
-				93F0E52D1A720BF4009D95EC /* TransitionPresentationAnimator.swift in Sources */,
 				9385F1761AA39D30000C8726 /* TaskEditorViewController.swift in Sources */,
 				9320D56F1A74625B0013018C /* MarshalOperator.swift in Sources */,
 				5B9679FC1BBE13D400DBEB61 /* Protocol.swift in Sources */,
