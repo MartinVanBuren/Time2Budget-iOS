@@ -69,7 +69,10 @@ public class Style {
     
     class func category(cell: CategoryCell) -> CategoryCell {
         
-        cell.backgroundColor = UIColor.clearColor()
+        cell.backgroundColor = self.grey
+        cell.contentView.backgroundColor = self.grey
+        cell.contentView.alpha = 0.90
+        cell.contentView.opaque = false
         cell.sectionNameLabel.textColor = self.textColor
         self.categoryTimeRemainingLabel(cell, category: cell.category!)
         
@@ -78,7 +81,9 @@ public class Style {
     
     class func category(cell: CategoryView) -> CategoryView {
         
-        cell.contentView.backgroundColor = UIColor.clearColor()
+        cell.customContentView.backgroundColor = self.grey
+        cell.customContentView.alpha = 0.90
+        cell.customContentView.opaque = false
         cell.sectionNameLabel.textColor = self.textColor
         self.categoryTimeRemainingLabel(cell, category: cell.category!, editor: cell.editor!)
         
@@ -163,9 +168,6 @@ public class Style {
         
         cell.remainingTimeLabel.layer.cornerRadius = CGRectGetWidth(cell.remainingTimeLabel.frame)/8
         cell.remainingTimeLabel.layer.masksToBounds = true
-        
-        cell.remainingTimeLabel.alpha = 0.75
-        cell.remainingTimeLabel.opaque = false;
         
         if category.totalTimeRemaining > 0.0 {
             cell.remainingTimeLabel.backgroundColor = self.blue
