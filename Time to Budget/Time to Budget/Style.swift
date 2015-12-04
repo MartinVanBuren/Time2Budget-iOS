@@ -132,6 +132,9 @@ public class Style {
     
     class func basicHeader(view: CategoryView) -> CategoryView {
         
+        view.customContentView.backgroundColor = self.grey
+        view.customContentView.alpha = 0.90
+        view.customContentView.opaque = false
         view.sectionNameLabel.textColor = self.textColor
         view.contentView.backgroundColor = UIColor.clearColor()
         
