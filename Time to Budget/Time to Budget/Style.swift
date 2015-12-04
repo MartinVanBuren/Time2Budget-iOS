@@ -24,7 +24,6 @@ public class Style {
     class func navbar(nav: UINavigationBar) {
         nav.barStyle = UIBarStyle.Black
         nav.tintColor = UIColor.whiteColor()
-        //nav.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.blackColor()]
         nav.barTintColor = UIColor(red: 80/255, green: 83/255, blue: 90/255, alpha: 1.0)
     }
     
@@ -176,7 +175,7 @@ public class Style {
             cell.remainingTimeLabel.backgroundColor = self.grey
             cell.remainingTimeLabel.textColor = self.textColor
             cell.remainingTimeLabel.layer.borderWidth = 1.0
-            cell.remainingTimeLabel.layer.borderColor = self.textColor.CGColor
+            //cell.remainingTimeLabel.layer.borderColor = self.textColor.CGColor
         }
         
         return cell
@@ -199,7 +198,7 @@ public class Style {
                 view.remainingTimeLabel.backgroundColor = self.grey
                 view.remainingTimeLabel.textColor = self.textColor
                 view.remainingTimeLabel.layer.borderWidth = 1.0
-                view.remainingTimeLabel.layer.borderColor = self.textColor.CGColor
+                //view.remainingTimeLabel.layer.borderColor = self.textColor.CGColor
             }
         }
         
