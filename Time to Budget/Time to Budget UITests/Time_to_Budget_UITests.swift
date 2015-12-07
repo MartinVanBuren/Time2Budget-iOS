@@ -72,9 +72,25 @@ class Time_to_Budget_UITests: XCTestCase {
         XCTAssert(finalTest)
     }
     
+    func test_deleteCategory() {
+        let app = XCUIApplication()
+        self.addCategory()
+        let addedTest = app.tables.staticTexts[""].exists
+        
+        app.tables.buttons["Edit"].tap()
+        app.alerts["Edit Category"].collectionViews.buttons["Delete"].tap()
+        app.alerts["Are You Sure?"].collectionViews.buttons["Yes"].tap()
+        let deletedTest = !app.tables.staticTexts[""].exists
+        
+        let finalTest = (addedTest && deletedTest)
+        
+        XCTAssert(finalTest)
+    }
+    
     func test_deleteCategoryNoKeep() {
         let app = XCUIApplication()
         self.addCategory()
+        self.addTask()
         let addedTest = app.tables.staticTexts[""].exists
         
         app.tables.buttons["Edit"].tap()
@@ -90,6 +106,7 @@ class Time_to_Budget_UITests: XCTestCase {
     func test_deleteCategoryYesKeep() {
         let app = XCUIApplication()
         self.addCategory()
+        self.addTask()
         let addedTest = app.tables.staticTexts[""].exists
         
         app.tables.buttons["Edit"].tap()
@@ -102,10 +119,29 @@ class Time_to_Budget_UITests: XCTestCase {
         XCTAssert(finalTest)
     }
     
+    func test_deleteTask() {
+        let app = XCUIApplication()
+        self.addCategory()
+        self.addTask()
+        let addedTest = app.tables.staticTexts["Test"].exists
+        
+        app.tables.cells.staticTexts["Test"].swipeLeft()
+        app.tables.cells.buttons["Delete"].tap()
+        app.alerts["Are You Sure?"].collectionViews.buttons["Yes"].tap()
+        let deletedTest = !app.tables.staticTexts["Test"].exists
+        
+        let finalTest = (addedTest && deletedTest)
+        
+        XCTAssert(finalTest)
+    }
+    
     func test_deleteTaskNoKeep() {
         let app = XCUIApplication()
         self.addCategory()
         self.addTask()
+        self.addRecord()
+        
+        app.tabBars.buttons["Editor"].tap()
         
         app.tables.cells.staticTexts["Test"].swipeLeft()
         app.tables.cells.buttons["Delete"].tap()
@@ -120,6 +156,9 @@ class Time_to_Budget_UITests: XCTestCase {
         let app = XCUIApplication()
         self.addCategory()
         self.addTask()
+        self.addRecord()
+        
+        app.tabBars.buttons["Editor"].tap()
         
         app.tables.cells.staticTexts["Test"].swipeLeft()
         app.tables.cells.buttons["Delete"].tap()
