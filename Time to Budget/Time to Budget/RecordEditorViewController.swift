@@ -33,9 +33,6 @@ class RecordEditorViewController: UIViewController, UITableViewDataSource, UITab
         Style.viewController(self, tableView: self.tableView)
         Style.button(self.saveRecordButton)
         
-        saveRecordButton.layer.cornerRadius = CGRectGetWidth(saveRecordButton.frame)/8
-        saveRecordButton.layer.masksToBounds = true
-        
         if let unwrappedRecord = self.currentRecord {
             self.timeSpent = Time.doubleToTime(unwrappedRecord.timeSpent)
             self.date = unwrappedRecord.date

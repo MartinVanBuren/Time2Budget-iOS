@@ -50,6 +50,11 @@ public class Style {
     class func button(button: UIButton) {
         
         button.backgroundColor = self.blue
+        button.alpha = 0.90
+        button.opaque = false
+        
+        button.layer.cornerRadius = CGRectGetWidth(button.frame)/8
+        button.layer.masksToBounds = true
     }
     
     class func picker(pickerData: Int) -> NSAttributedString {

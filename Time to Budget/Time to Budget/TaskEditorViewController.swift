@@ -33,9 +33,6 @@ class TaskEditorViewController: UIViewController, UITableViewDataSource, UITable
         let nib = UINib(nibName: "DetailCell", bundle: nil)
         self.tableView.registerNib(nib, forCellReuseIdentifier: "DetailCell")
         
-        saveTaskButton.layer.cornerRadius = CGRectGetWidth(saveTaskButton.frame)/8
-        saveTaskButton.layer.masksToBounds = true
-        
         if editTask {
             self.navigationItem.title = "Edit \(currentTask!.name)"
         } else {

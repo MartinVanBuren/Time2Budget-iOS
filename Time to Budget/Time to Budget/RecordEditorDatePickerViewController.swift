@@ -22,9 +22,6 @@ class RecordEditorDatePickerViewController: UIViewController {
         Style.button(self.doneButton)
         Style.picker(self.datePicker)
         
-        doneButton.layer.cornerRadius = CGRectGetWidth(doneButton.frame)/8
-        doneButton.layer.masksToBounds = true
-        
         self.datePicked = self.recordEditorVC.date
         
         self.datePicker.setDate(self.datePicked, animated: true)

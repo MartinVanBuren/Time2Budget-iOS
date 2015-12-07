@@ -10,11 +10,12 @@ import Foundation
 import UIKit
 import RealmSwift
 
-class BudgetEditorViewController: UITableViewController {
+class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     var totalTime = Time(newHours: 168, newMinutes: 0)
     var addTaskDialog:Bool = false
     var notificationToken: NotificationToken?
+    @IBOutlet weak var tableView: UITableView!
     
     //==================== Realm Properties ====================
     let realm = Database.getRealm()
@@ -32,7 +33,7 @@ class BudgetEditorViewController: UITableViewController {
         nib = UINib(nibName: "SubtitleDetailCell", bundle: nil)
         self.tableView.registerNib(nib, forCellReuseIdentifier: "SubtitleDetailCell")
         
-        Style.viewController(self)
+        Style.viewController(self, tableView: self.tableView)
         
         self.currentBudget = realm.objects(Budget).filter("isCurrent = TRUE").first!
         
@@ -96,41 +97,41 @@ class BudgetEditorViewController: UITableViewController {
     }
     
     //==================== UITableViewDataSource Methods ====================
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         
         return Int(currentBudget!.categories.count)
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         return currentBudget.categories[section].tasks.count
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         return Factory.prepareTaskCell(tableView: tableView, categoryList: currentBudget!.categories, indexPath: indexPath, editor: true)
     }
     
-    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
         return Factory.prepareCategoryView(tableView: tableView, categoryList: currentBudget.categories, section: section, editorViewController: self)
         
     }
     
     //==================== UITableViewDelegate Methods ====================
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
         addTaskDialog = false
         performSegueWithIdentifier("showTaskEditorView", sender: self)
     }
     
     
-    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         
         return 44
     }
     
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         
         Factory.displayDeleteTaskAlert(viewController: self, indexPath: indexPath)
     }

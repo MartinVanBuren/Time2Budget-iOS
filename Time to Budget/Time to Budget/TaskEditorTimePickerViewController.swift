@@ -31,9 +31,6 @@ class TaskEditorTimePickerViewController: UIViewController, UIPickerViewDataSour
             timePicked.minutes = 0
         }
         
-        doneButton.layer.cornerRadius = CGRectGetWidth(doneButton.frame)/8
-        doneButton.layer.masksToBounds = true
-        
         timePicker.selectRow(getHourIndex(), inComponent: 0, animated: true)
         timePicker.selectRow(getMinIndex(), inComponent: 1, animated: true)
     }

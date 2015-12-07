@@ -43,12 +43,6 @@ class RecordEditorTimePickerViewController: UIViewController, UIPickerViewDataSo
             timePicked.minutes = 0
         }
         
-        startButton.layer.cornerRadius = CGRectGetWidth(startButton.frame)/8
-        startButton.layer.masksToBounds = true
-        
-        doneButton.layer.cornerRadius = CGRectGetWidth(doneButton.frame)/8
-        doneButton.layer.masksToBounds = true
-        
         timePicker.selectRow(getHourIndex(), inComponent: 0, animated: true)
         timePicker.selectRow(getMinIndex(), inComponent: 1, animated: true)
     }
