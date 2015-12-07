@@ -28,9 +28,6 @@ class BudgetViewController: UITableViewController {
         var nib = UINib(nibName: "CategoryView", bundle: nil)
         self.tableView.registerNib(nib, forHeaderFooterViewReuseIdentifier: "CategoryView")
         
-        nib = UINib(nibName: "NewCategoryView", bundle: nil)
-        self.tableView.registerNib(nib, forHeaderFooterViewReuseIdentifier: "NewCategoryView")
-        
         nib = UINib(nibName: "DetailCell", bundle: nil)
         self.tableView.registerNib(nib, forCellReuseIdentifier: "DetailCell")
         

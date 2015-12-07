@@ -69,25 +69,37 @@ public class Style {
     
     class func category(cell: CategoryCell) -> CategoryCell {
         
+        cell.remainingTimeBarOutline.layer.cornerRadius = 60/8
+        cell.remainingTimeBar.layer.cornerRadius = 60/8
+        cell.remainingTimeBarOutline.layer.masksToBounds = true
+        cell.remainingTimeBar.layer.masksToBounds = true
+        cell.remainingTimeBarOutline.layer.borderWidth = 1.0
+        
         cell.backgroundColor = self.grey
-        cell.contentView.backgroundColor = self.grey
-        cell.contentView.alpha = 0.90
-        cell.contentView.opaque = false
-        cell.sectionNameLabel.textColor = self.textColor
-        self.categoryTimeRemainingLabel(cell, category: cell.category!)
-        
-        return cell
-    }
-    
-    class func category(cell: CategoryView) -> CategoryView {
-        
         cell.customContentView.backgroundColor = self.grey
         cell.customContentView.alpha = 0.90
         cell.customContentView.opaque = false
         cell.sectionNameLabel.textColor = self.textColor
-        self.categoryTimeRemainingLabel(cell, category: cell.category!, editor: cell.editor!)
+        self.categoryTimeRemainingBar(cell)
         
         return cell
+    }
+    
+    class func category(view: CategoryView) -> CategoryView {
+        
+        view.remainingTimeBarOutline.layer.cornerRadius = 60/8
+        view.remainingTimeBar.layer.cornerRadius = 60/8
+        view.remainingTimeBarOutline.layer.masksToBounds = true
+        view.remainingTimeBar.layer.masksToBounds = true
+        view.remainingTimeBarOutline.layer.borderWidth = 1.0
+        
+        view.customContentView.backgroundColor = self.grey
+        view.customContentView.alpha = 0.90
+        view.customContentView.opaque = false
+        view.sectionNameLabel.textColor = self.textColor
+        self.categoryTimeRemainingBar(view)
+        
+        return view
     }
     
     class func task(cell: DetailCell) -> DetailCell {
@@ -131,12 +143,23 @@ public class Style {
     }
     
     class func basicHeader(view: CategoryView) -> CategoryView {
-        
+        // View background settings
         view.customContentView.backgroundColor = self.grey
         view.customContentView.alpha = 0.90
         view.customContentView.opaque = false
+        
+        // Section Bar Colors
         view.sectionNameLabel.textColor = self.textColor
-        view.contentView.backgroundColor = UIColor.clearColor()
+        view.remainingTimeBar.backgroundColor = self.blue
+        view.remainingTimeBarOutline.layer.borderColor = self.blue.CGColor
+        
+        // Section Bar Rounding
+        view.remainingTimeBarOutline.layer.cornerRadius = 60/8
+        view.remainingTimeBarOutline.layer.masksToBounds = true
+        view.remainingTimeBarOutline.layer.borderWidth = 1.0
+        
+        // Section Bar Set to Full
+        view.remainingTimeBar.layer.mask = nil
         
         return view
     }
@@ -165,6 +188,84 @@ public class Style {
         return cell
     }
     
+    private class func categoryTimeRemainingBar(cell: CategoryCell) -> CategoryCell {
+        cell.remainingTimeLabel.textColor = self.textColor
+        
+        if cell.category!.totalTimeRemaining == cell.category!.totalTimeBudgeted {
+            cell.remainingTimeBar.backgroundColor = self.blue
+            cell.remainingTimeBarOutline.layer.borderColor = self.blue.CGColor
+            cell.remainingTimeBar.layer.mask = nil
+        } else {
+            var barRatio:CGFloat!
+            
+            if cell.category!.totalTimeRemaining >= 0 {
+                barRatio = CGFloat(cell.category!.totalTimeRemaining/cell.category!.totalTimeBudgeted)
+                cell.remainingTimeBar.backgroundColor = self.blue
+                cell.remainingTimeBarOutline.layer.borderColor = self.blue.CGColor
+            } else if cell.category!.totalTimeRemaining < 0 {
+                barRatio = CGFloat(cell.category!.totalTimeRemaining/cell.category!.totalTimeBudgeted) * -1
+                cell.remainingTimeBar.backgroundColor = self.yellow
+                cell.remainingTimeBarOutline.layer.borderColor = self.yellow.CGColor
+            }
+            
+            let newWidth = cell.remainingTimeBar.frame.size.width * barRatio
+            let oldHeight = cell.remainingTimeBar.frame.height
+            let oldX = cell.remainingTimeBar.frame.origin.x
+            let oldY = cell.remainingTimeBar.frame.origin.y
+            
+            let maskLayer = CAShapeLayer()
+            let maskRect = CGRectMake(oldX, oldY, newWidth, oldHeight)
+            let newPath = CGPathCreateWithRect(maskRect, nil)
+            maskLayer.path = newPath
+            
+            cell.remainingTimeBar.layer.mask = maskLayer
+        }
+        
+        return cell
+    }
+    
+    private class func categoryTimeRemainingBar(view: CategoryView) -> CategoryView {
+        view.remainingTimeLabel.textColor = self.textColor
+        
+        if view.editor! {
+            view.remainingTimeBar.backgroundColor = self.blue
+            view.remainingTimeBarOutline.layer.borderColor = self.blue.CGColor
+            view.remainingTimeBar.layer.mask = nil
+        } else {
+            if view.category!.totalTimeRemaining == view.category!.totalTimeBudgeted {
+                view.remainingTimeBar.backgroundColor = self.blue
+                view.remainingTimeBarOutline.layer.borderColor = self.blue.CGColor
+                view.remainingTimeBar.layer.mask = nil
+            } else {
+                var barRatio:CGFloat!
+                
+                if view.category!.totalTimeRemaining >= 0 {
+                    barRatio = CGFloat(view.category!.totalTimeRemaining/view.category!.totalTimeBudgeted)
+                    view.remainingTimeBar.backgroundColor = self.blue
+                    view.remainingTimeBarOutline.layer.borderColor = self.blue.CGColor
+                } else if view.category!.totalTimeRemaining < 0 {
+                    barRatio = CGFloat(view.category!.totalTimeRemaining/view.category!.totalTimeBudgeted) * -1
+                    view.remainingTimeBar.backgroundColor = self.yellow
+                    view.remainingTimeBarOutline.layer.borderColor = self.yellow.CGColor
+                }
+                
+                let newWidth = view.remainingTimeBar.frame.size.width * barRatio
+                let oldHeight = view.remainingTimeBar.frame.height
+                let oldX = view.remainingTimeBar.frame.origin.x
+                let oldY = view.remainingTimeBar.frame.origin.y
+                
+                let maskLayer = CAShapeLayer()
+                let maskRect = CGRectMake(oldX, oldY, newWidth, oldHeight)
+                let newPath = CGPathCreateWithRect(maskRect, nil)
+                maskLayer.path = newPath
+                
+                view.remainingTimeBar.layer.mask = maskLayer
+            }
+        }
+        
+        return view
+    }
+    /*
     private class func categoryTimeRemainingLabel(cell:CategoryCell, category:Category) -> CategoryCell {
         
         cell.remainingTimeLabel.textColor = UIColor.blackColor()
@@ -185,7 +286,7 @@ public class Style {
         
         return cell
     }
-    
+
     private class func categoryTimeRemainingLabel(view: CategoryView, category:Category, editor:Bool) -> CategoryView {
         view.remainingTimeLabel.textColor = UIColor.blackColor()
         
@@ -209,7 +310,7 @@ public class Style {
         
         return view
     }
-    
+    */
     private class func taskTimeRemainingLabel(cell:DetailCell, task:Task, editor:Bool) -> DetailCell {
         
         if editor {

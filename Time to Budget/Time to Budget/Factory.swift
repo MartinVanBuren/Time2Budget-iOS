@@ -15,24 +15,35 @@ public class Factory {
         
         let thisCategory = categoryList[section]
         
-        var preparedCell:CategoryCell = tableView.dequeueReusableCellWithIdentifier("CategoryCell") as! CategoryCell
+        let preparedCell:CategoryCell = tableView.dequeueReusableCellWithIdentifier("CategoryCell") as! CategoryCell
+        
+        preparedCell.customContentView.backgroundColor = UIColor.clearColor()
+        preparedCell.backgroundColor = UIColor.clearColor()
         
         preparedCell.sectionNameLabel.text = thisCategory.name
+        
+        preparedCell.remainingTimeBarOutline.layer.cornerRadius = 60/8
+        preparedCell.remainingTimeBar.layer.cornerRadius = 60/8
+        preparedCell.remainingTimeBarOutline.layer.masksToBounds = true
+        preparedCell.remainingTimeBar.layer.masksToBounds = true
+        preparedCell.remainingTimeBarOutline.layer.borderWidth = 1.0
+        preparedCell.remainingTimeBarOutline.layer.borderColor = UIColor.greenColor().CGColor
+        
         preparedCell.remainingTimeLabel.text = Time.doubleToString(thisCategory.totalTimeRemaining)
         
         preparedCell.category = thisCategory
         
-        preparedCell = Style.category(preparedCell)
+        Style.category(preparedCell)
         
         return preparedCell
     }
-    
+
     class func prepareCategoryView(tableView tableView: UITableView, categoryList: List<Category>, section: Int, editorViewController: BudgetEditorViewController?=nil) -> CategoryView {
         
         let thisCategory = categoryList[section]
         var editor = false
         
-        var preparedView:CategoryView = tableView.dequeueReusableHeaderFooterViewWithIdentifier("CategoryView") as! CategoryView
+        let preparedView:CategoryView = tableView.dequeueReusableHeaderFooterViewWithIdentifier("CategoryView") as! CategoryView
         
         if let unwrappedVC = editorViewController {
             preparedView.VC = unwrappedVC
@@ -44,52 +55,18 @@ public class Factory {
             preparedView.editButton.hidden = true
         }
         
-        preparedView.sectionNameLabel.text = thisCategory.name
         if editor {
             preparedView.remainingTimeLabel.text = Time.doubleToString(thisCategory.totalTimeBudgeted)
         } else {
             preparedView.remainingTimeLabel.text = Time.doubleToString(thisCategory.totalTimeRemaining)
         }
         
+        preparedView.sectionNameLabel.text = thisCategory.name
+        
         preparedView.category = thisCategory
         preparedView.editor = editor
         
-        preparedView = Style.category(preparedView)
-        
-        return preparedView
-    }
-    
-    class func testPrepareNewCategoryView(tableView tableView: UITableView, categoryList: List<Category>, section: Int) -> NewCategoryView {
-        
-        let thisCategory = categoryList[section]
-        
-        let preparedView:NewCategoryView = tableView.dequeueReusableHeaderFooterViewWithIdentifier("NewCategoryView") as! NewCategoryView
-        
-        preparedView.sectionNameLabel.text = thisCategory.name
-        preparedView.sectionNameLabel.textColor = UIColor.whiteColor()
-        preparedView.remainingTimeLabel.text = Time.doubleToString(thisCategory.totalTimeRemaining)
-        preparedView.remainingTimeLabel.textColor = UIColor.whiteColor()
-        preparedView.category = thisCategory
-        
-        preparedView.remainingTimeBarOutline.layer.cornerRadius = 60/8
-        preparedView.remainingTimeBar.layer.cornerRadius = 60/8
-        preparedView.remainingTimeBarOutline.layer.masksToBounds = true
-        preparedView.remainingTimeBar.layer.masksToBounds = true
-        preparedView.remainingTimeBarOutline.layer.borderWidth = 1.0
-        preparedView.remainingTimeBarOutline.layer.borderColor = UIColor.greenColor().CGColor
-        preparedView.remainingTimeBar.backgroundColor = UIColor.blueColor()
-        
-        let barRatio = CGFloat(thisCategory.totalTimeRemaining/thisCategory.totalTimeBudgeted)
-        print(barRatio)
-        let newWidth = preparedView.remainingTimeBar.frame.size.width * barRatio
-        print("newWidth = ", newWidth)
-        print("oldWidth = ", preparedView.remainingTimeBar.frame.width)
-        let newRect = CGRectMake(0.0, 0.0, 40, 22)
-        print(newRect)
-        let mask = UIView(frame: newRect)
-        mask.alpha = 1.0
-        preparedView.remainingTimeBar.layer.mask = mask.layer
-        preparedView.remainingTimeBar.layer.masksToBounds = true
+        Style.category(preparedView)
         
         return preparedView
     }
@@ -339,9 +316,8 @@ public class Factory {
     class func prepareBasicHeader(tableView tableView: UITableView, titleText: String) -> UIView {
         let preparedView = tableView.dequeueReusableHeaderFooterViewWithIdentifier("CategoryView") as! CategoryView
         
-        preparedView.remainingTimeLabel.hidden = true
-        preparedView.editButton.hidden = true
         preparedView.sectionNameLabel.text = titleText
+        preparedView.remainingTimeLabel.hidden = true
         Style.basicHeader(preparedView)
         
         return preparedView
