@@ -14,7 +14,7 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
     
     var totalTime = Time(newHours: 168, newMinutes: 0)
     var addTaskDialog:Bool = false
-    var notificationToken: NotificationToken?
+    var notificationToken: NotificationToken!
     @IBOutlet weak var tableView: UITableView!
     
     //==================== Realm Properties ====================
@@ -72,6 +72,8 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
         
         let nav = self.navigationController?.navigationBar
         Style.navbar(nav!)
+        
+        self.tableView.reloadData()
     }
     
     override func didReceiveMemoryWarning() {

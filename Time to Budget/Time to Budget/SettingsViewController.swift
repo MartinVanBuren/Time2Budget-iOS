@@ -45,9 +45,9 @@ class SettingsViewController: UITableViewController {
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0:
-            return 4
+            return 5
         case 1:
-            return 2
+            return 3
         default:
             return 0
         }
@@ -60,7 +60,7 @@ class SettingsViewController: UITableViewController {
     override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         switch section {
         case 0:
-            return Factory.prepareBasicHeader(tableView: self.tableView, titleText: "Reset Budget Info")
+            return Factory.prepareBasicHeader(tableView: self.tableView, titleText: "Testing Tools")
         case 1:
             return Factory.prepareBasicHeader(tableView: self.tableView, titleText: "About")
         default:
@@ -80,6 +80,8 @@ class SettingsViewController: UITableViewController {
                 return Factory.prepareBasicCell(tableView: self.tableView, titleText: "Reset Current Budget")
             case 3:
                 return Factory.prepareBasicCell(tableView: self.tableView, titleText: "Reset Current Records")
+            case 4:
+                return Factory.prepareBasicCell(tableView: self.tableView, titleText: "Archive Budget")
             default:
                 return UITableViewCell()
             }
@@ -89,6 +91,8 @@ class SettingsViewController: UITableViewController {
                 return Factory.prepareBasicCell(tableView: self.tableView, titleText: "Feedback")
             case 1:
                 return Factory.prepareSettingsAboutCell(tableView: self.tableView)
+            case 2:
+                return Factory.prepareBasicCell(tableView: self.tableView, titleText: "Privacy Policy")
             default:
                 return UITableViewCell()
             }
@@ -114,6 +118,8 @@ class SettingsViewController: UITableViewController {
                 displayResetCurrentBudgetAlert()
             case 3:
                 displayResetCurrentRecordsAlert()
+            case 4:
+                displayArchiveBudgetAlert()
             default:
                 return
             }
@@ -124,6 +130,9 @@ class SettingsViewController: UITableViewController {
                 UIApplication.sharedApplication().openURL(url!)
             case 1:
                 let url = NSURL(string: "http://robertkennedy.me/blog/")
+                UIApplication.sharedApplication().openURL(url!)
+            case 2:
+                let url = NSURL(string: "https://googledrive.com/host/0ByiIRCNWZES_V2x3eWd6QXYtTjA")
                 UIApplication.sharedApplication().openURL(url!)
             default:
                 return
@@ -205,6 +214,16 @@ class SettingsViewController: UITableViewController {
                     }
                 }
             }
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
+        
+        self.presentViewController(alert, animated: true, completion: {})
+    }
+    
+    func displayArchiveBudgetAlert() {
+        let alert = UIAlertController(title: "Are You Sure?", message: "Are you sure you want to archive the current budget?", preferredStyle: UIAlertControllerStyle.Alert)
+        alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+            Database.newBudget()
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
         

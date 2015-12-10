@@ -77,10 +77,6 @@ public class Database {
         if  currentBudgetCount > 0 {
             let oldBudget = realm.objects(Budget).filter("isCurrent = true").first!
             
-            try! realm.write {
-                oldBudget.isCurrent = false
-            }
-            
             let newBudget = Budget()
             newBudget.autoInit()
             
@@ -88,6 +84,10 @@ public class Database {
             
             try! realm.write {
                 realm.add(newBudget)
+            }
+            
+            try! realm.write {
+                oldBudget.isCurrent = false
             }
         } else {
             try! realm.write {
@@ -239,8 +239,8 @@ public class Database {
     }
     
     public class func checkTaskName(name name: String, category: Category) -> Bool {
-        let realm = Database.getRealm()
-        let count = realm.objects(Task).filter("name = '\(name)'").count
+        
+        let count = category.tasks.filter("name = '\(name)'").count
         
         if (count == 0) {
             return true
@@ -249,7 +249,7 @@ public class Database {
         }
     }
     
-    public class func addTask(name name: String, memo: String, time: Double, categoryName: String) {
+    public class func addTask(name name: String, memo: String, time: Double, categoryName: String) -> Bool {
         let realm = Database.getRealm()
         let currentBudget = realm.objects(Budget).filter("isCurrent = true").first!
         let parentCategory = (currentBudget.categories.filter("name = '\(categoryName)'")).first!
@@ -277,10 +277,14 @@ public class Database {
                 print("addTask->testTask.categoryName: ", testTask.parent.name)
             }
             
+            return true
+            
         } else {
             if self.debugEnabled{
                 print("Task Name Taken")
             }
+            
+            return false
         }
     }
     

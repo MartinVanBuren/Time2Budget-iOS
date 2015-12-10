@@ -16,8 +16,6 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
     var editMode:Bool = false
     var displayPrompt:Bool = false
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var addRecordButton: UIButton!
-    @IBOutlet weak var clockInButton: UIButton!
     
     //==================== Realm Properties ====================
     let realm = Database.getRealm()
@@ -40,13 +38,11 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
         let nav = self.navigationController!.navigationBar
         Style.navbar(nav)
         Style.viewController(self, tableView: self.tableView)
-        Style.button(self.addRecordButton)
-        Style.button(self.clockInButton)
         
         self.currentBudget = realm.objects(Budget).filter("isCurrent = true").first!
         
         // Set realm notification block
-        notificationToken = realm.addNotificationBlock { notification, realm in
+        self.notificationToken = realm.addNotificationBlock { notification, realm in
             
             self.currentBudget = Database.budgetSafetyNet()
 

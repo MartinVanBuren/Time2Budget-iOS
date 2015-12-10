@@ -164,8 +164,11 @@ class TaskEditorViewController: UIViewController, UITableViewDataSource, UITable
                         }
                     } else {
                         // New Task Mode
-                        Database.addTask(name: unwrappedName, memo: finalMemo, time: unwrappedTime, categoryName: unwrappedCategory)
-                        self.dismissViewControllerAnimated(true, completion: {})
+                        if Database.addTask(name: unwrappedName, memo: finalMemo, time: unwrappedTime, categoryName: unwrappedCategory) {
+                            self.dismissViewControllerAnimated(true, completion: {})
+                        } else {
+                            Factory.displayAlert(viewController: self, title: "Task Name Taken", message: "The task's name must be unique for this category.")
+                        }
                     }
                 } else {
                     Factory.displayAlert(viewController: self, title: "Time Budgeted Not Selected", message: "You must select an amount of time to budget.")
