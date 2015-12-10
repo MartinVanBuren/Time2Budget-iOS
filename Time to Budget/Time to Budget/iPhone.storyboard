@@ -484,14 +484,20 @@
                     <tabBarItem key="tabBarItem" title="Budget" id="xLz-f1-odg"/>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Budget" id="BDF-41-cZo">
-                        <barButtonItem key="rightBarButtonItem" title="+ Record" id="I91-R2-98g">
+                        <barButtonItem key="leftBarButtonItem" title="+ Record" id="I91-R2-98g">
                             <connections>
                                 <action selector="addRecordButtonPressed:" destination="RAG-dR-QPg" id="Aph-jE-6eb"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Clock In" id="kVz-x2-w86">
+                            <connections>
+                                <action selector="clockButtonPressed:" destination="RAG-dR-QPg" id="4Ec-0t-9J2"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="clockButton" destination="kVz-x2-w86" id="JpB-yQ-0pg"/>
                         <outlet property="tableView" destination="7wt-EZ-k6e" id="rSD-dk-PxL"/>
                         <segue destination="waX-jO-hTd" kind="presentation" identifier="showTrackingView" modalPresentationStyle="fullScreen" modalTransitionStyle="coverVertical" id="sUE-YC-L7n"/>
                         <segue destination="V2o-uB-YSp" kind="show" identifier="showRecordsView" id="eT5-d3-jGj"/>

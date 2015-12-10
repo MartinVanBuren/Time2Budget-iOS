@@ -318,6 +318,7 @@ public class Factory {
         
         preparedView.sectionNameLabel.text = titleText
         preparedView.remainingTimeLabel.hidden = true
+        preparedView.editButton.enabled = false
         Style.basicHeader(preparedView)
         
         return preparedView

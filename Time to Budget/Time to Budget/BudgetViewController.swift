@@ -15,7 +15,11 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
     //==================== Properties ====================
     var editMode:Bool = false
     var displayPrompt:Bool = false
+    var timeClock:Clock = Clock()
+    var segueFromTimeClock:Bool = false
+    var clockTime:Time!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var clockButton: UIBarButtonItem!
     
     //==================== Realm Properties ====================
     let realm = Database.getRealm()
@@ -91,17 +95,35 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
             tableView.deselectRowAtIndexPath(indexPath, animated: true)
         }
         else if segue.identifier == "showTrackingView" {
-            let recordEditorVC = (segue.destinationViewController as! UINavigationController).topViewController as! RecordEditorViewController
-            recordEditorVC.currentTask = nil
-            recordEditorVC.currentRecord = nil
+            if self.segueFromTimeClock {
+                let recordEditorVC = (segue.destinationViewController as! UINavigationController).topViewController as! RecordEditorViewController
+                recordEditorVC.currentTask = nil
+                recordEditorVC.currentRecord = nil
+                recordEditorVC.timeSpent = self.clockTime
+            } else {
+                let recordEditorVC = (segue.destinationViewController as! UINavigationController).topViewController as! RecordEditorViewController
+                recordEditorVC.currentTask = nil
+                recordEditorVC.currentRecord = nil
+            }
         }
-        
     }
     
     //==================== IBAction Methods ====================
     @IBAction func addRecordButtonPressed(sender: UIBarButtonItem) {
         performSegueWithIdentifier("showTrackingView", sender: self)
     }
+    
+    @IBAction func clockButtonPressed(sender: UIBarButtonItem) {
+        if self.timeClock.clockInOut() {
+            self.segueFromTimeClock = true
+            self.clockTime = timeClock.getTime()
+            self.clockButton.title = "Clock In"
+            performSegueWithIdentifier("showTrackingView", sender: self)
+        } else {
+            self.clockButton.title = "Clock Out"
+        }
+    }
+    
     
     //==================== UITableViewDataSource Methods ====================
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
