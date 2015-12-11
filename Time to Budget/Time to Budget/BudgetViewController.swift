@@ -15,9 +15,9 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
     //==================== Properties ====================
     var editMode:Bool = false
     var displayPrompt:Bool = false
-    var timeClock:Clock = Clock()
+    //var timeClock:Clock = Clock()
     var segueFromTimeClock:Bool = false
-    var clockTime:Time!
+    //var clockTime:Time!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var clockButton: UIBarButtonItem!
     
@@ -96,10 +96,10 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
         }
         else if segue.identifier == "showTrackingView" {
             if self.segueFromTimeClock {
-                let recordEditorVC = (segue.destinationViewController as! UINavigationController).topViewController as! RecordEditorViewController
-                recordEditorVC.currentTask = nil
-                recordEditorVC.currentRecord = nil
-                recordEditorVC.timeSpent = self.clockTime
+                //let recordEditorVC = (segue.destinationViewController as! UINavigationController).topViewController as! RecordEditorViewController
+                //recordEditorVC.currentTask = nil
+                //recordEditorVC.currentRecord = nil
+                //recordEditorVC.timeSpent = self.clockTime
             } else {
                 let recordEditorVC = (segue.destinationViewController as! UINavigationController).topViewController as! RecordEditorViewController
                 recordEditorVC.currentTask = nil
@@ -112,7 +112,7 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
     @IBAction func addRecordButtonPressed(sender: UIBarButtonItem) {
         performSegueWithIdentifier("showTrackingView", sender: self)
     }
-    
+    /*
     @IBAction func clockButtonPressed(sender: UIBarButtonItem) {
         if self.timeClock.clockInOut() {
             self.segueFromTimeClock = true
@@ -123,7 +123,7 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
             self.clockButton.title = "Clock Out"
         }
     }
-    
+    */
     
     //==================== UITableViewDataSource Methods ====================
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {

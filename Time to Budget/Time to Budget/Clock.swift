@@ -26,7 +26,7 @@ class Clock {
             let hours = UInt8((elapsedTime / 60.0) / 60.0)
             elapsedTime -= ((NSTimeInterval(hours) * 60) * 60)
             
-            let minutes = UInt8 (elapsedTime / 60.0)
+            let minutes = UInt8(round((elapsedTime / 60.0) / 15) * 15)
             elapsedTime -= (NSTimeInterval(minutes) * 60)
             
             let seconds = UInt8(elapsedTime)
