@@ -20,7 +20,7 @@ class TaskEditorViewController: UIViewController, UITableViewDataSource, UITable
     var taskName:String?
     var taskMemo:String?
     var taskCategory:String?
-    internal var taskTime:Double?
+    internal var taskTime:Double? = 0.0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -171,7 +171,8 @@ class TaskEditorViewController: UIViewController, UITableViewDataSource, UITable
                         }
                     }
                 } else {
-                    Factory.displayAlert(viewController: self, title: "Time Budgeted Not Selected", message: "You must select an amount of time to budget.")
+                    //Factory.displayAlert(viewController: self, title: "Time Budgeted Not Selected", message: "You must select an amount of time to budget.")
+                    
                 }
             } else {
                 Factory.displayAlert(viewController: self, title: "Category Not Selected", message: "You must select a Category")

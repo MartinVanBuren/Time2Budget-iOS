@@ -342,7 +342,6 @@
 				5B9679FB1BBE13D400DBEB61 /* Protocol.swift */,
 				5BB55CB61BA8ABF700F43891 /* Style.swift */,
 				93F0E51A1A720BF4009D95EC /* Time.swift */,
-				5BDE19091C1A2E8400DF8F95 /* Clock.swift */,
 			);
 			name = "Support Classes";
 			sourceTree = "<group>";
@@ -350,12 +349,13 @@
 		93F0E5301A720C6D009D95EC /* Database */ = {
 			isa = PBXGroup;
 			children = (
+				93F0E53B1A721396009D95EC /* Database.swift */,
 				93F0E53D1A7214E1009D95EC /* Budget.swift */,
 				93F0E5101A720BF4009D95EC /* Category.swift */,
-				93F0E53B1A721396009D95EC /* Database.swift */,
 				93F0E5151A720BF4009D95EC /* Record.swift */,
 				93CBED4C1AA667AE00079482 /* Settings.swift */,
 				93F0E5171A720BF4009D95EC /* Task.swift */,
+				5BDE19091C1A2E8400DF8F95 /* Clock.swift */,
 			);
 			name = Database;
 			sourceTree = "<group>";

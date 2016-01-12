@@ -11,6 +11,7 @@ import RealmSwift
 
 public class Task: Object {
     public dynamic var parent:Category!
+    public dynamic var clock:Clock? = Clock()
     public dynamic var name = ""
     public dynamic var memo = ""
     public dynamic var timeBudgeted = 0.0

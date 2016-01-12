@@ -15,6 +15,7 @@ public class Budget: Object {
     public dynamic var name = ""
     public dynamic var isCurrent = false
     public let categories = List<Category>()
+    public dynamic var clock:Clock? = Clock()
     
     public func autoInit() {
         let dt = NSDate()

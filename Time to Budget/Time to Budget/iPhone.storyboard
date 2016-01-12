@@ -430,14 +430,45 @@
                                     <outlet property="delegate" destination="RAG-dR-QPg" id="1Su-aZ-CKH"/>
                                 </connections>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g6R-O0-L90">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="e8f-8u-VSY"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <state key="normal" title="Clock In">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                </state>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="e8f-8u-VSY"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact">
+                                    <mask key="constraints">
+                                        <include reference="e8f-8u-VSY"/>
+                                    </mask>
+                                </variation>
+                                <connections>
+                                    <action selector="clockButtonPressed:" destination="RAG-dR-QPg" eventType="touchUpInside" id="BGT-xi-CsO"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="UYD-8U-7LC" firstAttribute="top" secondItem="7wt-EZ-k6e" secondAttribute="bottom" id="Fqz-vH-0EG"/>
+                            <constraint firstItem="UYD-8U-7LC" firstAttribute="top" secondItem="g6R-O0-L90" secondAttribute="bottom" constant="8" id="Q7E-Wd-Dpq"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="g6R-O0-L90" secondAttribute="trailing" constant="-5" id="T1i-HN-uid">
+                                <variation key="heightClass=regular-widthClass=compact" constant="-8"/>
+                            </constraint>
                             <constraint firstAttribute="trailingMargin" secondItem="7wt-EZ-k6e" secondAttribute="trailing" constant="-20" id="aK4-z8-lZs">
                                 <variation key="heightClass=regular-widthClass=compact" constant="-16"/>
                             </constraint>
                             <constraint firstItem="7wt-EZ-k6e" firstAttribute="top" secondItem="maK-os-cx4" secondAttribute="topMargin" id="dKu-Li-T8f"/>
+                            <constraint firstItem="g6R-O0-L90" firstAttribute="leading" secondItem="maK-os-cx4" secondAttribute="leadingMargin" constant="-5" id="jRi-xc-Diq">
+                                <variation key="heightClass=regular-widthClass=compact" constant="-8"/>
+                            </constraint>
                             <constraint firstItem="7wt-EZ-k6e" firstAttribute="leading" secondItem="maK-os-cx4" secondAttribute="leadingMargin" constant="-20" id="trK-Vc-UGc">
                                 <variation key="heightClass=regular-widthClass=compact" constant="-16"/>
                             </constraint>
@@ -445,9 +476,13 @@
                         <variation key="default">
                             <mask key="subviews">
                                 <exclude reference="7wt-EZ-k6e"/>
+                                <exclude reference="g6R-O0-L90"/>
                             </mask>
                             <mask key="constraints">
+                                <exclude reference="T1i-HN-uid"/>
+                                <exclude reference="jRi-xc-Diq"/>
                                 <exclude reference="Fqz-vH-0EG"/>
+                                <exclude reference="Q7E-Wd-Dpq"/>
                                 <exclude reference="aK4-z8-lZs"/>
                                 <exclude reference="dKu-Li-T8f"/>
                                 <exclude reference="trK-Vc-UGc"/>
@@ -456,9 +491,13 @@
                         <variation key="heightClass=regular-widthClass=compact">
                             <mask key="subviews">
                                 <include reference="7wt-EZ-k6e"/>
+                                <include reference="g6R-O0-L90"/>
                             </mask>
                             <mask key="constraints">
+                                <include reference="T1i-HN-uid"/>
+                                <include reference="jRi-xc-Diq"/>
                                 <include reference="Fqz-vH-0EG"/>
+                                <include reference="Q7E-Wd-Dpq"/>
                                 <include reference="aK4-z8-lZs"/>
                                 <include reference="dKu-Li-T8f"/>
                                 <include reference="trK-Vc-UGc"/>
@@ -476,9 +515,10 @@
                     </navigationItem>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="clockButton" destination="g6R-O0-L90" id="slZ-b4-rlo"/>
                         <outlet property="tableView" destination="7wt-EZ-k6e" id="rSD-dk-PxL"/>
                         <segue destination="waX-jO-hTd" kind="presentation" identifier="showTrackingView" modalPresentationStyle="fullScreen" modalTransitionStyle="coverVertical" id="sUE-YC-L7n"/>
-                        <segue destination="V2o-uB-YSp" kind="show" identifier="showRecordsView" id="eT5-d3-jGj"/>
+                        <segue destination="cdY-1r-v7y" kind="show" identifier="showRecordsView" id="VYd-qH-0tx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EEw-TH-6C1" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -512,9 +552,6 @@
                                                     <rect key="frame" x="-25" y="-30" width="97" height="30"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences" keyboardAppearance="alert" returnKeyType="done"/>
-                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                                        <rect key="frame" x="8" y="7" width="304" height="30"/>
-                                                    </variation>
                                                     <connections>
                                                         <action selector="memoTextFieldChanged:" destination="Ji8-4B-5Xa" eventType="editingDidEnd" id="Xc8-6q-TTw"/>
                                                     </connections>
@@ -1192,32 +1229,102 @@
             <point key="canvasLocation" x="6655.5" y="1956"/>
         </scene>
         <!--Records-->
-        <scene sceneID="GCT-y2-RAA">
+        <scene sceneID="Xe3-vF-V5s">
             <objects>
-                <tableViewController title="Records" id="V2o-uB-YSp" customClass="RecordsViewController" customModule="Time_to_Budget" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="xjS-iT-rFN">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                <viewController title="Records" id="cdY-1r-v7y" customClass="RecordsViewController" customModule="Time_to_Budget" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="k93-Wa-VBa"/>
+                        <viewControllerLayoutGuide type="bottom" id="j4K-rV-zkI"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="NvM-bD-uMT">
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="61q-VK-ApC">
+                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="cdY-1r-v7y" id="Cze-pA-Jyg"/>
+                                    <outlet property="delegate" destination="cdY-1r-v7y" id="IUv-h6-fBx"/>
+                                </connections>
+                            </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MVu-Cc-cfk">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="OGd-Ai-ICg"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <state key="normal" title="Clock In">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                </state>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="OGd-Ai-ICg"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact">
+                                    <mask key="constraints">
+                                        <include reference="OGd-Ai-ICg"/>
+                                    </mask>
+                                </variation>
+                                <connections>
+                                    <action selector="clockButtonPressed:" destination="cdY-1r-v7y" eventType="touchUpInside" id="YE2-Cv-WQO"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <connections>
-                            <outlet property="dataSource" destination="V2o-uB-YSp" id="Hno-W7-tZm"/>
-                            <outlet property="delegate" destination="V2o-uB-YSp" id="2vu-LD-2RB"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" title="Record Name" id="Y0I-6A-T69">
-                        <barButtonItem key="rightBarButtonItem" title="+ Record" id="Heq-y5-jim">
-                            <connections>
-                                <action selector="addRecordButtonPressed:" destination="V2o-uB-YSp" id="GLt-Hr-ECc"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                        <constraints>
+                            <constraint firstItem="61q-VK-ApC" firstAttribute="leading" secondItem="NvM-bD-uMT" secondAttribute="leadingMargin" constant="-16" id="3qJ-iN-hP8"/>
+                            <constraint firstItem="j4K-rV-zkI" firstAttribute="top" secondItem="61q-VK-ApC" secondAttribute="bottom" id="5bR-kn-Flm"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="MVu-Cc-cfk" secondAttribute="trailing" constant="-8" id="B9T-wI-I9S"/>
+                            <constraint firstItem="61q-VK-ApC" firstAttribute="top" secondItem="k93-Wa-VBa" secondAttribute="bottom" id="F0g-GI-nlL"/>
+                            <constraint firstItem="61q-VK-ApC" firstAttribute="top" secondItem="NvM-bD-uMT" secondAttribute="topMargin" id="KoF-us-tbP"/>
+                            <constraint firstItem="MVu-Cc-cfk" firstAttribute="leading" secondItem="NvM-bD-uMT" secondAttribute="leadingMargin" constant="-8" id="PhG-Wq-mrG"/>
+                            <constraint firstItem="j4K-rV-zkI" firstAttribute="top" secondItem="MVu-Cc-cfk" secondAttribute="bottom" constant="8" id="cfb-o0-pcG"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="61q-VK-ApC" secondAttribute="trailing" constant="-16" id="rZj-Iz-5nr"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="61q-VK-ApC"/>
+                                <exclude reference="MVu-Cc-cfk"/>
+                            </mask>
+                            <mask key="constraints">
+                                <exclude reference="3qJ-iN-hP8"/>
+                                <exclude reference="F0g-GI-nlL"/>
+                                <exclude reference="KoF-us-tbP"/>
+                                <exclude reference="rZj-Iz-5nr"/>
+                                <exclude reference="B9T-wI-I9S"/>
+                                <exclude reference="PhG-Wq-mrG"/>
+                                <exclude reference="5bR-kn-Flm"/>
+                                <exclude reference="cfb-o0-pcG"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=regular-widthClass=compact">
+                            <mask key="subviews">
+                                <include reference="61q-VK-ApC"/>
+                                <include reference="MVu-Cc-cfk"/>
+                            </mask>
+                            <mask key="constraints">
+                                <include reference="3qJ-iN-hP8"/>
+                                <exclude reference="F0g-GI-nlL"/>
+                                <include reference="KoF-us-tbP"/>
+                                <include reference="rZj-Iz-5nr"/>
+                                <include reference="B9T-wI-I9S"/>
+                                <include reference="PhG-Wq-mrG"/>
+                                <include reference="5bR-kn-Flm"/>
+                                <include reference="cfb-o0-pcG"/>
+                            </mask>
+                        </variation>
+                    </view>
                     <connections>
-                        <segue destination="waX-jO-hTd" kind="presentation" identifier="showTrackingViewAlt" modalPresentationStyle="fullScreen" modalTransitionStyle="coverVertical" id="nzI-MA-cks"/>
+                        <outlet property="clockButton" destination="MVu-Cc-cfk" id="hpG-Zf-fs5"/>
+                        <outlet property="tableView" destination="61q-VK-ApC" id="7tl-1u-xx4"/>
+                        <segue destination="waX-jO-hTd" kind="presentation" identifier="showTrackingViewAlt" modalPresentationStyle="fullScreen" modalTransitionStyle="coverVertical" id="WcA-qF-lm9"/>
                     </connections>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="5wL-kU-PVo" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SdF-lJ-mDr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5076" y="-96.75"/>
+            <point key="canvasLocation" x="5100" y="-110.25"/>
         </scene>
         <!--Budget Editor-->
         <scene sceneID="VI9-Fy-XnK">
@@ -1522,7 +1629,7 @@
         <image name="settingsTabBar" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="sUE-YC-L7n"/>
+        <segue reference="WcA-qF-lm9"/>
         <segue reference="Mfa-4p-w2b"/>
     </inferredMetricsTieBreakers>
 </document>

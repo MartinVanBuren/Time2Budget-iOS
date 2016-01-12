@@ -12,7 +12,7 @@ import RealmSwift
 
 public class Database {
     static var testingEnabled = false
-    static var debugEnabled = false
+    static var debugEnabled = true
     
     public class func getRealm() -> Realm {
         if Database.testingEnabled {
@@ -26,11 +26,11 @@ public class Database {
     public class func migrationHandling() {
         let config = Realm.Configuration(
             
-            schemaVersion: 0,
+            schemaVersion: 2,
             
             migrationBlock: { migration, oldSchemaVersion in
                 
-                if (oldSchemaVersion < 1) {
+                if (oldSchemaVersion < 2) {
                     // Nothing to do!
                     // Realm will automatically detect new properties and removed properties
                     // And will update the schema on disk automatically
@@ -444,4 +444,46 @@ public class Database {
             print("addRecord->testRecord.parent", testRecord.parent.name)
         }
     }
+    
+    public class func clockInOut(budget: Budget) -> Double? {
+        let realm = Database.getRealm()
+        
+        try! realm.write {
+            budget.clock!.clockInOut()
+        }
+        
+        if budget.clock!.clockedIn {
+            return nil
+        } else {
+            return budget.clock!.finalTime
+        }
+    }
+    
+    public class func clockInOut(task: Task) -> Double? {
+        let realm = Database.getRealm()
+        
+        try! realm.write {
+            task.clock!.clockInOut()
+        }
+        
+        if task.clock!.clockedIn {
+            return nil
+        } else {
+            return task.clock!.finalTime
+        }
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -15,11 +15,13 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
     //==================== Properties ====================
     var editMode:Bool = false
     var displayPrompt:Bool = false
-    //var timeClock:Clock = Clock()
-    var segueFromTimeClock:Bool = false
-    //var clockTime:Time!
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var clockButton: UIBarButtonItem!
+    
+    //==================== Time Clock Properties ===============
+    var finalClockTime:Time!
+    var segueFromTimeClock:Bool = false
+    @IBOutlet weak var clockButton: UIButton!
+    var timer:NSTimer!
     
     //==================== Realm Properties ====================
     let realm = Database.getRealm()
@@ -42,6 +44,7 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
         let nav = self.navigationController!.navigationBar
         Style.navbar(nav)
         Style.viewController(self, tableView: self.tableView)
+        Style.button(self.clockButton)
         
         self.currentBudget = realm.objects(Budget).filter("isCurrent = true").first!
         
@@ -57,6 +60,7 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
         
         // Run Display Prompt Code
         self.displayPromptControl()
+        
     }
     
     /*
@@ -72,6 +76,23 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
     
     override func viewWillAppear(animated: Bool) {
         self.tableView.reloadData()
+        
+        if self.currentBudget!.clock!.clockedIn {
+            let aSelector:Selector = "updateClock"
+            self.timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: aSelector, userInfo: nil, repeats: true)
+        } else if self.timer != nil {
+            self.timer.invalidate()
+            self.clockButton.setTitle("Clock In", forState: UIControlState.Normal)
+            self.clockButton.setTitle("Clock In", forState: UIControlState.Highlighted)
+        }
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        if self.timer != nil {
+            if self.timer.valid {
+                self.timer.invalidate()
+            }
+        }
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -96,10 +117,11 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
         }
         else if segue.identifier == "showTrackingView" {
             if self.segueFromTimeClock {
-                //let recordEditorVC = (segue.destinationViewController as! UINavigationController).topViewController as! RecordEditorViewController
-                //recordEditorVC.currentTask = nil
-                //recordEditorVC.currentRecord = nil
-                //recordEditorVC.timeSpent = self.clockTime
+                let recordEditorVC = (segue.destinationViewController as! UINavigationController).topViewController as! RecordEditorViewController
+                recordEditorVC.currentTask = nil
+                recordEditorVC.currentRecord = nil
+                recordEditorVC.timeSpent = self.finalClockTime
+                self.segueFromTimeClock = false
             } else {
                 let recordEditorVC = (segue.destinationViewController as! UINavigationController).topViewController as! RecordEditorViewController
                 recordEditorVC.currentTask = nil
@@ -112,18 +134,23 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
     @IBAction func addRecordButtonPressed(sender: UIBarButtonItem) {
         performSegueWithIdentifier("showTrackingView", sender: self)
     }
-    /*
-    @IBAction func clockButtonPressed(sender: UIBarButtonItem) {
-        if self.timeClock.clockInOut() {
-            self.segueFromTimeClock = true
-            self.clockTime = timeClock.getTime()
-            self.clockButton.title = "Clock In"
-            performSegueWithIdentifier("showTrackingView", sender: self)
+    
+    @IBAction func clockButtonPressed(sender: UIButton) {
+        if self.currentBudget!.clock!.clockedIn {
+            if let unwrappedFinalTime = Database.clockInOut(self.currentBudget!) {
+                self.timer.invalidate()
+                self.finalClockTime = Time.doubleToTime(unwrappedFinalTime)
+                self.segueFromTimeClock = true
+                self.clockButton.setTitle("Clock In", forState: UIControlState.Normal)
+                self.clockButton.setTitle("Clock In", forState: UIControlState.Highlighted)
+                performSegueWithIdentifier("showTrackingView", sender: self)
+            }
         } else {
-            self.clockButton.title = "Clock Out"
+            let aSelector:Selector = "updateClock"
+            self.timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: aSelector, userInfo: nil, repeats: true)
+            Database.clockInOut(self.currentBudget!)
         }
     }
-    */
     
     //==================== UITableViewDataSource Methods ====================
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -161,6 +188,51 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     //==================== Helper Methods ====================
+    func updateClock() {
+        
+        let currentTime = NSDate.timeIntervalSinceReferenceDate()
+        
+        var elapsedTime = currentTime - self.currentBudget!.clock!.startTime
+        
+        let hours = Int((elapsedTime / 60.0) / 60.0)
+        elapsedTime -= ((NSTimeInterval(hours) * 60) * 60)
+        
+        let minutes = Int((elapsedTime / 60.0))
+        elapsedTime -= (NSTimeInterval(minutes) * 60)
+        
+        let seconds = Int(elapsedTime)
+        elapsedTime -= (NSTimeInterval(seconds))
+        
+        var hoursString:String!
+        var minutesString:String!
+        var secondsString:String!
+        
+        if hours >= 10 {
+            hoursString = "\(hours):"
+        } else {
+            hoursString = "0\(hours):"
+        }
+        
+        if minutes >= 10 {
+            minutesString = "\(minutes):"
+        } else {
+            minutesString = "0\(minutes):"
+        }
+        
+        if seconds >= 10 {
+            secondsString = "\(seconds)"
+        } else {
+            secondsString = "0\(seconds)"
+        }
+        
+        let finalTimeString = hoursString + minutesString + secondsString
+        
+        UIView.setAnimationsEnabled(false)
+        self.clockButton.setTitle(("Clock Out - " + finalTimeString), forState: UIControlState.Normal)
+        self.clockButton.setTitle(("Clock Out - " + finalTimeString), forState: UIControlState.Highlighted)
+        UIView.setAnimationsEnabled(true)
+    }
+    
     func displayPromptControl() {
         let navSingleTap = UITapGestureRecognizer(target: self, action: "navSingleTap")
         navSingleTap.numberOfTapsRequired = 1

@@ -158,21 +158,26 @@ class RecordEditorViewController: UIViewController, UITableViewDataSource, UITab
         
         if let unwrappedTask = self.currentTask {
             if let unwrappedTime = self.timeSpent {
-                if self.editRecord {
-                    // Edit Record Mode
-                    if let unwrappedRecord = self.currentRecord {
-                        Database.updateRecord(record: unwrappedRecord, taskName: unwrappedTask.name, note: finalMemo, timeSpent: unwrappedTime.toDouble(), date: self.date)
-                        self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
+                if unwrappedTime.toDouble() != 0.0 {
+                    if self.editRecord {
+                        // Edit Record Mode
+                        if let unwrappedRecord = self.currentRecord {
+                            Database.updateRecord(record: unwrappedRecord, taskName: unwrappedTask.name, note: finalMemo, timeSpent: unwrappedTime.toDouble(), date: self.date)
+                            self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
+                        } else {
+                            Factory.displayAlert(viewController: self, title: "Error: Record Missing", message: "Record missing while in edit mode. D':")
+                        }
                     } else {
-                        Factory.displayAlert(viewController: self, title: "Error: Record Missing", message: "Record missing while in edit mode. D':")
+                        // New Record Mode
+                        Database.addRecord(parentTask: unwrappedTask, note: finalMemo, timeSpent: unwrappedTime.toDouble(), date: self.date)
+                        self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
                     }
                 } else {
-                    // New Record Mode
-                    Database.addRecord(parentTask: unwrappedTask, note: finalMemo, timeSpent: unwrappedTime.toDouble(), date: self.date)
-                    self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
+                    Factory.displayAlert(viewController: self, title: "Time Spent Cannot Be 0", message: "You must select an amount of time to spend.")
                 }
+                
             } else {
-                Factory.displayAlert(viewController: self, title: "Time Spent Not Selected", message: "You must select an amount of time to spend.")
+                Factory.displayAlert(viewController: self, title: "Time Spent Cannot Be 0", message: "You must select an amount of time to spend.")
             }
         } else {
             Factory.displayAlert(viewController: self, title: "Task Not Selected", message: "You must select a Task.")
