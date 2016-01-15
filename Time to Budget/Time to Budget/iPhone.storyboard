@@ -762,44 +762,10 @@
                                     <outlet property="delegate" destination="F8n-Iw-4On" id="NF2-qF-ulJ"/>
                                 </connections>
                             </pickerView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="icw-38-pqv">
-                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
-                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="icw-38-pqv" secondAttribute="height" multiplier="5:1" id="1Oi-4a-Ll3"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="35"/>
-                                <state key="normal" title="Start 00:00:00">
-                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="1Oi-4a-Ll3"/>
-                                    </mask>
-                                </variation>
-                                <variation key="heightClass=regular-widthClass=compact">
-                                    <mask key="constraints">
-                                        <include reference="1Oi-4a-Ll3"/>
-                                    </mask>
-                                </variation>
-                                <connections>
-                                    <action selector="startTimeButtonPressed:" destination="F8n-Iw-4On" eventType="touchUpInside" id="rYT-ea-qad"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="YNy-BW-eM1" firstAttribute="leading" secondItem="APc-0A-bjE" secondAttribute="leadingMargin" constant="56" id="1dy-Yj-yDj"/>
-                            <constraint firstItem="icw-38-pqv" firstAttribute="top" secondItem="cjm-F8-kVz" secondAttribute="bottom" constant="32" id="3ap-QF-KYr">
-                                <variation key="heightClass=regular-widthClass=compact" constant="44"/>
-                            </constraint>
-                            <constraint firstItem="icw-38-pqv" firstAttribute="leading" secondItem="APc-0A-bjE" secondAttribute="leadingMargin" constant="-16" id="B6T-ld-YGJ">
-                                <variation key="heightClass=regular-widthClass=compact" constant="-5"/>
-                            </constraint>
-                            <constraint firstAttribute="trailingMargin" secondItem="icw-38-pqv" secondAttribute="trailing" constant="-16" id="Gj5-Rw-Gr7">
-                                <variation key="heightClass=regular-widthClass=compact" constant="-5"/>
-                            </constraint>
                             <constraint firstItem="cjm-F8-kVz" firstAttribute="top" secondItem="OLb-lH-p0b" secondAttribute="bottom" constant="72" id="Gxt-Vk-c33"/>
                             <constraint firstItem="YNy-BW-eM1" firstAttribute="leading" secondItem="APc-0A-bjE" secondAttribute="leadingMargin" constant="-5" id="RjG-QI-YO5"/>
                             <constraint firstItem="Oka-Vc-d0X" firstAttribute="top" secondItem="YNy-BW-eM1" secondAttribute="bottom" constant="10" id="Y12-8l-oGu"/>
@@ -814,7 +780,6 @@
                             <mask key="subviews">
                                 <exclude reference="YNy-BW-eM1"/>
                                 <exclude reference="cjm-F8-kVz"/>
-                                <exclude reference="icw-38-pqv"/>
                             </mask>
                             <mask key="constraints">
                                 <exclude reference="Y12-8l-oGu"/>
@@ -827,16 +792,12 @@
                                 <exclude reference="eqe-Bq-YxF"/>
                                 <exclude reference="ff7-7M-jsq"/>
                                 <exclude reference="lKK-Er-Ea0"/>
-                                <exclude reference="3ap-QF-KYr"/>
-                                <exclude reference="B6T-ld-YGJ"/>
-                                <exclude reference="Gj5-Rw-Gr7"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
                             <mask key="subviews">
                                 <include reference="YNy-BW-eM1"/>
                                 <include reference="cjm-F8-kVz"/>
-                                <include reference="icw-38-pqv"/>
                             </mask>
                             <mask key="constraints">
                                 <include reference="Y12-8l-oGu"/>
@@ -849,9 +810,6 @@
                                 <exclude reference="eqe-Bq-YxF"/>
                                 <include reference="ff7-7M-jsq"/>
                                 <exclude reference="lKK-Er-Ea0"/>
-                                <include reference="3ap-QF-KYr"/>
-                                <include reference="B6T-ld-YGJ"/>
-                                <include reference="Gj5-Rw-Gr7"/>
                             </mask>
                         </variation>
                     </view>
@@ -860,7 +818,6 @@
                     </navigationItem>
                     <connections>
                         <outlet property="doneButton" destination="YNy-BW-eM1" id="Gxk-d5-JId"/>
-                        <outlet property="startButton" destination="icw-38-pqv" id="yY0-4Y-mWD"/>
                         <outlet property="timePicker" destination="cjm-F8-kVz" id="kcF-Ks-H75"/>
                     </connections>
                 </viewController>
@@ -1302,10 +1259,10 @@
                                 <exclude reference="MVu-Cc-cfk"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="5bR-kn-Flm"/>
-                                <exclude reference="cfb-o0-pcG"/>
                                 <exclude reference="B9T-wI-I9S"/>
                                 <exclude reference="PhG-Wq-mrG"/>
+                                <exclude reference="5bR-kn-Flm"/>
+                                <exclude reference="cfb-o0-pcG"/>
                                 <exclude reference="3qJ-iN-hP8"/>
                                 <exclude reference="F0g-GI-nlL"/>
                                 <exclude reference="KoF-us-tbP"/>
@@ -1318,10 +1275,10 @@
                                 <include reference="MVu-Cc-cfk"/>
                             </mask>
                             <mask key="constraints">
-                                <include reference="5bR-kn-Flm"/>
-                                <include reference="cfb-o0-pcG"/>
                                 <include reference="B9T-wI-I9S"/>
                                 <include reference="PhG-Wq-mrG"/>
+                                <include reference="5bR-kn-Flm"/>
+                                <include reference="cfb-o0-pcG"/>
                                 <include reference="3qJ-iN-hP8"/>
                                 <exclude reference="F0g-GI-nlL"/>
                                 <include reference="KoF-us-tbP"/>

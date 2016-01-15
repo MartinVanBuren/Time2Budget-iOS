@@ -18,19 +18,11 @@ class RecordEditorTimePickerViewController: UIViewController, UIPickerViewDataSo
     @IBOutlet weak var timePicker: UIPickerView!
     @IBOutlet weak var doneButton: UIButton!
     
-    // Stop watch Declarations
-    @IBOutlet weak var startButton: UIButton!
-    var startTime:NSTimeInterval!
-    var isStarted = false
-    var timer = NSTimer()
-    var finalTime = Time()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         Style.viewController(self)
         Style.button(self.doneButton)
-        Style.button(self.startButton)
 
         // Time Picker Setup
         timePicker.dataSource = self
@@ -77,64 +69,7 @@ class RecordEditorTimePickerViewController: UIViewController, UIPickerViewDataSo
         self.navigationController?.popViewControllerAnimated(true)
     }
     
-    @IBAction func startTimeButtonPressed(sender: UIButton) {
-        if self.isStarted {
-            self.timer.invalidate()
-            self.isStarted = false
-            self.timePicker.userInteractionEnabled = true
-            self.startButton.setTitle(("Start " + self.finalTime.toString()), forState: UIControlState.Normal)
-            self.startButton.setTitle(("Start " + self.finalTime.toString()), forState: UIControlState.Highlighted)
-        } else {
-            let aSelector:Selector = "updateTimer"
-            self.startTime = NSDate.timeIntervalSinceReferenceDate()
-            self.timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: aSelector, userInfo: nil, repeats: true)
-            self.isStarted = true
-            self.timePicker.userInteractionEnabled = false
-            self.startButton.setTitle("Stop 00:00:00", forState: UIControlState.Normal)
-            self.startButton.setTitle("Stop 00:00:00", forState: UIControlState.Highlighted)
-        }
-    }
-    
     // Helper Functions
-    func updateTimer() {
-        let currentTime = NSDate.timeIntervalSinceReferenceDate()
-        
-        var elapsedTime = currentTime - self.startTime
-        
-        let hours = UInt8((elapsedTime / 60.0) / 60.0)
-        elapsedTime -= ((NSTimeInterval(hours) * 60) * 60)
-        
-        let minutes = UInt8 (elapsedTime / 60.0)
-        elapsedTime -= (NSTimeInterval(minutes) * 60)
-        
-        let seconds = UInt8(elapsedTime)
-        elapsedTime -= (NSTimeInterval(seconds))
-        
-        self.finalTime.hours = Int(hours)
-        self.finalTime.minutes = Int(minutes)
-        
-        UIView.setAnimationsEnabled(false)
-        self.startButton.setTitle(("Stop " + self.finalTime.toString() + secondsToString(seconds)), forState: UIControlState.Normal)
-        self.startButton.setTitle(("Stop " + self.finalTime.toString() + secondsToString(seconds)), forState: UIControlState.Highlighted)
-        UIView.setAnimationsEnabled(true)
-        
-        if (minutes == 15 || minutes == 30 || minutes == 45 || minutes == 0) {
-            timePicked.minutes = self.finalTime.minutes
-        }
-        timePicked.hours = self.finalTime.hours
-        
-        timePicker.selectRow(getHourIndex(), inComponent: 0, animated: true)
-        timePicker.selectRow(getMinIndex(), inComponent: 1, animated: true)
-    }
-    
-    func secondsToString(seconds: UInt8) -> String {
-        if seconds < 10 {
-            return ":0" + "\(seconds)"
-        } else {
-            return ":\(seconds)"
-        }
-    }
-    
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if component == 0 {
             timePicked.hours = timeHourPickerData[row]
