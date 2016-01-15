@@ -71,7 +71,9 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
     override func viewWillAppear(animated: Bool) {
         self.tableView.reloadData()
         
+        // Prepare timer if clocked in
         if self.currentBudget!.clock!.clockedIn {
+            self.updateClock()
             let aSelector:Selector = "updateClock"
             self.timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: aSelector, userInfo: nil, repeats: true)
         } else if self.timer != nil {
