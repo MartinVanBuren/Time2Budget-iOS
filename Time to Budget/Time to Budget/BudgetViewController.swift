@@ -24,13 +24,15 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
     var timer:NSTimer!
     
     //==================== Realm Properties ====================
-    let realm = Database.getRealm()
+    var realm:Realm!
     var currentBudget:Budget?
     var notificationToken: NotificationToken!
     
     //==================== Pre-Generated Methods ====================
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.realm = Database.getRealm()
         
         var nib = UINib(nibName: "CategoryView", bundle: nil)
         self.tableView.registerNib(nib, forHeaderFooterViewReuseIdentifier: "CategoryView")
@@ -46,7 +48,7 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
         Style.viewController(self, tableView: self.tableView)
         Style.button(self.clockButton)
         
-        self.currentBudget = realm.objects(Budget).filter("isCurrent = true").first!
+        self.currentBudget = realm.objects(Budget).filter("isCurrent = TRUE").first!
         
         // Set realm notification block
         self.notificationToken = realm.addNotificationBlock { notification, realm in
@@ -137,9 +139,10 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
                 performSegueWithIdentifier("showTrackingView", sender: self)
             }
         } else {
+            Database.clockInOut(self.currentBudget!)
+            self.updateClock()
             let aSelector:Selector = "updateClock"
             self.timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: aSelector, userInfo: nil, repeats: true)
-            Database.clockInOut(self.currentBudget!)
         }
     }
     

@@ -18,20 +18,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: [UIUserNotificationType.Sound, UIUserNotificationType.Alert, UIUserNotificationType.Badge], categories: nil))
         
+        Database.migrationHandling()
+        
+        print("Database Migrated?!")
+        
         let realm = Database.getRealm()
         
-        let currentBudget = realm.objects(Budget).filter("isCurrent = TRUE")
+        let currentBudgets = realm.objects(Budget).filter("isCurrent = true")
+        
+        let budgets = realm.objects(Budget)
+        
+        for budget in budgets {
+            print(budget.name)
+            print(budget.isCurrent)
+        }
         
         if Database.debugEnabled {
             print("AppDelegate->Current Budgets:")
-            for current in currentBudget {
+            for current in currentBudgets {
                 print(current.name)
+                print(current.isCurrent)
             }
             
-            print("AppDelegate->CurrentBudgetCount: ", currentBudget.count)
+            print("AppDelegate->CurrentBudgetCount: ", currentBudgets.count)
         }
         
-        if currentBudget.count == 0 {
+        if currentBudgets.count == 0 {
             Database.newBudget()
         }
         

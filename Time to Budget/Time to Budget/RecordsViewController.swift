@@ -175,9 +175,10 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
                 performSegueWithIdentifier("showTrackingViewAlt", sender: self)
             }
         } else {
+            Database.clockInOut(self.currentTask!)
+            self.updateClock()
             let aSelector:Selector = "updateClock"
             self.timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: aSelector, userInfo: nil, repeats: true)
-            Database.clockInOut(self.currentTask!)
         }
     }
     // ============================= Helper Functions =============================

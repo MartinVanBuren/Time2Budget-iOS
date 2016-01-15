@@ -18,11 +18,13 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
     @IBOutlet weak var tableView: UITableView!
     
     //==================== Realm Properties ====================
-    let realm = Database.getRealm()
+    var realm:Realm!
     var currentBudget:Budget!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.realm = Database.getRealm()
         
         var nib = UINib(nibName: "CategoryView", bundle: nil)
         self.tableView.registerNib(nib, forHeaderFooterViewReuseIdentifier: "CategoryView")
