@@ -28,11 +28,6 @@ class RecordEditorDatePickerViewController: UIViewController {
         
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
     @IBAction func saveButtonPressed(sender: UIButton) {
         recordEditorVC.date = self.datePicked
         

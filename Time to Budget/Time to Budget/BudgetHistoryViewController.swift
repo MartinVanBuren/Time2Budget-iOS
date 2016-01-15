@@ -30,15 +30,8 @@ class BudgetHistoryViewController: UITableViewController {
     }
     
     override func viewDidLayoutSubviews() {
-        if let rect = self.navigationController?.navigationBar.frame {
-            let y = rect.size.height + rect.origin.y
-            self.tableView.contentInset = UIEdgeInsetsMake(y, 0, 0, 0)
-        }
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        self.automaticallyAdjustsScrollViewInsets = false
+        tableView.contentInset = UIEdgeInsetsMake(self.topLayoutGuide.length, 0, 54, 0)
     }
     
     override func viewWillAppear(animated: Bool) {

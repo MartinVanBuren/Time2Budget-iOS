@@ -53,11 +53,6 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
         }
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
     override func viewWillAppear(animated: Bool) {
         navigationItem.title = currentTask!.name
         
@@ -93,6 +88,11 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
                 }
             }
         }
+    }
+    
+    override func viewDidLayoutSubviews() {
+        self.automaticallyAdjustsScrollViewInsets = false
+        tableView.contentInset = UIEdgeInsetsMake(self.topLayoutGuide.length, 0, 54, 0)
     }
     
     func tabBarController(tabBarController: UITabBarController, didSelectViewController viewController: UIViewController) {

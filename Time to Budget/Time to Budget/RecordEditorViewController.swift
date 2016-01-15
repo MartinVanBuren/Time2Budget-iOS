@@ -41,22 +41,7 @@ class RecordEditorViewController: UIViewController, UITableViewDataSource, UITab
         }
     }
     
-    /*
-    override func viewDidLayoutSubviews() {
-        if let rect = self.navigationController?.navigationBar.frame {
-            let y = rect.size.height + rect.origin.y
-            self.tableView.contentInset = UIEdgeInsetsMake(y, 0, 0, 0)
-        }
-    }
-    */
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
     override func viewWillAppear(animated: Bool) {
-        //fixContentInset(calledFromSegue: false)
         tableView.reloadData()
     }
     
@@ -68,8 +53,6 @@ class RecordEditorViewController: UIViewController, UITableViewDataSource, UITab
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if (segue.identifier == "showTaskSelectorView") {
-            //let taskSelectorVC = segue.destinationViewController as! RecordEditorTaskSelectorViewController
-            //taskSelectorVC.recordEditorVC = self
             let taskSelectorVC = (segue.destinationViewController as! RecordEditorTaskSelectorViewController)
             taskSelectorVC.delegate = self
         } else if (segue.identifier == "showTimePickerView") {
@@ -79,8 +62,6 @@ class RecordEditorViewController: UIViewController, UITableViewDataSource, UITab
             let datePickerVC = segue.destinationViewController as! RecordEditorDatePickerViewController
             datePickerVC.recordEditorVC = self
         }
-        
-        fixContentInset(calledFromSegue: true)
     }
     
     func writeTaskBack(task: Task) {
@@ -184,24 +165,4 @@ class RecordEditorViewController: UIViewController, UITableViewDataSource, UITab
         }
     }
     
-    func fixContentInset(calledFromSegue calledFromSegue: Bool) {
-        if calledFromSegue {
-            if (returning != nil) {
-                self.returning = true
-            }
-        } else {
-            if (returning != nil) {
-                if !returning! {
-                    self.tableView.contentInset.top = 64
-                }
-                else if returning! {
-                    self.tableView.contentInset.top -= 64
-                    self.returning = nil
-                }
-            }
-            else {
-                
-            }
-        }
-    }
 }

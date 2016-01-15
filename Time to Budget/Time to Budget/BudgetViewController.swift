@@ -63,16 +63,10 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
         
     }
     
-    /*
     override func viewDidLayoutSubviews() {
-        UIView.animateWithDuration(CATransaction.animationDuration(), animations: {
-            if let rect = self.navigationController?.navigationBar.frame {
-                let y = rect.size.height + rect.origin.y
-                self.tableView.contentInset = UIEdgeInsetsMake(y, 0, 0, 0)
-            }
-        })
+        self.automaticallyAdjustsScrollViewInsets = false
+        tableView.contentInset = UIEdgeInsetsMake(self.topLayoutGuide.length, 0, 54, 0)
     }
-    */
     
     override func viewWillAppear(animated: Bool) {
         self.tableView.reloadData()
@@ -97,11 +91,6 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     //==================== Segue Preperation ====================

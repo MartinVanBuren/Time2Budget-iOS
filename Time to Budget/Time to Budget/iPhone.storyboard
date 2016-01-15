@@ -434,7 +434,9 @@
                                 <rect key="frame" x="-23" y="-15" width="46" height="30"/>
                                 <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="e8f-8u-VSY"/>
+                                    <constraint firstAttribute="height" constant="44" id="e8f-8u-VSY">
+                                        <variation key="heightClass=regular-widthClass=compact" constant="42"/>
+                                    </constraint>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <state key="normal" title="Clock In">
@@ -458,16 +460,18 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="UYD-8U-7LC" firstAttribute="top" secondItem="7wt-EZ-k6e" secondAttribute="bottom" id="Fqz-vH-0EG"/>
-                            <constraint firstItem="UYD-8U-7LC" firstAttribute="top" secondItem="g6R-O0-L90" secondAttribute="bottom" constant="8" id="Q7E-Wd-Dpq"/>
+                            <constraint firstItem="UYD-8U-7LC" firstAttribute="top" secondItem="g6R-O0-L90" secondAttribute="bottom" constant="8" id="Q7E-Wd-Dpq">
+                                <variation key="heightClass=regular-widthClass=compact" constant="4"/>
+                            </constraint>
                             <constraint firstAttribute="trailingMargin" secondItem="g6R-O0-L90" secondAttribute="trailing" constant="-5" id="T1i-HN-uid">
-                                <variation key="heightClass=regular-widthClass=compact" constant="-8"/>
+                                <variation key="heightClass=regular-widthClass=compact" constant="-12"/>
                             </constraint>
                             <constraint firstAttribute="trailingMargin" secondItem="7wt-EZ-k6e" secondAttribute="trailing" constant="-20" id="aK4-z8-lZs">
                                 <variation key="heightClass=regular-widthClass=compact" constant="-16"/>
                             </constraint>
                             <constraint firstItem="7wt-EZ-k6e" firstAttribute="top" secondItem="maK-os-cx4" secondAttribute="topMargin" id="dKu-Li-T8f"/>
                             <constraint firstItem="g6R-O0-L90" firstAttribute="leading" secondItem="maK-os-cx4" secondAttribute="leadingMargin" constant="-5" id="jRi-xc-Diq">
-                                <variation key="heightClass=regular-widthClass=compact" constant="-8"/>
+                                <variation key="heightClass=regular-widthClass=compact" constant="-12"/>
                             </constraint>
                             <constraint firstItem="7wt-EZ-k6e" firstAttribute="leading" secondItem="maK-os-cx4" secondAttribute="leadingMargin" constant="-20" id="trK-Vc-UGc">
                                 <variation key="heightClass=regular-widthClass=compact" constant="-16"/>
@@ -862,7 +866,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fHS-nB-gUa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="7729.5" y="-1643.25"/>
+            <point key="canvasLocation" x="7738.5" y="-1643.25"/>
         </scene>
         <!--Record Editor Date Picker View Controller-->
         <scene sceneID="swB-09-Tzt">
@@ -996,7 +1000,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kDA-HJ-nrZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="7729.5" y="-943.5"/>
+            <point key="canvasLocation" x="7738.5" y="-943.5"/>
         </scene>
         <!--Record Editor Task Selector View Controller-->
         <scene sceneID="alh-v7-VGE">
@@ -1068,7 +1072,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="p6t-qf-qPY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="7729.5" y="-288"/>
+            <point key="canvasLocation" x="7738.5" y="-288.75"/>
         </scene>
         <!--Budget History-->
         <scene sceneID="pWH-Uw-1YI">
@@ -1237,6 +1241,7 @@
                         <viewControllerLayoutGuide type="bottom" id="j4K-rV-zkI"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="NvM-bD-uMT">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="61q-VK-ApC">
@@ -1251,7 +1256,9 @@
                                 <rect key="frame" x="-23" y="-15" width="46" height="30"/>
                                 <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="OGd-Ai-ICg"/>
+                                    <constraint firstAttribute="height" constant="44" id="OGd-Ai-ICg">
+                                        <variation key="heightClass=regular-widthClass=compact" constant="42"/>
+                                    </constraint>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <state key="normal" title="Clock In">
@@ -1276,11 +1283,17 @@
                         <constraints>
                             <constraint firstItem="61q-VK-ApC" firstAttribute="leading" secondItem="NvM-bD-uMT" secondAttribute="leadingMargin" constant="-16" id="3qJ-iN-hP8"/>
                             <constraint firstItem="j4K-rV-zkI" firstAttribute="top" secondItem="61q-VK-ApC" secondAttribute="bottom" id="5bR-kn-Flm"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="MVu-Cc-cfk" secondAttribute="trailing" constant="-8" id="B9T-wI-I9S"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="MVu-Cc-cfk" secondAttribute="trailing" constant="-8" id="B9T-wI-I9S">
+                                <variation key="heightClass=regular-widthClass=compact" constant="-12"/>
+                            </constraint>
                             <constraint firstItem="61q-VK-ApC" firstAttribute="top" secondItem="k93-Wa-VBa" secondAttribute="bottom" id="F0g-GI-nlL"/>
                             <constraint firstItem="61q-VK-ApC" firstAttribute="top" secondItem="NvM-bD-uMT" secondAttribute="topMargin" id="KoF-us-tbP"/>
-                            <constraint firstItem="MVu-Cc-cfk" firstAttribute="leading" secondItem="NvM-bD-uMT" secondAttribute="leadingMargin" constant="-8" id="PhG-Wq-mrG"/>
-                            <constraint firstItem="j4K-rV-zkI" firstAttribute="top" secondItem="MVu-Cc-cfk" secondAttribute="bottom" constant="8" id="cfb-o0-pcG"/>
+                            <constraint firstItem="MVu-Cc-cfk" firstAttribute="leading" secondItem="NvM-bD-uMT" secondAttribute="leadingMargin" constant="-8" id="PhG-Wq-mrG">
+                                <variation key="heightClass=regular-widthClass=compact" constant="-12"/>
+                            </constraint>
+                            <constraint firstItem="j4K-rV-zkI" firstAttribute="top" secondItem="MVu-Cc-cfk" secondAttribute="bottom" constant="8" id="cfb-o0-pcG">
+                                <variation key="heightClass=regular-widthClass=compact" constant="4"/>
+                            </constraint>
                             <constraint firstAttribute="trailingMargin" secondItem="61q-VK-ApC" secondAttribute="trailing" constant="-16" id="rZj-Iz-5nr"/>
                         </constraints>
                         <variation key="default">
@@ -1289,14 +1302,14 @@
                                 <exclude reference="MVu-Cc-cfk"/>
                             </mask>
                             <mask key="constraints">
+                                <exclude reference="5bR-kn-Flm"/>
+                                <exclude reference="cfb-o0-pcG"/>
+                                <exclude reference="B9T-wI-I9S"/>
+                                <exclude reference="PhG-Wq-mrG"/>
                                 <exclude reference="3qJ-iN-hP8"/>
                                 <exclude reference="F0g-GI-nlL"/>
                                 <exclude reference="KoF-us-tbP"/>
                                 <exclude reference="rZj-Iz-5nr"/>
-                                <exclude reference="B9T-wI-I9S"/>
-                                <exclude reference="PhG-Wq-mrG"/>
-                                <exclude reference="5bR-kn-Flm"/>
-                                <exclude reference="cfb-o0-pcG"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
@@ -1305,17 +1318,26 @@
                                 <include reference="MVu-Cc-cfk"/>
                             </mask>
                             <mask key="constraints">
+                                <include reference="5bR-kn-Flm"/>
+                                <include reference="cfb-o0-pcG"/>
+                                <include reference="B9T-wI-I9S"/>
+                                <include reference="PhG-Wq-mrG"/>
                                 <include reference="3qJ-iN-hP8"/>
                                 <exclude reference="F0g-GI-nlL"/>
                                 <include reference="KoF-us-tbP"/>
                                 <include reference="rZj-Iz-5nr"/>
-                                <include reference="B9T-wI-I9S"/>
-                                <include reference="PhG-Wq-mrG"/>
-                                <include reference="5bR-kn-Flm"/>
-                                <include reference="cfb-o0-pcG"/>
                             </mask>
                         </variation>
                     </view>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="&lt;Task Name&gt;" id="koC-5K-zPR">
+                        <barButtonItem key="rightBarButtonItem" title="+ Record" id="QuC-LW-JL1">
+                            <connections>
+                                <action selector="addRecordButtonPressed:" destination="cdY-1r-v7y" id="0cd-Te-NPn"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="clockButton" destination="MVu-Cc-cfk" id="hpG-Zf-fs5"/>
                         <outlet property="tableView" destination="61q-VK-ApC" id="7tl-1u-xx4"/>
@@ -1630,6 +1652,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="WcA-qF-lm9"/>
-        <segue reference="Mfa-4p-w2b"/>
+        <segue reference="Lon-Ra-yro"/>
     </inferredMetricsTieBreakers>
 </document>

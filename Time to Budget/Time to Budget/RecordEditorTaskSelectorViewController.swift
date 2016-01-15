@@ -40,21 +40,11 @@ class RecordEditorTaskSelectorViewController: UIViewController, UITableViewDataS
     
     override func viewWillAppear(animated: Bool) {
         self.tableView.reloadData()
-        fixContentInset(calledFromSegue: false)
     }
     
-    /*
     override func viewDidLayoutSubviews() {
-        if let rect = self.navigationController?.navigationBar.frame {
-            let y = rect.size.height + rect.origin.y
-            self.tableView.contentInset = UIEdgeInsetsMake(y, 0, 0, 0)
-        }
-    }
-    */
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        self.automaticallyAdjustsScrollViewInsets = false
+        tableView.contentInset = UIEdgeInsetsMake(self.topLayoutGuide.length, 0, 54, 0)
     }
     
     //==================== UITableViewDataSource Methods ====================
@@ -98,28 +88,6 @@ class RecordEditorTaskSelectorViewController: UIViewController, UITableViewDataS
     
     @IBAction func addTaskButtonPressed(sender: UIBarButtonItem) {
         performSegueWithIdentifier("showTaskEditorFromRecordEditor", sender: self)
-        fixContentInset(calledFromSegue: true)
-    }
-    
-    func fixContentInset(calledFromSegue calledFromSegue: Bool) {
-        if calledFromSegue {
-            if (returning != nil) {
-                self.returning = true
-            }
-        } else {
-            if (returning != nil) {
-                if !returning! {
-                    self.tableView.contentInset.top = 64
-                }
-                else if returning! {
-                    self.tableView.contentInset.top -= 64
-                    self.returning = nil
-                }
-            }
-            else {
-                
-            }
-        }
     }
     
 }

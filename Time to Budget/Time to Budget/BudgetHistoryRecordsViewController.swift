@@ -27,18 +27,6 @@ class BudgetHistoryRecordsViewController: UITableViewController {
         Style.viewController(self)
     }
     
-    override func viewDidLayoutSubviews() {
-        if let rect = self.navigationController?.navigationBar.frame {
-            let y = rect.size.height + rect.origin.y
-            self.tableView.contentInset = UIEdgeInsetsMake(y, 0, 0, 0)
-        }
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
     override func viewWillAppear(animated: Bool) {
         let recordsResults = currentTask?.records.sorted("date", ascending: false)
         for rec in recordsResults! {
@@ -46,10 +34,7 @@ class BudgetHistoryRecordsViewController: UITableViewController {
         }
         self.tableView.reloadData()
     }
-    
-    // MARK: - Navigation
-    
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
+
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         let indexPath = self.tableView.indexPathForSelectedRow!
         
@@ -59,8 +44,6 @@ class BudgetHistoryRecordsViewController: UITableViewController {
             historyRecordVC.currentTask = self.currentTask!
         }
     }
-
-    // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1

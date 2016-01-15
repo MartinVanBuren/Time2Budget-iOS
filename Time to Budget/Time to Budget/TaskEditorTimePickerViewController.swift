@@ -34,11 +34,6 @@ class TaskEditorTimePickerViewController: UIViewController, UIPickerViewDataSour
         timePicker.selectRow(getHourIndex(), inComponent: 0, animated: true)
         timePicker.selectRow(getMinIndex(), inComponent: 1, animated: true)
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
 // UIPicker Data Sources
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {

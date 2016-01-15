@@ -51,17 +51,6 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
         
     }
     
-    /*
-    override func viewDidLayoutSubviews() {
-        UIView.animateWithDuration(CATransaction.animationDuration(), animations: {
-            if let rect = self.navigationController?.navigationBar.frame {
-            let y = rect.size.height + rect.origin.y
-            self.tableView.contentInset = UIEdgeInsetsMake(y, 0, 0, 0)
-            }
-        })
-    }
-    */
-    
     override func viewWillAppear(animated: Bool) {
         
         if realm.objects(Budget).filter("isCurrent = TRUE").count > 0 {
@@ -74,11 +63,6 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
         Style.navbar(nav!)
         
         self.tableView.reloadData()
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
     //==================== Segue Preperation ====================

@@ -29,9 +29,6 @@ class TaskEditorCategorySelectorViewController: UIViewController, UITableViewDat
         
         self.realm = Database.getRealm()
         self.currentBudget = realm.objects(Budget).filter("isCurrent = TRUE").first!
-
-        // Do any additional setup after loading the view.
-        fixContentInset(calledFromSegue: false)
         
         notificationToken = realm.addNotificationBlock { notification, realm in
             
@@ -43,18 +40,9 @@ class TaskEditorCategorySelectorViewController: UIViewController, UITableViewDat
         self.tableView.reloadData()
     }
     
-    /*
     override func viewDidLayoutSubviews() {
-        if let rect = self.navigationController?.navigationBar.frame {
-            let y = rect.size.height + rect.origin.y
-            self.tableView.contentInset = UIEdgeInsetsMake(y, 0, 0, 0)
-        }
-    }
-    */
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        self.automaticallyAdjustsScrollViewInsets = false
+        tableView.contentInset = UIEdgeInsetsMake(self.topLayoutGuide.length, 0, 54, 0)
     }
     
     //==================== UITableViewDataSource Methods ====================
@@ -98,24 +86,4 @@ class TaskEditorCategorySelectorViewController: UIViewController, UITableViewDat
         Factory.displayAddCategoryAlert(viewController: self)
     }
     
-    func fixContentInset(calledFromSegue calledFromSegue: Bool) {
-        if calledFromSegue {
-            if (returning != nil) {
-                self.returning = true
-            }
-        } else {
-            if (returning != nil) {
-                if !returning! {
-                    self.tableView.contentInset.top = 64
-                }
-                else if returning! {
-                    self.tableView.contentInset.top -= 64
-                    self.returning = nil
-                }
-            }
-            else {
-                
-            }
-        }
-    }
 }

@@ -33,20 +33,6 @@ class BudgetHistoryListViewController: UITableViewController {
         }
     }
     
-    /*
-    override func viewDidLayoutSubviews() {
-        if let rect = self.navigationController?.navigationBar.frame {
-            let y = rect.size.height + rect.origin.y
-            self.tableView.contentInset = UIEdgeInsetsMake(y, 0, 0, 0)
-        }
-    }
-    */
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "showHistoryBudget" {
             let historyBudgetVC = segue.destinationViewController as! BudgetHistoryViewController

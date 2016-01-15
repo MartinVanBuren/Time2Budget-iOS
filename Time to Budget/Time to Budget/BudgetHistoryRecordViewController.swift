@@ -13,7 +13,6 @@ class BudgetHistoryRecordViewController: UITableViewController {
 
     var currentRecord:Record?
     var currentTask:Task?
-    //var notificationToken: RLMNotificationToken?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,17 +24,10 @@ class BudgetHistoryRecordViewController: UITableViewController {
         Style.navbar(nav)
         Style.viewController(self)
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
     override func viewWillAppear(animated: Bool) {
         self.tableView.reloadData()
     }
-
-    // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1

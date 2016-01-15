@@ -48,22 +48,7 @@ class TaskEditorViewController: UIViewController, UITableViewDataSource, UITable
         }
     }
     
-    /*
-    override func viewDidLayoutSubviews() {
-        if let rect = self.navigationController?.navigationBar.frame {
-            let y = rect.size.height + rect.origin.y
-            self.tableView.contentInset = UIEdgeInsetsMake(y, 0, 0, 0)
-        }
-    }
-    */
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
     override func viewWillAppear(animated: Bool) {
-        //fixContentInset(calledFromSegue: false)
         self.tableView.reloadData()
     }
     
@@ -115,8 +100,6 @@ class TaskEditorViewController: UIViewController, UITableViewDataSource, UITable
             let categorySelectorVC = segue.destinationViewController as! TaskEditorCategorySelectorViewController
             categorySelectorVC.delegate = self
         }
-        
-        fixContentInset(calledFromSegue: true)
     }
     
     func writeCategoryBack(cat: Category) {
@@ -186,24 +169,4 @@ class TaskEditorViewController: UIViewController, UITableViewDataSource, UITable
         self.dismissViewControllerAnimated(true, completion: {})
     }
     
-    func fixContentInset(calledFromSegue calledFromSegue: Bool) {
-        if calledFromSegue {
-            if (returning != nil) {
-                self.returning = true
-            }
-        } else {
-            if (returning != nil) {
-                if !returning! {
-                    self.tableView.contentInset.top = 64
-                }
-                else if returning! {
-                    self.tableView.contentInset.top -= 64
-                    self.returning = nil
-                }
-            }
-            else {
-                
-            }
-        }
-    }
 }
