@@ -34,18 +34,20 @@ public class Database {
                 if (oldSchemaVersion < 1) {
                     migration.enumerate(Budget.className()) { oldObject, newObject in
                         // Initalize clock object in Budget
-                        newObject!["clock"] = Clock()
+                        newObject?["clock"] = migration.create(Clock.className())
                     }
                     
                     migration.enumerate(Task.className()) { oldObject, newObject in
-                        // Initalize clock object in Task
-                        newObject!["clock"] = Clock()
+                        // Initalize clock object in Tasks
+                        newObject?["clock"] = migration.create(Clock.className())
                     }
                 }
         })
         
         // Tell Realm to use this new configuration object for the default Realm
         Realm.Configuration.defaultConfiguration = config
+        
+        _ = Database.getRealm()
     }
     
     public class func getExampleRealm() -> Realm {
