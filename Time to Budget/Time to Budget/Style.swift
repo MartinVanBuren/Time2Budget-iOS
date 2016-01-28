@@ -45,6 +45,7 @@ public class Style {
         tableView.backgroundColor = self.grey
         tableView.separatorColor = self.seperatorGrey
         tableView.separatorInset = UIEdgeInsets(top: 0, left: 25, bottom: 0, right: 0)
+        tableView.indicatorStyle = UIScrollViewIndicatorStyle.White
     }
     
     class func button(button: UIButton) {

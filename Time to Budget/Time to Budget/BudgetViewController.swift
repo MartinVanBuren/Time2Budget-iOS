@@ -65,11 +65,6 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
         
     }
     
-    override func viewDidLayoutSubviews() {
-        self.automaticallyAdjustsScrollViewInsets = false
-        tableView.contentInset = UIEdgeInsetsMake(self.topLayoutGuide.length, 0, 54, 0)
-    }
-    
     override func viewWillAppear(animated: Bool) {
         self.tableView.reloadData()
         

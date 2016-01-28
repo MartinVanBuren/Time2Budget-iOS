@@ -12,7 +12,8 @@ import RealmSwift
 class RecordsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITabBarControllerDelegate {
 
     var currentTask:Task?
-    var returning:Bool? = false
+    var returning = false
+    var timeReturning = 0
     var editRecord:Bool = false
     var notificationToken: NotificationToken!
     var recordList = List<Record>()
@@ -35,6 +36,9 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
         nib = UINib(nibName: "DetailCell", bundle: nil)
         self.tableView.registerNib(nib, forCellReuseIdentifier: "DetailCell")
         
+        nib = UINib(nibName: "CategoryView", bundle: nil)
+        self.tableView.registerNib(nib, forHeaderFooterViewReuseIdentifier: "CategoryView")
+        
         Style.viewController(self, tableView: self.tableView)
         Style.button(self.clockButton)
         
@@ -51,6 +55,8 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
                 self.tableView.reloadData()
             }
         }
+        
+        fixInsetLoad()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -79,6 +85,10 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
             self.clockButton.setTitle("Clock In", forState: UIControlState.Normal)
             self.clockButton.setTitle("Clock In", forState: UIControlState.Highlighted)
         }
+        
+        if returning && currentTask!.memo == "" {
+            fixInsetSegue()
+        }
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -92,11 +102,6 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
         }
     }
     
-    override func viewDidLayoutSubviews() {
-        self.automaticallyAdjustsScrollViewInsets = false
-        tableView.contentInset = UIEdgeInsetsMake(self.topLayoutGuide.length, 0, 54, 0)
-    }
-    
     func tabBarController(tabBarController: UITabBarController, didSelectViewController viewController: UIViewController) {
         if (viewController != self.navigationController) {
             self.navigationController?.popToRootViewControllerAnimated(false)
@@ -108,7 +113,7 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "showTrackingViewAlt" {
-            
+            returning = true
             let recordEditorVC = (segue.destinationViewController as! UINavigationController).topViewController as! RecordEditorViewController
             
             if self.editRecord {
@@ -134,7 +139,11 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
     // ============================= Table View Overrides =============================
 
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 0
+        return 44
+    }
+    
+    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return Factory.prepareBasicHeader(tableView: self.tableView, titleText: "Records")
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -225,5 +234,29 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
         self.clockButton.setTitle(("Clock Out - " + finalTimeString), forState: UIControlState.Normal)
         self.clockButton.setTitle(("Clock Out - " + finalTimeString), forState: UIControlState.Highlighted)
         UIView.setAnimationsEnabled(true)
+    }
+    
+    func fixInsetLoad() {
+        if currentTask!.memo == "" {
+            UIView.animateWithDuration(CATransaction.animationDuration(), animations: {
+                if let rect = self.navigationController?.navigationBar.frame {
+                    let y = rect.size.height + rect.origin.y
+                    self.tableView.contentInset = UIEdgeInsetsMake(y, 0, self.tableView.contentInset.bottom+50, 0)
+                }
+            })
+        }
+    }
+    
+    func fixInsetSegue() {
+        timeReturning++
+        
+        if(timeReturning >= 2) {
+            let top = self.navigationController!.navigationBar.frame.size.height + self.navigationController!.navigationBar.frame.origin.y
+            self.tableView.contentInset = UIEdgeInsetsMake(top, 0, 50, 0)
+        } else {
+            self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0)
+        }
+        
+        self.returning = false
     }
 }
