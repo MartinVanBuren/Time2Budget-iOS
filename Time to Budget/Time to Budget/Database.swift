@@ -12,7 +12,7 @@ import RealmSwift
 
 public class Database {
     static var testingEnabled = false
-    static var debugEnabled = true
+    static var debugEnabled = false
     
     public class func getRealm() -> Realm {
         if Database.testingEnabled {

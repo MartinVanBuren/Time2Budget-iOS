@@ -20,18 +20,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         Database.migrationHandling()
         
-        print("Database Migrated?!")
-        
         let realm = Database.getRealm()
         
         let currentBudgets = realm.objects(Budget).filter("isCurrent = true")
         
         let budgets = realm.objects(Budget)
-        
-        for budget in budgets {
-            print(budget.name)
-            print(budget.isCurrent)
-        }
         
         if Database.debugEnabled {
             print("AppDelegate->Current Budgets:")

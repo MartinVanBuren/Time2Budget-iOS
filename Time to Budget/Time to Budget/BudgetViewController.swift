@@ -92,6 +92,10 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
         super.viewDidAppear(animated)
     }
     
+    override func viewDidLayoutSubviews() {
+        self.tableView.reloadData()
+    }
+    
     //==================== Segue Preperation ====================
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "showRecordsView" {
