@@ -26,7 +26,9 @@ public class Budget: Object {
         
         self.startDate = normDt!.dateByAddingTimeInterval(daySec(shift*(0-1)))
         self.endDate = normDt!.dateByAddingTimeInterval(daySec((shift*(0-1))+7))
-        self.name = "\(dateToString(startDate)) - \(dateToString(endDate))"
+        let calendar = NSCalendar.currentCalendar()
+        let endDateStr = calendar.dateByAddingUnit(NSCalendarUnit.Day, value: -1, toDate: endDate, options: [])
+        self.name = "\(dateToString(startDate)) - \(dateToString(endDateStr!))"
         self.isCurrent = true
     }
     

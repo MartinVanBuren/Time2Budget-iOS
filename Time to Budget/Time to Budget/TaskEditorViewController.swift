@@ -140,8 +140,11 @@ class TaskEditorViewController: UIViewController, UITableViewDataSource, UITable
                     if self.editTask {
                         // Edit Task Mode
                         if let unwrappedTask = currentTask {
-                            Database.updateTask(task: unwrappedTask, name: unwrappedName, memo: finalMemo, time: unwrappedTime, categoryName: unwrappedCategory)
-                            self.dismissViewControllerAnimated(true, completion: {})
+                            if Database.updateTask(task: unwrappedTask, name: unwrappedName, memo: finalMemo, time: unwrappedTime, categoryName: unwrappedCategory) {
+                                self.dismissViewControllerAnimated(true, completion: {})
+                            } else {
+                                Factory.displayAlert(viewController: self, title: "Task Name Taken", message: "The task's name must be unique for this category.")
+                            }
                         } else {
                             Factory.displayAlert(viewController: self, title: "Error: Task Missing", message: "Task missing while in edit mode. D':")
                         }

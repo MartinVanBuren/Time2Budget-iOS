@@ -297,52 +297,180 @@ public class Database {
         }
     }
     
-    public class func moveTask(task task: Task, newCategoryName: String) {
+    public class func moveTask(task task: Task, newCategoryName: String) -> Bool {
         let realm = Database.getRealm()
         let currentBudget = realm.objects(Budget).filter("isCurrent = true").first!
         let oldCategory = task.parent
         let oldIndex = oldCategory.tasks.indexOf(task)!
         let newCategory = currentBudget.categories.filter("name = '\(newCategoryName)'").first!
-
-        try! realm.write {
-            oldCategory.tasks.removeAtIndex(oldIndex)
-            oldCategory.calcTime()
-            task.parent = newCategory
-            newCategory.tasks.append(task)
-            newCategory.calcTime()
-        }
         
-        if self.debugEnabled {
-            let testTask = realm.objects(Task).filter("name = '\(task.name)'").first!
-            print("moveTask->testTask.name: ", testTask.name)
-            print("moveTask->testTask.memo: ", testTask.memo)
-            print("moveTask->testTask.time: ", testTask.timeBudgeted)
-            print("moveTask->testTask.categoryName: ", testTask.parent.name)
+        if checkTaskName(name: task.name, category: newCategory) {
+            try! realm.write {
+                oldCategory.tasks.removeAtIndex(oldIndex)
+                oldCategory.calcTime()
+                task.parent = newCategory
+                newCategory.tasks.append(task)
+                newCategory.calcTime()
+            }
+            
+            if self.debugEnabled {
+                let testTask = realm.objects(Task).filter("name = '\(task.name)'").first!
+                print("moveTask->testTask.name: ", testTask.name)
+                print("moveTask->testTask.memo: ", testTask.memo)
+                print("moveTask->testTask.time: ", testTask.timeBudgeted)
+                print("moveTask->testTask.categoryName: ", testTask.parent.name)
+            }
+            
+            return true
+        } else {
+            if self.debugEnabled {
+                print("Task name taken: ", task.name)
+            }
+            
+            return false
         }
     }
     
-    public class func updateTask(task task: Task, name: String, memo: String, time: Double, categoryName: String) {
+    public class func updateTask(task task: Task, name: String, memo: String, time: Double, categoryName: String) -> Bool {
         let realm = Database.getRealm()
-
-        try! realm.write {
-            task.name = name
-            task.timeBudgeted = time
-            task.memo = memo
-            task.calcTime()
-            task.parent.calcTime()
+        
+        if task.name == name && task.parent.name == categoryName {
+            try! realm.write {
+                task.name = name
+                task.timeBudgeted = time
+                task.memo = memo
+                task.calcTime()
+                task.parent.calcTime()
+            }
+            
+            if self.debugEnabled {
+                let testTask = realm.objects(Task).filter("name = '\(name)'").first!
+                print("moveTask->testTask.name: ", testTask.name)
+                print("moveTask->testTask.memo: ", testTask.memo)
+                print("moveTask->testTask.time: ", testTask.timeBudgeted)
+                print("moveTask->testTask.categoryName: ", testTask.parent.name)
+            }
+            
+            return true
+        } else if task.name == name && task.parent.name != categoryName {
+            if task.parent.name != categoryName {
+                if !Database.moveTask(task: task, newCategoryName: categoryName) {
+                    return false
+                }
+            }
+            
+            try! realm.write {
+                task.name = name
+                task.timeBudgeted = time
+                task.memo = memo
+                task.calcTime()
+                task.parent.calcTime()
+            }
+            
+            if self.debugEnabled {
+                let testTask = realm.objects(Task).filter("name = '\(name)'").first!
+                print("moveTask->testTask.name: ", testTask.name)
+                print("moveTask->testTask.memo: ", testTask.memo)
+                print("moveTask->testTask.time: ", testTask.timeBudgeted)
+                print("moveTask->testTask.categoryName: ", testTask.parent.name)
+            }
+            
+            return true
+        } else if task.name != name && task.parent.name == categoryName {
+            if checkTaskName(name: name, category: task.parent) {
+                try! realm.write {
+                    task.name = name
+                    task.timeBudgeted = time
+                    task.memo = memo
+                    task.calcTime()
+                    task.parent.calcTime()
+                }
+                
+                if self.debugEnabled {
+                    let testTask = realm.objects(Task).filter("name = '\(name)'").first!
+                    print("moveTask->testTask.name: ", testTask.name)
+                    print("moveTask->testTask.memo: ", testTask.memo)
+                    print("moveTask->testTask.time: ", testTask.timeBudgeted)
+                    print("moveTask->testTask.categoryName: ", testTask.parent.name)
+                }
+                
+                return true
+            }
+        } else {
+            let newCategory = realm.objects(Category).filter("name = '\(categoryName)'").first!
+            if checkTaskName(name: name, category: newCategory) {
+                try! realm.write {
+                    task.name = name
+                    task.timeBudgeted = time
+                    task.memo = memo
+                    task.calcTime()
+                    task.parent.calcTime()
+                }
+                
+                Database.moveTask(task: task, newCategoryName: categoryName)
+                
+                return true
+            } else {
+                return false
+            }
         }
+        
+        /*
+        // --------------------------------------------------------------
         
         if task.parent.name != categoryName {
-            Database.moveTask(task: task, newCategoryName: categoryName)
+            if !Database.moveTask(task: task, newCategoryName: categoryName) {
+                return false
+            }
         }
         
-        if self.debugEnabled {
-            let testTask = realm.objects(Task).filter("name = '\(name)'").first!
-            print("moveTask->testTask.name: ", testTask.name)
-            print("moveTask->testTask.memo: ", testTask.memo)
-            print("moveTask->testTask.time: ", testTask.timeBudgeted)
-            print("moveTask->testTask.categoryName: ", testTask.parent.name)
+        if task.name == name {
+            try! realm.write {
+                task.name = name
+                task.timeBudgeted = time
+                task.memo = memo
+                task.calcTime()
+                task.parent.calcTime()
+            }
+            
+            if self.debugEnabled {
+                let testTask = realm.objects(Task).filter("name = '\(name)'").first!
+                print("moveTask->testTask.name: ", testTask.name)
+                print("moveTask->testTask.memo: ", testTask.memo)
+                print("moveTask->testTask.time: ", testTask.timeBudgeted)
+                print("moveTask->testTask.categoryName: ", testTask.parent.name)
+            }
+            
+            return true
+        } else {
+            if checkTaskName(name: name, category: task.parent) {
+                try! realm.write {
+                    task.name = name
+                    task.timeBudgeted = time
+                    task.memo = memo
+                    task.calcTime()
+                    task.parent.calcTime()
+                }
+                
+                if self.debugEnabled {
+                    let testTask = realm.objects(Task).filter("name = '\(name)'").first!
+                    print("moveTask->testTask.name: ", testTask.name)
+                    print("moveTask->testTask.memo: ", testTask.memo)
+                    print("moveTask->testTask.time: ", testTask.timeBudgeted)
+                    print("moveTask->testTask.categoryName: ", testTask.parent.name)
+                }
+                
+                return true
+            } else {
+                if self.debugEnabled {
+                    print("Task name taken: ", name)
+                }
+                
+                return false
+            }
         }
+        */
+        return false
     }
     
     public class func deleteTask(task task: Task, retainRecords: Bool) {
