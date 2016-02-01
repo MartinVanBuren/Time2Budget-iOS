@@ -58,15 +58,13 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
             self.tableView.reloadData()
         }
         
-        self.tableView.reloadData()
-        
         // Run Display Prompt Code
         self.displayPromptControl()
         
     }
     
     override func viewWillAppear(animated: Bool) {
-        self.tableView.reloadData()
+        //self.tableView.reloadData()
         
         // Prepare timer if clocked in
         if self.currentBudget!.clock!.clockedIn {

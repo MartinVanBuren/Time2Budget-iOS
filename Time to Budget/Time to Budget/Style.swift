@@ -254,7 +254,7 @@ public class Style {
                     view.remainingTimeBar.backgroundColor = self.yellow
                     view.remainingTimeBarOutline.layer.borderColor = self.yellow.CGColor
                 }
-                print("Current barRatio: ", barRatio)
+                
                 let newWidth = view.remainingTimeBar.frame.size.width * barRatio
                 let oldHeight = view.remainingTimeBar.frame.height
                 let oldX = view.remainingTimeBar.frame.origin.x

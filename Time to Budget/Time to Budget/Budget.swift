@@ -20,7 +20,7 @@ public class Budget: Object {
     public func autoInit() {
         let dt = NSDate()
         let cal = NSCalendar.currentCalendar()
-        let dc = cal.components([NSCalendarUnit.NSWeekdayCalendarUnit, NSCalendarUnit.NSYearCalendarUnit, NSCalendarUnit.NSMonthCalendarUnit, NSCalendarUnit.NSDayCalendarUnit], fromDate: dt)
+        let dc = cal.components([NSCalendarUnit.Weekday, NSCalendarUnit.Year, NSCalendarUnit.Month, NSCalendarUnit.Day], fromDate: dt)
         let normDt = cal.dateFromComponents(dc)
         let shift = dc.weekday - cal.firstWeekday
         
@@ -36,7 +36,7 @@ public class Budget: Object {
         let cal = NSCalendar.currentCalendar()
         let currentDate = NSDate()
         let endingDate = endDate
-        let dif = cal.compareDate(currentDate, toDate: endingDate, toUnitGranularity: NSCalendarUnit.NSSecondCalendarUnit)
+        let dif = cal.compareDate(currentDate, toDate: endingDate, toUnitGranularity: NSCalendarUnit.Second)
         
         if dif == NSComparisonResult.OrderedAscending
         {

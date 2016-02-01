@@ -24,7 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let currentBudgets = realm.objects(Budget).filter("isCurrent = true")
         
-        let budgets = realm.objects(Budget)
+        _ = realm.objects(Budget)
         
         if Database.debugEnabled {
             print("AppDelegate->Current Budgets:")
