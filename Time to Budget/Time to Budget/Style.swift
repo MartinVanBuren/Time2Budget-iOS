@@ -9,6 +9,47 @@
 import Foundation
 import UIKit
 
+/**
+ Manages the style of every element in Time to Budget.
+ 
+ The purpose of this class is to modify the style of UI elements in Time to Budget to make style changes more modular.
+ This allows us to support multiple themes with ease.
+ 
+ Class Attributes:
+ + aquaBurst
+ + sky
+ + blue
+ + green
+ + yellow
+ + red
+ + grey
+ + seperatorGrey
+ + textColor
+ + detailColor
+ 
+ Class Methods:
+ - navbar(nav: UINavigationBar)
+ - viewController(vc: UITableViewController)
+ - viewController(vc: UIViewController)
+ - viewController(vc: UIViewController, tableView: UITableView)
+ - button(button: UIButton)
+ - picker(pickerData: Int)
+ - picker(picker: UIDatePicker)
+ - category(cell: CategoryCell)
+ - category(view: CategoryView)
+ - task(cell: DetailCell)
+ - task(cell: SubtitleDetailCell)
+ - record(cell: DetailCell)
+ - record(cell: SubtitleDetailCell)
+ - basicHeader(view: CategoryView)
+ - detailCell(cell: DetailCell)
+ - textfieldCell(cell: NameTextfieldCell)
+ - textfieldCell(cell: MemoTextfieldCell)
+ - categoryTimeRemainingBar(cell: CategoryCell)
+ - categoryTimeRemainingBar(view: CategoryView)
+ - taskTimeRemainingLabel(cell: DetailCell, task: Task, editor: Bool)
+ - taskTimeRemainingLabel(cell: SubtitleDetailCell, task: Task, editor: Bool)
+ */
 public class Style {
     private static let aquaBurst = UIColor(red: 0/255, green: 223/255, blue: 252/255, alpha: 255/255)
     private static let sky = UIColor(red: 102/255, green: 204/255, blue: 255/255, alpha: 1.0)
@@ -36,7 +77,7 @@ public class Style {
     /**
      Sets the Style of any TableViewControllers for Time to Budget.
      
-     - Parameter viewController: UITableViewController for Style to be applied to.
+     - Parameter vc: UITableViewController for Style to be applied to.
      - returns: Nothing
      */
     class func viewController(vc: UITableViewController) {
@@ -48,7 +89,7 @@ public class Style {
     /**
      Sets the Style of any ViewController for Time to Budget.
      
-     - Parameter viewController: UIViewController for Style to be applied to.
+     - Parameter vc: UIViewController for Style to be applied to.
      - returns: Nothing
      */
     class func viewController(vc: UIViewController) {
@@ -58,7 +99,7 @@ public class Style {
     /**
      Sets the Style of any ViewControllers containing TableViews for Time to Budget.
      
-     - Parameter viewController: UIViewController for Style to be applied to.
+     - Parameter vc: UIViewController for Style to be applied to.
      - Parameter tableView: UITableView for Style to be applied to.
      - returns: Nothing
      */
