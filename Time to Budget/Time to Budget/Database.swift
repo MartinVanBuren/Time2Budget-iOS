@@ -210,37 +210,21 @@ public class Database {
         }
     }
     
-    public class func deleteCategory(categoryName categoryName: String, retainTasks: Bool) {
+    public class func deleteCategory(categoryName categoryName: String) {
         let realm = Database.getRealm()
         
         let currentBudget = realm.objects(Budget).filter("isCurrent = true").first!
         let currentCategory = currentBudget.categories.filter("name = '\(categoryName)'").first!
         let currentCategoryTasks = currentCategory.tasks
         let oldIndex = currentBudget.categories.indexOf(currentCategory)!
-        let loopCount = currentCategoryTasks.count
         
-        if (retainTasks) {
-            if realm.objects(Category).filter("name = 'Uncategorized'").count == 0 {
-                Database.addCategory(name: "Uncategorized")
-            }
-            
-            for var i = 0; i < loopCount; ++i {
-                Database.moveTask(task: currentCategoryTasks.first!, newCategoryName: "Uncategorized")
-            }
-            
-            try! realm.write {
-                currentBudget.categories.removeAtIndex(oldIndex)
-                realm.delete(currentCategory)
-            }
-        } else {
-            for var i = 0; i < loopCount; ++i {
-                Database.deleteTask(task: currentCategoryTasks.first!, retainRecords: false)
-            }
-            
-            try! realm.write {
-                currentBudget.categories.removeAtIndex(oldIndex)
-                realm.delete(currentCategory)
-            }
+        for var i = 0; i < currentCategoryTasks.count; ++i {
+            Database.deleteTask(task: currentCategoryTasks.first!)
+        }
+        
+        try! realm.write {
+            currentBudget.categories.removeAtIndex(oldIndex)
+            realm.delete(currentCategory)
         }
     }
     
@@ -386,30 +370,12 @@ public class Database {
         }
     }
     
-    public class func deleteTask(task task: Task, retainRecords: Bool) {
+    public class func deleteTask(task task: Task) {
         let realm = Database.getRealm()
-        let currentRecords = task.records
         let parent = task.parent
         
-        if (retainRecords) {
-            
-            let loopCount = task.records.count
-            var tasklessRecordsTask:Task?
-            
-            if realm.objects(Task).filter("name = 'Taskless Records'").count == 0 {
-                tasklessRecordsTask = Database.addTask(name: "Taskless Records", memo: "Retained records from a deleted Task.", time: 0.0, categoryName: "\(parent.name)")
-            } else {
-                tasklessRecordsTask = realm.objects(Task).filter("name = 'Taskless Records'").first!
-            }
-            
-            for var i = 0; i < loopCount; ++i {
-                Database.moveRecord(record: task.records.first!, newTask: tasklessRecordsTask!)
-            }
-            
-        } else {
-            try! realm.write {
-                realm.delete(currentRecords)
-            }
+        try! realm.write {
+            realm.delete(task.records)
         }
         
         try! realm.write {

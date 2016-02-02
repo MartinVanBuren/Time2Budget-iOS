@@ -126,27 +126,16 @@ class Database_Tests: XCTestCase {
         Database.addTask(name: "dtest2", memo: "test", time: 0.0, categoryName: "Test 1")
         Database.addTask(name: "dtest3", memo: "test", time: 0.0, categoryName: "Test 1")
         
-        Database.addTask(name: "test1", memo: "test", time: 0.0, categoryName: "Test 2")
-        Database.addTask(name: "test2", memo: "test", time: 0.0, categoryName: "Test 2")
-        Database.addTask(name: "test3", memo: "test", time: 0.0, categoryName: "Test 2")
-        
-        Database.deleteCategory(categoryName: "Test 1", retainTasks: false)
-        Database.deleteCategory(categoryName: "Test 2", retainTasks: true)
-        
-        let retainedTask1Test = (realm.objects(Task.self).filter("name = 'test1'").first!.name == "test1")
-        let retainedTask2Test = (realm.objects(Task.self).filter("name = 'test2'").first!.name == "test2")
-        let retainedTask3Test = (realm.objects(Task.self).filter("name = 'test3'").first!.name == "test3")
+        Database.deleteCategory(categoryName: "Test 1")
         
         let deletedTask1Test = (realm.objects(Task.self).filter("name = 'dtest1'").count == 0)
         let deletedTask2Test = (realm.objects(Task.self).filter("name = 'dtest2'").count == 0)
         let deletedTask3Test = (realm.objects(Task.self).filter("name = 'dtest3'").count == 0)
         
         let deletedTest:Bool = (realm.objects(Category.self).filter("name = 'Test 1'").count == 0 && realm.objects(Category.self).filter("name = 'Test 2'").count == 0)
-        let retainedTasksTest = (retainedTask1Test && retainedTask2Test && retainedTask3Test)
         let deletedTasksTest = (deletedTask1Test && deletedTask2Test && deletedTask3Test)
-        let tasklessCountTest = (realm.objects(Category.self).filter("name = 'Uncategorized'").first!.tasks.count == 3)
         
-        XCTAssert((retainedTasksTest && deletedTasksTest && deletedTest && tasklessCountTest), "Failed to Delete Category Properly")
+        XCTAssert((deletedTasksTest && deletedTest), "Failed to Delete Category Properly")
     }
     
     func test_deleteTask() {
@@ -157,38 +146,25 @@ class Database_Tests: XCTestCase {
         
         Database.addTask(name: "Taskless Records", memo: "", time: 0.0, categoryName: "Uncategorized")
         Database.addTask(name: "Test1", memo: "", time: 0.0, categoryName: "Test")
-        Database.addTask(name: "Test2", memo: "", time: 0.0, categoryName: "Test")
         
         let testTask1 = realm.objects(Task).filter("name = 'Test1'").first!
-        let testTask2 = realm.objects(Task).filter("name = 'Test2'").first!
         
         Database.addRecord(parentTask: testTask1, note: "darn1", timeSpent: 0.0, date: NSDate())
         Database.addRecord(parentTask: testTask1, note: "darn2", timeSpent: 0.0, date: NSDate())
         Database.addRecord(parentTask: testTask1, note: "darn3", timeSpent: 0.0, date: NSDate())
         
-        Database.addRecord(parentTask: testTask2, note: "woo1", timeSpent: 0.0, date: NSDate())
-        Database.addRecord(parentTask: testTask2, note: "woo2", timeSpent: 0.0, date: NSDate())
-        Database.addRecord(parentTask: testTask2, note: "woo3", timeSpent: 0.0, date: NSDate())
-        
-        Database.deleteTask(task: testTask1, retainRecords: false)
-        Database.deleteTask(task: testTask2, retainRecords: true)
+        Database.deleteTask(task: testTask1)
         
         let tasklessList = realm.objects(Task).filter("name = 'Taskless Records'").first!.records
-        
-        let woo1Test = tasklessList.filter("note = 'woo1'").first!.note == "woo1"
-        let woo2Test = tasklessList.filter("note = 'woo2'").first!.note == "woo2"
-        let woo3Test = tasklessList.filter("note = 'woo3'").first!.note == "woo3"
         
         let darn1Test = (tasklessList.filter("note = 'darn1'").count == 0)
         let darn2Test = (tasklessList.filter("note = 'darn2'").count == 0)
         let darn3Test = (tasklessList.filter("note = 'darn3'").count == 0)
         
         let deletedTest:Bool = (realm.objects(Task).filter("name = 'Test1'").count == 0 && realm.objects(Task).filter("name = 'Test2'").count == 0)
-        let retainedRecordsTest = (woo1Test && woo2Test && woo3Test)
         let deletedRecordsTest = (darn1Test && darn2Test && darn3Test)
-        let tasklessCountTest = (tasklessList.count == 3)
         
-        XCTAssert((deletedTest && retainedRecordsTest && deletedRecordsTest && tasklessCountTest), "Failed to Delete Task Properly")
+        XCTAssert((deletedTest && deletedRecordsTest), "Failed to Delete Task Properly")
     }
     
     func test_addRecord() {
