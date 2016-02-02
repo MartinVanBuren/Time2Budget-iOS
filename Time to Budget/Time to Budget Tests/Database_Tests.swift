@@ -115,23 +115,6 @@ class Database_Tests: XCTestCase {
         XCTAssert((trueTest && falseTest), "Failed to Detect Name Availability")
     }
     
-    func test_checkTaskName() {
-        let realm = Database.getRealm()
-        
-        Database.addCategory(name: "TestCat")
-        let category = realm.objects(Category.self).filter("name = 'TestCat'").first!
-        
-        let trueTest = Database.checkTaskName(name: "Test1", category: category)
-        
-        Database.addTask(name: "Test2", memo: "", time: 0.0, categoryName: "TestCat")
-        
-        let falseTest = Database.checkTaskName(name: "Test2", category: category)
-        
-        let finalTest = (!falseTest && trueTest)
-        
-        XCTAssert(finalTest, "Failed to Detect Name Availability")
-    }
-    
     func test_deleteCategory() {
         let realm = Database.getRealm()
         
@@ -240,12 +223,13 @@ class Database_Tests: XCTestCase {
         Database.addTask(name: "TestTask1", memo: "", time: 0.0, categoryName: "Test1")
         Database.addTask(name: "TestTask2", memo: "", time: 0.0, categoryName: "Test2")
         let testTask1 = realm.objects(Task).filter("name = 'TestTask1'").first!
+        let testTask2 = realm.objects(Task).filter("name = TestTask2").first!
         
         Database.addRecord(parentTask: testTask1, note: "testNote", timeSpent: 6.75, date: testDate)
         
         let record = realm.objects(Task).filter("name = 'TestTask1'").first!.records.first!
         
-        Database.moveRecord(record: record, newTaskName: "TestTask2")
+        Database.moveRecord(record: record, newTask: testTask2)
         
         let movedRecord = realm.objects(Task).filter("name = 'TestTask2'").first!.records.first!
         
@@ -278,9 +262,10 @@ class Database_Tests: XCTestCase {
         Database.addTask(name: "test", memo: "", time: 0.0, categoryName: "testCat")
         Database.addTask(name: "newTest", memo: "", time: 0.0, categoryName: "testCat")
         let testTask = realm.objects(Task).filter("name = 'test'").first!
+        let newTask = realm.objects(Task).filter("name = newTask").first!
         Database.addRecord(parentTask: testTask, note: "testNote", timeSpent: 0.0, date: NSDate())
         
-        Database.updateRecord(record: realm.objects(Task).filter("name = 'test'").first!.records.first!, taskName: "newTest", note: "testTestNote", timeSpent: 4.50, date: NSDate())
+        Database.updateRecord(record: realm.objects(Task).filter("name = 'test'").first!.records.first!, task: newTask, note: "testTestNote", timeSpent: 4.50, date: NSDate())
         
         let movedTest = (realm.objects(Task).filter("name = 'newTest'").first!.records.count == 1 && realm.objects(Task).filter("name = 'test'").first!.records.count == 0)
         let noteTest = (realm.objects(Task).filter("name = 'newTest'").first!.records.first!.note == "testTestNote")

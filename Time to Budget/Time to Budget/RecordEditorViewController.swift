@@ -143,7 +143,7 @@ class RecordEditorViewController: UIViewController, UITableViewDataSource, UITab
                     if self.editRecord {
                         // Edit Record Mode
                         if let unwrappedRecord = self.currentRecord {
-                            Database.updateRecord(record: unwrappedRecord, taskName: unwrappedTask.name, note: finalMemo, timeSpent: unwrappedTime.toDouble(), date: self.date)
+                            Database.updateRecord(record: unwrappedRecord, task: unwrappedTask, note: finalMemo, timeSpent: unwrappedTime.toDouble(), date: self.date)
                             self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
                         } else {
                             Factory.displayAlert(viewController: self, title: "Error: Record Missing", message: "Record missing while in edit mode. D':")

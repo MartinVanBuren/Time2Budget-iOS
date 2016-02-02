@@ -20,12 +20,15 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
     //==================== Realm Properties ====================
     var realm:Realm!
     var currentBudget:Budget!
+    var grabbedTask:Task?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Get database access
         self.realm = Database.getRealm()
         
+        // Retrieve and register the nib files for tableView elements.
         var nib = UINib(nibName: "CategoryView", bundle: nil)
         self.tableView.registerNib(nib, forHeaderFooterViewReuseIdentifier: "CategoryView")
         
@@ -35,11 +38,19 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
         nib = UINib(nibName: "SubtitleDetailCell", bundle: nil)
         self.tableView.registerNib(nib, forCellReuseIdentifier: "SubtitleDetailCell")
         
+        // Generate and subscribe a long press gesture recognizer for dragging and dropping tableView elements.
+        let longpress = UILongPressGestureRecognizer(target: self, action: "longPressGestureRecognized:")
+        tableView.addGestureRecognizer(longpress)
+        
+        // Apply app style to the controller and tableView
+        let nav = self.navigationController?.navigationBar
+        Style.navbar(nav!)
         Style.viewController(self, tableView: self.tableView)
         
-        self.currentBudget = realm.objects(Budget).filter("isCurrent = TRUE").first!
+        // Retrieve the current budget from the database
+        self.currentBudget = Database.budgetSafetyNet()
         
-        // Set realm notification block
+        // Register realm notification block to update the tableView on database changes
         notificationToken = realm.addNotificationBlock { note, realm in
             
             self.currentBudget = Database.budgetSafetyNet()
@@ -48,22 +59,15 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
             self.updateTimeRemaining()
         }
 
+        // Reload tableView data and update the current budgetable time remaining label
         self.tableView.reloadData()
         self.updateTimeRemaining()
         
     }
     
     override func viewWillAppear(animated: Bool) {
-        
-        if realm.objects(Budget).filter("isCurrent = TRUE").count > 0 {
-            self.currentBudget = realm.objects(Budget).filter("isCurrent = TRUE").first!
-        } else {
-            Database.newBudget()
-        }
-        
-        let nav = self.navigationController?.navigationBar
-        Style.navbar(nav!)
-        
+        // Retrieve up-to-date budget and apply to tableView
+        self.currentBudget = Database.budgetSafetyNet()
         self.tableView.reloadData()
     }
 
@@ -124,7 +128,7 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
         Factory.displayDeleteTaskAlert(viewController: self, indexPath: indexPath)
     }
 
-    //==================== IB Actions ====================
+    //==================== Actions ====================
     @IBAction func addTaskButtonPressed(sender: UIBarButtonItem) {
         addTaskDialog = true
         performSegueWithIdentifier("showTaskEditorView", sender: sender)
@@ -134,6 +138,99 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
         Factory.displayAddCategoryAlert(viewController: self)
     }
     
+    func longPressGestureRecognized(gestureRecognizer: UIGestureRecognizer) {
+        let longPress = gestureRecognizer
+        let state = longPress.state
+        let locationInView = longPress.locationInView(tableView)
+        let indexPath = tableView.indexPathForRowAtPoint(locationInView)
+        
+        struct My {
+            static var cellSnapshot : UIView? = nil
+        }
+        struct Path {
+            static var initialIndexPath : NSIndexPath? = nil
+        }
+        
+        switch state {
+        case UIGestureRecognizerState.Began:
+            if indexPath != nil {
+                Path.initialIndexPath = indexPath
+                let cell = tableView.cellForRowAtIndexPath(indexPath!) as UITableViewCell!
+                self.grabbedTask = currentBudget.categories[indexPath!.section].tasks[indexPath!.row]
+                My.cellSnapshot  = snapshotOfCell(cell)
+                var center = cell.center
+                My.cellSnapshot!.center = center
+                My.cellSnapshot!.alpha = 0.0
+                
+                tableView.addSubview(My.cellSnapshot!)
+                
+                UIView.animateWithDuration(0.25, animations: { () -> Void in
+                    center.y = locationInView.y
+                    My.cellSnapshot!.center = center
+                    My.cellSnapshot!.transform = CGAffineTransformMakeScale(1.05, 1.05)
+                    My.cellSnapshot!.alpha = 0.98
+                    cell.alpha = 0.0
+                    
+                    }, completion: { (finished) -> Void in
+                        if finished {
+                            cell.hidden = true
+                        }
+                })
+            }
+        case UIGestureRecognizerState.Changed:
+            if let unwrappedIndex = indexPath {
+                let currentCell = tableView.cellForRowAtIndexPath(unwrappedIndex)
+                currentCell!.hidden = true
+            }
+            
+            var center = My.cellSnapshot!.center
+            center.y = locationInView.y
+            My.cellSnapshot!.center = center
+            if ((indexPath != nil) && (indexPath != Path.initialIndexPath)) {
+                if let unwrappedTask = self.grabbedTask {
+                    let targetCategory = self.currentBudget.categories[indexPath!.section]
+                    if targetCategory.name != unwrappedTask.parent.name {
+                        Database.moveTask(task: self.grabbedTask!, targetCategory: targetCategory, index: indexPath!.row)
+                    } else {
+                        Database.moveTask(task: self.grabbedTask!, index: indexPath!.row)
+                    }
+                }
+                //tableView.moveRowAtIndexPath(Path.initialIndexPath!, toIndexPath: indexPath!)
+                Path.initialIndexPath = indexPath
+            }
+        default:
+            self.grabbedTask = nil
+            let cell = tableView.cellForRowAtIndexPath(Path.initialIndexPath!) as UITableViewCell!
+            cell.hidden = false
+            cell.alpha = 0.0
+            UIView.animateWithDuration(0.25, animations: { () -> Void in
+                My.cellSnapshot!.center = cell.center
+                My.cellSnapshot!.transform = CGAffineTransformIdentity
+                My.cellSnapshot!.alpha = 0.0
+                cell.alpha = 1.0
+                }, completion: { (finished) -> Void in
+                    if finished {
+                        Path.initialIndexPath = nil
+                        My.cellSnapshot!.removeFromSuperview()
+                        My.cellSnapshot = nil
+                    }
+            })
+        }
+    }
+    
+    func snapshotOfCell(inputView: UIView) -> UIView {
+        UIGraphicsBeginImageContextWithOptions(inputView.bounds.size, false, 0.0)
+        inputView.layer.renderInContext(UIGraphicsGetCurrentContext()!)
+        let image = UIGraphicsGetImageFromCurrentImageContext() as UIImage
+        UIGraphicsEndImageContext()
+        let cellSnapshot : UIView = UIImageView(image: image)
+        cellSnapshot.layer.masksToBounds = false
+        cellSnapshot.layer.cornerRadius = 0.0
+        cellSnapshot.layer.shadowOffset = CGSizeMake(-5.0, 0.0)
+        cellSnapshot.layer.shadowRadius = 5.0
+        cellSnapshot.layer.shadowOpacity = 0.4
+        return cellSnapshot
+    }
     
     //==================== Helper Methods ====================
     func updateTimeRemaining() {

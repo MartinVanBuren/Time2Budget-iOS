@@ -245,12 +245,16 @@ public class Style {
             } else {
                 var barRatio:CGFloat!
                 
-                if view.category!.totalTimeRemaining >= 0 {
+                if view.category!.totalTimeRemaining >= 0 && view.category!.totalTimeBudgeted > 0 {
                     barRatio = CGFloat(view.category!.totalTimeRemaining/view.category!.totalTimeBudgeted)
                     view.remainingTimeBar.backgroundColor = self.blue
                     view.remainingTimeBarOutline.layer.borderColor = self.blue.CGColor
-                } else if view.category!.totalTimeRemaining < 0 {
+                } else if view.category!.totalTimeRemaining < 0 && view.category!.totalTimeBudgeted > 0 {
                     barRatio = CGFloat(view.category!.totalTimeRemaining/view.category!.totalTimeBudgeted) * -1
+                    view.remainingTimeBar.backgroundColor = self.yellow
+                    view.remainingTimeBarOutline.layer.borderColor = self.yellow.CGColor
+                } else {
+                    barRatio = CGFloat(1)
                     view.remainingTimeBar.backgroundColor = self.yellow
                     view.remainingTimeBarOutline.layer.borderColor = self.yellow.CGColor
                 }

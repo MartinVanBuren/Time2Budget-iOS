@@ -48,7 +48,7 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
         Style.viewController(self, tableView: self.tableView)
         Style.button(self.clockButton)
         
-        self.currentBudget = realm.objects(Budget).filter("isCurrent = TRUE").first!
+        self.currentBudget = Database.budgetSafetyNet()
         
         // Set realm notification block
         self.notificationToken = realm.addNotificationBlock { notification, realm in
@@ -64,8 +64,6 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     override func viewWillAppear(animated: Bool) {
-        //self.tableView.reloadData()
-        
         // Prepare timer if clocked in
         if self.currentBudget!.clock!.clockedIn {
             self.updateClock()
