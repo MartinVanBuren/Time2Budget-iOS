@@ -21,26 +21,48 @@ public class Style {
     private static let textColor = UIColor.whiteColor()
     private static let detailColor = UIColor(white: 0.95, alpha: 1.0)
     
+    /**
+     Sets the Style of the Navigation Bar for Time to Budget.
+     
+     - Parameter nav: UINavigationBar for Style to be applied to.
+     - returns: Nothing
+     */
     class func navbar(nav: UINavigationBar) {
         nav.barStyle = UIBarStyle.Black
         nav.tintColor = UIColor.whiteColor()
         nav.barTintColor = UIColor(red: 80/255, green: 83/255, blue: 90/255, alpha: 1.0)
     }
     
+    /**
+     Sets the Style of any TableViewControllers for Time to Budget.
+     
+     - Parameter viewController: UITableViewController for Style to be applied to.
+     - returns: Nothing
+     */
     class func viewController(vc: UITableViewController) {
-        
         vc.tableView.backgroundColor = self.grey
         vc.tableView.separatorColor = self.seperatorGrey
         vc.tableView.separatorInset = UIEdgeInsets(top: 0, left: 25, bottom: 0, right: 0)
     }
     
+    /**
+     Sets the Style of any ViewController for Time to Budget.
+     
+     - Parameter viewController: UIViewController for Style to be applied to.
+     - returns: Nothing
+     */
     class func viewController(vc: UIViewController) {
-        
         vc.view.backgroundColor = self.grey
     }
     
+    /**
+     Sets the Style of any ViewControllers containing TableViews for Time to Budget.
+     
+     - Parameter viewController: UIViewController for Style to be applied to.
+     - Parameter tableView: UITableView for Style to be applied to.
+     - returns: Nothing
+     */
     class func viewController(vc: UIViewController, tableView: UITableView) {
-        
         vc.view.backgroundColor = self.grey
         tableView.backgroundColor = self.grey
         tableView.separatorColor = self.seperatorGrey
@@ -48,8 +70,13 @@ public class Style {
         tableView.indicatorStyle = UIScrollViewIndicatorStyle.White
     }
     
+    /**
+     Sets the Style of any Button for Time to Budget.
+     
+     - Parameter button: UIButton for Style to be applied to.
+     - returns: Nothing
+     */
     class func button(button: UIButton) {
-        
         button.backgroundColor = self.blue
         button.alpha = 0.90
         button.opaque = false
@@ -58,23 +85,37 @@ public class Style {
         button.layer.masksToBounds = true
     }
     
+    /**
+     Sets the Style of any PickerViews for Time to Budget.
+     
+     - Parameter pickerData: Data for pickerView for Style to be applied to.
+     - returns: Nothing
+     */
     class func picker(pickerData: Int) -> NSAttributedString {
-        
         let attributes : [String : AnyObject]? = [NSForegroundColorAttributeName : self.textColor]
         let attributedString = NSAttributedString(string: "\(pickerData)", attributes: attributes)
-        
         return attributedString
     }
     
+    /**
+     Sets the Style of any DatePickers for Time to Budget.
+     
+     - Parameter picker: UIDatePicker for Style to be applied to.
+     - returns: Nothing
+     */
     class func picker(picker: UIDatePicker) {
-        
         picker.setValue(self.textColor, forKeyPath: "textColor")
         picker.datePickerMode = UIDatePickerMode.CountDownTimer
         picker.datePickerMode = UIDatePickerMode.Date
     }
     
+    /**
+     Sets the Style of any Category Cells for Time to Budget.
+     
+     - Parameter cell: CategoryCell for Style to be applied to.
+     - returns: CategoryCell after Style has been applied.
+     */
     class func category(cell: CategoryCell) -> CategoryCell {
-        
         cell.remainingTimeBarOutline.layer.cornerRadius = 60/8
         cell.remainingTimeBar.layer.cornerRadius = 60/8
         cell.remainingTimeBarOutline.layer.masksToBounds = true
@@ -91,6 +132,12 @@ public class Style {
         return cell
     }
     
+    /**
+     Sets the Style of any Category Views for Time to Budget.
+     
+     - Parameter view: CategoryView for Style to be applied to.
+     - returns: CategoryView after Style has been applied.
+     */
     class func category(view: CategoryView) -> CategoryView {
         
         view.remainingTimeBarOutline.layer.cornerRadius = 60/8
@@ -108,8 +155,13 @@ public class Style {
         return view
     }
     
+    /**
+     Sets the Style of any Task Detail Cells for Time to Budget.
+     
+     - Parameter cell: DetailCell for Style to be applied to.
+     - returns: DetailCell after Style has been applied.
+     */
     class func task(cell: DetailCell) -> DetailCell {
-        
         cell.backgroundColor = UIColor.clearColor()
         cell.customContentView.backgroundColor = UIColor.clearColor()
         cell.title.textColor = self.textColor
@@ -118,8 +170,13 @@ public class Style {
         return cell
     }
     
+    /**
+     Sets the Style of any Task Subtitle Detail Cells for Time to Budget.
+     
+     - Parameter cell: SubtitleDetailCell for Style to be applied to.
+     - returns: SubtitleDetailCell after Style has been applied.
+     */
     class func task(cell: SubtitleDetailCell) -> SubtitleDetailCell {
-        
         cell.backgroundColor = UIColor.clearColor()
         cell.customContentView.backgroundColor = UIColor.clearColor()
         cell.title.textColor = self.textColor
@@ -129,8 +186,13 @@ public class Style {
         return cell
     }
     
+    /**
+     Sets the Style of any Record Detail Cells for Time to Budget.
+     
+     - Parameter cell: DetailCell for Style to be applied to.
+     - returns: DetailCell after Style has been applied.
+     */
     class func record(cell: DetailCell) -> DetailCell {
-        
         cell.title.textColor = self.textColor
         cell.detail.textColor = self.detailColor
         cell.backgroundColor = UIColor.clearColor()
@@ -138,8 +200,13 @@ public class Style {
         return cell
     }
     
+    /**
+     Sets the Style of any Record Subtitle Detail Cells for Time to Budget.
+     
+     - Parameter cell: SubtitleDetailCell for Style to be applied to.
+     - returns: SubtitleDetailCell after Style has been applied.
+     */
     class func record(cell: SubtitleDetailCell) -> SubtitleDetailCell {
-        
         cell.title.textColor = self.textColor
         cell.subtitle.textColor = self.textColor
         cell.detail.textColor = self.detailColor
@@ -148,6 +215,12 @@ public class Style {
         return cell
     }
     
+    /**
+     Sets the Style of any generic Header Views for Time to Budget.
+     
+     - Parameter view: CategoryView for Style to be applied to.
+     - returns: CategoryView after Style has been applied.
+     */
     class func basicHeader(view: CategoryView) -> CategoryView {
         // View background settings
         view.customContentView.backgroundColor = self.grey
@@ -170,8 +243,13 @@ public class Style {
         return view
     }
     
+    /**
+     Sets the Style of any generic Detail Cells for Time to Budget.
+     
+     - Parameter cell: DetailCell for Style to be applied to.
+     - returns: DetailCell after Style has been applied.
+     */
     class func detailCell(cell: DetailCell) -> DetailCell {
-        
         cell.backgroundColor = UIColor.clearColor()
         cell.customContentView.backgroundColor = UIColor.clearColor()
         cell.title.textColor = self.textColor
@@ -180,13 +258,24 @@ public class Style {
         return cell
     }
     
+    /**
+     Sets the Style of any Name Textfield Cells for Time to Budget.
+     
+     - Parameter cell: NameTextfieldCell for Style to be applied to.
+     - returns: NameTextfieldCell after Style has been applied.
+     */
     class func textfieldCell(cell: NameTextfieldCell) -> NameTextfieldCell {
-        
         cell.backgroundColor = UIColor.clearColor()
         
         return cell
     }
     
+    /**
+     Sets the Style of any Memo Textfield Cells for Time to Budget.
+     
+     - Parameter cell: MemoTextfieldCell for Style to be applied to.
+     - returns: MemoTextfieldCell after Style has been applied.
+     */
     class func textfieldCell(cell: MemoTextfieldCell) -> MemoTextfieldCell {
         
         cell.backgroundColor = UIColor.clearColor()
@@ -194,6 +283,12 @@ public class Style {
         return cell
     }
     
+    /**
+     Sets the Style of any Category Time Remaining Bars contained within a Category Cell for Time to Budget.
+     
+     - Parameter cell: CategoryCell for Style to be applied to.
+     - returns: CategoryCell after Style has been applied.
+     */
     private class func categoryTimeRemainingBar(cell: CategoryCell) -> CategoryCell {
         cell.remainingTimeLabel.textColor = self.textColor
         
@@ -230,6 +325,12 @@ public class Style {
         return cell
     }
     
+    /**
+     Sets the Style of any Category Time Remaining Bars contained within a Category View for Time to Budget.
+     
+     - Parameter view: CategoryView for Style to be applied to.
+     - returns: CategoryView after Style has been applied.
+     */
     private class func categoryTimeRemainingBar(view: CategoryView) -> CategoryView {
         view.remainingTimeLabel.textColor = self.textColor
         
@@ -275,53 +376,14 @@ public class Style {
         
         return view
     }
-    /*
-    private class func categoryTimeRemainingLabel(cell:CategoryCell, category:Category) -> CategoryCell {
-        
-        cell.remainingTimeLabel.textColor = UIColor.blackColor()
-        
-        cell.remainingTimeLabel.layer.cornerRadius = CGRectGetWidth(cell.remainingTimeLabel.frame)/8
-        cell.remainingTimeLabel.layer.masksToBounds = true
-        
-        if category.totalTimeRemaining > 0.0 {
-            cell.remainingTimeLabel.backgroundColor = self.blue
-        } else if category.totalTimeRemaining < 0.0 {
-            cell.remainingTimeLabel.backgroundColor = self.yellow
-        } else {
-            cell.remainingTimeLabel.backgroundColor = self.grey
-            cell.remainingTimeLabel.textColor = self.textColor
-            cell.remainingTimeLabel.layer.borderWidth = 1.0
-            //cell.remainingTimeLabel.layer.borderColor = self.textColor.CGColor
-        }
-        
-        return cell
-    }
-
-    private class func categoryTimeRemainingLabel(view: CategoryView, category:Category, editor:Bool) -> CategoryView {
-        view.remainingTimeLabel.textColor = UIColor.blackColor()
-        
-        view.remainingTimeLabel.layer.cornerRadius = 60/8
-        view.remainingTimeLabel.layer.masksToBounds = true
-        
-        if editor {
-            view.remainingTimeLabel.backgroundColor = self.blue
-        } else {
-            if category.totalTimeRemaining > 0.0 {
-                view.remainingTimeLabel.backgroundColor = self.blue
-            } else if category.totalTimeRemaining < 0.0 {
-                view.remainingTimeLabel.backgroundColor = self.yellow
-            } else {
-                view.remainingTimeLabel.backgroundColor = self.grey
-                view.remainingTimeLabel.textColor = self.textColor
-                view.remainingTimeLabel.layer.borderWidth = 1.0
-                //view.remainingTimeLabel.layer.borderColor = self.textColor.CGColor
-            }
-        }
-        
-        return view
-    }
-    */
-    private class func taskTimeRemainingLabel(cell:DetailCell, task:Task, editor:Bool) -> DetailCell {
+    
+    /**
+     Sets the Style of any Task Time Remaining Labels contained within a Task Detail Cell for Time to Budget.
+     
+     - Parameter cell: DetailCell for Style to be applied to.
+     - returns: DetailCell after Style has been applied.
+     */
+    private class func taskTimeRemainingLabel(cell: DetailCell, task: Task, editor: Bool) -> DetailCell {
         
         if editor {
             cell.detail.textColor = self.detailColor
@@ -338,7 +400,13 @@ public class Style {
         return cell
     }
     
-    private class func taskTimeRemainingLabel(cell:SubtitleDetailCell, task:Task, editor:Bool) -> SubtitleDetailCell {
+    /**
+     Sets the Style of any Task Time Remaining Labels contained within a Task Subtitle Detail Cell for Time to Budget.
+     
+     - Parameter cell: SubtitleDetailCell for Style to be applied to.
+     - returns: SubtitleDetailCell after Style has been applied.
+     */
+    private class func taskTimeRemainingLabel(cell: SubtitleDetailCell, task: Task, editor: Bool) -> SubtitleDetailCell {
         
         if editor {
             cell.detail.textColor = self.detailColor
