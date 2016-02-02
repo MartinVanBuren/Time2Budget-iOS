@@ -384,7 +384,7 @@ public class Factory {
                 Database.addCategory(name: inputTextField.text!)
             } else {
                 
-                Factory.displayAlert(viewController: viewController, title: "Category Name Taken", message: "'\(inputTextField.text)' is already a Category")
+                Factory.displayAlert(viewController: viewController, title: "Category Name Taken", message: "'There is another category that uses this name.")
             }
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: { (action) -> Void in
@@ -396,19 +396,13 @@ public class Factory {
         viewController.presentViewController(alert, animated: true, completion: {})
     }
     
-    class func displayEditCategoryAlert(viewController viewController: UIViewController, categoryName: String) {
+    class func displayEditCategoryAlert(viewController viewController: BudgetEditorViewController, categoryName: String) {
         let realm = Database.getRealm()
         let currentBudget = realm.objects(Budget).filter("isCurrent = TRUE").first!
         var inputTextField = UITextField()
         let category = currentBudget.categories.filter("name = '\(categoryName)'").first!
         
         let alert = UIAlertController(title: "Edit Category", message: "", preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addAction(UIAlertAction(title: "Delete", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
-            Factory.displayDeleteCategoryAlert(viewController: viewController, categoryName: category.name)
-        }))
-        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: { (action) -> Void in
-            
-        }))
         alert.addAction(UIAlertAction(title: "Save", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
             if (Database.checkCategoryName(name: inputTextField.text!) || category.name == inputTextField.text) {
                 Database.updateCategory(categoryName: category.name, newCategoryName: inputTextField.text!)
@@ -416,6 +410,28 @@ public class Factory {
                 Factory.displayAlert(viewController: viewController, title: "Category Name Taken", message: "'\(inputTextField.text)' is already a Category")
             }
         }))
+        alert.addAction(UIAlertAction(title: "Move Up", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+            let category = viewController.currentBudget!.categories.filter("name = '\(categoryName)'").first!
+            let index = viewController.currentBudget!.categories.indexOf(category)!
+            if (index > 0) {
+                Database.moveCategory(categoryName: categoryName, index: (index - 1))
+            }
+        }))
+        alert.addAction(UIAlertAction(title: "Move Down", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+            let category = viewController.currentBudget!.categories.filter("name = '\(categoryName)'").first!
+            let index = viewController.currentBudget!.categories.indexOf(category)!
+            let length = viewController.currentBudget!.categories.count
+            if (index < (length - 1)) {
+                Database.moveCategory(categoryName: categoryName, index: (index + 1))
+            }
+        }))
+        alert.addAction(UIAlertAction(title: "Delete", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+            Factory.displayDeleteCategoryAlert(viewController: viewController, categoryName: category.name)
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: { (action) -> Void in
+            
+        }))
+        
         alert.addTextFieldWithConfigurationHandler {(textField) -> Void in inputTextField = textField; inputTextField.text = category.name; inputTextField.autocapitalizationType = UITextAutocapitalizationType.Words; inputTextField.keyboardAppearance = UIKeyboardAppearance.Dark; inputTextField.clearButtonMode = UITextFieldViewMode.WhileEditing}
         
         viewController.presentViewController(alert, animated: true, completion: {})

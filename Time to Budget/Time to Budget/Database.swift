@@ -198,6 +198,18 @@ public class Database {
         }
     }
     
+    public class func moveCategory(categoryName categoryName: String, index: Int) {
+        let realm = Database.getRealm()
+        
+        let currentBudget = realm.objects(Budget).filter("isCurrent = true").first!
+        let category = currentBudget.categories.filter("name = '\(categoryName)'").first!
+        let oldIndex = currentBudget.categories.indexOf(category)!
+        
+        try! realm.write {
+            currentBudget.categories.move(from: oldIndex, to: index)
+        }
+    }
+    
     public class func deleteCategory(categoryName categoryName: String, retainTasks: Bool) {
         let realm = Database.getRealm()
         
