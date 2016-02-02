@@ -289,19 +289,6 @@ public class Factory {
         return finalData
     }
     
-    class func prepareSettingsAboutCell(tableView tableView: UITableView) -> UITableViewCell {
-        let preparedCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "AboutCell")
-        
-        preparedCell.textLabel?.text = "©2015 Arrken Software LLC"
-        preparedCell.detailTextLabel?.text = "Designed and Developed by Robert Kennedy"
-        preparedCell.textLabel?.textColor = UIColor.whiteColor()
-        preparedCell.detailTextLabel?.textColor = UIColor.whiteColor()
-        preparedCell.backgroundColor = UIColor.clearColor()
-        preparedCell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
-        
-        return preparedCell
-    }
-    
     class func prepareBasicCell(tableView tableView: UITableView, titleText: String) -> UITableViewCell {
         let preparedCell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "BasicCell")
         

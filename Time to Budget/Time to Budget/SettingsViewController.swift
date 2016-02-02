@@ -33,7 +33,7 @@ class SettingsViewController: UITableViewController {
         case 0:
             return 5
         case 1:
-            return 3
+            return 4
         default:
             return 0
         }
@@ -74,10 +74,12 @@ class SettingsViewController: UITableViewController {
         case 1:
             switch indexPath.row {
             case 0:
-                return Factory.prepareBasicCell(tableView: self.tableView, titleText: "Feedback")
+                return Factory.prepareBasicCell(tableView: self.tableView, titleText: "Info")
             case 1:
-                return Factory.prepareSettingsAboutCell(tableView: self.tableView)
+                return Factory.prepareBasicCell(tableView: self.tableView, titleText: "Feedback")
             case 2:
+                return Factory.prepareBasicCell(tableView: self.tableView, titleText: "Blog")
+            case 3:
                 return Factory.prepareBasicCell(tableView: self.tableView, titleText: "Privacy Policy")
             default:
                 return UITableViewCell()
@@ -112,12 +114,14 @@ class SettingsViewController: UITableViewController {
         case 1:
             switch indexPath.row {
             case 0:
+                Factory.displayAlert(viewController: self, title: "Time to Budget", message: "Version 0.9.9\nCopyright © 2015 Arrken Software LLC\nCreated by Robert Kennedy")
+            case 1:
                 let url = NSURL(string: "https://drive.google.com/open?id=12NlkoJnnjjaXK5Ruc9JV-xGqpk3uHLlHHTOvoiqmQ2U")
                 UIApplication.sharedApplication().openURL(url!)
-            case 1:
+            case 2:
                 let url = NSURL(string: "http://robertkennedy.me/blog/")
                 UIApplication.sharedApplication().openURL(url!)
-            case 2:
+            case 3:
                 let url = NSURL(string: "https://googledrive.com/host/0ByiIRCNWZES_V2x3eWd6QXYtTjA")
                 UIApplication.sharedApplication().openURL(url!)
             default:
