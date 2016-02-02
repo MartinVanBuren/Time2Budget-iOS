@@ -25,7 +25,7 @@ class TaskEditorTimePickerViewController: UIViewController, UIPickerViewDataSour
         Style.button(self.doneButton)
         
         if let unwrappedTime = taskEditorVC.taskTime {
-            timePicked = Time.doubleToTime(unwrappedTime)
+            timePicked = Time(newTime: unwrappedTime)
         } else {
             timePicked.hours = 0
             timePicked.minutes = 0

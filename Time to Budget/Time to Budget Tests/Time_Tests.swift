@@ -127,10 +127,10 @@ class Time_Tests: XCTestCase {
     
     func test_doubleToString() {
         
-        let neg = Time.doubleToString(-5.25)
-        let pos = Time.doubleToString(4.50)
-        let other = Time.doubleToString(3.75)
-        let zero = Time.doubleToString(6.0)
+        let neg = Time(newTime: -5.25).toString()
+        let pos = Time(newTime: 4.50).toString()
+        let other = Time(newTime: 3.75).toString()
+        let zero = Time(newTime: 6.0).toString()
         
         let negTest = (neg == "-5:15")
         let posTest = (pos == "4:30")
@@ -144,7 +144,7 @@ class Time_Tests: XCTestCase {
     func test_doubleToTime() {
         var time = Time()
         
-        time = Time.doubleToTime(6.25)
+        time = Time(newTime: 6.25)
         
         XCTAssert((time.hours == 6 && time.minutes == 15), "Failed to Convert Double to Time")
     }

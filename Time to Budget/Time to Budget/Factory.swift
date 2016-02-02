@@ -29,7 +29,7 @@ public class Factory {
         preparedCell.remainingTimeBarOutline.layer.borderWidth = 1.0
         preparedCell.remainingTimeBarOutline.layer.borderColor = UIColor.greenColor().CGColor
         
-        preparedCell.remainingTimeLabel.text = Time.doubleToString(thisCategory.totalTimeRemaining)
+        preparedCell.remainingTimeLabel.text = Time(newTime: thisCategory.totalTimeRemaining).toString()
         
         preparedCell.category = thisCategory
         
@@ -56,9 +56,9 @@ public class Factory {
         }
         
         if editor {
-            preparedView.remainingTimeLabel.text = Time.doubleToString(thisCategory.totalTimeBudgeted)
+            preparedView.remainingTimeLabel.text = Time(newTime: thisCategory.totalTimeBudgeted).toString()
         } else {
-            preparedView.remainingTimeLabel.text = Time.doubleToString(thisCategory.totalTimeRemaining)
+            preparedView.remainingTimeLabel.text = Time(newTime: thisCategory.totalTimeRemaining).toString()
         }
         
         preparedView.sectionNameLabel.text = thisCategory.name
@@ -82,9 +82,9 @@ public class Factory {
             preparedCell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
             
             if editor {
-                preparedCell.detail.text = Time.doubleToString(thisTask.timeBudgeted)
+                preparedCell.detail.text = Time(newTime: thisTask.timeBudgeted).toString()
             } else {
-                preparedCell.detail.text = Time.doubleToString(thisTask.timeRemaining)
+                preparedCell.detail.text = Time(newTime: thisTask.timeRemaining).toString()
             }
             
             preparedCell.task = thisTask
@@ -101,9 +101,9 @@ public class Factory {
             preparedCell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
             
             if editor {
-                preparedCell.detail.text = Time.doubleToString(thisTask.timeBudgeted)
+                preparedCell.detail.text = Time(newTime: thisTask.timeBudgeted).toString()
             } else {
-                preparedCell.detail.text = Time.doubleToString(thisTask.timeRemaining)
+                preparedCell.detail.text = Time(newTime: thisTask.timeRemaining).toString()
             }
             
             preparedCell.task = thisTask
@@ -138,7 +138,7 @@ public class Factory {
         preparedCell.title.text = "Time Spent"
         
         if let unwrappedTimeSpent = timeSpent?.toDouble() {
-            preparedCell.detail.text = Time.doubleToString(unwrappedTimeSpent)
+            preparedCell.detail.text = Time(newTime: unwrappedTimeSpent).toString()
         } else {
             preparedCell.detail.text = "00:00"
         }
@@ -220,7 +220,7 @@ public class Factory {
         preparedCell.title.text = "Time Budgeted"
         
         if let unwrappedTime = time {
-            preparedCell.detail.text = Time.doubleToString(unwrappedTime)
+            preparedCell.detail.text = Time(newTime: unwrappedTime).toString()
         } else {
             preparedCell.detail.text = "00:00"
         }
@@ -239,7 +239,7 @@ public class Factory {
             var preparedCell = tableView.dequeueReusableCellWithIdentifier("DetailCell") as! DetailCell
             
             preparedCell.title.text = thisRecord.dateToString()
-            preparedCell.detail.text = Time.doubleToString(thisRecord.timeSpent)
+            preparedCell.detail.text = Time(newTime: thisRecord.timeSpent).toString()
             preparedCell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
             
             preparedCell = Style.record(preparedCell)
@@ -250,7 +250,7 @@ public class Factory {
             
             preparedCell.title.text = thisRecord.note
             preparedCell.subtitle.text = thisRecord.dateToString()
-            preparedCell.detail.text = Time.doubleToString(thisRecord.timeSpent)
+            preparedCell.detail.text = Time(newTime: thisRecord.timeSpent).toString()
             preparedCell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
             
             preparedCell = Style.record(preparedCell)

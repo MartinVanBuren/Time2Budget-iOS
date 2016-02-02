@@ -177,7 +177,7 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
         if self.currentTask!.clock!.clockedIn {
             if let unwrappedFinalTime = Database.clockInOut(self.currentTask!) {
                 self.timer.invalidate()
-                self.finalClockTime = Time.doubleToTime(unwrappedFinalTime)
+                self.finalClockTime = Time(newTime: unwrappedFinalTime)
                 self.segueFromTimeClock = true
                 self.clockButton.setTitle("Clock In", forState: UIControlState.Normal)
                 self.clockButton.setTitle("Clock In", forState: UIControlState.Highlighted)

@@ -127,7 +127,7 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
         if self.currentBudget!.clock!.clockedIn {
             if let unwrappedFinalTime = Database.clockInOut(self.currentBudget!) {
                 self.timer.invalidate()
-                self.finalClockTime = Time.doubleToTime(unwrappedFinalTime)
+                self.finalClockTime = Time(newTime: unwrappedFinalTime)
                 self.segueFromTimeClock = true
                 self.clockButton.setTitle("Clock In", forState: UIControlState.Normal)
                 self.clockButton.setTitle("Clock In", forState: UIControlState.Highlighted)

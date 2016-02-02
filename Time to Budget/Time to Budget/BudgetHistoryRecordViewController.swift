@@ -49,7 +49,7 @@ class BudgetHistoryRecordViewController: UITableViewController {
             cell.userInteractionEnabled = false
             return cell
         case 1:
-            let cell =  Factory.prepareAddRecordTimeCell(tableView: tableView, timeSpent: Time.doubleToTime(currentRecord!.timeSpent))
+            let cell =  Factory.prepareAddRecordTimeCell(tableView: tableView, timeSpent: Time(newTime: currentRecord!.timeSpent))
             cell.accessoryType = UITableViewCellAccessoryType.None
             cell.userInteractionEnabled = false
             return cell

@@ -34,7 +34,7 @@ class RecordEditorViewController: UIViewController, UITableViewDataSource, UITab
         Style.button(self.saveRecordButton)
         
         if let unwrappedRecord = self.currentRecord {
-            self.timeSpent = Time.doubleToTime(unwrappedRecord.timeSpent)
+            self.timeSpent = Time(newTime: unwrappedRecord.timeSpent)
             self.date = unwrappedRecord.date
             self.memo = unwrappedRecord.note
             self.navigationItem.title = "Edit Record"

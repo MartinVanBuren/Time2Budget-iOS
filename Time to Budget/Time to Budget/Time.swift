@@ -9,26 +9,23 @@
 import Foundation
 import UIKit
 
-/*
-**    Class Purpose:
-**    This class stores and converts time, in the sense of hours and minutes, into all formats required 
-**    for this program. Some of such formats in String and Double. The current time is stored in the 
-**    hours and minutes integer variables. This class converts the time into a usable String for displaying
-**    time and also into a Double for storage into the database.
-**
-**    Class Attributes:
-**    + hours: Int
-**    + minutes: Int
-**
-**    Class Methods:
-**    - cleanTime()
-**    - setByDouble(newTime: Double)
-**    - toDouble()
-**    - toString()
+/**
+Manages and formats time, in hours and minutes for Time to Budget.
 
-**    Class Static Methods:
-**    - doubleToString(time: Double)
-**    - doubleToTime(newTime: Double)
+The purpose of this class is to store and convert time, in the sense of hours and minutes, into all formats required
+for this program. Some of such formats in String and Double. The current time is stored in the
+hours and minutes integer variables. This class converts the time into a usable String for displaying
+time and also into a Double for storage into the database.
+
+Class Attributes:
++ hours: Int
++ minutes: Int
+
+Class Methods:
+- cleanTime()
+- setByDouble(newTime: Double)
+- toDouble()
+- toString()
 */
 public class Time {
     //============ Attributes ==========
@@ -39,23 +36,22 @@ public class Time {
     
     //============ Constructors ============
     public init() {}
+    public init(newTime: Double) {
+        setByDouble(newTime)
+    }
     public init(newHours: Int, newMinutes: Int) {
         self.hours = newHours
         self.minutes = newMinutes
     }
-
-
-    //============================= Methods =============================
-    /*
-    **    Method Purpose:
-    **    This method will take the current values of self.hours and self.minutes and convert them into a proper format. 
-    **    For Example: 5h 70m will be converted into 6h 10m
-    **    
-    **    Parameters:
-    **    None
-    **    
-    **    Returns:
-    **    None
+    
+    /**
+    Calculates time to constrain time to n hours and 0 <= n <= 60 minutes.
+    
+    This method will take the current values of self.hours and self.minutes and convert them into a proper format.
+    For Example, 5h 70m will be converted into 6h 10m
+    
+    - Parameter None:
+    - returns: Nothing
     */
     public func cleanTime() {
         
@@ -83,44 +79,63 @@ public class Time {
         
         if self.hours < 0 {
             self.isNegative = true
-        } else {
+        } else if self.hours > 0 {
             self.isNegative = false
         }
     }
-
-
-    /*
-    **    Method Purpose:
-    **    Uses a Double pulled from a database object to set the current Time object equal to the Double's value.
-    **    For Example: A Double of 5.45 will set self.hours = 5 and self.minutes = 45
-    **    
-    **    Parameters:
-    **    Double: Pulled from a database object.
-    **    
-    **    Returns:
-    **    None
+    
+    /**
+    Sets the current object to the time represented in a Double.
+    
+    This method uses a Double to set the current Time object equal to the Double's value.
+    For Example: A Double of 5.45 will set self.hours = 5 and self.minutes = 45
+    
+    - Parameter newTime: Double to set time to.
+    - returns: Nothing
     */
     public func setByDouble(newTime: Double) {
+        var tempHrs:Double!
+        var tempMins:Double!
         
-        let tempTime:Time = Time.doubleToTime(newTime)
+        if newTime < 0 {
+            tempHrs = ceil(atof(String(format: "%f", newTime)))
+            tempMins = atof(String(format: "%f", newTime))
+            tempMins = tempHrs - tempMins
+        } else {
+            tempHrs = floor(atof(String(format: "%f", newTime)))
+            tempMins = atof(String(format: "%f", newTime))
+            tempMins = tempMins - tempHrs
+        }
         
-        tempTime.cleanTime()
+        switch tempMins {
+        case 0.25:
+            tempMins = 15.0
+        case 0.5:
+            tempMins = 30.0
+        case 0.75:
+            tempMins = 45.0
+        default:
+            tempMins = 0.0
+        }
         
-        self.hours = tempTime.hours
-        self.minutes = tempTime.minutes
+        self.hours = Int(round(tempHrs))
+        self.minutes = Int(round(tempMins))
+        
+        cleanTime()
+        
+        if newTime < 0 {
+            self.isNegative = true
+        }
     }
     
-
-    /*
-    **    Method Purpose:
-    **    Converts self.hours and self.minutes into a Double format used to write to the Database.
-    **    For Example: If self.hours = 5 and self.minutes = 45 this method will return a Double of 5.45
-    **    
-    **    Parameters:
-    **    None
-    **    
-    **    Returns:
-    **    Double: Value converted from self.hours and self.minutes
+    /**
+    Gets the Double value of the time from this object.
+    
+    This method converts self.hours and self.minutes into a Double format used to write to the Database.
+    For Example: If self.hours = 5 and self.minutes = 45 this method will return a Double of 5.45
+    
+    - Parameter None:
+    - returns: The Double value of the time stored in the object.
     */
     public func toDouble() -> Double {
         
@@ -148,17 +163,14 @@ public class Time {
         return (finalDouble)
     }
     
-
-    /*
-    **    Method Purpose:
-    **    Converts self.hours and self.minutes into a String of the format "hh:mm"
-    **    For Example: If self.hours = 5 and self.minutes = 45 the product String will be "5:45"
-    **    
-    **    Parameters:
-    **    None
-    **    
-    **    Returns:
-    **    String: Value converted from self.hours and self.minutes
+    /**
+    Gets the String representation of the time stored in the object.
+    
+    This method converts self.hours and self.minutes into a String of the format "hh:mm"
+    For Example: If self.hours = 5 and self.minutes = 45 the product String will be "5:45"
+    
+    - Parameter None:
+    - returns: The String representation of the time stored in the object.
     */
     public func toString() -> String {
         self.cleanTime()
@@ -183,76 +195,5 @@ public class Time {
             return "Error in Time String Conversion!"
         }
         
-    }
-    
-
-    //======================== Static Methods ========================
-    /*
-    **    Method Purpose:
-    **    Converts the Double representation of Time from a database object into a String much like the toString() method.
-    **    For Example: A Double of 5.45 will be converted into a String "5:45"
-    **    
-    **    Parameters:
-    **    Double: Pulled from a database object
-    **    
-    **    Returns:
-    **    String: Value of Double as a String
-    */
-    public class func doubleToString(time: Double) -> String {
-        let finalTime:Time = doubleToTime(time)
-        if time < 0 {
-            finalTime.isNegative = true;
-        }
-        finalTime.cleanTime()
-        
-        return finalTime.toString()
-    }
-    
-
-    /*
-    **    Method Purpose:
-    **    Creates a new Time object initialized with the value of a Double pulled from a database object.
-    **    For Example: A Double of 5.45 will return a Time object where Time.hours = 5 and Time.minutes = 45
-    **    
-    **    Parameters:
-    **    Double: Pulled from a database object
-    **    
-    **    Returns:
-    **    Time: A Time instance containing the Time value of the Double parameter
-    */
-    public class func doubleToTime(newTime: Double) -> Time {
-        
-        var tempHrs:Double!
-        var tempMins:Double!
-        
-        if newTime < 0 {
-            tempHrs = ceil(atof(String(format: "%f", newTime)))
-            tempMins = atof(String(format: "%f", newTime))
-            tempMins = tempHrs - tempMins
-        } else {
-            tempHrs = floor(atof(String(format: "%f", newTime)))
-            tempMins = atof(String(format: "%f", newTime))
-            tempMins = tempMins - tempHrs
-        }
-        
-        switch tempMins {
-        case 0.25:
-            tempMins = 15.0
-        case 0.5:
-            tempMins = 30.0
-        case 0.75:
-            tempMins = 45.0
-        default:
-            tempMins = 0.0
-        }
-        
-        let tempIntHrs = Int(round(tempHrs))
-        let tempIntMins = Int(round(tempMins))
-        
-        let finalTime = Time(newHours: tempIntHrs, newMinutes: tempIntMins)
-        
-        finalTime.cleanTime()
-
-        return finalTime
     }
 }
