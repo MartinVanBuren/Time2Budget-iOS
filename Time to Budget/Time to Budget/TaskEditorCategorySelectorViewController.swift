@@ -43,6 +43,7 @@ class TaskEditorCategorySelectorViewController: UIViewController, UITableViewDat
     override func viewDidLayoutSubviews() {
         self.automaticallyAdjustsScrollViewInsets = false
         tableView.contentInset = UIEdgeInsetsMake(self.topLayoutGuide.length, 0, 54, 0)
+        tableView.reloadData()
     }
     
     //==================== UITableViewDataSource Methods ====================

@@ -52,17 +52,13 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
         
         // Register realm notification block to update the tableView on database changes
         notificationToken = realm.addNotificationBlock { note, realm in
-            
             self.currentBudget = Database.budgetSafetyNet()
-            
-            self.tableView.reloadData()
             self.updateTimeRemaining()
         }
 
         // Reload tableView data and update the current budgetable time remaining label
         self.tableView.reloadData()
         self.updateTimeRemaining()
-        
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -90,41 +86,33 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
     
     //==================== UITableViewDataSource Methods ====================
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        
         return Int(currentBudget!.categories.count)
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
         return currentBudget.categories[section].tasks.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        
         return Factory.prepareTaskCell(tableView: tableView, categoryList: currentBudget!.categories, indexPath: indexPath, editor: true)
     }
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        
         return Factory.prepareCategoryView(tableView: tableView, categoryList: currentBudget.categories, section: section, editorViewController: self)
-        
     }
     
     //==================== UITableViewDelegate Methods ====================
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        
         addTaskDialog = false
         performSegueWithIdentifier("showTaskEditorView", sender: self)
     }
     
     
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        
         return 44
     }
     
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        
         Factory.displayDeleteTaskAlert(viewController: self, indexPath: indexPath)
     }
 
@@ -178,11 +166,6 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
                 })
             }
         case UIGestureRecognizerState.Changed:
-            if let unwrappedIndex = indexPath {
-                let currentCell = tableView.cellForRowAtIndexPath(unwrappedIndex)
-                currentCell!.hidden = true
-            }
-            
             var center = My.cellSnapshot!.center
             center.y = locationInView.y
             My.cellSnapshot!.center = center
@@ -195,7 +178,7 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
                         Database.moveTask(task: self.grabbedTask!, index: indexPath!.row)
                     }
                 }
-                //tableView.moveRowAtIndexPath(Path.initialIndexPath!, toIndexPath: indexPath!)
+                tableView.moveRowAtIndexPath(Path.initialIndexPath!, toIndexPath: indexPath!)
                 Path.initialIndexPath = indexPath
             }
         default:
@@ -215,6 +198,7 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
                         My.cellSnapshot = nil
                     }
             })
+            tableView.reloadData()
         }
     }
     
