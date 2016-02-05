@@ -11,15 +11,19 @@ import RealmSwift
 
 class BudgetHistoryRecordViewController: UITableViewController {
 
+    //========== Realm Properties ==========
     var currentRecord:Record?
     var currentTask:Task?
     
+    //==================== View Controller Methods ====================
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let nib = UINib(nibName: "DetailCell", bundle: nil)
-        self.tableView.registerNib(nib, forCellReuseIdentifier: "DetailCell")
+        // Retrieve and register the nib files for tableView elements.
+        let detailNib = UINib(nibName: "DetailCell", bundle: nil)
+        self.tableView.registerNib(detailNib, forCellReuseIdentifier: "DetailCell")
         
+        // Apple the Time to Budget theme to this view and navigation bar.
         let nav = self.navigationController!.navigationBar
         Style.navbar(nav)
         Style.viewController(self)
@@ -29,6 +33,7 @@ class BudgetHistoryRecordViewController: UITableViewController {
         self.tableView.reloadData()
     }
 
+    //==================== UITableViewDataSource Methods ====================
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
@@ -66,6 +71,7 @@ class BudgetHistoryRecordViewController: UITableViewController {
         }
     }
     
+    //==================== UITableViewDelegate Methods ====================
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }

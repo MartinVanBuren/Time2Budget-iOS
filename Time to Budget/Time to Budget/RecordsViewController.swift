@@ -11,63 +11,73 @@ import RealmSwift
 
 class RecordsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITabBarControllerDelegate {
 
-    var currentTask:Task?
+    //========= View Properties =========
     var returning = false
-    var timeReturning = 0
     var editRecord:Bool = false
-    var notificationToken: NotificationToken!
-    var recordList = List<Record>()
-    let realm = Database.getRealm()
     var promptEnabled:Bool = false
-    var timer:NSTimer!
-    var finalClockTime:Time!
-    var segueFromTimeClock:Bool = false
+    var timeReturning = 0
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var clockButton: UIButton!
     
+    //========= Time Clock Properties =========
+    var timer:NSTimer!
+    var finalClockTime:Time?
+    
+    //========= Realm Properties =========
+    var realm:Realm!
+    var currentTask:Task?
+    var recordList = List<Record>()
+    var notificationToken: NotificationToken!
+    
+    //================== View Controller Methods ==================
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Retrieve database
+        self.realm = Database.getRealm()
+        
         self.tabBarController?.delegate = self
         
-        var nib = UINib(nibName: "SubtitleDetailCell", bundle: nil)
-        self.tableView.registerNib(nib, forCellReuseIdentifier: "SubtitleDetailCell")
+        // Register Nibs for the table view cells and header views.
+        let detailNib = UINib(nibName: "DetailCell", bundle: nil)
+        let subtitleNib = UINib(nibName: "SubtitleDetailCell", bundle: nil)
+        let catViewNib = UINib(nibName: "CategoryView", bundle: nil)
+        self.tableView.registerNib(detailNib, forCellReuseIdentifier: "DetailCell")
+        self.tableView.registerNib(subtitleNib, forCellReuseIdentifier: "SubtitleDetailCell")
+        self.tableView.registerNib(catViewNib, forHeaderFooterViewReuseIdentifier: "CategoryView")
         
-        nib = UINib(nibName: "DetailCell", bundle: nil)
-        self.tableView.registerNib(nib, forCellReuseIdentifier: "DetailCell")
-        
-        nib = UINib(nibName: "CategoryView", bundle: nil)
-        self.tableView.registerNib(nib, forHeaderFooterViewReuseIdentifier: "CategoryView")
-        
+        // Applying the Time to Budget theme to this view.
         Style.viewController(self, tableView: self.tableView)
         Style.button(self.clockButton)
         
         // Set realm notification block
         notificationToken = realm.addNotificationBlock { notification, realm in
-            
             if let unwrappedTask = self.currentTask {
                 let recordResults = unwrappedTask.records.sorted("date", ascending: false)
                 self.recordList = List<Record>()
                 for rec in recordResults {
                     self.recordList.append(rec)
                 }
-                
                 self.tableView.reloadData()
             }
         }
         
+        // Fixes the content inset for the table view.
         fixInsetLoad()
     }
     
     override func viewWillAppear(animated: Bool) {
+        // Set nav bar title to the current task name
         navigationItem.title = currentTask!.name
         
+        // Retrieve and filter current records by date.
         let recordResults = self.currentTask!.records.sorted("date", ascending: false)
         self.recordList = List<Record>()
         for rec in recordResults {
             self.recordList.append(rec)
         }
         
+        // Set nav bar prompt to the current task memo if any
         if currentTask!.memo != "" {
             navigationItem.prompt = currentTask!.memo
             self.promptEnabled = true
@@ -77,21 +87,19 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
         
         // Prepare timer if clocked in
         if self.currentTask!.clock!.clockedIn {
-            self.updateClock()
-            let aSelector:Selector = "updateClock"
-            self.timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: aSelector, userInfo: nil, repeats: true)
+            self.initializeClock()
         } else if self.timer != nil {
-            self.timer.invalidate()
-            self.clockButton.setTitle("Clock In", forState: UIControlState.Normal)
-            self.clockButton.setTitle("Clock In", forState: UIControlState.Highlighted)
+            self.invalidateClock()
         }
         
+        // Fix content inset if needed
         if returning && currentTask!.memo == "" {
             fixInsetSegue()
         }
     }
     
     override func viewWillDisappear(animated: Bool) {
+        // Invalidate timer when leaving the view to avoid conflicts.
         if (self.isMovingFromParentViewController()){
             self.currentTask = nil
             if self.timer != nil {
@@ -103,6 +111,7 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     func tabBarController(tabBarController: UITabBarController, didSelectViewController viewController: UIViewController) {
+        // If the user navigates away from this tab then pop to the budget view controller to avoid conflicts.
         if (viewController != self.navigationController) {
             self.navigationController?.popToRootViewControllerAnimated(false)
             self.currentTask = nil
@@ -114,29 +123,25 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "showTrackingViewAlt" {
             returning = true
+            // Retrieve targeted view
             let recordEditorVC = (segue.destinationViewController as! UINavigationController).topViewController as! RecordEditorViewController
             
             if self.editRecord {
+                // Pass the current task and selected record.
                 let indexPath = self.tableView.indexPathForSelectedRow!
-                
                 recordEditorVC.editRecord = true
                 recordEditorVC.currentTask = self.currentTask
                 recordEditorVC.currentRecord = recordList[indexPath.row]
                 self.editRecord = false
             } else {
-                if self.segueFromTimeClock {
-                    recordEditorVC.currentTask = self.currentTask
-                    recordEditorVC.currentRecord = nil
-                    recordEditorVC.timeSpent = self.finalClockTime
-                    self.segueFromTimeClock = false
-                } else {
-                    recordEditorVC.currentTask = self.currentTask
-                }
+                // Pass the current task and the time spent from the clock button if any.
+                recordEditorVC.currentTask = self.currentTask
+                recordEditorVC.timeSpent = self.finalClockTime
             }
         }
     }
     
-    // ============================= Table View Overrides =============================
+    //========================== UITableViewDataSource Methods ==========================
 
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 44
@@ -150,11 +155,6 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
         return self.recordList.count
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        self.editRecord = true
-        performSegueWithIdentifier("showTrackingViewAlt", sender: self)
-    }
-    
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         return Factory.prepareRecordCell(tableView: tableView, recordList: self.recordList, indexPath: indexPath)
     }
@@ -163,11 +163,17 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
         return 1
     }
     
+    //============================ UITableViewDelegate Methods ============================
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        self.editRecord = true
+        performSegueWithIdentifier("showTrackingViewAlt", sender: self)
+    }
+    
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         Factory.displayDeleteRecordAlert(self, record: recordList[indexPath.row])
     }
     
-    // ============================= IBActions =============================
+    //============================= IBActions =============================
     @IBAction func addRecordButtonPressed(sender: UIBarButtonItem) {
         self.editRecord = false
         performSegueWithIdentifier("showTrackingViewAlt", sender: self)
@@ -175,22 +181,62 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
     
     @IBAction func clockButtonPressed(sender: UIButton) {
         if self.currentTask!.clock!.clockedIn {
+            // Clock out and retrieve the final clock time.
             if let unwrappedFinalTime = Database.clockInOut(self.currentTask!) {
-                self.timer.invalidate()
                 self.finalClockTime = Time(newTime: unwrappedFinalTime)
-                self.segueFromTimeClock = true
-                self.clockButton.setTitle("Clock In", forState: UIControlState.Normal)
-                self.clockButton.setTitle("Clock In", forState: UIControlState.Highlighted)
+                self.invalidateClock()
                 performSegueWithIdentifier("showTrackingViewAlt", sender: self)
             }
         } else {
+            // Clock in and nullify the final clock time.
+            self.finalClockTime = nil
             Database.clockInOut(self.currentTask!)
-            self.updateClock()
-            let aSelector:Selector = "updateClock"
-            self.timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: aSelector, userInfo: nil, repeats: true)
+            self.initializeClock()
         }
     }
     // ============================= Helper Functions =============================
+    
+    /**
+    Creates a timer to update the clock button every second.
+    
+    This method calls updateClock() and generates a timer to repeat updateClock() every second in order to
+    show the current amount of time the user has been clocked in on the clock button.
+    
+    - Parameter None:
+    - returns: Nothing
+    */
+    func initializeClock() {
+        self.updateClock()
+        let aSelector:Selector = "updateClock"
+        self.timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: aSelector, userInfo: nil, repeats: true)
+    }
+    
+    /**
+     Invalidates the timer created by initializeClock() and resets the clock button back to default.
+     
+     This method invalidates the timer used to update the clock button time and then sets the clock button text
+     back to it's default "Clock In".
+     
+     - Parameter None:
+     - returns: Nothing
+     */
+    func invalidateClock() {
+        self.timer.invalidate()
+        self.clockButton.setTitle("Clock In", forState: UIControlState.Normal)
+        self.clockButton.setTitle("Clock In", forState: UIControlState.Highlighted)
+    }
+    
+    /**
+     Calculates the current amount of time the user has been clocked in and updates the clock button accordingly.
+     
+     This method calculates the amount of time the user have been clocked in by subtracting the time clocked in
+     by the current time and breaks it down into hours, minutes, and seconds. These are then converted into a
+     readable string format for use on the clock button title. The clock button title is then updated and animated
+     to relflect the elapsed time since the user clocked in.
+     
+     - Parameter None:
+     - returns: Nothing
+     */
     func updateClock() {
         
         let currentTime = NSDate.timeIntervalSinceReferenceDate()
@@ -236,6 +282,12 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
         UIView.setAnimationsEnabled(true)
     }
     
+    /**
+     Calculates the proper content inset for the tableView during load and applies it to the table view.
+     
+     - Parameter None:
+     - returns: Nothing
+     */
     func fixInsetLoad() {
         if currentTask!.memo == "" {
             UIView.animateWithDuration(CATransaction.animationDuration(), animations: {
@@ -247,6 +299,12 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
         }
     }
     
+    /**
+     Calculates the proper content inset for the tableView during segue and applies it to the table view.
+     
+     - Parameter None:
+     - returns: Nothing
+     */
     func fixInsetSegue() {
         timeReturning++
         

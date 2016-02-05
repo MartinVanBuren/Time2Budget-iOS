@@ -11,25 +11,27 @@ import RealmSwift
 
 class BudgetHistoryViewController: UITableViewController {
     
+    //======== Realm Properties =========
     var currentBudget:Budget?
-    //var notificationToken: RLMNotificationToken?
 
+    //================ View Controller Methods ================
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        var nib = UINib(nibName: "CategoryView", bundle: nil)
-        self.tableView.registerNib(nib, forHeaderFooterViewReuseIdentifier: "CategoryView")
+        // Retrieve and register the nib files for tableView elements.
+        let catViewNib = UINib(nibName: "CategoryView", bundle: nil)
+        let detailNib = UINib(nibName: "DetailCell", bundle: nil)
+        let subtitleNib = UINib(nibName: "SubtitleDetailCell", bundle: nil)
+        self.tableView.registerNib(catViewNib, forHeaderFooterViewReuseIdentifier: "CategoryView")
+        self.tableView.registerNib(detailNib, forCellReuseIdentifier: "DetailCell")
+        self.tableView.registerNib(subtitleNib, forCellReuseIdentifier: "SubtitleDetailCell")
         
-        nib = UINib(nibName: "DetailCell", bundle: nil)
-        self.tableView.registerNib(nib, forCellReuseIdentifier: "DetailCell")
-
-        nib = UINib(nibName: "SubtitleDetailCell", bundle: nil)
-        self.tableView.registerNib(nib, forCellReuseIdentifier: "SubtitleDetailCell")
-        
+        // Apply the Time to Budget theme to this view.
         Style.viewController(self)
     }
     
     override func viewDidLayoutSubviews() {
+        // Adjust table view insets
         self.automaticallyAdjustsScrollViewInsets = false
         tableView.contentInset = UIEdgeInsetsMake(self.topLayoutGuide.length, 0, 54, 0)
     }
@@ -37,21 +39,18 @@ class BudgetHistoryViewController: UITableViewController {
     override func viewWillAppear(animated: Bool) {
         self.tableView.reloadData()
     }
-    
-    // MARK: - Navigation
-    
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
+
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         let indexPath = self.tableView.indexPathForSelectedRow!
         
         if segue.identifier == "showHistoryRecords" {
+            // Pass the selected task into the Budget History Records View.
             let historyRecordsVC = segue.destinationViewController as! BudgetHistoryRecordsViewController
             historyRecordsVC.currentTask = currentBudget?.categories[indexPath.section].tasks[indexPath.row]
         }
     }
 
-    // MARK: - Table view data source
-
+    //===================== UITableViewDataSource Methods =====================
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return Int(currentBudget!.categories.count)
     }
@@ -72,6 +71,7 @@ class BudgetHistoryViewController: UITableViewController {
         return 44
     }
     
+    //===================== UITableViewDelegate Methods =====================
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         performSegueWithIdentifier("showHistoryRecords", sender: self)
     }

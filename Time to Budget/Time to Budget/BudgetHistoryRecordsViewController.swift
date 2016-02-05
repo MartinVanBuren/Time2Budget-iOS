@@ -11,23 +11,26 @@ import RealmSwift
 
 class BudgetHistoryRecordsViewController: UITableViewController {
     
+    //============== Realm Properties ==============
     var currentTask:Task?
     var recordsList = List<Record>()
-    //var notificationToken: RLMNotificationToken?
 
+    //=================== View Controller Methods ===================
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        var nib = UINib(nibName: "SubtitleDetailCell", bundle: nil)
-        self.tableView.registerNib(nib, forCellReuseIdentifier: "SubtitleDetailCell")
+        // Retrieve and register the nib files for tableView elements.
+        let detailNib = UINib(nibName: "DetailCell", bundle: nil)
+        let subtitleNib = UINib(nibName: "SubtitleDetailCell", bundle: nil)
+        self.tableView.registerNib(detailNib, forCellReuseIdentifier: "DetailCell")
+        self.tableView.registerNib(subtitleNib, forCellReuseIdentifier: "SubtitleDetailCell")
         
-        nib = UINib(nibName: "DetailCell", bundle: nil)
-        self.tableView.registerNib(nib, forCellReuseIdentifier: "DetailCell")
-        
+        // Apply the Time to Budget theme to this view.
         Style.viewController(self)
     }
     
     override func viewWillAppear(animated: Bool) {
+        // Retrieve up-to-date record information and display it to the table view
         let recordsResults = currentTask?.records.sorted("date", ascending: false)
         for rec in recordsResults! {
             self.recordsList.append(rec)
@@ -45,6 +48,7 @@ class BudgetHistoryRecordsViewController: UITableViewController {
         }
     }
 
+    //========================= UITableViewDataSource Methods =========================
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
@@ -61,6 +65,7 @@ class BudgetHistoryRecordsViewController: UITableViewController {
         return Factory.prepareRecordCell(tableView: self.tableView, recordList: recordsList, indexPath: indexPath)
     }
     
+    //========================= UITableViewDelegate Methods =========================
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         performSegueWithIdentifier("showHistoryRecord", sender: self)
     }

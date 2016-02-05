@@ -12,45 +12,44 @@ import RealmSwift
 
 class BudgetViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
-    //==================== Properties ====================
-    var editMode:Bool = false
+    //============ View Properties ============
     var displayPrompt:Bool = false
     @IBOutlet weak var tableView: UITableView!
     
-    //==================== Time Clock Properties ===============
-    var finalClockTime:Time!
-    var segueFromTimeClock:Bool = false
+    //============ Time Clock Properties ============
+    var finalClockTime:Time?
     @IBOutlet weak var clockButton: UIButton!
     var timer:NSTimer!
     
-    //==================== Realm Properties ====================
+    //============ Realm Properties ============
     var realm:Realm!
     var currentBudget:Budget?
     var notificationToken: NotificationToken!
     
-    //==================== Pre-Generated Methods ====================
+    //============ View Controller Functions ============
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        // Fetch Database
         self.realm = Database.getRealm()
         
-        var nib = UINib(nibName: "CategoryView", bundle: nil)
-        self.tableView.registerNib(nib, forHeaderFooterViewReuseIdentifier: "CategoryView")
+        // Register Nibs for Cells/Header Views
+        let catViewNib = UINib(nibName: "CategoryView", bundle: nil)
+        let detailNib = UINib(nibName: "DetailCell", bundle: nil)
+        let subtitleNib = UINib(nibName: "SubtitleDetailCell", bundle: nil)
+        self.tableView.registerNib(catViewNib, forHeaderFooterViewReuseIdentifier: "CategoryView")
+        self.tableView.registerNib(detailNib, forCellReuseIdentifier: "DetailCell")
+        self.tableView.registerNib(subtitleNib, forCellReuseIdentifier: "SubtitleDetailCell")
         
-        nib = UINib(nibName: "DetailCell", bundle: nil)
-        self.tableView.registerNib(nib, forCellReuseIdentifier: "DetailCell")
-        
-        nib = UINib(nibName: "SubtitleDetailCell", bundle: nil)
-        self.tableView.registerNib(nib, forCellReuseIdentifier: "SubtitleDetailCell")
-        
+        // Apply Time to Budget theme to view
         let nav = self.navigationController!.navigationBar
         Style.navbar(nav)
         Style.viewController(self, tableView: self.tableView)
         Style.button(self.clockButton)
         
+        // Retrieve current budget
         self.currentBudget = Database.budgetSafetyNet()
         
-        // Set realm notification block
+        // Set realm notification block to run each time the database is updated.
         self.notificationToken = realm.addNotificationBlock { notification, realm in
             
             self.currentBudget = Database.budgetSafetyNet()
@@ -58,25 +57,21 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
             self.tableView.reloadData()
         }
         
-        // Run Display Prompt Code
-        self.displayPromptControl()
-        
+        // Register a tap gesture for the navigation bar to display the current budget name.
+        self.registerPromptTap()
     }
     
     override func viewWillAppear(animated: Bool) {
-        // Prepare timer if clocked in
+        // Check if clocked in and update the Clock In button accordingly.
         if self.currentBudget!.clock!.clockedIn {
-            self.updateClock()
-            let aSelector:Selector = "updateClock"
-            self.timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: aSelector, userInfo: nil, repeats: true)
+            self.initializeClock()
         } else if self.timer != nil {
-            self.timer.invalidate()
-            self.clockButton.setTitle("Clock In", forState: UIControlState.Normal)
-            self.clockButton.setTitle("Clock In", forState: UIControlState.Highlighted)
+            self.invalidateClock()
         }
     }
     
     override func viewWillDisappear(animated: Bool) {
+        // Invalidate timer when leaving the view to avoid conflicts.
         if self.timer != nil {
             if self.timer.valid {
                 self.timer.invalidate()
@@ -84,60 +79,49 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
         }
     }
     
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-    }
-    
     override func viewDidLayoutSubviews() {
+        // Reload table data to update header bar widths properly.
         self.tableView.reloadData()
     }
     
-    //==================== Segue Preperation ====================
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "showRecordsView" {
-            clearPrompt()
-            let recordsVC:RecordsViewController = segue.destinationViewController as! RecordsViewController
             
+            // Prepare Budget View (origin view) for segue.
             let indexPath = self.tableView.indexPathForSelectedRow!
-            let thisTask = currentBudget!.categories[indexPath.section].tasks[indexPath.row]
-            recordsVC.currentTask = thisTask
             tableView.deselectRowAtIndexPath(indexPath, animated: true)
-        }
-        else if segue.identifier == "showTrackingView" {
-            if self.segueFromTimeClock {
-                let recordEditorVC = (segue.destinationViewController as! UINavigationController).topViewController as! RecordEditorViewController
-                recordEditorVC.currentTask = nil
-                recordEditorVC.currentRecord = nil
-                recordEditorVC.timeSpent = self.finalClockTime
-                self.segueFromTimeClock = false
-            } else {
-                let recordEditorVC = (segue.destinationViewController as! UINavigationController).topViewController as! RecordEditorViewController
-                recordEditorVC.currentTask = nil
-                recordEditorVC.currentRecord = nil
-            }
+            self.clearPrompt()
+            
+            // Pass the selected task into the Records View.
+            let recordsVC:RecordsViewController = segue.destinationViewController as! RecordsViewController
+            let selectedTask = currentBudget!.categories[indexPath.section].tasks[indexPath.row]
+            recordsVC.currentTask = selectedTask
+            
+        } else if segue.identifier == "showTrackingView" {
+            // Pass the time spent from the clock button if any.
+            let recordEditorVC = (segue.destinationViewController as! UINavigationController).topViewController as! RecordEditorViewController
+            recordEditorVC.timeSpent = self.finalClockTime
         }
     }
     
-    //==================== IBAction Methods ====================
+    //==================== IBActions ====================
     @IBAction func addRecordButtonPressed(sender: UIBarButtonItem) {
         performSegueWithIdentifier("showTrackingView", sender: self)
     }
     
     @IBAction func clockButtonPressed(sender: UIButton) {
         if self.currentBudget!.clock!.clockedIn {
+            // Clock out and retrieve the final clock time.
             if let unwrappedFinalTime = Database.clockInOut(self.currentBudget!) {
-                self.timer.invalidate()
                 self.finalClockTime = Time(newTime: unwrappedFinalTime)
-                self.segueFromTimeClock = true
-                self.clockButton.setTitle("Clock In", forState: UIControlState.Normal)
-                self.clockButton.setTitle("Clock In", forState: UIControlState.Highlighted)
+                self.invalidateClock()
                 performSegueWithIdentifier("showTrackingView", sender: self)
             }
         } else {
+            // Clock in and nullify the final clock time.
+            self.finalClockTime = nil
             Database.clockInOut(self.currentBudget!)
-            self.updateClock()
-            let aSelector:Selector = "updateClock"
-            self.timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: aSelector, userInfo: nil, repeats: true)
+            self.initializeClock()
         }
     }
     
@@ -177,12 +161,54 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     //==================== Helper Methods ====================
+    
+    /**
+    Creates a timer to update the clock button every second.
+    
+    This method calls updateClock() and generates a timer to repeat updateClock() every second in order to
+    show the current amount of time the user has been clocked in on the clock button.
+    
+    - Parameter None:
+    - returns: Nothing
+    */
+    func initializeClock() {
+        self.updateClock()
+        let aSelector:Selector = "updateClock"
+        self.timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: aSelector, userInfo: nil, repeats: true)
+    }
+    
+    /**
+     Invalidates the timer created by initializeClock() and resets the clock button back to default.
+     
+     This method invalidates the timer used to update the clock button time and then sets the clock button text
+     back to it's default "Clock In".
+     
+     - Parameter None:
+     - returns: Nothing
+     */
+    func invalidateClock() {
+        self.timer.invalidate()
+        self.clockButton.setTitle("Clock In", forState: UIControlState.Normal)
+        self.clockButton.setTitle("Clock In", forState: UIControlState.Highlighted)
+    }
+    
+    /**
+     Calculates the current amount of time the user has been clocked in and updates the clock button accordingly.
+     
+     This method calculates the amount of time the user have been clocked in by subtracting the time clocked in 
+     by the current time and breaks it down into hours, minutes, and seconds. These are then converted into a 
+     readable string format for use on the clock button title. The clock button title is then updated and animated
+     to relflect the elapsed time since the user clocked in.
+     
+     - Parameter None:
+     - returns: Nothing
+     */
     func updateClock() {
-        
+        // Calculate elapsed time.
         let currentTime = NSDate.timeIntervalSinceReferenceDate()
-        
         var elapsedTime = currentTime - self.currentBudget!.clock!.startTime
         
+        // Break elapsed time down into hours, minutes, and seconds.
         let hours = Int((elapsedTime / 60.0) / 60.0)
         elapsedTime -= ((NSTimeInterval(hours) * 60) * 60)
         
@@ -192,6 +218,7 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
         let seconds = Int(elapsedTime)
         elapsedTime -= (NSTimeInterval(seconds))
         
+        // Generate a string to represent the elapsed time.
         var hoursString:String!
         var minutesString:String!
         var secondsString:String!
@@ -216,19 +243,36 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
         
         let finalTimeString = hoursString + minutesString + secondsString
         
+        // Update and animate the clock in button title text.
         UIView.setAnimationsEnabled(false)
         self.clockButton.setTitle(("Clock Out - " + finalTimeString), forState: UIControlState.Normal)
         self.clockButton.setTitle(("Clock Out - " + finalTimeString), forState: UIControlState.Highlighted)
         UIView.setAnimationsEnabled(true)
     }
     
-    func displayPromptControl() {
+    /**
+     Creates and registers a tap gesture for the navigation bar title to display the current budget name on tap.
+     
+     This method generates a UITapGestureRecognizer and then registers to the navigations bar's title text
+     so that if the title is tapped the view will display the current budget name in the navigation bar
+     prompt.
+     
+     - Parameter None:
+     - returns: Nothing
+     */
+    func registerPromptTap() {
         let navSingleTap = UITapGestureRecognizer(target: self, action: "navSingleTap")
         navSingleTap.numberOfTapsRequired = 1
-        (self.navigationController?.navigationBar.subviews[1])!.userInteractionEnabled = true
-        (self.navigationController?.navigationBar.subviews[1])!.addGestureRecognizer(navSingleTap)
+        self.navigationController?.navigationBar.subviews[1].userInteractionEnabled = true
+        self.navigationController?.navigationBar.subviews[1].addGestureRecognizer(navSingleTap)
     }
     
+    /**
+     Toggles whether the current budget name is displayed in the navigation bar prompt.
+     
+     - Parameter None:
+     - returns: Nothing
+     */
     func navSingleTap() {
         if displayPrompt == false {
             displayPrompt = true
@@ -238,6 +282,12 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
         }
     }
     
+    /**
+     Clears the navigation bar prompt so it is no longer displayed.
+     
+     - Parameter None:
+     - returns: Nothing
+     */
     func clearPrompt() {
         displayPrompt = false
         self.navigationItem.prompt = nil
