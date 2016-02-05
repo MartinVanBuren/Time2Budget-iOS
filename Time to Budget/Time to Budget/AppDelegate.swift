@@ -15,30 +15,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        // Check for any notifications indicating a new budget cycle.
         application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: [UIUserNotificationType.Sound, UIUserNotificationType.Alert, UIUserNotificationType.Badge], categories: nil))
         
+        // Migrate database to new format if needed.
         Database.migrationHandling()
         
-        let realm = Database.getRealm()
-        
-        let currentBudgets = realm.objects(Budget).filter("isCurrent = true")
-        
-        _ = realm.objects(Budget)
-        
-        if Database.debugEnabled {
-            print("AppDelegate->Current Budgets:")
-            for current in currentBudgets {
-                print(current.name)
-                print(current.isCurrent)
-            }
-            
-            print("AppDelegate->CurrentBudgetCount: ", currentBudgets.count)
-        }
-        
-        if currentBudgets.count == 0 {
-            Database.newBudget()
-        }
+        // Create a new budget if needed.
+        Database.budgetSafetyNet()
         
         return true
     }
@@ -60,6 +45,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidBecomeActive(application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        
+        // Check if the current budget is no longer valid and create a new one if needed.
         let realm = Database.getRealm()
         
         let budget = realm.objects(Budget).filter("isCurrent == TRUE").first!
@@ -70,6 +57,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
+        // Create a new budget each sunday morning.
         Database.newBudget()
     }
 

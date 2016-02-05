@@ -104,27 +104,6 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
         }
     }
     
-    //==================== IBActions ====================
-    @IBAction func addRecordButtonPressed(sender: UIBarButtonItem) {
-        performSegueWithIdentifier("showTrackingView", sender: self)
-    }
-    
-    @IBAction func clockButtonPressed(sender: UIButton) {
-        if self.currentBudget!.clock!.clockedIn {
-            // Clock out and retrieve the final clock time.
-            if let unwrappedFinalTime = Database.clockInOut(self.currentBudget!) {
-                self.finalClockTime = Time(newTime: unwrappedFinalTime)
-                self.invalidateClock()
-                performSegueWithIdentifier("showTrackingView", sender: self)
-            }
-        } else {
-            // Clock in and nullify the final clock time.
-            self.finalClockTime = nil
-            Database.clockInOut(self.currentBudget!)
-            self.initializeClock()
-        }
-    }
-    
     //==================== UITableViewDataSource Methods ====================
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         
@@ -148,6 +127,27 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
         
         return Factory.prepareCategoryView(tableView: tableView, categoryList: currentBudget!.categories, section: section)
         
+    }
+    
+    //==================== IBAction Methods ====================
+    @IBAction func addRecordButtonPressed(sender: UIBarButtonItem) {
+        performSegueWithIdentifier("showTrackingView", sender: self)
+    }
+    
+    @IBAction func clockButtonPressed(sender: UIButton) {
+        if self.currentBudget!.clock!.clockedIn {
+            // Clock out and retrieve the final clock time.
+            if let unwrappedFinalTime = Database.clockInOut(self.currentBudget!) {
+                self.finalClockTime = Time(newTime: unwrappedFinalTime)
+                self.invalidateClock()
+                performSegueWithIdentifier("showTrackingView", sender: self)
+            }
+        } else {
+            // Clock in and nullify the final clock time.
+            self.finalClockTime = nil
+            Database.clockInOut(self.currentBudget!)
+            self.initializeClock()
+        }
     }
     
     //==================== UITableViewDelegate Methods ====================

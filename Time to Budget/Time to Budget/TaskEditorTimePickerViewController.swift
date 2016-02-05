@@ -10,20 +10,26 @@ import UIKit
 
 class TaskEditorTimePickerViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
 
-    // Time Picker Declarations
-    var timeHourPickerData:[Int] = Factory.prepareTimeHourPickerData()
-    var timeMinutePickerData:[Int] = Factory.prepareTimeMinutePickerData()
+    //========== View Properties ==========
     var timePicked:Time = Time()
     var taskEditorVC:TaskEditorViewController!
-    @IBOutlet weak var timePicker: UIPickerView!
     @IBOutlet weak var doneButton: UIButton!
     
+    //========== Time Picker Properties ==========
+    @IBOutlet weak var timePicker: UIPickerView!
+    var timeHourPickerData:[Int] = Factory.prepareTimeHourPickerData()
+    var timeMinutePickerData:[Int] = Factory.prepareTimeMinutePickerData()
+    
+    
+    //==================== View Controller Methods ====================
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        // Apply the Time to Budget theme to this view.
         Style.viewController(self)
         Style.button(self.doneButton)
         
+        // Apply previous time if any to the UIPicker.
         if let unwrappedTime = taskEditorVC.taskTime {
             timePicked = Time(newTime: unwrappedTime)
         } else {
@@ -31,11 +37,12 @@ class TaskEditorTimePickerViewController: UIViewController, UIPickerViewDataSour
             timePicked.minutes = 0
         }
         
+        // Update UIPicker to reflect above changes.
         timePicker.selectRow(getHourIndex(), inComponent: 0, animated: true)
         timePicker.selectRow(getMinIndex(), inComponent: 1, animated: true)
     }
     
-// UIPicker Data Sources
+    //==================== UIPickerDataSource Methods ====================
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
         return 2
     }
@@ -48,7 +55,7 @@ class TaskEditorTimePickerViewController: UIViewController, UIPickerViewDataSour
         }
     }
     
-    //UIPicker Delegates
+    //==================== UIPickerDelegate Methods ====================
     func pickerView(pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
         if component == 0 {
             return Style.picker(timeHourPickerData[row])
@@ -66,16 +73,29 @@ class TaskEditorTimePickerViewController: UIViewController, UIPickerViewDataSour
         }
     }
     
+    //==================== IBAction Methods ====================
     @IBAction func doneButtonPressed(sender: UIButton) {
         taskEditorVC.taskTime = self.timePicked.toDouble()
-        
         self.navigationController?.popViewControllerAnimated(true)
     }
     
+    //==================== Helper Methods ====================
+    /**
+    Returns the integer index for the currently selected hour based on the self.timePicked.hours property.
+    
+    - Parameter None:
+    - returns: Int index for the currently selected hour.
+    */
     func getHourIndex() -> Int {
         return timePicked.hours
     }
     
+    /**
+     Returns the integer index for the currently selected minutes based on the seld.timePicked.minutes property.
+     
+     - Parameter None:
+     - returns: Int index for the currently selected minutes.
+     */
     func getMinIndex() -> Int {
         if timePicked.minutes == 15 {
             return 1

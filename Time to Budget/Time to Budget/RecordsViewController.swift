@@ -110,16 +110,6 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
         }
     }
     
-    func tabBarController(tabBarController: UITabBarController, didSelectViewController viewController: UIViewController) {
-        // If the user navigates away from this tab then pop to the budget view controller to avoid conflicts.
-        if (viewController != self.navigationController) {
-            self.navigationController?.popToRootViewControllerAnimated(false)
-            self.currentTask = nil
-        }
-    }
-
-    // ============================= Segue Preperation =============================
-    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "showTrackingViewAlt" {
             returning = true
@@ -138,6 +128,15 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
                 recordEditorVC.currentTask = self.currentTask
                 recordEditorVC.timeSpent = self.finalClockTime
             }
+        }
+    }
+    
+    //========================== UITabBarControllerDelegate Methods ==========================
+    func tabBarController(tabBarController: UITabBarController, didSelectViewController viewController: UIViewController) {
+        // If the user navigates away from this tab then pop to the budget view controller to avoid conflicts.
+        if (viewController != self.navigationController) {
+            self.navigationController?.popToRootViewControllerAnimated(false)
+            self.currentTask = nil
         }
     }
     
@@ -173,7 +172,7 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
         Factory.displayDeleteRecordAlert(self, record: recordList[indexPath.row])
     }
     
-    //============================= IBActions =============================
+    //============================= IBAction Methods =============================
     @IBAction func addRecordButtonPressed(sender: UIBarButtonItem) {
         self.editRecord = false
         performSegueWithIdentifier("showTrackingViewAlt", sender: self)

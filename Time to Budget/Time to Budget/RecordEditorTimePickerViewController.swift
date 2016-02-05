@@ -10,14 +10,17 @@ import UIKit
 
 class RecordEditorTimePickerViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
 
-    // Time Picker Declarations
-    var timeHourPickerData:[Int] = Factory.prepareTimeHourPickerData()
-    var timeMinutePickerData:[Int] = Factory.prepareTimeMinutePickerData()
-    var timePicked:Time = Time()
+    //========== View Properties ==========
     var recordEditorVC:RecordEditorViewController!
     @IBOutlet weak var timePicker: UIPickerView!
     @IBOutlet weak var doneButton: UIButton!
     
+    //========== Time Picker Properties ==========
+    var timeHourPickerData:[Int] = Factory.prepareTimeHourPickerData()
+    var timeMinutePickerData:[Int] = Factory.prepareTimeMinutePickerData()
+    var timePicked:Time = Time()
+
+    //==================== View Controller Methods ====================
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -39,7 +42,7 @@ class RecordEditorTimePickerViewController: UIViewController, UIPickerViewDataSo
         timePicker.selectRow(getMinIndex(), inComponent: 1, animated: true)
     }
 
-    // UIPicker Data Sources
+    //==================== UIPickerViewDataSource Methods ====================
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
         return 2
     }
@@ -52,7 +55,7 @@ class RecordEditorTimePickerViewController: UIViewController, UIPickerViewDataSo
         }
     }
     
-    //UIPicker Delegates
+    //==================== UIPickerDelegate Methods ====================
     func pickerView(pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
         if component == 0 {
             return Style.picker(timeHourPickerData[row])
@@ -62,14 +65,6 @@ class RecordEditorTimePickerViewController: UIViewController, UIPickerViewDataSo
         }
     }
     
-    //IB Actions
-    @IBAction func saveButtonPressed(sender: UIButton) {
-        recordEditorVC.timeSpent = self.timePicked
-        
-        self.navigationController?.popViewControllerAnimated(true)
-    }
-    
-    // Helper Functions
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if component == 0 {
             timePicked.hours = timeHourPickerData[row]
@@ -78,10 +73,30 @@ class RecordEditorTimePickerViewController: UIViewController, UIPickerViewDataSo
         }
     }
     
+    //==================== IBAction Methods ====================
+    @IBAction func saveButtonPressed(sender: UIButton) {
+        recordEditorVC.timeSpent = self.timePicked
+        
+        self.navigationController?.popViewControllerAnimated(true)
+    }
+    
+    //==================== Helper Methods ====================
+    /**
+     Returns the integer index for the currently selected hour based on the self.timePicked.hours property.
+     
+     - Parameter None:
+     - returns: Int index for the currently selected hour.
+     */
     func getHourIndex() -> Int {
         return timePicked.hours
     }
     
+    /**
+     Returns the integer index for the currently selected minutes based on the seld.timePicked.minutes property.
+     
+     - Parameter None:
+     - returns: Int index for the currently selected minutes.
+     */
     func getMinIndex() -> Int {
         if timePicked.minutes == 15 {
             return 1
@@ -96,5 +111,4 @@ class RecordEditorTimePickerViewController: UIViewController, UIPickerViewDataSo
             return 0
         }
     }
-
 }

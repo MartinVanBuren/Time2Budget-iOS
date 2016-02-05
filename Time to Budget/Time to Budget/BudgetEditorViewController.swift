@@ -117,7 +117,7 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
         Factory.displayDeleteTaskAlert(viewController: self, indexPath: indexPath)
     }
 
-    //==================== IBActions ====================
+    //==================== IBAction Methods ====================
     @IBAction func addTaskButtonPressed(sender: UIBarButtonItem) {
         addTaskDialog = true
         performSegueWithIdentifier("showTaskEditorView", sender: sender)
