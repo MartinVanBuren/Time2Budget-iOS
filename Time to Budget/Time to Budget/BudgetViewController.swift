@@ -51,9 +51,7 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
         
         // Set realm notification block to run each time the database is updated.
         self.notificationToken = realm.addNotificationBlock { notification, realm in
-            
             self.currentBudget = Database.budgetSafetyNet()
-
             self.tableView.reloadData()
         }
         

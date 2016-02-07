@@ -65,9 +65,10 @@ public class Database {
     
     public class func budgetSafetyNet() -> Budget {
         let realm = Database.getRealm()
+        let budgetList = realm.objects(Budget).filter("isCurrent = true")
         
-        if realm.objects(Budget).filter("isCurrent = true").count > 0 {
-            return realm.objects(Budget).filter("isCurrent = true").first!
+        if budgetList.count > 0 {
+            return budgetList.first!
         } else {
             Database.newBudget()
             return realm.objects(Budget).filter("isCurrent = true").first!

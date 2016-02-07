@@ -38,10 +38,11 @@ class RecordEditorTaskSelectorViewController: UIViewController, UITableViewDataS
         
         // Retrieve database and current budget.
         self.realm = Database.getRealm()
-        self.currentBudget = realm.objects(Budget).filter("isCurrent = TRUE").first!
+        self.currentBudget = Database.budgetSafetyNet()
     }
     
     override func viewWillAppear(animated: Bool) {
+        self.currentBudget = Database.budgetSafetyNet()
         self.tableView.reloadData()
     }
     

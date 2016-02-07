@@ -35,11 +35,11 @@ class TaskEditorCategorySelectorViewController: UIViewController, UITableViewDat
         
         // Retrieve database and current budget.
         self.realm = Database.getRealm()
-        self.currentBudget = realm.objects(Budget).filter("isCurrent = TRUE").first!
+        self.currentBudget = Database.budgetSafetyNet()
         
         // Create realm notification token to update this table view on databse changes.
         notificationToken = realm.addNotificationBlock { notification, realm in
-            self.currentBudget = Database.budgetSafetyNet()
+            self.currentBudget = realm.objects(Budget).filter("isCurrent = true").first!
             self.tableView.reloadData()
         }
         
@@ -63,15 +63,15 @@ class TaskEditorCategorySelectorViewController: UIViewController, UITableViewDat
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return Int(currentBudget.categories.count)
+        return Int(self.currentBudget.categories.count)
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        return Factory.prepareCategoryCell(tableView: self.tableView, categoryList: currentBudget.categories, section: indexPath.row)
+        return Factory.prepareCategoryCell(tableView: self.tableView, categoryList: self.currentBudget.categories, section: indexPath.row)
     }
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return UITableViewCell()
+        return UITableViewHeaderFooterView()
     }
     
     //==================== UITableViewDelegate Methods ====================
