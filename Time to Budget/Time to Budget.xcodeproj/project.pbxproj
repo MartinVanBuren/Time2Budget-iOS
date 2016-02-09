@@ -17,6 +17,8 @@
 		5B3BCDEE1C07B1C2007C8A2E /* CategoryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B3BCDED1C07B1C2007C8A2E /* CategoryView.xib */; };
 		5B3BCDF01C07B5B9007C8A2E /* CategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3BCDEF1C07B5B9007C8A2E /* CategoryView.swift */; };
 		5B536D6B1C6A96F60007081C /* Instructions.framework.dSYM in Resources */ = {isa = PBXBuildFile; fileRef = 5B536D691C6A96F60007081C /* Instructions.framework.dSYM */; };
+		5B55BC7C1C6A9CED005B81F7 /* Instructions.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5B536D681C6A96F60007081C /* Instructions.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		5B55BC7D1C6A9D04005B81F7 /* Instructions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B536D681C6A96F60007081C /* Instructions.framework */; };
 		5B922F0A1BDA7C4E00F851D3 /* DetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B922F091BDA7C4E00F851D3 /* DetailCell.swift */; };
 		5B9679FC1BBE13D400DBEB61 /* Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9679FB1BBE13D400DBEB61 /* Protocol.swift */; };
 		5BB55CB71BA8ABF700F43891 /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB55CB61BA8ABF700F43891 /* Style.swift */; };
@@ -85,6 +87,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				5B3812971C6A938600685294 /* RealmSwift.framework in Embed Frameworks */,
+				5B55BC7C1C6A9CED005B81F7 /* Instructions.framework in Embed Frameworks */,
 				5B3812951C6A938600685294 /* Realm.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -173,6 +176,7 @@
 			files = (
 				5B3812941C6A938600685294 /* Realm.framework in Frameworks */,
 				5B38128E1C6A936900685294 /* RealmSwift.framework in Frameworks */,
+				5B55BC7D1C6A9D04005B81F7 /* Instructions.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

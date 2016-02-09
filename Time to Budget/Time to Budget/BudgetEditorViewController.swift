@@ -6,7 +6,6 @@
 //  Copyright (c) 2015 Arrken Games, LLC. All rights reserved.
 //
 
-import Foundation
 import UIKit
 import RealmSwift
 
