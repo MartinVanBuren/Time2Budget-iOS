@@ -10,20 +10,24 @@ import UIKit
 import RealmSwift
 
 class SettingsViewController: UITableViewController {
-
+    
+    //==================== View Controller Methods ====================
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let nib = UINib(nibName: "CategoryView", bundle: nil)
-        self.tableView.registerNib(nib, forHeaderFooterViewReuseIdentifier: "CategoryView")
+        // Register Nib files for tableView Cells/Headers.
+        let catViewNib = UINib(nibName: "CategoryView", bundle: nil)
+        self.tableView.registerNib(catViewNib, forHeaderFooterViewReuseIdentifier: "CategoryView")
         
+        // Applies the Time to Budget theme to the navbar and view controller.
         let nav = self.navigationController!.navigationBar
         Style.navbar(nav)
         Style.viewController(self)
         
         self.navigationItem.title = "Settings"
     }
-
+    
+    //==================== UITableViewDataSource Methods ====================
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 2
     }
@@ -89,10 +93,10 @@ class SettingsViewController: UITableViewController {
         }
     }
     
+    //==================== UITableViewDelegate Methods ====================
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         switch indexPath.section {
         case 0:
-            //let realm = Database.getRealm()
             for views in tabBarController!.viewControllers! {
                 (views as! UINavigationController).popToRootViewControllerAnimated(false)
             }
@@ -134,6 +138,14 @@ class SettingsViewController: UITableViewController {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
     
+    //==================== Helper Methods ====================
+    /**
+    Displays an alert message asking the user if they are sure they would like to 
+    reset the database, and deletes everything in the database if the user says yes.
+    
+    - Parameter None:
+    - returns: Nothing
+    */
     func displayResetAllAlert() {
         let realm = Database.getRealm()
         let alert = UIAlertController(title: "Are You Sure?", message: "Are you sure you want to erase all information?", preferredStyle: UIAlertControllerStyle.Alert)
@@ -147,6 +159,14 @@ class SettingsViewController: UITableViewController {
         self.presentViewController(alert, animated: true, completion: {})
     }
     
+    /**
+     Displays an alert message asking the user if they are sure they would like to
+     reset the budget history, and deletes all non-current budgets in the database 
+     if the user says yes.
+     
+     - Parameter None:
+     - returns: Nothing
+     */
     func displayResetHistoryAlert() {
         let realm = Database.getRealm()
         let alert = UIAlertController(title: "Are You Sure?", message: "Are you sure you want to erase all non-current budgets?", preferredStyle: UIAlertControllerStyle.Alert)
@@ -161,6 +181,14 @@ class SettingsViewController: UITableViewController {
         self.presentViewController(alert, animated: true, completion: {})
     }
     
+    /**
+     Displays an alert message asking the user if they are sure they would like to
+     reset the current budget, and deletes all Categories, Tasks, and Records in the 
+     current budget if the user says yes.
+     
+     - Parameter None:
+     - returns: Nothing
+     */
     func displayResetCurrentBudgetAlert() {
         let realm = Database.getRealm()
         let alert = UIAlertController(title: "Are You Sure?", message: "Are you sure you want to erase the entire current budget?", preferredStyle: UIAlertControllerStyle.Alert)
@@ -187,6 +215,14 @@ class SettingsViewController: UITableViewController {
         self.presentViewController(alert, animated: true, completion: {})
     }
     
+    /**
+     Displays an alert message asking the user if they are sure they would like to
+     reset all current records, and deletes all Records in the current budget if the 
+     user says yes.
+     
+     - Parameter None:
+     - returns: Nothing
+     */
     func displayResetCurrentRecordsAlert() {
         let realm = Database.getRealm()
         let alert = UIAlertController(title: "Are You Sure?", message: "Are you sure you want to erase all records for the current budget?", preferredStyle: UIAlertControllerStyle.Alert)
@@ -210,6 +246,13 @@ class SettingsViewController: UITableViewController {
         self.presentViewController(alert, animated: true, completion: {})
     }
     
+    /**
+     Displays an alert message asking the user if they are sure they would like to
+     archive the current budget, and creates a new budget if the user says yes.
+     
+     - Parameter None:
+     - returns: Nothing
+     */
     func displayArchiveBudgetAlert() {
         let alert = UIAlertController(title: "Are You Sure?", message: "Are you sure you want to archive the current budget?", preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler: { (action) -> Void in

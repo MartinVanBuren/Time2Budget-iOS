@@ -23,5 +23,4 @@ class CategoryView: UITableViewHeaderFooterView {
     @IBAction func editCategoryButtonPressed(sender: UIButton) {
         Factory.displayEditCategoryAlert(viewController: self.VC!, categoryName: self.sectionNameLabel.text!)
     }
-    
 }

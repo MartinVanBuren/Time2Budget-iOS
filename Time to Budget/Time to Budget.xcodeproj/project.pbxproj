@@ -303,9 +303,9 @@
 			children = (
 				93CBED511AAB4C2000079482 /* Time to Budget.entitlements */,
 				93F0E4EC1A720B64009D95EC /* AppDelegate.swift */,
-				93F0E52E1A720BFD009D95EC /* iPhone Views */,
+				93F0E52E1A720BFD009D95EC /* iPhone View Controllers */,
 				93F0E52F1A720C38009D95EC /* Support Classes */,
-				93F0E5301A720C6D009D95EC /* Database */,
+				93F0E5301A720C6D009D95EC /* Database Objects */,
 				93F0E4F31A720B64009D95EC /* Images.xcassets */,
 				5BF9794E1C0290EF00F005EC /* UI */,
 				93F0E4EA1A720B64009D95EC /* Supporting Files */,
@@ -322,7 +322,7 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		93F0E52E1A720BFD009D95EC /* iPhone Views */ = {
+		93F0E52E1A720BFD009D95EC /* iPhone View Controllers */ = {
 			isa = PBXGroup;
 			children = (
 				93B2E5F91A903EC40058372F /* Tab Bar Views */,
@@ -331,12 +331,13 @@
 				9385F1661AA36B63000C8726 /* Task Editor */,
 				93967CBB1AB22D2600D46CF6 /* Budget History View */,
 			);
-			name = "iPhone Views";
+			name = "iPhone View Controllers";
 			sourceTree = "<group>";
 		};
 		93F0E52F1A720C38009D95EC /* Support Classes */ = {
 			isa = PBXGroup;
 			children = (
+				93F0E53B1A721396009D95EC /* Database.swift */,
 				93F0E5141A720BF4009D95EC /* Factory.swift */,
 				9320D56E1A74625B0013018C /* MarshalOperator.swift */,
 				5B9679FB1BBE13D400DBEB61 /* Protocol.swift */,
@@ -346,18 +347,17 @@
 			name = "Support Classes";
 			sourceTree = "<group>";
 		};
-		93F0E5301A720C6D009D95EC /* Database */ = {
+		93F0E5301A720C6D009D95EC /* Database Objects */ = {
 			isa = PBXGroup;
 			children = (
-				93F0E53B1A721396009D95EC /* Database.swift */,
 				93F0E53D1A7214E1009D95EC /* Budget.swift */,
 				93F0E5101A720BF4009D95EC /* Category.swift */,
 				93F0E5151A720BF4009D95EC /* Record.swift */,
-				93CBED4C1AA667AE00079482 /* Settings.swift */,
 				93F0E5171A720BF4009D95EC /* Task.swift */,
 				5BDE19091C1A2E8400DF8F95 /* Clock.swift */,
+				93CBED4C1AA667AE00079482 /* Settings.swift */,
 			);
-			name = Database;
+			name = "Database Objects";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

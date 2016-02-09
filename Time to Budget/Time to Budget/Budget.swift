@@ -10,6 +10,7 @@ import Foundation
 import RealmSwift
 
 public class Budget: Object {
+    //==================== Properties ====================
     public dynamic var startDate = NSDate()
     public dynamic var endDate = NSDate()
     public dynamic var name = ""
@@ -17,15 +18,19 @@ public class Budget: Object {
     public let categories = List<Category>()
     public dynamic var clock:Clock? = Clock()
     
+    //==================== Methods ====================
     public func autoInit() {
+        // Retrieve information needed to calculate the current budget information
         let dt = NSDate()
         let cal = NSCalendar.currentCalendar()
         let dc = cal.components([NSCalendarUnit.Weekday, NSCalendarUnit.Year, NSCalendarUnit.Month, NSCalendarUnit.Day], fromDate: dt)
         let normDt = cal.dateFromComponents(dc)
         let shift = dc.weekday - cal.firstWeekday
         
+        // Calculate and set startDate and endDate.
         self.startDate = normDt!.dateByAddingTimeInterval(daySec(shift*(0-1)))
         self.endDate = normDt!.dateByAddingTimeInterval(daySec((shift*(0-1))+7))
+        // Remove 1 day from the endDate in order to generate an accurate name running from Sunday-Saturday.
         let calendar = NSCalendar.currentCalendar()
         let endDateStr = calendar.dateByAddingUnit(NSCalendarUnit.Day, value: -1, toDate: endDate, options: [])
         self.name = "\(dateToString(startDate)) - \(dateToString(endDateStr!))"
@@ -33,6 +38,7 @@ public class Budget: Object {
     }
     
     public func checkPassedEndDate() -> Bool {
+        // Retrieve the currentDate and compare it to the endDate to see if the budget lifetime has ended.
         let cal = NSCalendar.currentCalendar()
         let currentDate = NSDate()
         let endingDate = endDate
@@ -55,7 +61,6 @@ public class Budget: Object {
     private func dateToString(dt: NSDate) -> String {
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "MMMM dd, yy"
-        
         return dateFormatter.stringFromDate(dt)
     }
     
