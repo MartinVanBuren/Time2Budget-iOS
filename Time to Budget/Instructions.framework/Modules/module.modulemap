@@ -1,0 +1,10 @@
+framework module Instructions {
+  umbrella header "Instructions.h"
+
+  export *
+  module * { export * }
+}
+
+module Instructions.Swift {
+    header "Instructions-Swift.h"
+}
