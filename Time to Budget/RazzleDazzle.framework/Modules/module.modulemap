@@ -1,0 +1,10 @@
+framework module RazzleDazzle {
+  umbrella header "RazzleDazzle.h"
+
+  export *
+  module * { export * }
+}
+
+module RazzleDazzle.Swift {
+    header "RazzleDazzle-Swift.h"
+}

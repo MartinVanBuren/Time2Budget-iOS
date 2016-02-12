@@ -7,20 +7,25 @@
 //
 
 import UIKit
+import RazzleDazzle
 
-class WelcomeViewController: KDIntroViewController {
-    
-    
+class WelcomeViewController: AnimatedPagingScrollViewController {
     
     override func viewDidLoad() {
-        
+        self.configureSubviews()
+        self.configureAnimations()
+        UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation: .Fade)
     }
     
-    override func viewDidAppear(animated: Bool) {
-        setup(["view1", "view2", "view3", "view4"])
+    override func numberOfPages() -> Int {
+        return 4
     }
     
-    override func moveEverythingAccordingToIndex(index: CGFloat) {
-        
+    private func configureSubviews() {
+        //self.contentView.addSubview(UIView())
+    }
+    
+    private func configureAnimations() {
+        //self.animator.addAnimation(BackgroundColorAnimation(view: self.scrollView))
     }
 }
