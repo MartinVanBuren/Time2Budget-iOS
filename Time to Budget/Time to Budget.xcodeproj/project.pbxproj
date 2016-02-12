@@ -13,6 +13,9 @@
 		5B536D6B1C6A96F60007081C /* Instructions.framework.dSYM in Resources */ = {isa = PBXBuildFile; fileRef = 5B536D691C6A96F60007081C /* Instructions.framework.dSYM */; };
 		5B55BC7C1C6A9CED005B81F7 /* Instructions.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5B536D681C6A96F60007081C /* Instructions.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5B55BC7D1C6A9D04005B81F7 /* Instructions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B536D681C6A96F60007081C /* Instructions.framework */; };
+		5B6CAEB31C6E7E260075A2CB /* KDIntroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6CAEB11C6E7E260075A2CB /* KDIntroView.swift */; };
+		5B6CAEB41C6E7E260075A2CB /* KDIntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6CAEB21C6E7E260075A2CB /* KDIntroViewController.swift */; };
+		5B6CAEB81C6E7EAF0075A2CB /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6CAEB71C6E7EAF0075A2CB /* WelcomeViewController.swift */; };
 		5B922F0A1BDA7C4E00F851D3 /* DetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B922F091BDA7C4E00F851D3 /* DetailCell.swift */; };
 		5B9679FC1BBE13D400DBEB61 /* Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9679FB1BBE13D400DBEB61 /* Protocol.swift */; };
 		5B9DE8AA1C6D2D3A0065BFCA /* Tutorial.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9DE8A91C6D2D3A0065BFCA /* Tutorial.swift */; };
@@ -25,6 +28,8 @@
 		5BB55CB71BA8ABF700F43891 /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB55CB61BA8ABF700F43891 /* Style.swift */; };
 		5BB60D4D1BD00D57003408D0 /* Time_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9320D5881A7476A50013018C /* Time_Tests.swift */; };
 		5BDE190A1C1A2E8400DF8F95 /* Clock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDE19091C1A2E8400DF8F95 /* Clock.swift */; };
+		5BE62DEE1C6E7FCE0043773C /* IntroView1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BE62DED1C6E7FCE0043773C /* IntroView1.swift */; };
+		5BE62DF01C6E7FE90043773C /* IntroView1.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BE62DEF1C6E7FE90043773C /* IntroView1.xib */; };
 		5BF78C481BD86F8A0082F1BC /* Time_to_Budget_UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF78C471BD86F8A0082F1BC /* Time_to_Budget_UITests.swift */; };
 		5BF979491C0290CB00F005EC /* CategoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BF979441C0290CB00F005EC /* CategoryCell.xib */; };
 		5BF9794A1C0290CB00F005EC /* DetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BF979451C0290CB00F005EC /* DetailCell.xib */; };
@@ -100,6 +105,9 @@
 		5B3BCDEF1C07B5B9007C8A2E /* CategoryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryView.swift; sourceTree = "<group>"; };
 		5B536D681C6A96F60007081C /* Instructions.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Instructions.framework; sourceTree = SOURCE_ROOT; };
 		5B536D691C6A96F60007081C /* Instructions.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; path = Instructions.framework.dSYM; sourceTree = SOURCE_ROOT; };
+		5B6CAEB11C6E7E260075A2CB /* KDIntroView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KDIntroView.swift; sourceTree = "<group>"; };
+		5B6CAEB21C6E7E260075A2CB /* KDIntroViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KDIntroViewController.swift; sourceTree = "<group>"; };
+		5B6CAEB71C6E7EAF0075A2CB /* WelcomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		5B922F091BDA7C4E00F851D3 /* DetailCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailCell.swift; sourceTree = "<group>"; };
 		5B9679FB1BBE13D400DBEB61 /* Protocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Protocol.swift; sourceTree = "<group>"; };
 		5B9DE8A91C6D2D3A0065BFCA /* Tutorial.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tutorial.swift; sourceTree = "<group>"; };
@@ -109,6 +117,8 @@
 		5B9DE8AE1C6E7ADF0065BFCA /* RealmSwift.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; path = RealmSwift.framework.dSYM; sourceTree = "<group>"; };
 		5BB55CB61BA8ABF700F43891 /* Style.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Style.swift; sourceTree = "<group>"; };
 		5BDE19091C1A2E8400DF8F95 /* Clock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Clock.swift; sourceTree = "<group>"; };
+		5BE62DED1C6E7FCE0043773C /* IntroView1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntroView1.swift; sourceTree = "<group>"; };
+		5BE62DEF1C6E7FE90043773C /* IntroView1.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IntroView1.xib; sourceTree = "<group>"; };
 		5BF78C451BD86F8A0082F1BC /* Time to Budget UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Time to Budget UITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5BF78C471BD86F8A0082F1BC /* Time_to_Budget_UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Time_to_Budget_UITests.swift; sourceTree = "<group>"; };
 		5BF78C491BD86F8A0082F1BC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -200,6 +210,25 @@
 			name = "Budget View";
 			sourceTree = "<group>";
 		};
+		5B6CAEB01C6E7E140075A2CB /* KDIntroView */ = {
+			isa = PBXGroup;
+			children = (
+				5B6CAEB11C6E7E260075A2CB /* KDIntroView.swift */,
+				5B6CAEB21C6E7E260075A2CB /* KDIntroViewController.swift */,
+			);
+			name = KDIntroView;
+			sourceTree = "<group>";
+		};
+		5B6CAEB61C6E7E800075A2CB /* WelcomeScreen */ = {
+			isa = PBXGroup;
+			children = (
+				5B6CAEB71C6E7EAF0075A2CB /* WelcomeViewController.swift */,
+				5BE62DEF1C6E7FE90043773C /* IntroView1.xib */,
+				5BE62DED1C6E7FCE0043773C /* IntroView1.swift */,
+			);
+			name = WelcomeScreen;
+			sourceTree = "<group>";
+		};
 		5B7972C71BAA5B0300BAF7C4 /* Realm */ = {
 			isa = PBXGroup;
 			children = (
@@ -227,6 +256,7 @@
 				93F0E50C1A720BD4009D95EC /* iPhone.storyboard */,
 				93F0E4F51A720B64009D95EC /* LaunchScreen.xib */,
 				5BF9794F1C0290FF00F005EC /* Headers & Cells */,
+				5B6CAEB61C6E7E800075A2CB /* WelcomeScreen */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -339,6 +369,7 @@
 		93F0E4EA1A720B64009D95EC /* Dependancies */ = {
 			isa = PBXGroup;
 			children = (
+				5B6CAEB01C6E7E140075A2CB /* KDIntroView */,
 				5B7972C71BAA5B0300BAF7C4 /* Realm */,
 				5B3812871C6A92D500685294 /* Instructions */,
 			);
@@ -520,6 +551,7 @@
 				93F0E4F41A720B64009D95EC /* Images.xcassets in Resources */,
 				5B9DE8B01C6E7ADF0065BFCA /* Realm.framework.dSYM in Resources */,
 				5B3BCDEE1C07B1C2007C8A2E /* CategoryView.xib in Resources */,
+				5BE62DF01C6E7FE90043773C /* IntroView1.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -568,12 +600,16 @@
 				93F0E5241A720BF4009D95EC /* Factory.swift in Sources */,
 				5B922F0A1BDA7C4E00F851D3 /* DetailCell.swift in Sources */,
 				93F0E53E1A7214E1009D95EC /* Budget.swift in Sources */,
+				5BE62DEE1C6E7FCE0043773C /* IntroView1.swift in Sources */,
+				5B6CAEB31C6E7E260075A2CB /* KDIntroView.swift in Sources */,
 				93F0E5401A72194D009D95EC /* BudgetEditorViewController.swift in Sources */,
 				5BDE190A1C1A2E8400DF8F95 /* Clock.swift in Sources */,
+				5B6CAEB41C6E7E260075A2CB /* KDIntroViewController.swift in Sources */,
 				93B2E5F51A903E790058372F /* RecordEditorTimePickerViewController.swift in Sources */,
 				5BB55CB71BA8ABF700F43891 /* Style.swift in Sources */,
 				93F0E5421A721960009D95EC /* BudgetViewController.swift in Sources */,
 				9385F17C1AA3C805000C8726 /* TaskEditorCategorySelectorViewController.swift in Sources */,
+				5B6CAEB81C6E7EAF0075A2CB /* WelcomeViewController.swift in Sources */,
 				9385F1781AA3A248000C8726 /* NameTextfieldCell.swift in Sources */,
 				93967CBF1AB22D5800D46CF6 /* BudgetHistoryRecordViewController.swift in Sources */,
 				93F0E52A1A720BF4009D95EC /* Time.swift in Sources */,
