@@ -54,6 +54,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if budget.checkPassedEndDate() {
             Database.newBudget()
         }
+        
+        let settings = NSUserDefaults.standardUserDefaults()
+        
+        if settings.objectForKey("showWelcome") == nil {
+            settings.setBool(true, forKey: "showWelcome")
+            if settings.boolForKey("showWelcome") {
+                // Code to display welcome screen
+                //settings.setBool(false, forKey: "showWelcome")
+            }
+        } else {
+            if settings.boolForKey("showWelcome") {
+                // Code to display welcome screen
+                //settings.setBool(false, forKey: "showWelcome")
+            }
+        }
     }
     
     func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
