@@ -29,13 +29,15 @@ class SettingsViewController: UITableViewController {
     
     //==================== UITableViewDataSource Methods ====================
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 2
+        return 3
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
+        case 2:
+            return 3
         case 0:
-            return 5
+            return 2
         case 1:
             return 4
         default:
@@ -49,8 +51,10 @@ class SettingsViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         switch section {
+        case 2:
+            return Factory.prepareBasicHeader(tableView: self.tableView, titleText: "Database")
         case 0:
-            return Factory.prepareBasicHeader(tableView: self.tableView, titleText: "Testing Tools")
+            return Factory.prepareBasicHeader(tableView: self.tableView, titleText: "Application")
         case 1:
             return Factory.prepareBasicHeader(tableView: self.tableView, titleText: "About")
         default:
@@ -60,18 +64,23 @@ class SettingsViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         switch indexPath.section {
+        case 2:
+            switch indexPath.row {
+            case 2:
+                return Factory.prepareBasicCell(tableView: self.tableView, titleText: "Reset All")
+            case 1:
+                return Factory.prepareBasicCell(tableView: self.tableView, titleText: "Clear Budget History")
+            case 0:
+                return Factory.prepareBasicCell(tableView: self.tableView, titleText: "Archive Budget")
+            default:
+                return UITableViewCell()
+            }
         case 0:
             switch indexPath.row {
             case 0:
-                return Factory.prepareBasicCell(tableView: self.tableView, titleText: "Reset All")
+                return Factory.prepareBasicCell(tableView: self.tableView, titleText: "Enable Tutorial")
             case 1:
-                return Factory.prepareBasicCell(tableView: self.tableView, titleText: "Reset Budget History")
-            case 2:
-                return Factory.prepareBasicCell(tableView: self.tableView, titleText: "Reset Current Budget")
-            case 3:
-                return Factory.prepareBasicCell(tableView: self.tableView, titleText: "Reset Current Records")
-            case 4:
-                return Factory.prepareBasicCell(tableView: self.tableView, titleText: "Archive Budget")
+                return Factory.prepareBasicCell(tableView: self.tableView, titleText: "System Settings")
             default:
                 return UITableViewCell()
             }
@@ -96,22 +105,28 @@ class SettingsViewController: UITableViewController {
     //==================== UITableViewDelegate Methods ====================
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         switch indexPath.section {
-        case 0:
+        case 2:
             for views in tabBarController!.viewControllers! {
                 (views as! UINavigationController).popToRootViewControllerAnimated(false)
             }
             
             switch indexPath.row {
-            case 0:
+            case 2:
                 displayResetAllAlert()
             case 1:
                 displayResetHistoryAlert()
-            case 2:
-                displayResetCurrentBudgetAlert()
-            case 3:
-                displayResetCurrentRecordsAlert()
-            case 4:
+            case 0:
                 displayArchiveBudgetAlert()
+            default:
+                return
+            }
+        case 0:
+            switch indexPath.row {
+            case 0:
+                Tutorial.enableTutorials()
+                Factory.displayAlert(viewController: self, title: "Tutorial Enabled", message: "The tutorial will now run when you return to the Budget View and Budget Editor.")
+            case 1:
+                UIApplication.sharedApplication().openURL(NSURL(string: UIApplicationOpenSettingsURLString)!)
             default:
                 return
             }
@@ -174,71 +189,6 @@ class SettingsViewController: UITableViewController {
             
             try! realm.write {
                 realm.delete(realm.objects(Budget).filter("isCurrent = FALSE"))
-            }
-        }))
-        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
-        
-        self.presentViewController(alert, animated: true, completion: {})
-    }
-    
-    /**
-     Displays an alert message asking the user if they are sure they would like to
-     reset the current budget, and deletes all Categories, Tasks, and Records in the 
-     current budget if the user says yes.
-     
-     - Parameter None:
-     - returns: Nothing
-     */
-    func displayResetCurrentBudgetAlert() {
-        let realm = Database.getRealm()
-        let alert = UIAlertController(title: "Are You Sure?", message: "Are you sure you want to erase the entire current budget?", preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
-            let currentBudget = realm.objects(Budget).filter("isCurrent == TRUE").first!
-            for var i = 0; i < currentBudget.categories.count; i++ {
-                let currentCategory = currentBudget.categories[i]
-                for var x = 0; x < currentCategory.tasks.count; x++ {
-                    let currentTask = currentCategory.tasks[x]
-                    try! realm.write {
-                        realm.delete(currentTask.records)
-                    }
-                }
-                try! realm.write {
-                    realm.delete(currentCategory.tasks)
-                }
-            }
-            try! realm.write {
-                realm.delete(currentBudget.categories)
-            }
-        }))
-        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
-        
-        self.presentViewController(alert, animated: true, completion: {})
-    }
-    
-    /**
-     Displays an alert message asking the user if they are sure they would like to
-     reset all current records, and deletes all Records in the current budget if the 
-     user says yes.
-     
-     - Parameter None:
-     - returns: Nothing
-     */
-    func displayResetCurrentRecordsAlert() {
-        let realm = Database.getRealm()
-        let alert = UIAlertController(title: "Are You Sure?", message: "Are you sure you want to erase all records for the current budget?", preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
-            let currentBudget = realm.objects(Budget).filter("isCurrent == TRUE").first!
-            for var i = 0; i < currentBudget.categories.count; i++ {
-                let currentCategory = currentBudget.categories[i]
-                for var x = 0; x < currentCategory.tasks.count; x++ {
-                    let currentTask = currentCategory.tasks[x]
-                    try! realm.write {
-                        realm.delete(currentTask.records)
-                        currentTask.records.removeAll()
-                        currentTask.calcTime()
-                        currentCategory.calcTime()
-                    }
-                }
             }
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))

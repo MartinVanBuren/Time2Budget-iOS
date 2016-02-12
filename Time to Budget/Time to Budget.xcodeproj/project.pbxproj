@@ -21,6 +21,7 @@
 		5B55BC7D1C6A9D04005B81F7 /* Instructions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B536D681C6A96F60007081C /* Instructions.framework */; };
 		5B922F0A1BDA7C4E00F851D3 /* DetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B922F091BDA7C4E00F851D3 /* DetailCell.swift */; };
 		5B9679FC1BBE13D400DBEB61 /* Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9679FB1BBE13D400DBEB61 /* Protocol.swift */; };
+		5B9DE8AA1C6D2D3A0065BFCA /* Tutorial.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9DE8A91C6D2D3A0065BFCA /* Tutorial.swift */; };
 		5BB55CB71BA8ABF700F43891 /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB55CB61BA8ABF700F43891 /* Style.swift */; };
 		5BB60D4D1BD00D57003408D0 /* Time_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9320D5881A7476A50013018C /* Time_Tests.swift */; };
 		5BDE190A1C1A2E8400DF8F95 /* Clock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDE19091C1A2E8400DF8F95 /* Clock.swift */; };
@@ -44,7 +45,6 @@
 		93B2E5F31A9032B80058372F /* RecordEditorTaskSelectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B2E5F21A9032B80058372F /* RecordEditorTaskSelectorViewController.swift */; };
 		93B2E5F51A903E790058372F /* RecordEditorTimePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B2E5F41A903E790058372F /* RecordEditorTimePickerViewController.swift */; };
 		93B2E5F71A903E890058372F /* RecordEditorDatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B2E5F61A903E890058372F /* RecordEditorDatePickerViewController.swift */; };
-		93CBED4D1AA667AE00079482 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CBED4C1AA667AE00079482 /* Settings.swift */; };
 		93F0E4ED1A720B64009D95EC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F0E4EC1A720B64009D95EC /* AppDelegate.swift */; };
 		93F0E4F41A720B64009D95EC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 93F0E4F31A720B64009D95EC /* Images.xcassets */; };
 		93F0E4F71A720B64009D95EC /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93F0E4F51A720B64009D95EC /* LaunchScreen.xib */; };
@@ -106,6 +106,7 @@
 		5B536D691C6A96F60007081C /* Instructions.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; path = Instructions.framework.dSYM; sourceTree = SOURCE_ROOT; };
 		5B922F091BDA7C4E00F851D3 /* DetailCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailCell.swift; sourceTree = "<group>"; };
 		5B9679FB1BBE13D400DBEB61 /* Protocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Protocol.swift; sourceTree = "<group>"; };
+		5B9DE8A91C6D2D3A0065BFCA /* Tutorial.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tutorial.swift; sourceTree = "<group>"; };
 		5BB55CB61BA8ABF700F43891 /* Style.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Style.swift; sourceTree = "<group>"; };
 		5BDE19091C1A2E8400DF8F95 /* Clock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Clock.swift; sourceTree = "<group>"; };
 		5BF78C451BD86F8A0082F1BC /* Time to Budget UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Time to Budget UITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -134,7 +135,6 @@
 		93B2E5F41A903E790058372F /* RecordEditorTimePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordEditorTimePickerViewController.swift; sourceTree = "<group>"; };
 		93B2E5F61A903E890058372F /* RecordEditorDatePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordEditorDatePickerViewController.swift; sourceTree = "<group>"; };
 		93BC90441A74C84200A63932 /* Database_Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Database_Tests.swift; sourceTree = "<group>"; };
-		93CBED4C1AA667AE00079482 /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		93CBED511AAB4C2000079482 /* Time to Budget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Time to Budget.entitlements"; sourceTree = "<group>"; };
 		93F0E4E71A720B64009D95EC /* Time to Budget.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Time to Budget.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		93F0E4EB1A720B64009D95EC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = "Time to Budget/Info.plist"; sourceTree = "<group>"; };
@@ -366,6 +366,7 @@
 				5B9679FB1BBE13D400DBEB61 /* Protocol.swift */,
 				5BB55CB61BA8ABF700F43891 /* Style.swift */,
 				93F0E51A1A720BF4009D95EC /* Time.swift */,
+				5B9DE8A91C6D2D3A0065BFCA /* Tutorial.swift */,
 			);
 			name = "Support Classes";
 			sourceTree = "<group>";
@@ -378,7 +379,6 @@
 				93F0E5151A720BF4009D95EC /* Record.swift */,
 				93F0E5171A720BF4009D95EC /* Task.swift */,
 				5BDE19091C1A2E8400DF8F95 /* Clock.swift */,
-				93CBED4C1AA667AE00079482 /* Settings.swift */,
 			);
 			name = "Database Objects";
 			sourceTree = "<group>";
@@ -582,6 +582,7 @@
 				939DB8901AA2CD330047C108 /* SubtitleDetailCell.swift in Sources */,
 				93F0E5271A720BF4009D95EC /* Task.swift in Sources */,
 				9385F1761AA39D30000C8726 /* TaskEditorViewController.swift in Sources */,
+				5B9DE8AA1C6D2D3A0065BFCA /* Tutorial.swift in Sources */,
 				9320D56F1A74625B0013018C /* MarshalOperator.swift in Sources */,
 				5B9679FC1BBE13D400DBEB61 /* Protocol.swift in Sources */,
 				93967CC11AB2310900D46CF6 /* BudgetHistoryViewController.swift in Sources */,
@@ -591,7 +592,6 @@
 				93F0E5201A720BF4009D95EC /* Category.swift in Sources */,
 				93967CBA1AB22D2000D46CF6 /* BudgetHistoryListViewController.swift in Sources */,
 				93B2E5F71A903E890058372F /* RecordEditorDatePickerViewController.swift in Sources */,
-				93CBED4D1AA667AE00079482 /* Settings.swift in Sources */,
 				93F0E5211A720BF4009D95EC /* CategoryCell.swift in Sources */,
 				9385F1741AA397C8000C8726 /* SettingsViewController.swift in Sources */,
 				9385F17A1AA3C3A3000C8726 /* TaskEditorTimePickerViewController.swift in Sources */,

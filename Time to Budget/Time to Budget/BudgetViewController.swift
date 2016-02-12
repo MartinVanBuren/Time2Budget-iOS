@@ -10,11 +10,12 @@ import UIKit
 import RealmSwift
 import Instructions
 
-class BudgetViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class BudgetViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, CoachMarksControllerDataSource {
     
     //============ View Properties ============
     var displayPrompt:Bool = false
     @IBOutlet weak var tableView: UITableView!
+    let tutorialController = CoachMarksController()
     
     //============ Time Clock Properties ============
     var finalClockTime:Time?
@@ -29,6 +30,14 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
     //============ View Controller Functions ============
     override func viewDidLoad() {
         super.viewDidLoad()
+        // Tutorial setup and setting up points of interest.
+        self.tutorialController.datasource = self
+        Tutorial.budgetViewPOI[0] = self.navigationController?.navigationBar.subviews[1]
+        Tutorial.budgetViewPOI[1] = self.navigationController?.navigationBar.subviews[1]
+        Tutorial.budgetViewPOI[2] = self.navigationController?.navigationBar.subviews[1]
+        Tutorial.budgetViewPOI[3] = (self.navigationItem.rightBarButtonItem!.valueForKey("view") as! UIView)
+        Tutorial.budgetViewPOI[4] = self.clockButton
+        
         // Fetch Database
         self.realm = Database.getRealm()
         
@@ -65,6 +74,12 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
             self.initializeClock()
         } else if self.timer != nil {
             self.invalidateClock()
+        }
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        if Tutorial.shouldRun(budgetView: true) {
+            self.tutorialController.startOn(self)
         }
     }
     
@@ -116,15 +131,23 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let taskCell = Factory.prepareTaskCell(tableView: tableView, categoryList: currentBudget!.categories, indexPath: indexPath, editor: false)
         
-        return Factory.prepareTaskCell(tableView: tableView, categoryList: currentBudget!.categories, indexPath: indexPath, editor: false)
+        if(indexPath.section == 0 && indexPath.row == 0) {
+            Tutorial.budgetViewPOI[2] = taskCell
+        }
         
+        return taskCell
     }
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = Factory.prepareCategoryView(tableView: tableView, categoryList: currentBudget!.categories, section: section)
         
-        return Factory.prepareCategoryView(tableView: tableView, categoryList: currentBudget!.categories, section: section)
+        if(section == 0) {
+            Tutorial.budgetViewPOI[1] = headerView
+        }
         
+        return headerView
     }
     
     //==================== IBAction Methods ====================
@@ -156,6 +179,25 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
     
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 44
+    }
+    
+    //==================== CoachMarksDataSource Methods ====================
+    func numberOfCoachMarksForCoachMarksController(coachMarksController: CoachMarksController) -> Int {
+        return Tutorial.budgetViewPOI.count
+    }
+
+    func coachMarksController(coachMarksController: CoachMarksController, coachMarksForIndex index: Int) -> CoachMark {
+        return coachMarksController.coachMarkForView(Tutorial.budgetViewPOI[index] as UIView!)
+    }
+    
+    func coachMarksController(coachMarksController: CoachMarksController, coachMarkViewsForIndex index: Int, coachMark: CoachMark) -> (bodyView: CoachMarkBodyView, arrowView: CoachMarkArrowView?) {
+        let coachViews = coachMarksController.defaultCoachViewsWithArrow(true, arrowOrientation: coachMark.arrowOrientation)
+        
+        coachViews.bodyView.hintLabel.text = Tutorial.getHintLabelForIndex(index, budgetView: true)
+        coachViews.bodyView.nextLabel.text = Tutorial.getNextLabel()
+        
+        return (bodyView: coachViews.bodyView, arrowView: coachViews.arrowView)
+        
     }
     
     //==================== Helper Methods ====================

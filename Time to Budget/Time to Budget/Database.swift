@@ -36,21 +36,24 @@ public class Database {
     public class func migrationHandling() {
         let config = Realm.Configuration(
             
-            schemaVersion: 1,
+            schemaVersion: 2,
             
             migrationBlock: { migration, oldSchemaVersion in
                 
                 print(oldSchemaVersion)
                 if (oldSchemaVersion < 1) {
-                    migration.enumerate(Budget.className()) { oldObject, newObject in
+                    migration.enumerate(Budget.className(), { oldObject, newObject in
                         // Initalize clock object in Budget
                         newObject?["clock"] = migration.create(Clock.className())
-                    }
+                    })
                     
-                    migration.enumerate(Task.className()) { oldObject, newObject in
+                    migration.enumerate(Task.className(), { oldObject, newObject in
                         // Initalize clock object in Tasks
                         newObject?["clock"] = migration.create(Clock.className())
-                    }
+                    })
+                }
+                if (oldSchemaVersion < 2) {
+                    
                 }
         })
         

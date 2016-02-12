@@ -8,13 +8,15 @@
 
 import UIKit
 import RealmSwift
+import Instructions
 
-class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, CoachMarksControllerDataSource {
     
     //========== View Properties ==========
     var totalTime = Time(newHours: 168, newMinutes: 0)
     var addTaskDialog:Bool = false
     @IBOutlet weak var tableView: UITableView!
+    let tutorialController = CoachMarksController()
     
     //========== Realm Properties ==========
     var realm:Realm!
@@ -25,6 +27,13 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
     //==================== View Controller Methods ====================
     override func viewDidLoad() {
         super.viewDidLoad()
+        // Tutorial setup and setting up points of interest
+        tutorialController.datasource = self
+        Tutorial.budgetEditorPOI[0] = self.navigationController?.navigationBar.subviews[1]
+        Tutorial.budgetEditorPOI[1] = self.navigationController?.navigationBar.subviews[1]
+        Tutorial.budgetEditorPOI[2] = self.navigationController?.navigationBar.subviews[1]
+        Tutorial.budgetEditorPOI[3] = (self.navigationItem.leftBarButtonItem!.valueForKey("view") as! UIView)
+        Tutorial.budgetEditorPOI[4] = (self.navigationItem.rightBarButtonItem!.valueForKey("view") as! UIView)
         
         // Retrieve database
         self.realm = Database.getRealm()
@@ -65,6 +74,12 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
         self.currentBudget = Database.budgetSafetyNet()
         self.tableView.reloadData()
     }
+    
+    override func viewDidAppear(animated: Bool) {
+        if Tutorial.shouldRun(budgetEditor: true) {
+            self.tutorialController.startOn(self)
+        }
+    }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "showTaskEditorView" {
@@ -94,11 +109,23 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        return Factory.prepareTaskCell(tableView: tableView, categoryList: currentBudget!.categories, indexPath: indexPath, editor: true)
+        let taskCell = Factory.prepareTaskCell(tableView: tableView, categoryList: currentBudget!.categories, indexPath: indexPath, editor: true)
+        
+        if(indexPath.section == 0 && indexPath.row == 0) {
+            Tutorial.budgetEditorPOI[2] = taskCell
+        }
+        
+        return taskCell
     }
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return Factory.prepareCategoryView(tableView: tableView, categoryList: currentBudget.categories, section: section, editorViewController: self)
+        let headerView = Factory.prepareCategoryView(tableView: tableView, categoryList: currentBudget.categories, section: section, editorViewController: self)
+        
+        if(section == 0) {
+            Tutorial.budgetEditorPOI[1] = headerView
+        }
+        
+        return headerView
     }
     
     //==================== UITableViewDelegate Methods ====================
@@ -124,6 +151,25 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
     
     @IBAction func addCategoryButtonPressed(sender: UIBarButtonItem) {
         Factory.displayAddCategoryAlert(viewController: self)
+    }
+    
+    //==================== CoachMarksDataSource Methods ====================
+    func numberOfCoachMarksForCoachMarksController(coachMarksController: CoachMarksController) -> Int {
+        return Tutorial.budgetEditorPOI.count
+    }
+    
+    func coachMarksController(coachMarksController: CoachMarksController, coachMarksForIndex index: Int) -> CoachMark {
+        return coachMarksController.coachMarkForView(Tutorial.budgetEditorPOI[index] as UIView!)
+    }
+    
+    func coachMarksController(coachMarksController: CoachMarksController, coachMarkViewsForIndex index: Int, coachMark: CoachMark) -> (bodyView: CoachMarkBodyView, arrowView: CoachMarkArrowView?) {
+        let coachViews = coachMarksController.defaultCoachViewsWithArrow(true, arrowOrientation: coachMark.arrowOrientation)
+        
+        coachViews.bodyView.hintLabel.text = Tutorial.getHintLabelForIndex(index, budgetEditor: true)
+        coachViews.bodyView.nextLabel.text = Tutorial.getNextLabel()
+        
+        return (bodyView: coachViews.bodyView, arrowView: coachViews.arrowView)
+        
     }
     
     //==================== Helper Methods ====================
