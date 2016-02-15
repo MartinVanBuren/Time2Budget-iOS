@@ -812,12 +812,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = YES;
 				ENABLE_BITCODE = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/Time",
-					to,
-					Budget,
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)";
 				INFOPLIST_FILE = "Time to Budget/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -838,12 +833,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = YES;
 				ENABLE_BITCODE = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/Time",
-					to,
-					Budget,
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)";
 				INFOPLIST_FILE = "Time to Budget/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

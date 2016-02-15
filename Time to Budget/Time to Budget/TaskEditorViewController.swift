@@ -48,11 +48,12 @@ class TaskEditorViewController: UIViewController, UITableViewDataSource, UITable
         // Apply the previous task information if editing.
         if let unwrappedTask = currentTask {
             self.taskName = unwrappedTask.name
-            self.taskMemo = unwrappedTask.memo
             self.taskCategory = unwrappedTask.parent.name
             self.taskTime = unwrappedTask.timeBudgeted
-        } else {
-            self.taskMemo = ""
+            
+            if unwrappedTask.memo != "" {
+                self.taskMemo = unwrappedTask.memo
+            }
         }
     }
     
@@ -146,6 +147,11 @@ class TaskEditorViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     @IBAction func saveButtonPressed(sender: UIButton) {
+        // Verify task.memo is no nil
+        if self.taskMemo == nil {
+            self.taskMemo = ""
+        }
+        
         // Verify that a task name has been given.
         if let unwrappedName = self.taskName {
             // Verify that a category has been selected.

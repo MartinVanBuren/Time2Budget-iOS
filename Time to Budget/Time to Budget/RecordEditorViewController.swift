@@ -22,7 +22,7 @@ class RecordEditorViewController: UIViewController, UITableViewDataSource, UITab
     var currentRecord:Record?
     var timeSpent:Time?
     var date:NSDate = NSDate()
-    var memo:String = ""
+    var memo:String!
     
     //===================== View Controller Methods =====================
     override func viewDidLoad() {
@@ -42,8 +42,11 @@ class RecordEditorViewController: UIViewController, UITableViewDataSource, UITab
         if let unwrappedRecord = self.currentRecord {
             self.timeSpent = Time(newTime: unwrappedRecord.timeSpent)
             self.date = unwrappedRecord.date
-            self.memo = unwrappedRecord.note
             self.navigationItem.title = "Edit Record"
+            
+            if unwrappedRecord.note != "" {
+                self.memo = unwrappedRecord.note
+            }
         }
     }
     
@@ -142,6 +145,11 @@ class RecordEditorViewController: UIViewController, UITableViewDataSource, UITab
     }
     
     @IBAction func saveRecordButtonPressed(sender: UIButton) {
+        // Verify that self.memo is not nil.
+        if self.memo == nil {
+            self.memo = ""
+        }
+        
         // Verify that a task is selected.
         if let unwrappedTask = self.currentTask {
             // Verify that an amount of time has been selected.
