@@ -111,6 +111,16 @@ public class Style {
     }
     
     /**
+     Sets the Style of any UILabel for Time to Budget.
+     
+     - Parameter label: UILabel for Style to be applied to.
+     - returns: Nothing
+     */
+    class func label(label: UILabel) {
+        label.textColor = self.textColor
+    }
+    
+    /**
      Sets the Style of any Button for Time to Budget.
      
      - Parameter button: UIButton for Style to be applied to.

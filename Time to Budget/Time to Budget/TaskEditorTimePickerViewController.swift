@@ -14,12 +14,12 @@ class TaskEditorTimePickerViewController: UIViewController, UIPickerViewDataSour
     var timePicked:Time = Time()
     var taskEditorVC:TaskEditorViewController!
     @IBOutlet weak var doneButton: UIButton!
+    @IBOutlet weak var colonLabel: UILabel!
     
     //========== Time Picker Properties ==========
     @IBOutlet weak var timePicker: UIPickerView!
     var timeHourPickerData:[Int] = Factory.prepareTimeHourPickerData()
     var timeMinutePickerData:[Int] = Factory.prepareTimeMinutePickerData()
-    
     
     //==================== View Controller Methods ====================
     override func viewDidLoad() {
@@ -28,6 +28,7 @@ class TaskEditorTimePickerViewController: UIViewController, UIPickerViewDataSour
         // Apply the Time to Budget theme to this view.
         Style.viewController(self)
         Style.button(self.doneButton)
+        Style.label(colonLabel)
         
         // Apply previous time if any to the UIPicker.
         if let unwrappedTime = taskEditorVC.taskTime {

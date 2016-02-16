@@ -14,6 +14,7 @@ class RecordEditorTimePickerViewController: UIViewController, UIPickerViewDataSo
     var recordEditorVC:RecordEditorViewController!
     @IBOutlet weak var timePicker: UIPickerView!
     @IBOutlet weak var doneButton: UIButton!
+    @IBOutlet weak var colonLabel: UILabel!
     
     //========== Time Picker Properties ==========
     var timeHourPickerData:[Int] = Factory.prepareTimeHourPickerData()
@@ -26,6 +27,7 @@ class RecordEditorTimePickerViewController: UIViewController, UIPickerViewDataSo
         
         Style.viewController(self)
         Style.button(self.doneButton)
+        Style.label(self.colonLabel)
 
         // Time Picker Setup
         timePicker.dataSource = self
