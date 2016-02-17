@@ -43,6 +43,11 @@ class TaskEditorTimePickerViewController: UIViewController, UIPickerViewDataSour
         timePicker.selectRow(getMinIndex(), inComponent: 1, animated: true)
     }
     
+    override func viewDidLayoutSubviews() {
+        labelForHours()
+        labelForMinutes()
+    }
+    
     //==================== UIPickerDataSource Methods ====================
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
         return 2
@@ -110,5 +115,36 @@ class TaskEditorTimePickerViewController: UIViewController, UIPickerViewDataSour
         else {
             return 0
         }
+    }
+    
+    func labelForHours() {
+        let lblText = "Hours"
+        let lblWidth = self.timePicker.frame.size.width / CGFloat(self.timePicker.numberOfComponents)
+        let lblXPos = self.timePicker.frame.origin.x
+        let lblYPos = self.timePicker.frame.origin.y
+        
+        let hrsLabel = UILabel()
+        hrsLabel.frame = CGRect(x: lblXPos, y: lblYPos, width: lblWidth, height: 20)
+        hrsLabel.text = lblText
+        hrsLabel.textAlignment = NSTextAlignment.Center
+        
+        Style.label(hrsLabel)
+        
+        self.view.addSubview(hrsLabel)
+    }
+    
+    func labelForMinutes() {
+        let lblText = "Minutes"
+        let lblWidth = self.timePicker.frame.size.width / CGFloat(self.timePicker.numberOfComponents)
+        let lblXPos = self.timePicker.frame.origin.x + lblWidth
+        let lblYPos = self.timePicker.frame.origin.y
+        
+        let minsLabel = UILabel(frame: CGRect(x: lblXPos, y: lblYPos, width: lblWidth, height: 20))
+        minsLabel.text = lblText
+        minsLabel.textAlignment = NSTextAlignment.Center
+        
+        Style.label(minsLabel)
+        
+        self.view.addSubview(minsLabel)
     }
 }
