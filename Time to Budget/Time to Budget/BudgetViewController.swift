@@ -30,11 +30,11 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
     //============ View Controller Functions ============
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Tutorial setup and setting up points of interest.
+        // Setting up tutorial controller
         self.tutorialController.datasource = self
-        Tutorial.budgetViewPOI[0] = self.navigationController?.navigationBar.subviews[1]
-        Tutorial.budgetViewPOI[1] = self.navigationController?.navigationBar.subviews[1]
-        Tutorial.budgetViewPOI[2] = self.navigationController?.navigationBar.subviews[1]
+        Tutorial.budgetViewPOI[0] = self.navigationController?.navigationBar
+        Tutorial.budgetViewPOI[1] = self.navigationController?.navigationBar
+        Tutorial.budgetViewPOI[2] = self.navigationController?.navigationBar
         Tutorial.budgetViewPOI[3] = (self.navigationItem.rightBarButtonItem!.valueForKey("view") as! UIView)
         Tutorial.budgetViewPOI[4] = self.clockButton
         

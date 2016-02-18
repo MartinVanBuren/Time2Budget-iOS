@@ -29,11 +29,12 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
         super.viewDidLoad()
         // Tutorial setup and setting up points of interest
         tutorialController.datasource = self
-        Tutorial.budgetEditorPOI[0] = self.navigationController?.navigationBar.subviews[1]
-        Tutorial.budgetEditorPOI[1] = self.navigationController?.navigationBar.subviews[1]
-        Tutorial.budgetEditorPOI[2] = self.navigationController?.navigationBar.subviews[1]
-        Tutorial.budgetEditorPOI[3] = (self.navigationItem.leftBarButtonItem!.valueForKey("view") as! UIView)
-        Tutorial.budgetEditorPOI[4] = (self.navigationItem.rightBarButtonItem!.valueForKey("view") as! UIView)
+        Tutorial.budgetEditorPOI[0] = self.navigationController?.navigationBar
+        Tutorial.budgetEditorPOI[1] = self.navigationController?.navigationBar
+        Tutorial.budgetEditorPOI[2] = self.navigationController?.navigationBar
+        Tutorial.budgetEditorPOI[3] = self.navigationController?.navigationBar
+        Tutorial.budgetEditorPOI[4] = (self.navigationItem.leftBarButtonItem!.valueForKey("view") as! UIView)
+        Tutorial.budgetEditorPOI[5] = (self.navigationItem.rightBarButtonItem!.valueForKey("view") as! UIView)
         
         // Retrieve database
         self.realm = Database.getRealm()
@@ -113,6 +114,8 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
         
         if(indexPath.section == 0 && indexPath.row == 0) {
             Tutorial.budgetEditorPOI[2] = taskCell
+        } else if (indexPath.section == 0 && indexPath.row == 1) {
+            Tutorial.budgetEditorPOI[3] = taskCell
         }
         
         return taskCell

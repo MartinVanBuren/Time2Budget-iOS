@@ -380,11 +380,11 @@
                                 <exclude reference="0O1-wC-CQM"/>
                                 <exclude reference="UmX-zI-uaD"/>
                                 <exclude reference="tOi-21-blB"/>
-                                <exclude reference="2Bz-Lq-ZTe"/>
-                                <exclude reference="WNY-bQ-760"/>
+                                <exclude reference="4ND-Jz-5HA"/>
                                 <exclude reference="cfe-gf-Su8"/>
                                 <exclude reference="nRP-U9-UkK"/>
-                                <exclude reference="4ND-Jz-5HA"/>
+                                <exclude reference="2Bz-Lq-ZTe"/>
+                                <exclude reference="WNY-bQ-760"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
@@ -397,11 +397,11 @@
                                 <include reference="0O1-wC-CQM"/>
                                 <include reference="UmX-zI-uaD"/>
                                 <include reference="tOi-21-blB"/>
-                                <include reference="2Bz-Lq-ZTe"/>
-                                <include reference="WNY-bQ-760"/>
+                                <include reference="4ND-Jz-5HA"/>
                                 <include reference="cfe-gf-Su8"/>
                                 <include reference="nRP-U9-UkK"/>
-                                <include reference="4ND-Jz-5HA"/>
+                                <include reference="2Bz-Lq-ZTe"/>
+                                <include reference="WNY-bQ-760"/>
                             </mask>
                         </variation>
                     </view>
@@ -796,14 +796,14 @@
                                 <exclude reference="d32-iF-9Tk"/>
                             </mask>
                             <mask key="constraints">
+                                <exclude reference="Y12-8l-oGu"/>
                                 <exclude reference="Gxt-Vk-c33"/>
                                 <exclude reference="nHQ-4e-Ls6"/>
                                 <exclude reference="yLn-Bm-YZM"/>
-                                <exclude reference="7dg-kX-GSm"/>
-                                <exclude reference="RII-nm-edk"/>
                                 <exclude reference="RjG-QI-YO5"/>
                                 <exclude reference="ff7-7M-jsq"/>
-                                <exclude reference="Y12-8l-oGu"/>
+                                <exclude reference="7dg-kX-GSm"/>
+                                <exclude reference="RII-nm-edk"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
@@ -813,14 +813,14 @@
                                 <include reference="d32-iF-9Tk"/>
                             </mask>
                             <mask key="constraints">
+                                <include reference="Y12-8l-oGu"/>
                                 <include reference="Gxt-Vk-c33"/>
                                 <include reference="nHQ-4e-Ls6"/>
                                 <include reference="yLn-Bm-YZM"/>
-                                <include reference="7dg-kX-GSm"/>
-                                <include reference="RII-nm-edk"/>
                                 <include reference="RjG-QI-YO5"/>
                                 <include reference="ff7-7M-jsq"/>
-                                <include reference="Y12-8l-oGu"/>
+                                <include reference="7dg-kX-GSm"/>
+                                <include reference="RII-nm-edk"/>
                             </mask>
                         </variation>
                     </view>
@@ -1627,6 +1627,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="Mfa-4p-w2b"/>
-        <segue reference="sUE-YC-L7n"/>
+        <segue reference="WcA-qF-lm9"/>
     </inferredMetricsTieBreakers>
 </document>

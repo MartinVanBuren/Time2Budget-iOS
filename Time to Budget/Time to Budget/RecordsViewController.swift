@@ -8,8 +8,9 @@
 
 import UIKit
 import RealmSwift
+import Instructions
 
-class RecordsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITabBarControllerDelegate {
+class RecordsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITabBarControllerDelegate, CoachMarksControllerDataSource {
 
     //========= View Properties =========
     var returning = false
@@ -18,7 +19,8 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
     var timeReturning = 0
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var clockButton: UIButton!
-    
+    let tutorialController = CoachMarksController()
+
     //========= Time Clock Properties =========
     var timer:NSTimer!
     var finalClockTime:Time?
@@ -32,6 +34,13 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
     //================== View Controller Methods ==================
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Setting up tutorial controller
+        self.tutorialController.datasource = self
+        Tutorial.recordsViewPOI[0] = self.navigationController?.navigationBar
+        Tutorial.recordsViewPOI[1] = self.navigationController?.navigationBar
+        Tutorial.recordsViewPOI[2] = self.navigationController?.navigationBar.subviews[2]
+        Tutorial.recordsViewPOI[3] = self.clockButton
         
         // Retrieve database
         self.realm = Database.getRealm()
@@ -110,6 +119,12 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
         }
     }
     
+    override func viewDidAppear(animated: Bool) {
+        if Tutorial.shouldRun(recordsView: true) {
+            self.tutorialController.startOn(self)
+        }
+    }
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "showTrackingViewAlt" {
             returning = true
@@ -155,7 +170,13 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        return Factory.prepareRecordCell(tableView: tableView, recordList: self.recordList, indexPath: indexPath)
+        let recordCell = Factory.prepareRecordCell(tableView: tableView, recordList: self.recordList, indexPath: indexPath)
+        
+        if(indexPath.section == 0 && indexPath.row == 0) {
+            Tutorial.budgetViewPOI[1] = recordCell
+        }
+        
+        return recordCell
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -193,6 +214,26 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
             self.initializeClock()
         }
     }
+    
+    //==================== CoachMarksDataSource Methods ====================
+    func numberOfCoachMarksForCoachMarksController(coachMarksController: CoachMarksController) -> Int {
+        return Tutorial.recordsViewPOI.count
+    }
+    
+    func coachMarksController(coachMarksController: CoachMarksController, coachMarksForIndex index: Int) -> CoachMark {
+        return coachMarksController.coachMarkForView(Tutorial.recordsViewPOI[index] as UIView!)
+    }
+    
+    func coachMarksController(coachMarksController: CoachMarksController, coachMarkViewsForIndex index: Int, coachMark: CoachMark) -> (bodyView: CoachMarkBodyView, arrowView: CoachMarkArrowView?) {
+        let coachViews = coachMarksController.defaultCoachViewsWithArrow(true, arrowOrientation: coachMark.arrowOrientation)
+        
+        coachViews.bodyView.hintLabel.text = Tutorial.getHintLabelForIndex(index, recordsView: true)
+        coachViews.bodyView.nextLabel.text = Tutorial.getNextLabel()
+        
+        return (bodyView: coachViews.bodyView, arrowView: coachViews.arrowView)
+        
+    }
+    
     // ============================= Helper Functions =============================
     
     /**
