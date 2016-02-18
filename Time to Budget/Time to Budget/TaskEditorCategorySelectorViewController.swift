@@ -8,14 +8,16 @@
 
 import UIKit
 import RealmSwift
+import Instructions
 
-class TaskEditorCategorySelectorViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class TaskEditorCategorySelectorViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, CoachMarksControllerDataSource {
 
     //========== View Properties ==========
     var taskEditorVC:TaskEditorViewController!
     var delegate: writeCategoryBackDelegate?
     var returning:Bool? = false
     @IBOutlet weak var tableView: UITableView!
+    let tutorialController = CoachMarksController()
     
     //========== Realm Properties ==========
     var realm:Realm!
@@ -25,6 +27,9 @@ class TaskEditorCategorySelectorViewController: UIViewController, UITableViewDat
     //==================== View Controller Methods ====================
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Setup tutorial controller
+        tutorialController.datasource = self
         
         // Register nibs for Cells/Headers
         let catCellNib = UINib(nibName: "CategoryCell", bundle: nil)
@@ -46,11 +51,21 @@ class TaskEditorCategorySelectorViewController: UIViewController, UITableViewDat
         self.tableView.reloadData()
     }
     
+    override func viewDidAppear(animated: Bool) {
+        if Tutorial.shouldRun(addTaskView: true) {
+            self.tutorialController.startOn(self)
+        }
+    }
+    
     override func viewDidLayoutSubviews() {
         // Adjust table view content insets
         self.automaticallyAdjustsScrollViewInsets = false
-        tableView.contentInset = UIEdgeInsetsMake(self.topLayoutGuide.length, 0, 54, 0)
-        tableView.reloadData()
+        self.tableView.contentInset = UIEdgeInsetsMake(self.topLayoutGuide.length, 0, 54, 0)
+        self.tableView.reloadData()
+        
+        // Setup tutorial points of interest
+        Tutorial.addTaskPOI[0] = self.navigationController?.navigationBar
+        Tutorial.addTaskPOI[1] = (self.navigationItem.rightBarButtonItem!.valueForKey("view") as! UIView)
     }
     
     //==================== UITableViewDataSource Methods ====================
@@ -67,7 +82,13 @@ class TaskEditorCategorySelectorViewController: UIViewController, UITableViewDat
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        return Factory.prepareCategoryCell(tableView: self.tableView, categoryList: self.currentBudget.categories, section: indexPath.row)
+        let catCell = Factory.prepareCategoryCell(tableView: self.tableView, categoryList: self.currentBudget.categories, section: indexPath.row)
+        
+        if indexPath.section == 0 && indexPath.row == 0 {
+            Tutorial.addTaskPOI[0] = catCell
+        }
+        
+        return catCell
     }
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -84,5 +105,24 @@ class TaskEditorCategorySelectorViewController: UIViewController, UITableViewDat
     //==================== IBAction Methods ====================
     @IBAction func addCategoryButtonPressed(sender: UIBarButtonItem) {
         Factory.displayAddCategoryAlert(viewController: self)
+    }
+    
+    //==================== CoachMarksControllerDataSource Methods ====================
+    func numberOfCoachMarksForCoachMarksController(coachMarksController: CoachMarksController) -> Int {
+        return Tutorial.addTaskPOI.count
+    }
+    
+    func coachMarksController(coachMarksController: CoachMarksController, coachMarksForIndex index: Int) -> CoachMark {
+        return coachMarksController.coachMarkForView(Tutorial.addTaskPOI[index] as UIView!)
+    }
+    
+    func coachMarksController(coachMarksController: CoachMarksController, coachMarkViewsForIndex index: Int, coachMark: CoachMark) -> (bodyView: CoachMarkBodyView, arrowView: CoachMarkArrowView?) {
+        let coachViews = coachMarksController.defaultCoachViewsWithArrow(true, arrowOrientation: coachMark.arrowOrientation)
+        
+        coachViews.bodyView.hintLabel.text = Tutorial.getHintLabelForIndex(index, addTaskView: true)
+        coachViews.bodyView.nextLabel.text = Tutorial.getNextLabel()
+        
+        return (bodyView: coachViews.bodyView, arrowView: coachViews.arrowView)
+        
     }
 }

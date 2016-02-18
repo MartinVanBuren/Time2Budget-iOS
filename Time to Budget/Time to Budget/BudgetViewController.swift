@@ -32,11 +32,6 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
         super.viewDidLoad()
         // Setting up tutorial controller
         self.tutorialController.datasource = self
-        Tutorial.budgetViewPOI[0] = self.navigationController?.navigationBar
-        Tutorial.budgetViewPOI[1] = self.navigationController?.navigationBar
-        Tutorial.budgetViewPOI[2] = self.navigationController?.navigationBar
-        Tutorial.budgetViewPOI[3] = (self.navigationItem.rightBarButtonItem!.valueForKey("view") as! UIView)
-        Tutorial.budgetViewPOI[4] = self.clockButton
         
         // Fetch Database
         self.realm = Database.getRealm()
@@ -95,6 +90,13 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
     override func viewDidLayoutSubviews() {
         // Reload table data to update header bar widths properly.
         self.tableView.reloadData()
+        
+        // Setup tutorial points of interest.
+        Tutorial.budgetViewPOI[0] = self.navigationController?.navigationBar
+        Tutorial.budgetViewPOI[1] = self.navigationController?.navigationBar
+        Tutorial.budgetViewPOI[2] = self.navigationController?.navigationBar
+        Tutorial.budgetViewPOI[3] = (self.navigationItem.rightBarButtonItem!.valueForKey("view") as! UIView)
+        Tutorial.budgetViewPOI[4] = self.clockButton
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {

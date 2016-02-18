@@ -37,10 +37,6 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
         
         // Setting up tutorial controller
         self.tutorialController.datasource = self
-        Tutorial.recordsViewPOI[0] = self.navigationController?.navigationBar
-        Tutorial.recordsViewPOI[1] = self.navigationController?.navigationBar
-        Tutorial.recordsViewPOI[2] = self.navigationController?.navigationBar.subviews[2]
-        Tutorial.recordsViewPOI[3] = self.clockButton
         
         // Retrieve database
         self.realm = Database.getRealm()
@@ -73,6 +69,15 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
         
         // Fixes the content inset for the table view.
         fixInsetLoad()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        // Setup Tutorial points of interest.
+        self.tableView.reloadData()
+        Tutorial.recordsViewPOI[0] = self.navigationController?.navigationBar
+        Tutorial.recordsViewPOI[1] = self.navigationController?.navigationBar
+        Tutorial.recordsViewPOI[2] = self.navigationController?.navigationBar.subviews[2]
+        Tutorial.recordsViewPOI[3] = self.clockButton
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -162,7 +167,11 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return Factory.prepareBasicHeader(tableView: self.tableView, titleText: "Records")
+        let headerView = Factory.prepareBasicHeader(tableView: self.tableView, titleText: "Records")
+        
+        Tutorial.recordsViewPOI[1] = headerView
+        
+        return headerView
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -173,7 +182,7 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
         let recordCell = Factory.prepareRecordCell(tableView: tableView, recordList: self.recordList, indexPath: indexPath)
         
         if(indexPath.section == 0 && indexPath.row == 0) {
-            Tutorial.budgetViewPOI[1] = recordCell
+            Tutorial.recordsViewPOI[1] = recordCell
         }
         
         return recordCell

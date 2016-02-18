@@ -14,14 +14,16 @@ public class Tutorial {
     static public var budgetViewPOI = [UIView?](count: 5, repeatedValue: UIView())
     static public var budgetEditorPOI = [UIView?](count: 6, repeatedValue: UIView())
     static public var recordsViewPOI = [UIView?](count: 4, repeatedValue: UIView())
-    static public var addRecordPOI = [UIView?](count: 0, repeatedValue: UIView())
-    static public var addTaskPOI = [UIView?](count: 0, repeatedValue: UIView())
+    static public var addRecordPOI = [UIView?](count: 2, repeatedValue: UIView())
+    static public var addTaskPOI = [UIView?](count: 2, repeatedValue: UIView())
     
     class func enableTutorials() {
         let settings = NSUserDefaults.standardUserDefaults()
         settings.setBool(true, forKey: "showTutorialBudgetView")
         settings.setBool(true, forKey: "showTutorialBudgetEditor")
         settings.setBool(true, forKey: "showTutorialRecordsView")
+        settings.setBool(true, forKey: "showTutorialAddRecordView")
+        settings.setBool(true, forKey: "showTutorialAddTaskView")
     }
     
     class func disableTutorials() {
@@ -29,9 +31,11 @@ public class Tutorial {
         settings.setBool(false, forKey: "showTutorialBudgetView")
         settings.setBool(false, forKey: "showTutorialBudgetEditor")
         settings.setBool(false, forKey: "showTutorialRecordsView")
+        settings.setBool(false, forKey: "showTutorialAddRecordView")
+        settings.setBool(false, forKey: "showTutorialAddTaskView")
     }
     
-    class func shouldRun(budgetView budgetView:Bool = false, budgetEditor:Bool = false, recordsView:Bool = false) -> Bool {
+    class func shouldRun(budgetView budgetView:Bool = false, budgetEditor:Bool = false, recordsView:Bool = false, addRecordView:Bool = false, addTaskView:Bool = false) -> Bool {
         let settings = NSUserDefaults.standardUserDefaults()
         
         if budgetView {
@@ -55,12 +59,26 @@ public class Tutorial {
                     return true
                 }
             }
+        } else if addRecordView {
+            if (settings.objectForKey("showTutorialAddRecordView") != nil) {
+                if settings.boolForKey("showTutorialAddRecordView") {
+                    self.didRun(addRecordView: true)
+                    return true
+                }
+            }
+        } else if addTaskView {
+            if (settings.objectForKey("showTutorialAddTaskView") != nil) {
+                if settings.boolForKey("showTutorialAddTaskView") {
+                    self.didRun(addTaskView: true)
+                    return true
+                }
+            }
         }
         
         return false
     }
     
-    private class func didRun(budgetView budgetView:Bool = false, budgetEditor:Bool = false, recordsView:Bool = false) {
+    private class func didRun(budgetView budgetView:Bool = false, budgetEditor:Bool = false, recordsView:Bool = false, addRecordView:Bool = false, addTaskView:Bool = false) {
         let settings = NSUserDefaults.standardUserDefaults()
         
         if budgetView {
@@ -69,16 +87,24 @@ public class Tutorial {
             settings.setBool(false, forKey: "showTutorialBudgetEditor")
         } else if recordsView {
             settings.setBool(false, forKey: "showTutorialRecordsView")
+        } else if addRecordView {
+            settings.setBool(false, forKey: "showTutorialAddRecordView")
+        } else if addTaskView {
+            settings.setBool(false, forKey: "showTutorialAddTaskView")
         }
     }
     
-    class func getHintLabelForIndex(index: Int, budgetView:Bool = false, budgetEditor:Bool = false, recordsView:Bool = false) -> String {
+    class func getHintLabelForIndex(index: Int, budgetView:Bool = false, budgetEditor:Bool = false, recordsView:Bool = false, addRecordView:Bool = false, addTaskView:Bool = false) -> String {
         if budgetView {
             return budgetViewHintLabels(index)
         } else if budgetEditor {
             return budgetEditorHintLabels(index)
         } else if recordsView {
             return recordsViewHintLabels(index)
+        } else if addRecordView {
+            return addRecordViewHintLabels(index)
+        } else if addTaskView {
+            return addTaskViewHintLabels(index)
         } else {
             return "Oops there aren't any labels for this view yet!"
         }
@@ -134,6 +160,28 @@ public class Tutorial {
             return "You can add new records using this button."
         case 3:
             return "Or you can clock in to this specific task using it's Clock In button. This time clock is sperate from all other tasks."
+        default:
+            return "Oops too many coach mark calls!"
+        }
+    }
+    
+    private class func addRecordViewHintLabels(index: Int) -> String {
+        switch(index) {
+        case 0:
+            return "Select the task this Record is for from this list."
+        case 1:
+            return "Or you can add a new Task here."
+        default:
+            return "Oops too many coach mark calls!"
+        }
+    }
+    
+    private class func addTaskViewHintLabels(index: Int) -> String {
+        switch(index) {
+        case 0:
+            return "Select the Category this Task is for from this list."
+        case 1:
+            return "Or you can add a new Category here."
         default:
             return "Oops too many coach mark calls!"
         }

@@ -8,14 +8,16 @@
 
 import UIKit
 import RealmSwift
+import Instructions
 
-class RecordEditorTaskSelectorViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class RecordEditorTaskSelectorViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, CoachMarksControllerDataSource {
 
     //========== View Properties ==========
     var recordEditorVC:RecordEditorViewController!
     var delegate: writeTaskBackDelegate?
     var returning:Bool? = false
     @IBOutlet weak var tableView: UITableView!
+    let tutorialController = CoachMarksController()
     
     //========== Realm Properties ==========
     var realm:Realm!
@@ -24,6 +26,9 @@ class RecordEditorTaskSelectorViewController: UIViewController, UITableViewDataS
     //==================== View Controller Methods ====================
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Setup Tutorial controller
+        self.tutorialController.datasource = self
         
         // Register Nibs for Cells/Header Views
         let catViewNib = UINib(nibName: "CategoryView", bundle: nil)
@@ -46,10 +51,21 @@ class RecordEditorTaskSelectorViewController: UIViewController, UITableViewDataS
         self.tableView.reloadData()
     }
     
+    override func viewDidAppear(animated: Bool) {
+        if Tutorial.shouldRun(addRecordView: true) {
+            self.tutorialController.startOn(self)
+        }
+    }
+    
     override func viewDidLayoutSubviews() {
         // Adjust table view insets
         self.automaticallyAdjustsScrollViewInsets = false
-        tableView.contentInset = UIEdgeInsetsMake(self.topLayoutGuide.length, 0, 54, 0)
+        self.tableView.contentInset = UIEdgeInsetsMake(self.topLayoutGuide.length, 0, 54, 0)
+        
+        // Setup Tutorial points of interest
+        self.tableView.reloadData()
+        Tutorial.addRecordPOI[0] = self.navigationController?.navigationBar
+        Tutorial.addRecordPOI[1] = (self.navigationItem.rightBarButtonItem!.valueForKey("view") as! UIView)
     }
     
     //==================== UITableViewDataSource Methods ====================
@@ -66,7 +82,13 @@ class RecordEditorTaskSelectorViewController: UIViewController, UITableViewDataS
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        return Factory.prepareTaskCell(tableView: tableView, categoryList: currentBudget.categories, indexPath: indexPath, editor: false)
+        let taskCell = Factory.prepareTaskCell(tableView: tableView, categoryList: currentBudget.categories, indexPath: indexPath, editor: false)
+        
+        if indexPath.section == 0 && indexPath.row == 0 {
+            Tutorial.addRecordPOI[0] = taskCell
+        }
+        
+        return taskCell
     }
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -86,4 +108,29 @@ class RecordEditorTaskSelectorViewController: UIViewController, UITableViewDataS
     @IBAction func addTaskButtonPressed(sender: UIBarButtonItem) {
         performSegueWithIdentifier("showTaskEditorFromRecordEditor", sender: self)
     }
+    
+    //==================== CoachMarksControllerDataSource Methods ====================
+    func numberOfCoachMarksForCoachMarksController(coachMarksController: CoachMarksController) -> Int {
+        return Tutorial.addRecordPOI.count
+    }
+    
+    func coachMarksController(coachMarksController: CoachMarksController, coachMarksForIndex index: Int) -> CoachMark {
+        return coachMarksController.coachMarkForView(Tutorial.addRecordPOI[index] as UIView!)
+    }
+    
+    func coachMarksController(coachMarksController: CoachMarksController, coachMarkViewsForIndex index: Int, coachMark: CoachMark) -> (bodyView: CoachMarkBodyView, arrowView: CoachMarkArrowView?) {
+        let coachViews = coachMarksController.defaultCoachViewsWithArrow(true, arrowOrientation: coachMark.arrowOrientation)
+        
+        coachViews.bodyView.hintLabel.text = Tutorial.getHintLabelForIndex(index, addRecordView: true)
+        coachViews.bodyView.nextLabel.text = Tutorial.getNextLabel()
+        
+        return (bodyView: coachViews.bodyView, arrowView: coachViews.arrowView)
+        
+    }
 }
+
+
+
+
+
+
