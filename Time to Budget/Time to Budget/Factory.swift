@@ -198,7 +198,7 @@ public class Factory {
         if let unwrappedMemo = memo {
             preparedCell.textField.text = unwrappedMemo
         } else {
-            preparedCell.textField.placeholder = "Memo (Optional)"
+            preparedCell.textField.placeholder = "Description (Optional)"
         }
         
         Style.textfieldCell(preparedCell)

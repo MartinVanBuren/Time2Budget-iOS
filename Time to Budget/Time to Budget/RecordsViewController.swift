@@ -37,6 +37,7 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
         
         // Setting up tutorial controller
         self.tutorialController.datasource = self
+        Style.tutorialController(self.tutorialController)
         
         // Retrieve database
         self.realm = Database.getRealm()
@@ -76,8 +77,9 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
         self.tableView.reloadData()
         Tutorial.recordsViewPOI[0] = self.navigationController?.navigationBar
         Tutorial.recordsViewPOI[1] = self.navigationController?.navigationBar
-        Tutorial.recordsViewPOI[2] = self.navigationController?.navigationBar.subviews[2]
-        Tutorial.recordsViewPOI[3] = self.clockButton
+        Tutorial.recordsViewPOI[2] = self.navigationController?.navigationBar
+        Tutorial.recordsViewPOI[3] = self.navigationController?.navigationBar.subviews[2]
+        Tutorial.recordsViewPOI[4] = self.clockButton
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -182,7 +184,7 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
         let recordCell = Factory.prepareRecordCell(tableView: tableView, recordList: self.recordList, indexPath: indexPath)
         
         if(indexPath.section == 0 && indexPath.row == 0) {
-            Tutorial.recordsViewPOI[1] = recordCell
+            Tutorial.recordsViewPOI[2] = recordCell
         }
         
         return recordCell

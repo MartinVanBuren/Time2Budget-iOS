@@ -30,6 +30,7 @@ class TaskEditorCategorySelectorViewController: UIViewController, UITableViewDat
         
         // Setup tutorial controller
         tutorialController.datasource = self
+        Style.tutorialController(self.tutorialController)
         
         // Register nibs for Cells/Headers
         let catCellNib = UINib(nibName: "CategoryCell", bundle: nil)

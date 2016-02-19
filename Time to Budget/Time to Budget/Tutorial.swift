@@ -13,7 +13,7 @@ import Instructions
 public class Tutorial {
     static public var budgetViewPOI = [UIView?](count: 5, repeatedValue: UIView())
     static public var budgetEditorPOI = [UIView?](count: 6, repeatedValue: UIView())
-    static public var recordsViewPOI = [UIView?](count: 4, repeatedValue: UIView())
+    static public var recordsViewPOI = [UIView?](count: 5, repeatedValue: UIView())
     static public var addRecordPOI = [UIView?](count: 2, repeatedValue: UIView())
     static public var addTaskPOI = [UIView?](count: 2, repeatedValue: UIView())
     
@@ -35,7 +35,11 @@ public class Tutorial {
         settings.setBool(false, forKey: "showTutorialAddTaskView")
     }
     
-    class func shouldRun(budgetView budgetView:Bool = false, budgetEditor:Bool = false, recordsView:Bool = false, addRecordView:Bool = false, addTaskView:Bool = false) -> Bool {
+    class func shouldRun(budgetView budgetView:Bool = false,
+                                    budgetEditor:Bool = false,
+                                    recordsView:Bool = false,
+                                    addRecordView:Bool = false,
+                                    addTaskView:Bool = false) -> Bool {
         let settings = NSUserDefaults.standardUserDefaults()
         
         if budgetView {
@@ -78,7 +82,11 @@ public class Tutorial {
         return false
     }
     
-    private class func didRun(budgetView budgetView:Bool = false, budgetEditor:Bool = false, recordsView:Bool = false, addRecordView:Bool = false, addTaskView:Bool = false) {
+    private class func didRun(budgetView budgetView:Bool = false,
+                                         budgetEditor:Bool = false,
+                                         recordsView:Bool = false,
+                                         addRecordView:Bool = false,
+                                         addTaskView:Bool = false) {
         let settings = NSUserDefaults.standardUserDefaults()
         
         if budgetView {
@@ -94,7 +102,12 @@ public class Tutorial {
         }
     }
     
-    class func getHintLabelForIndex(index: Int, budgetView:Bool = false, budgetEditor:Bool = false, recordsView:Bool = false, addRecordView:Bool = false, addTaskView:Bool = false) -> String {
+    class func getHintLabelForIndex(index: Int,
+                                    budgetView:Bool = false,
+                                    budgetEditor:Bool = false,
+                                    recordsView:Bool = false,
+                                    addRecordView:Bool = false,
+                                    addTaskView:Bool = false) -> String {
         if budgetView {
             return budgetViewHintLabels(index)
         } else if budgetEditor {
@@ -117,15 +130,15 @@ public class Tutorial {
     private class func budgetViewHintLabels(index: Int) -> String {
         switch(index) {
         case 0:
-            return "The Budget View lets you both record time spent on tasks and view time remaining."
+            return "The Budget View is for recording time spent."
         case 1:
-            return "Categories contain Tasks and total how much time you have left to spend for all Tasks under it."
+            return "Categories display the total amount of time you have left to spend for all Tasks under it."
         case 2:
-            return "Tasks contain Records and display how much time you have left to spend per Task."
+            return "Tasks display how much time you have left to spend."
         case 3:
-            return "You can record time spent here!"
+            return "Record time spent here."
         case 4:
-            return "Or you can record time spent more easily by clocking in and out. :D"
+            return "Or record time by clocking in and out. :D"
         default:
             return "Oops too many coach mark calls!"
         }
@@ -134,13 +147,13 @@ public class Tutorial {
     private class func budgetEditorHintLabels(index: Int) -> String {
         switch(index) {
         case 0:
-            return "The Budget Editor allows you to modify your Categories and Tasks and displays how much time is unused per week here."
+            return "The Budget Editor is used to add/edit Categories and Tasks."
         case 1:
             return "Edit Categories by pressing on them."
         case 2:
             return "Edit Tasks by pressing on them."
         case 3:
-            return "You can move Tasks by dragging them."
+            return "Move Tasks by dragging them."
         case 4:
             return "Add a new Category here."
         case 5:
@@ -153,13 +166,15 @@ public class Tutorial {
     private class func recordsViewHintLabels(index: Int) -> String {
         switch(index) {
         case 0:
-            return "The Records View lets you view, edit, or add records under any Task."
+            return "This screen lets you view, edit, or add records under any Task."
         case 1:
-            return "Records contain information on time you have spent doing a Task. You can edit existing records by pressing them."
+            return "Records contain information on time you have spent doing a Task."
         case 2:
-            return "You can add new records using this button."
+            return "Edit records by pressing them."
         case 3:
-            return "Or you can clock in to this specific task using it's Clock In button. This time clock is sperate from all other tasks."
+            return "Add new records here."
+        case 4:
+            return "Or clock in to this task here. Each task has it's own time clock."
         default:
             return "Oops too many coach mark calls!"
         }

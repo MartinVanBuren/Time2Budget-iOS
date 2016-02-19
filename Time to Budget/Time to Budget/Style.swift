@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Instructions
 
 /**
  Manages the style of every element in Time to Budget.
@@ -56,10 +57,16 @@ public class Style {
     private static let green = UIColor(red: 136/255, green: 209/255, blue: 115/255, alpha: 1.0)
     private static let yellow = UIColor(red: 253/255, green: 199/255, blue: 103/255, alpha: 1.0)
     private static let red = UIColor(red: 252/255, green: 87/255, blue: 63/255, alpha: 1.0)
-    private static let grey = UIColor(red: 52/255, green: 56/255, blue: 56/255, alpha: 255/255)
+    private static let grey = UIColor(red: 52/255, green: 56/255, blue: 56/255, alpha: 1.0)
     private static let seperatorGrey = UIColor(white: 0.5, alpha: 1.0)
     private static let textColor = UIColor.whiteColor()
     private static let detailColor = UIColor(white: 0.95, alpha: 1.0)
+    private static let tutorialOverlayColor = UIColor(red: 170/255, green: 170/255, blue: 170/255, alpha: 0.60)
+    
+    class func tutorialController(tut: CoachMarksController) {
+        tut.overlayBackgroundColor = self.tutorialOverlayColor
+        tut.allowOverlayTap = true
+    }
     
     /**
      Sets the Style of the Navigation Bar for Time to Budget.

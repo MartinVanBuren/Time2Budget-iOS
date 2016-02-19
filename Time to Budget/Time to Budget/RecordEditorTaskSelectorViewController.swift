@@ -29,6 +29,7 @@ class RecordEditorTaskSelectorViewController: UIViewController, UITableViewDataS
         
         // Setup Tutorial controller
         self.tutorialController.datasource = self
+        Style.tutorialController(self.tutorialController)
         
         // Register Nibs for Cells/Header Views
         let catViewNib = UINib(nibName: "CategoryView", bundle: nil)

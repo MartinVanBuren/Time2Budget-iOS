@@ -29,6 +29,7 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
         super.viewDidLoad()
         // Tutorial setup and setting up points of interest
         tutorialController.datasource = self
+        Style.tutorialController(self.tutorialController)
         
         // Retrieve database
         self.realm = Database.getRealm()

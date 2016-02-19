@@ -32,6 +32,7 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
         super.viewDidLoad()
         // Setting up tutorial controller
         self.tutorialController.datasource = self
+        Style.tutorialController(self.tutorialController)
         
         // Fetch Database
         self.realm = Database.getRealm()
