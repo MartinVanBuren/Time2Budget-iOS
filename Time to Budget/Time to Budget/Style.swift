@@ -63,6 +63,12 @@ public class Style {
     private static let detailColor = UIColor(white: 0.95, alpha: 1.0)
     private static let tutorialOverlayColor = UIColor(red: 170/255, green: 170/255, blue: 170/255, alpha: 0.60)
     
+    /**
+     Sets the Style of the Tutorial Controllers for Time to Budget.
+     
+     - Parameter tut: CoachMarksController for Style to be applied to.
+     - returns: Nothing
+     */
     class func tutorialController(tut: CoachMarksController) {
         tut.overlayBackgroundColor = self.tutorialOverlayColor
         tut.allowOverlayTap = true
