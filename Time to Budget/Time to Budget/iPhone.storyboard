@@ -81,9 +81,6 @@
                                                     <rect key="frame" x="-25" y="-30" width="97" height="30"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences" keyboardAppearance="alert" returnKeyType="done"/>
-                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                                        <rect key="frame" x="8" y="7" width="304" height="30"/>
-                                                    </variation>
                                                     <connections>
                                                         <action selector="taskMemoTextfieldChanged:" destination="21N-Ja-fue" eventType="editingDidEnd" id="gEL-hw-ttC"/>
                                                     </connections>
@@ -1405,7 +1402,7 @@
         <scene sceneID="vWo-Qf-c5o">
             <objects>
                 <navigationController title="Budget View Navigation Controller" automaticallyAdjustsScrollViewInsets="NO" id="vNu-tz-Fky" userLabel="Main Navigation Controller" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Budget" image="budgetTabBar" id="cp4-1U-Sch"/>
+                    <tabBarItem key="tabBarItem" title="Budget" image="TB_Budget" id="cp4-1U-Sch"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="C4i-AT-vHI">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1514,7 +1511,7 @@
         <scene sceneID="zr5-NJ-WvN">
             <objects>
                 <navigationController title="Settings Navigation Controller" automaticallyAdjustsScrollViewInsets="NO" id="iBz-P8-bvG" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Settings" image="settingsTabBar" id="3Nc-zS-6mX"/>
+                    <tabBarItem key="tabBarItem" title="Settings" image="TB_Settings" id="3Nc-zS-6mX"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="SBn-kX-pP5">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1551,7 +1548,7 @@
         <scene sceneID="Tg8-bU-HeC">
             <objects>
                 <navigationController title="Budget Editor Navigation Controller" automaticallyAdjustsScrollViewInsets="NO" id="JIZ-0u-c6h" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Editor" image="editorTabBar" id="DCa-bD-8jL"/>
+                    <tabBarItem key="tabBarItem" title="Editor" image="TB_Editor" id="DCa-bD-8jL"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="4ZV-Up-8DL">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1597,7 +1594,7 @@
         <scene sceneID="tn7-Pc-MgE">
             <objects>
                 <navigationController title="Budget History Navigation Controller" automaticallyAdjustsScrollViewInsets="NO" id="FWf-tO-pAV" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="History" image="historyTabBar" id="ndd-8Q-8Hb"/>
+                    <tabBarItem key="tabBarItem" title="History" image="TB_History" id="ndd-8Q-8Hb"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="DX9-Ed-fmD">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1623,13 +1620,13 @@
         </scene>
     </scenes>
     <resources>
-        <image name="budgetTabBar" width="25" height="25"/>
-        <image name="editorTabBar" width="25" height="25"/>
-        <image name="historyTabBar" width="25" height="25"/>
-        <image name="settingsTabBar" width="25" height="25"/>
+        <image name="TB_Budget" width="25" height="25"/>
+        <image name="TB_Editor" width="25" height="25"/>
+        <image name="TB_History" width="25" height="25"/>
+        <image name="TB_Settings" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="Mfa-4p-w2b"/>
-        <segue reference="WcA-qF-lm9"/>
+        <segue reference="sUE-YC-L7n"/>
     </inferredMetricsTieBreakers>
 </document>
