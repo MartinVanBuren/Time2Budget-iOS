@@ -62,7 +62,9 @@ class RecordEditorTaskSelectorViewController: UIViewController, UITableViewDataS
         // Adjust table view insets
         self.automaticallyAdjustsScrollViewInsets = false
         self.tableView.contentInset = UIEdgeInsetsMake(self.topLayoutGuide.length, 0, 54, 0)
-        self.tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), atScrollPosition: UITableViewScrollPosition.Top, animated: false)
+        if self.tableView.indexPathsForVisibleRows?.count != 0 {
+            self.tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), atScrollPosition: UITableViewScrollPosition.Top, animated: false)
+        }
         
         // Setup Tutorial points of interest
         self.tableView.reloadData()

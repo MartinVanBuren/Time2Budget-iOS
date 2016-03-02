@@ -2,47 +2,106 @@
 //  WelcomeViewController.swift
 //  Time to Budget
 //
-//  Created by Robert Kennedy on 2/12/16.
+//  Created by Robert Kennedy on 2/29/16.
 //  Copyright © 2016 Arrken Software, LLC. All rights reserved.
 //
 
 import UIKit
-import RazzleDazzle
 
-class WelcomeViewController: AnimatedPagingScrollViewController {
-    private let Pg1Image = UIImageView(image: UIImage(named: "Pg1_Clock"))
-    private let Pg1Text = UIImageView(image: UIImage(named: "Pg1_Text"))
+class WelcomeViewController: UIPageViewController {
     
-    private let Pg2Image = UIImageView(image: UIImage(named: "Pg2_TrashCan"))
-    private let Pg2Text = UIImageView(image: UIImage(named: "Pg2_Text"))
-    
-    private let Pg3Image = UIImageView(image: UIImage(named: "Pg3_MoneyBudget"))
-    private let Pg3Text = UIImageView(image: UIImage(named: "Pg3_Text"))
-    
-    private let Pg4Image = UIImageView(image: UIImage(named: "Pg4_Watch"))
-    private let Pg4Text = UIImageView(image: UIImage(named: "Pg4_Text"))
-    
-    private let Pg5Title = UIImageView(image: UIImage(named: "Pg5_Title"))
-    private let Pg5Text = UIImageView(image: UIImage(named: "Pg5_Text"))
-    
-    private let Pg6Title = UIImageView(image: UIImage(named: "Pg6_Title"))
-    private let Pg6Text = UIImageView(image: UIImage(named: "Pg6_Text"))
+    private var orderedViewControllers:[UIViewController] = []
+    private var currentIndex:Int!
     
     override func viewDidLoad() {
-        self.configureSubviews()
-        self.configureAnimations()
-        UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation: .Fade)
+        super.viewDidLoad()
+        dataSource = self
+        
+        let storyboard = UIStoryboard(name: "iPhone", bundle: nil)
+        
+        orderedViewControllers.removeAll()
+        
+        for (var i=1; i<=6; i++) {
+            orderedViewControllers.append(storyboard.instantiateViewControllerWithIdentifier("WelcomePage\(i)"))
+        }
+        
+        currentIndex = 0
+        
+        if let firstViewController = orderedViewControllers.first {
+            setViewControllers([firstViewController],
+                direction: .Forward,
+                animated: true,
+                completion: nil)
+        }
     }
     
-    override func numberOfPages() -> Int {
-        return 6
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        for view in self.view.subviews {
+            if view.isKindOfClass(UIScrollView) {
+                view.frame = UIScreen.mainScreen().bounds
+            } else if view.isKindOfClass(UIPageControl) {
+                view.backgroundColor = UIColor.clearColor()
+            }
+        }
+        
+        stylePageControl()
     }
     
-    private func configureSubviews() {
-        //self.contentView.addSubview(UIView())
+    private func stylePageControl(color: UIColor = UIColor.clearColor()) {
+        let pageControl = UIPageControl.appearanceWhenContainedInInstancesOfClasses([self.dynamicType])
+        
+        pageControl.currentPageIndicatorTintColor = UIColor.whiteColor()
+        pageControl.pageIndicatorTintColor = UIColor.grayColor()
     }
     
-    private func configureAnimations() {
-        //self.animator.addAnimation(BackgroundColorAnimation(view: self.scrollView))
+    func presentationCountForPageViewController(pageViewController: UIPageViewController) -> Int {
+        return orderedViewControllers.count
+    }
+    
+    func presentationIndexForPageViewController(pageViewController: UIPageViewController) -> Int {
+        return currentIndex
+    }
+}
+
+extension WelcomeViewController: UIPageViewControllerDataSource {
+    func pageViewController(pageViewController: UIPageViewController,
+        viewControllerBeforeViewController viewController: UIViewController) -> UIViewController? {
+            guard let currentIndex = orderedViewControllers.indexOf(viewController) else {
+                return nil
+            }
+            
+            let previousIndex = currentIndex - 1
+            
+            guard previousIndex >= 0 else {
+                return nil
+            }
+            
+            guard orderedViewControllers.count > previousIndex else {
+                return nil
+            }
+            
+            return orderedViewControllers[previousIndex]
+    }
+    
+    func pageViewController(pageViewController: UIPageViewController,
+        viewControllerAfterViewController viewController: UIViewController) -> UIViewController? {
+            guard let viewControllerIndex = orderedViewControllers.indexOf(viewController) else {
+                return nil
+            }
+            
+            let nextIndex = viewControllerIndex + 1
+            let orderedViewControllersCount = orderedViewControllers.count
+            
+            guard orderedViewControllersCount != nextIndex else {
+                return nil
+            }
+            
+            guard orderedViewControllersCount > nextIndex else {
+                return nil
+            }
+            
+            return orderedViewControllers[nextIndex]
     }
 }

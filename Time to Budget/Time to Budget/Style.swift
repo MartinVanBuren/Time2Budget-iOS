@@ -144,7 +144,7 @@ public class Style {
         button.alpha = 0.90
         button.opaque = false
         
-        button.layer.cornerRadius = CGRectGetWidth(button.frame)/8
+        button.layer.cornerRadius = CGRectGetHeight(button.frame)/4
         button.layer.masksToBounds = true
     }
     

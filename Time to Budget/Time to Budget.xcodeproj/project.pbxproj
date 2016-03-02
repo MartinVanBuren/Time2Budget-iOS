@@ -7,14 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5B16AA2F1C8676A70019E4F8 /* WelcomeButtonsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B16AA2E1C8676A70019E4F8 /* WelcomeButtonsController.swift */; };
 		5B3140401BFBA2DA003644D9 /* Database_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93BC90441A74C84200A63932 /* Database_Tests.swift */; };
 		5B3BCDEE1C07B1C2007C8A2E /* CategoryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B3BCDED1C07B1C2007C8A2E /* CategoryView.xib */; };
 		5B3BCDF01C07B5B9007C8A2E /* CategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3BCDEF1C07B5B9007C8A2E /* CategoryView.swift */; };
 		5B55BC7C1C6A9CED005B81F7 /* Instructions.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5B536D681C6A96F60007081C /* Instructions.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5B55BC7D1C6A9D04005B81F7 /* Instructions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B536D681C6A96F60007081C /* Instructions.framework */; };
-		5B7064641C6E90FE003654B8 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7064631C6E90FE003654B8 /* WelcomeViewController.swift */; };
-		5B70646D1C6E997B003654B8 /* RazzleDazzle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B7064691C6E9967003654B8 /* RazzleDazzle.framework */; };
-		5B70646E1C6E997B003654B8 /* RazzleDazzle.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5B7064691C6E9967003654B8 /* RazzleDazzle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5B922F0A1BDA7C4E00F851D3 /* DetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B922F091BDA7C4E00F851D3 /* DetailCell.swift */; };
 		5B9679FC1BBE13D400DBEB61 /* Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9679FB1BBE13D400DBEB61 /* Protocol.swift */; };
 		5B9DE8AA1C6D2D3A0065BFCA /* Tutorial.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9DE8A91C6D2D3A0065BFCA /* Tutorial.swift */; };
@@ -30,6 +28,7 @@
 		5BF9794A1C0290CB00F005EC /* DetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BF979451C0290CB00F005EC /* DetailCell.xib */; };
 		5BF9794C1C0290CB00F005EC /* SubtitleDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BF979471C0290CB00F005EC /* SubtitleDetailCell.xib */; };
 		5BF979511C02A7F400F005EC /* MemoTextfieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF979501C02A7F400F005EC /* MemoTextfieldCell.swift */; };
+		5BFCB0D81C84F1880004C3B6 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFCB0D71C84F1880004C3B6 /* WelcomeViewController.swift */; };
 		9320D56F1A74625B0013018C /* MarshalOperator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9320D56E1A74625B0013018C /* MarshalOperator.swift */; };
 		93223B491A86840500365D3A /* RecordEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93223B481A86840500365D3A /* RecordEditorViewController.swift */; };
 		9385F1741AA397C8000C8726 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9385F1731AA397C8000C8726 /* SettingsViewController.swift */; };
@@ -86,7 +85,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				5B70646E1C6E997B003654B8 /* RazzleDazzle.framework in Embed Frameworks */,
 				5B9DE8B41C6E7AF40065BFCA /* Realm.framework in Embed Frameworks */,
 				5B55BC7C1C6A9CED005B81F7 /* Instructions.framework in Embed Frameworks */,
 				5B9DE8B61C6E7AF40065BFCA /* RealmSwift.framework in Embed Frameworks */,
@@ -97,11 +95,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		5B16AA2E1C8676A70019E4F8 /* WelcomeButtonsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeButtonsController.swift; sourceTree = "<group>"; };
 		5B3BCDED1C07B1C2007C8A2E /* CategoryView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CategoryView.xib; sourceTree = "<group>"; };
 		5B3BCDEF1C07B5B9007C8A2E /* CategoryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryView.swift; sourceTree = "<group>"; };
 		5B536D681C6A96F60007081C /* Instructions.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Instructions.framework; sourceTree = SOURCE_ROOT; };
-		5B7064631C6E90FE003654B8 /* WelcomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
-		5B7064691C6E9967003654B8 /* RazzleDazzle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RazzleDazzle.framework; sourceTree = SOURCE_ROOT; };
 		5B922F091BDA7C4E00F851D3 /* DetailCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailCell.swift; sourceTree = "<group>"; };
 		5B9679FB1BBE13D400DBEB61 /* Protocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Protocol.swift; sourceTree = "<group>"; };
 		5B9DE8A91C6D2D3A0065BFCA /* Tutorial.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tutorial.swift; sourceTree = "<group>"; };
@@ -116,6 +113,7 @@
 		5BF979451C0290CB00F005EC /* DetailCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailCell.xib; sourceTree = "<group>"; };
 		5BF979471C0290CB00F005EC /* SubtitleDetailCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SubtitleDetailCell.xib; sourceTree = "<group>"; };
 		5BF979501C02A7F400F005EC /* MemoTextfieldCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemoTextfieldCell.swift; sourceTree = "<group>"; };
+		5BFCB0D71C84F1880004C3B6 /* WelcomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		9320D56E1A74625B0013018C /* MarshalOperator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarshalOperator.swift; sourceTree = "<group>"; };
 		9320D5751A746E8F0013018C /* Time to Budget Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Time to Budget Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9320D5781A746E900013018C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -174,7 +172,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5B70646D1C6E997B003654B8 /* RazzleDazzle.framework in Frameworks */,
 				5B9DE8B31C6E7AF40065BFCA /* Realm.framework in Frameworks */,
 				5B55BC7D1C6A9D04005B81F7 /* Instructions.framework in Frameworks */,
 				5B9DE8B51C6E7AF40065BFCA /* RealmSwift.framework in Frameworks */,
@@ -198,22 +195,6 @@
 				93F0E5161A720BF4009D95EC /* RecordsViewController.swift */,
 			);
 			name = "Budget View";
-			sourceTree = "<group>";
-		};
-		5B6CAEB01C6E7E140075A2CB /* RazzleDazzle */ = {
-			isa = PBXGroup;
-			children = (
-				5B7064691C6E9967003654B8 /* RazzleDazzle.framework */,
-			);
-			name = RazzleDazzle;
-			sourceTree = "<group>";
-		};
-		5B6CAEB61C6E7E800075A2CB /* WelcomeScreen */ = {
-			isa = PBXGroup;
-			children = (
-				5B7064631C6E90FE003654B8 /* WelcomeViewController.swift */,
-			);
-			name = WelcomeScreen;
 			sourceTree = "<group>";
 		};
 		5B7972C71BAA5B0300BAF7C4 /* Realm */ = {
@@ -241,7 +222,6 @@
 				93F0E50C1A720BD4009D95EC /* iPhone.storyboard */,
 				93F0E4F51A720B64009D95EC /* LaunchScreen.xib */,
 				5BF9794F1C0290FF00F005EC /* Headers & Cells */,
-				5B6CAEB61C6E7E800075A2CB /* WelcomeScreen */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -261,6 +241,15 @@
 				5BF979471C0290CB00F005EC /* SubtitleDetailCell.xib */,
 			);
 			name = "Headers & Cells";
+			sourceTree = "<group>";
+		};
+		5BFCB0D61C84F1750004C3B6 /* Welcome Screen */ = {
+			isa = PBXGroup;
+			children = (
+				5BFCB0D71C84F1880004C3B6 /* WelcomeViewController.swift */,
+				5B16AA2E1C8676A70019E4F8 /* WelcomeButtonsController.swift */,
+			);
+			name = "Welcome Screen";
 			sourceTree = "<group>";
 		};
 		9320D5761A746E900013018C /* Time to Budget Tests */ = {
@@ -354,7 +343,6 @@
 		93F0E4EA1A720B64009D95EC /* Dependancies */ = {
 			isa = PBXGroup;
 			children = (
-				5B6CAEB01C6E7E140075A2CB /* RazzleDazzle */,
 				5B7972C71BAA5B0300BAF7C4 /* Realm */,
 				5B3812871C6A92D500685294 /* Instructions */,
 			);
@@ -364,6 +352,7 @@
 		93F0E52E1A720BFD009D95EC /* iPhone View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				5BFCB0D61C84F1750004C3B6 /* Welcome Screen */,
 				93B2E5F91A903EC40058372F /* Tab Bar Views */,
 				5B6937391C067FC4002847B0 /* Budget View */,
 				93B2E5F81A903EA80058372F /* Record Editor */,
@@ -582,7 +571,7 @@
 				5B922F0A1BDA7C4E00F851D3 /* DetailCell.swift in Sources */,
 				93F0E53E1A7214E1009D95EC /* Budget.swift in Sources */,
 				93F0E5401A72194D009D95EC /* BudgetEditorViewController.swift in Sources */,
-				5B7064641C6E90FE003654B8 /* WelcomeViewController.swift in Sources */,
+				5BFCB0D81C84F1880004C3B6 /* WelcomeViewController.swift in Sources */,
 				5BDE190A1C1A2E8400DF8F95 /* Clock.swift in Sources */,
 				93B2E5F51A903E790058372F /* RecordEditorTimePickerViewController.swift in Sources */,
 				5BB55CB71BA8ABF700F43891 /* Style.swift in Sources */,
@@ -596,6 +585,7 @@
 				939DB8901AA2CD330047C108 /* SubtitleDetailCell.swift in Sources */,
 				93F0E5271A720BF4009D95EC /* Task.swift in Sources */,
 				9385F1761AA39D30000C8726 /* TaskEditorViewController.swift in Sources */,
+				5B16AA2F1C8676A70019E4F8 /* WelcomeButtonsController.swift in Sources */,
 				5B9DE8AA1C6D2D3A0065BFCA /* Tutorial.swift in Sources */,
 				9320D56F1A74625B0013018C /* MarshalOperator.swift in Sources */,
 				5B9679FC1BBE13D400DBEB61 /* Protocol.swift in Sources */,
@@ -647,7 +637,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = "Time to Budget UITests/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "arrken.Time-to-Budget-UITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -663,7 +653,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = "Time to Budget UITests/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "arrken.Time-to-Budget-UITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -685,6 +675,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "Time to Budget Tests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.arrken.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -701,6 +692,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = "Time to Budget Tests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.arrken.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -743,7 +735,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -780,7 +772,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -798,7 +790,7 @@
 				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)";
 				INFOPLIST_FILE = "Time to Budget/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.arrken.$(PRODUCT_NAME:rfc1034identifier)";
@@ -819,7 +811,7 @@
 				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)";
 				INFOPLIST_FILE = "Time to Budget/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.arrken.$(PRODUCT_NAME:rfc1034identifier)";

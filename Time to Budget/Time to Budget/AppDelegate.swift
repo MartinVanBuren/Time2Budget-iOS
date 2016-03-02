@@ -16,14 +16,38 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
-        // Check if the user wants to enable or disable notifications
-        application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: [UIUserNotificationType.Sound, UIUserNotificationType.Alert, UIUserNotificationType.Badge], categories: nil))
-        
         // Migrate database to new format if needed.
         Database.migrationHandling()
         
         // Create a new budget if needed.
         Database.budgetSafetyNet()
+        
+        // Change initial view controller based on the showWelcome bool
+        self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
+        let settings = NSUserDefaults.standardUserDefaults()
+        let storyboard = UIStoryboard(name: "iPhone", bundle: nil)
+        let initialView:UIViewController!
+        
+        // DEBUG
+        settings.setBool(true, forKey: "showWelcome")
+        // DEBUG
+        
+        if settings.objectForKey("showWelcome") == nil {
+            initialView = storyboard.instantiateViewControllerWithIdentifier("WelcomeViewController")
+            self.window?.rootViewController = initialView
+            settings.setBool(false, forKey: "showWelcome")
+        } else {
+            if settings.boolForKey("showWelcome") {
+                initialView = storyboard.instantiateViewControllerWithIdentifier("WelcomeViewController")
+                self.window?.rootViewController = initialView
+                settings.setBool(false, forKey: "showWelcome")
+            } else {
+                initialView = storyboard.instantiateViewControllerWithIdentifier("MainTabBarController")
+                self.window?.rootViewController = initialView
+            }
+        }
+        
+        self.window?.makeKeyAndVisible()
         
         return true
     }
@@ -53,21 +77,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         if budget.checkPassedEndDate() {
             Database.newBudget()
-        }
-        
-        let settings = NSUserDefaults.standardUserDefaults()
-        
-        if settings.objectForKey("showWelcome") == nil {
-            settings.setBool(true, forKey: "showWelcome")
-            if settings.boolForKey("showWelcome") {
-                // Code to display welcome screen
-                //settings.setBool(false, forKey: "showWelcome")
-            }
-        } else {
-            if settings.boolForKey("showWelcome") {
-                // Code to display welcome screen
-                //settings.setBool(false, forKey: "showWelcome")
-            }
         }
     }
     
