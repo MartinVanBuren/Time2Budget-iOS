@@ -15,15 +15,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        // Migrate database to new format if needed.
+        Database.migrationHandling()
+        
+        //let realm = Database.getRealm()
         let settings = NSUserDefaults.standardUserDefaults()
         
-        //if settings.objectForKey("notFirstStart") == nil {
+        //if settings.objectForKey("notFirstStart") == nil && realm.objects(Budget).count == 0 {
         //    settings.setBool(true, forKey: "notFirstStart")
         //    Database.restoreDefaultBudget()
         //}
-        
-        // Migrate database to new format if needed.
-        Database.migrationHandling()
         
         // Create a new budget if needed.
         Database.budgetSafetyNet()
