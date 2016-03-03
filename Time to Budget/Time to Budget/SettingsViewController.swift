@@ -34,9 +34,9 @@ class SettingsViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
-        case 0:
-            return 3
         case 1:
+            return 3
+        case 0:
             return 4
         case 2:
             return 3
@@ -53,9 +53,9 @@ class SettingsViewController: UITableViewController {
         switch section {
         case 2:
             return Factory.prepareBasicHeader(tableView: self.tableView, titleText: "Database")
-        case 0:
-            return Factory.prepareBasicHeader(tableView: self.tableView, titleText: "Application")
         case 1:
+            return Factory.prepareBasicHeader(tableView: self.tableView, titleText: "Application")
+        case 0:
             return Factory.prepareBasicHeader(tableView: self.tableView, titleText: "About")
         default:
             return UIView()
@@ -64,18 +64,7 @@ class SettingsViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         switch indexPath.section {
-        case 2:
-            switch indexPath.row {
-            case 2:
-                return Factory.prepareBasicCell(tableView: self.tableView, titleText: "Reset All")
-            case 1:
-                return Factory.prepareBasicCell(tableView: self.tableView, titleText: "Clear Budget History")
-            case 0:
-                return Factory.prepareBasicCell(tableView: self.tableView, titleText: "Archive Budget")
-            default:
-                return UITableViewCell()
-            }
-        case 0:
+        case 1:
             switch indexPath.row {
             case 0:
                 return Factory.prepareBasicCell(tableView: self.tableView, titleText: "Enable Tutorial")
@@ -86,7 +75,7 @@ class SettingsViewController: UITableViewController {
             default:
                 return UITableViewCell()
             }
-        case 1:
+        case 0:
             switch indexPath.row {
             case 0:
                 return Factory.prepareBasicCell(tableView: self.tableView, titleText: "Info")
@@ -96,6 +85,17 @@ class SettingsViewController: UITableViewController {
                 return Factory.prepareBasicCell(tableView: self.tableView, titleText: "Blog")
             case 3:
                 return Factory.prepareBasicCell(tableView: self.tableView, titleText: "Privacy Policy")
+            default:
+                return UITableViewCell()
+            }
+        case 2:
+            switch indexPath.row {
+            case 0:
+                return Factory.prepareBasicCell(tableView: self.tableView, titleText: "Archive Budget")
+            case 1:
+                return Factory.prepareBasicCell(tableView: self.tableView, titleText: "Clear Budget History")
+            case 2:
+                return Factory.prepareBasicCell(tableView: self.tableView, titleText: "Reset to Default Budget")
             default:
                 return UITableViewCell()
             }
@@ -113,16 +113,16 @@ class SettingsViewController: UITableViewController {
             }
             
             switch indexPath.row {
-            case 2:
-                displayResetAllAlert()
-            case 1:
-                displayResetHistoryAlert()
             case 0:
                 displayArchiveBudgetAlert()
+            case 1:
+                displayResetHistoryAlert()
+            case 2:
+                displayResetToDefaultAlert()
             default:
                 return
             }
-        case 0:
+        case 1:
             switch indexPath.row {
             case 0:
                 Tutorial.enableTutorials()
@@ -136,7 +136,7 @@ class SettingsViewController: UITableViewController {
             default:
                 return
             }
-        case 1:
+        case 0:
             switch indexPath.row {
             case 0:
                 Factory.displayAlert(viewController: self, title: "Time to Budget", message: "Version 0.9.9\nCopyright © 2015 Arrken Software LLC\nCreated by Robert Kennedy\n\nDatabase - realm/Realm\nTutorial - ephread/Instructions")
@@ -162,14 +162,15 @@ class SettingsViewController: UITableViewController {
     //==================== Helper Methods ====================
     /**
     Displays an alert message asking the user if they are sure they would like to 
-    reset the database, and deletes everything in the database if the user says yes.
+    reset the database, and deletes everything in the database and restores the default
+    budget if the user agrees.
     
     - Parameter None:
     - returns: Nothing
     */
-    func displayResetAllAlert() {
+    func displayResetToDefaultAlert() {
         let realm = Database.getRealm()
-        let alert = UIAlertController(title: "Are You Sure?", message: "Are you sure you want to erase all information?", preferredStyle: UIAlertControllerStyle.Alert)
+        let alert = UIAlertController(title: "Are You Sure?", message: "Are you sure you want to erase all information and restore the default budget?", preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
             try! realm.write {
                 realm.deleteAll()

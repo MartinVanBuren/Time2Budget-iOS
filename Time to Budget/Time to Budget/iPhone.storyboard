@@ -1586,7 +1586,6 @@
                                 <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" red="0.40000000000000002" green="0.80000000000000004" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="iCf-do-2Kr" secondAttribute="trailing" constant="-20" id="FLU-k2-OPg"/>
                             <constraint firstItem="iCf-do-2Kr" firstAttribute="top" secondItem="RMA-gU-2i0" secondAttribute="topMargin" id="USE-ZC-WbX"/>
@@ -1637,7 +1636,6 @@
                                 <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" red="0.43529411764705883" green="0.69411764705882351" blue="0.87058823529411766" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="qrd-HH-rcq" firstAttribute="top" secondItem="ykk-cY-4gq" secondAttribute="bottom" id="ETu-lT-pDP"/>
                             <constraint firstItem="ykk-cY-4gq" firstAttribute="top" secondItem="mQl-MB-6RE" secondAttribute="topMargin" id="LdK-zQ-Okd"/>
@@ -1688,7 +1686,6 @@
                                 <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" red="0.44313725490196076" green="0.59607843137254901" blue="0.74117647058823533" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="5GP-jD-ykj" secondAttribute="trailing" constant="-20" id="6EO-yz-fnD"/>
                             <constraint firstItem="5GP-jD-ykj" firstAttribute="top" secondItem="RWC-A2-Csk" secondAttribute="topMargin" id="Fld-65-xT1"/>
@@ -1789,7 +1786,6 @@
                                 <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" red="0.42352941176470588" green="0.50980392156862742" blue="0.61176470588235299" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="h6P-VC-7YY" firstAttribute="top" secondItem="mny-ng-bV5" secondAttribute="topMargin" id="VVn-dl-lZR"/>
                             <constraint firstItem="h6P-VC-7YY" firstAttribute="leading" secondItem="mny-ng-bV5" secondAttribute="leadingMargin" constant="-20" id="hyn-bv-vVr"/>
@@ -1906,7 +1902,6 @@
                                 </variation>
                             </stackView>
                         </subviews>
-                        <color key="backgroundColor" red="0.38039215686274508" green="0.41960784313725491" blue="0.4823529411764706" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="Lgb-zm-AcN" firstAttribute="leading" secondItem="vLl-ch-671" secondAttribute="leadingMargin" id="0Pw-iH-UEw"/>
                             <constraint firstItem="65w-QG-Twu" firstAttribute="top" secondItem="Lgb-zm-AcN" secondAttribute="bottom" constant="100" id="JSx-Bj-bg0"/>
@@ -2079,7 +2074,6 @@
                                 </variation>
                             </stackView>
                         </subviews>
-                        <color key="backgroundColor" red="0.31372549019607843" green="0.32549019607843138" blue="0.3529411764705882" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="dkN-sN-ypr" firstAttribute="leading" secondItem="QdI-Gp-hUN" secondAttribute="leadingMargin" id="0Wj-oa-hLJ"/>
                             <constraint firstItem="L8Y-mk-PzR" firstAttribute="leading" secondItem="QdI-Gp-hUN" secondAttribute="leadingMargin" constant="-20" id="3ux-vu-Xr3"/>
