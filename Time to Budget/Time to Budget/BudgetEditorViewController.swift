@@ -30,6 +30,9 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
         // Tutorial setup and setting up points of interest
         tutorialController.datasource = self
         Style.tutorialController(self.tutorialController)
+        Tutorial.budgetEditorPOI[1] = self.navigationController?.navigationBar
+        Tutorial.budgetEditorPOI[2] = self.navigationController?.navigationBar
+        Tutorial.budgetEditorPOI[3] = self.navigationController?.navigationBar
         
         // Retrieve database
         self.realm = Database.getRealm()
@@ -79,11 +82,7 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
     
     override func viewDidLayoutSubviews() {
         // Setup tutorial points of interest.
-        self.tableView.reloadData()
         Tutorial.budgetEditorPOI[0] = self.navigationController?.navigationBar
-        Tutorial.budgetEditorPOI[1] = self.navigationController?.navigationBar
-        Tutorial.budgetEditorPOI[2] = self.navigationController?.navigationBar
-        Tutorial.budgetEditorPOI[3] = self.navigationController?.navigationBar
         Tutorial.budgetEditorPOI[4] = (self.navigationItem.leftBarButtonItem!.valueForKey("view") as! UIView)
         Tutorial.budgetEditorPOI[5] = (self.navigationItem.rightBarButtonItem!.valueForKey("view") as! UIView)
     }

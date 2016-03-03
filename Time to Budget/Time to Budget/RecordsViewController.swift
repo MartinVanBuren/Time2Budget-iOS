@@ -74,7 +74,6 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
     
     override func viewDidLayoutSubviews() {
         // Setup Tutorial points of interest.
-        self.tableView.reloadData()
         Tutorial.recordsViewPOI[0] = self.navigationController?.navigationBar
         Tutorial.recordsViewPOI[1] = self.navigationController?.navigationBar
         Tutorial.recordsViewPOI[2] = self.navigationController?.navigationBar
