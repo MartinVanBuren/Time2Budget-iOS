@@ -15,6 +15,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        let settings = NSUserDefaults.standardUserDefaults()
+        
+        //if settings.objectForKey("notFirstStart") == nil {
+        //    settings.setBool(true, forKey: "notFirstStart")
+        //    Database.restoreDefaultBudget()
+        //}
         
         // Migrate database to new format if needed.
         Database.migrationHandling()
@@ -24,7 +30,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Change initial view controller based on the showWelcome bool
         self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
-        let settings = NSUserDefaults.standardUserDefaults()
         let storyboard = UIStoryboard(name: "iPhone", bundle: nil)
         let initialView:UIViewController!
         

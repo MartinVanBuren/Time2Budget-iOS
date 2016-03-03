@@ -107,18 +107,19 @@ class SettingsViewController: UITableViewController {
     //==================== UITableViewDelegate Methods ====================
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         switch indexPath.section {
-        case 2:
-            for views in tabBarController!.viewControllers! {
-                (views as! UINavigationController).popToRootViewControllerAnimated(false)
-            }
-            
+        case 0:
             switch indexPath.row {
             case 0:
-                displayArchiveBudgetAlert()
+                Factory.displayAlert(viewController: self, title: "Time to Budget", message: "Version 0.9.9\nCopyright © 2015 Arrken Software LLC\nCreated by Robert Kennedy\n\nDatabase - realm/Realm\nTutorial - ephread/Instructions")
             case 1:
-                displayResetHistoryAlert()
+                let url = NSURL(string: "https://drive.google.com/open?id=12NlkoJnnjjaXK5Ruc9JV-xGqpk3uHLlHHTOvoiqmQ2U")
+                UIApplication.sharedApplication().openURL(url!)
             case 2:
-                displayResetToDefaultAlert()
+                let url = NSURL(string: "http://robertkennedy.me/blog/")
+                UIApplication.sharedApplication().openURL(url!)
+            case 3:
+                let url = NSURL(string: "https://googledrive.com/host/0ByiIRCNWZES_V2x3eWd6QXYtTjA")
+                UIApplication.sharedApplication().openURL(url!)
             default:
                 return
             }
@@ -136,19 +137,18 @@ class SettingsViewController: UITableViewController {
             default:
                 return
             }
-        case 0:
+        case 2:
+            for views in tabBarController!.viewControllers! {
+                (views as! UINavigationController).popToRootViewControllerAnimated(false)
+            }
+            
             switch indexPath.row {
             case 0:
-                Factory.displayAlert(viewController: self, title: "Time to Budget", message: "Version 0.9.9\nCopyright © 2015 Arrken Software LLC\nCreated by Robert Kennedy\n\nDatabase - realm/Realm\nTutorial - ephread/Instructions")
+                displayArchiveBudgetAlert()
             case 1:
-                let url = NSURL(string: "https://drive.google.com/open?id=12NlkoJnnjjaXK5Ruc9JV-xGqpk3uHLlHHTOvoiqmQ2U")
-                UIApplication.sharedApplication().openURL(url!)
+                displayResetHistoryAlert()
             case 2:
-                let url = NSURL(string: "http://robertkennedy.me/blog/")
-                UIApplication.sharedApplication().openURL(url!)
-            case 3:
-                let url = NSURL(string: "https://googledrive.com/host/0ByiIRCNWZES_V2x3eWd6QXYtTjA")
-                UIApplication.sharedApplication().openURL(url!)
+                displayResetToDefaultAlert()
             default:
                 return
             }
@@ -169,12 +169,9 @@ class SettingsViewController: UITableViewController {
     - returns: Nothing
     */
     func displayResetToDefaultAlert() {
-        let realm = Database.getRealm()
         let alert = UIAlertController(title: "Are You Sure?", message: "Are you sure you want to erase all information and restore the default budget?", preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
-            try! realm.write {
-                realm.deleteAll()
-            }
+            Database.restoreDefaultBudget()
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
         

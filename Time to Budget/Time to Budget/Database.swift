@@ -506,6 +506,39 @@ public class Database {
             return task.clock!.finalTime
         }
     }
+    
+    public class func restoreDefaultBudget() {
+        let realm = Database.getRealm()
+        
+        // Delete everything in the realm
+        try! realm.write {
+            realm.deleteAll()
+        }
+        
+        let config = Realm.Configuration(
+            // Get the path to the bundled file
+            path: NSBundle.mainBundle().pathForResource("MyBundledData", ofType:"realm"),
+            // Open the file in read-only mode as application bundles are not writeable
+            readOnly: true)
+        
+        // Open the Realm with the configuration
+        let bundledRealm = try! Realm(configuration: config)
+        
+        // Read some data from the bundled Realm
+        let defaultBudget = bundledRealm.objects(Budget).first!
+        
+        // Write the default budget to the default realm
+        try! realm.write {
+            realm.add(defaultBudget)
+        }
+        
+        // Retreive the default budget from the default realm
+        let defaultCopy = realm.objects(Budget).first!
+        // Initialize the budget to update the name, start date, end date, and set as current budget
+        try! realm.write {
+            defaultCopy.autoInit()
+        }
+    }
 }
 
 

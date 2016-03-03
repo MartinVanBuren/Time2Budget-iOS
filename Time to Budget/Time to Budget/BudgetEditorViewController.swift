@@ -260,7 +260,7 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
                 // Update the previous indexPath.
                 Path.initialIndexPath = indexPath
             }
-        // Called when the cell is let go of.
+        // Called when the cell is let go
         default:
             // Unhide the cell that was underneith of the snapshot.
             self.grabbedTask = nil

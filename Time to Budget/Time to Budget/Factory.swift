@@ -187,6 +187,8 @@ public class Factory {
             preparedCell.textField.placeholder = "Name (Required)"
         }
         
+        preparedCell.selectionStyle = .None
+        
         Style.textfieldCell(preparedCell)
         
         return preparedCell
@@ -200,6 +202,8 @@ public class Factory {
         } else {
             preparedCell.textField.placeholder = "Description (Optional)"
         }
+        
+        preparedCell.selectionStyle = .None
         
         Style.textfieldCell(preparedCell)
         
