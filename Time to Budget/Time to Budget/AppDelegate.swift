@@ -29,18 +29,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let initialView:UIViewController!
         
         // DEBUG
-        settings.setBool(true, forKey: "showWelcome")
+        //settings.setBool(true, forKey: "showWelcome")
         // DEBUG
         
         if settings.objectForKey("showWelcome") == nil {
             initialView = storyboard.instantiateViewControllerWithIdentifier("WelcomeViewController")
             self.window?.rootViewController = initialView
-            settings.setBool(false, forKey: "showWelcome")
         } else {
             if settings.boolForKey("showWelcome") {
                 initialView = storyboard.instantiateViewControllerWithIdentifier("WelcomeViewController")
                 self.window?.rootViewController = initialView
-                settings.setBool(false, forKey: "showWelcome")
             } else {
                 initialView = storyboard.instantiateViewControllerWithIdentifier("MainTabBarController")
                 self.window?.rootViewController = initialView

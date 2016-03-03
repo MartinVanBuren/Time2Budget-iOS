@@ -35,14 +35,26 @@ class WelcomeButtonsController: UIViewController {
     }
     
     @IBAction func skipTutorialButtonPressed(sender: UIButton) {
+        // Disable welcome screen for future app starts.
+        let settings = NSUserDefaults.standardUserDefaults()
+        settings.setBool(false, forKey: "showWelcome")
+        
         Tutorial.disableTutorials()
+        
+        // Load and display the main app.
         let storyboard = UIStoryboard(name: "iPhone", bundle: nil)
         let mainView = storyboard.instantiateViewControllerWithIdentifier("MainTabBarController")
         self.presentViewController(mainView, animated: true, completion: nil)
     }
     
     @IBAction func runTutorialButtonPressed(sender: UIButton) {
+        // Disable welcome screen for future app starts.
+        let settings = NSUserDefaults.standardUserDefaults()
+        settings.setBool(false, forKey: "showWelcome")
+        
         Tutorial.enableTutorials()
+        
+        // Load and display the main app.
         let storyboard = UIStoryboard(name: "iPhone", bundle: nil)
         let mainView = storyboard.instantiateViewControllerWithIdentifier("MainTabBarController")
         self.presentViewController(mainView, animated: true, completion: nil)

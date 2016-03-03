@@ -34,12 +34,12 @@ class SettingsViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
-        case 2:
-            return 3
         case 0:
-            return 2
+            return 3
         case 1:
             return 4
+        case 2:
+            return 3
         default:
             return 0
         }
@@ -80,6 +80,8 @@ class SettingsViewController: UITableViewController {
             case 0:
                 return Factory.prepareBasicCell(tableView: self.tableView, titleText: "Enable Tutorial")
             case 1:
+                return Factory.prepareBasicCell(tableView: self.tableView, titleText: "Enable Welcome Screen")
+            case 2:
                 return Factory.prepareBasicCell(tableView: self.tableView, titleText: "System Settings")
             default:
                 return UITableViewCell()
@@ -126,6 +128,10 @@ class SettingsViewController: UITableViewController {
                 Tutorial.enableTutorials()
                 Factory.displayAlert(viewController: self, title: "Tutorial Enabled", message: "The tutorial will now run when you return to the Budget View and Budget Editor.")
             case 1:
+                let settings = NSUserDefaults.standardUserDefaults()
+                settings.setBool(true, forKey: "showWelcome")
+                Factory.displayAlert(viewController: self, title: "Welcome Enabled", message: "The welcome screen will now run when you restart Time to Budget.")
+            case 2:
                 UIApplication.sharedApplication().openURL(NSURL(string: UIApplicationOpenSettingsURLString)!)
             default:
                 return
@@ -133,7 +139,7 @@ class SettingsViewController: UITableViewController {
         case 1:
             switch indexPath.row {
             case 0:
-                Factory.displayAlert(viewController: self, title: "Time to Budget", message: "Version 0.9.9\nCopyright © 2015 Arrken Software LLC\nCreated by Robert Kennedy\n\nDatabase - realm/Realm\nTutorial - ephread/Instructions\nWelcome Screen - IFTTT/RazzleDazzle")
+                Factory.displayAlert(viewController: self, title: "Time to Budget", message: "Version 0.9.9\nCopyright © 2015 Arrken Software LLC\nCreated by Robert Kennedy\n\nDatabase - realm/Realm\nTutorial - ephread/Instructions")
             case 1:
                 let url = NSURL(string: "https://drive.google.com/open?id=12NlkoJnnjjaXK5Ruc9JV-xGqpk3uHLlHHTOvoiqmQ2U")
                 UIApplication.sharedApplication().openURL(url!)
