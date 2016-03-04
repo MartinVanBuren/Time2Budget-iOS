@@ -38,6 +38,8 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
         // Setting up tutorial controller
         self.tutorialController.datasource = self
         Style.tutorialController(self.tutorialController)
+        Tutorial.recordsViewPOI[1] = self.navigationController?.navigationBar
+        Tutorial.recordsViewPOI[2] = self.navigationController?.navigationBar
         
         // Retrieve database
         self.realm = Database.getRealm()
@@ -75,8 +77,6 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
     override func viewDidLayoutSubviews() {
         // Setup Tutorial points of interest.
         Tutorial.recordsViewPOI[0] = self.navigationController?.navigationBar
-        Tutorial.recordsViewPOI[1] = self.navigationController?.navigationBar
-        Tutorial.recordsViewPOI[2] = self.navigationController?.navigationBar
         Tutorial.recordsViewPOI[3] = self.navigationController?.navigationBar.subviews[2]
         Tutorial.recordsViewPOI[4] = self.clockButton
     }

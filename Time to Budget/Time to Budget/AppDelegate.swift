@@ -18,13 +18,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Migrate database to new format if needed.
         Database.migrationHandling()
         
-        //let realm = Database.getRealm()
+        let realm = Database.getRealm()
+        
+        //=== Used to create a new default budget to bundle with the app ===
+        //let compactedRealmPath = realm.path + "defaultBudget.realm"
+        //try! realm.writeCopyToPath(compactedRealmPath)
+        //print(compactedRealmPath)
+        // =================================================================
+        
         let settings = NSUserDefaults.standardUserDefaults()
         
-        //if settings.objectForKey("notFirstStart") == nil && realm.objects(Budget).count == 0 {
-        //    settings.setBool(true, forKey: "notFirstStart")
-        //    Database.restoreDefaultBudget()
-        //}
+        if settings.objectForKey("notFirstStart") == nil && realm.objects(Budget).count == 0 {
+            Database.restoreDefaultBudget()
+            settings.setBool(true, forKey: "notFirstStart")
+        }
         
         // Create a new budget if needed.
         Database.budgetSafetyNet()
@@ -33,10 +40,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
         let storyboard = UIStoryboard(name: "iPhone", bundle: nil)
         let initialView:UIViewController!
-        
-        // DEBUG
-        //settings.setBool(true, forKey: "showWelcome")
-        // DEBUG
         
         if settings.objectForKey("showWelcome") == nil {
             initialView = storyboard.instantiateViewControllerWithIdentifier("WelcomeViewController")

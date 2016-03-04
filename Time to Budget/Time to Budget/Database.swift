@@ -63,17 +63,31 @@ public class Database {
         _ = Database.getRealm()
     }
     
-    public class func getExampleRealm() -> Realm {
-        let path = NSBundle.mainBundle().pathForResource("example", ofType: "realm")
-        let exampleRealm: Realm!
-        do {
-            exampleRealm = try Realm(configuration: Realm.Configuration(path: path, readOnly: true))
-        } catch let error as NSError {
-            NSErrorPointer().memory = error
-            exampleRealm = nil
+    public class func restoreDefaultBudget() {
+        var realm = getRealm()
+        try! realm.write {
+            realm.deleteAll()
         }
         
-        return exampleRealm
+        newBudget()
+        
+        addCategory(name: "Work")
+        addCategory(name: "College")
+        addCategory(name: "Miscellaneous")
+        
+        addTask(name: "Day Job", memo: "When your not fighting crime.", time: 20.0, categoryName: "Work")
+        addTask(name: "Crime Fighting", memo: "Beating up bad guys.", time: 30.0, categoryName: "Work")
+        addTask(name: "Training", memo: "Preparing to beat up bad guys.", time: 10.0, categoryName: "Work")
+        addTask(name: "Criminal Justice 376", memo: "Make sure super villains get a thrashing.", time: 8.0, categoryName: "College")
+        addTask(name: "Calculus III", memo: "Superheroes love math.", time: 14.0, categoryName: "College")
+        addTask(name: "Data Structures & Algorithms", memo: "Superheroes also love computer science. :D", time: 10.0, categoryName: "College")
+        addTask(name: "Sleep", memo: "Being unconscious.", time: 56.0, categoryName: "Miscellaneous")
+        addTask(name: "Recreation", memo: "Relax and enjoy a nice cup of coffee.", time: 20.0, categoryName: "Miscellaneous")
+        
+        realm = getRealm()
+        let task = realm.objects(Task).filter("name = 'Day Job'").first!
+        
+        addRecord(parentTask: task, note: "Did some work today.", timeSpent: 5.0, date: NSDate())
     }
     
     public class func budgetSafetyNet() -> Budget {
@@ -390,6 +404,7 @@ public class Database {
         
         try! realm.write {
             realm.delete(task.records)
+            realm.delete(task.clock!)
         }
         
         try! realm.write {
@@ -504,39 +519,6 @@ public class Database {
             return nil
         } else {
             return task.clock!.finalTime
-        }
-    }
-    
-    public class func restoreDefaultBudget() {
-        let realm = Database.getRealm()
-        
-        // Delete everything in the realm
-        try! realm.write {
-            realm.deleteAll()
-        }
-        
-        let config = Realm.Configuration(
-            // Get the path to the bundled file
-            path: NSBundle.mainBundle().pathForResource("MyBundledData", ofType:"realm"),
-            // Open the file in read-only mode as application bundles are not writeable
-            readOnly: true)
-        
-        // Open the Realm with the configuration
-        let bundledRealm = try! Realm(configuration: config)
-        
-        // Read some data from the bundled Realm
-        let defaultBudget = bundledRealm.objects(Budget).first!
-        
-        // Write the default budget to the default realm
-        try! realm.write {
-            realm.add(defaultBudget)
-        }
-        
-        // Retreive the default budget from the default realm
-        let defaultCopy = realm.objects(Budget).first!
-        // Initialize the budget to update the name, start date, end date, and set as current budget
-        try! realm.write {
-            defaultCopy.autoInit()
         }
     }
 }
