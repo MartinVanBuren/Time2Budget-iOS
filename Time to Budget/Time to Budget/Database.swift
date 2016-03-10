@@ -69,7 +69,9 @@ public class Database {
             realm.deleteAll()
         }
         
-        newBudget()
+        if (realm.objects(Budget).count == 0) {
+            newBudget()
+        }
         
         addCategory(name: "Work")
         addCategory(name: "College")
@@ -124,7 +126,13 @@ public class Database {
             }
             
             try! realm.write {
+                realm.delete(oldBudget.clock!)
                 oldBudget.isCurrent = false
+                for cat in oldBudget.categories {
+                    for task in cat.tasks {
+                        realm.delete(task.clock!)
+                    }
+                }
             }
         } else {
             try! realm.write {
@@ -246,8 +254,8 @@ public class Database {
         let currentCategoryTasks = currentCategory.tasks
         let oldIndex = currentBudget.categories.indexOf(currentCategory)!
         
-        for var i = 0; i < currentCategoryTasks.count; ++i {
-            Database.deleteTask(task: currentCategoryTasks.first!)
+        for task in currentCategoryTasks {
+            deleteTask(task: task)
         }
         
         try! realm.write {

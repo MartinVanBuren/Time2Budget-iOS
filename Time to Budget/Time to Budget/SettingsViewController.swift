@@ -95,7 +95,7 @@ class SettingsViewController: UITableViewController {
             case 1:
                 return Factory.prepareBasicCell(tableView: self.tableView, titleText: "Clear Budget History")
             case 2:
-                return Factory.prepareBasicCell(tableView: self.tableView, titleText: "Reset to Default Budget")
+                return Factory.prepareBasicCell(tableView: self.tableView, titleText: "Reset All to Default Budget")
             default:
                 return UITableViewCell()
             }
@@ -169,7 +169,7 @@ class SettingsViewController: UITableViewController {
     - returns: Nothing
     */
     func displayResetToDefaultAlert() {
-        let alert = UIAlertController(title: "Are You Sure?", message: "Are you sure you want to erase all information and restore the default budget?", preferredStyle: UIAlertControllerStyle.Alert)
+        let alert = UIAlertController(title: "Are You Sure?", message: "Are you sure you want to erase all information, including archived budgets, and restore the default budget?", preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
             Database.restoreDefaultBudget()
         }))
