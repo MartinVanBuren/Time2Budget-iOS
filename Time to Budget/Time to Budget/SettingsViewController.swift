@@ -113,7 +113,7 @@ class SettingsViewController: UITableViewController {
                 let appVersionString = NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleShortVersionString")!
                 Factory.displayAlert(viewController: self, title: "Time to Budget", message: "Version \(appVersionString)\nCopyright © 2015 Arrken Software LLC\nCreated by Robert Kennedy\n\nDatabase - realm/Realm\nTutorial - ephread/Instructions")
             case 1:
-                let url = NSURL(string: "https://drive.google.com/open?id=12NlkoJnnjjaXK5Ruc9JV-xGqpk3uHLlHHTOvoiqmQ2U")
+                let url = NSURL(string: "https://arrkensoftware.typeform.com/to/zvWlEk")
                 UIApplication.sharedApplication().openURL(url!)
             case 2:
                 let url = NSURL(string: "http://robertkennedy.me/blog/")
