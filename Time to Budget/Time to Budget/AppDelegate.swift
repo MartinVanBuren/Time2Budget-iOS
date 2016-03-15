@@ -20,12 +20,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let realm = Database.getRealm()
         
-        //=== Used to create a new default budget to bundle with the app ===
-        //let compactedRealmPath = realm.path + "defaultBudget.realm"
-        //try! realm.writeCopyToPath(compactedRealmPath)
-        //print(compactedRealmPath)
-        // =================================================================
-        
         let settings = NSUserDefaults.standardUserDefaults()
         
         if settings.objectForKey("notFirstStart") == nil && realm.objects(Budget).count == 0 {
