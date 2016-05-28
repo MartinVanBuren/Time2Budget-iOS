@@ -128,11 +128,12 @@ class Database_Tests: XCTestCase {
         
         Database.deleteCategory(categoryName: "Test 1")
         
-        let deletedTask1Test = (realm.objects(Task.self).filter("name = 'dtest1'").count == 0)
-        let deletedTask2Test = (realm.objects(Task.self).filter("name = 'dtest2'").count == 0)
-        let deletedTask3Test = (realm.objects(Task.self).filter("name = 'dtest3'").count == 0)
+        let deletedTask1Test = (realm.objects(Task).filter("name = 'dtest1'").count == 0)
+        let deletedTask2Test = (realm.objects(Task).filter("name = 'dtest2'").count == 0)
+        let deletedTask3Test = (realm.objects(Task).filter("name = 'dtest3'").count == 0)
         
-        let deletedTest: Bool = (realm.objects(Category.self).filter("name = 'Test 1'").count == 0 && realm.objects(Category.self).filter("name = 'Test 2'").count == 0)
+        let deletedTest = (realm.objects(Category.self).filter("name = 'Test 1'").count == 0 && realm.objects(Category.self).filter("name = 'Test 2'").count == 1)
+        print(deletedTest)
         let deletedTasksTest = (deletedTask1Test && deletedTask2Test && deletedTask3Test)
         
         XCTAssert((deletedTasksTest && deletedTest), "Failed to Delete Category Properly")
@@ -199,7 +200,7 @@ class Database_Tests: XCTestCase {
         Database.addTask(name: "TestTask1", memo: "", time: 0.0, categoryName: "Test1")
         Database.addTask(name: "TestTask2", memo: "", time: 0.0, categoryName: "Test2")
         let testTask1 = realm.objects(Task).filter("name = 'TestTask1'").first!
-        let testTask2 = realm.objects(Task).filter("name = TestTask2").first!
+        let testTask2 = realm.objects(Task).filter("name = 'TestTask2'").first!
         
         Database.addRecord(parentTask: testTask1, note: "testNote", timeSpent: 6.75, date: testDate)
         
@@ -238,10 +239,10 @@ class Database_Tests: XCTestCase {
         Database.addTask(name: "test", memo: "", time: 0.0, categoryName: "testCat")
         Database.addTask(name: "newTest", memo: "", time: 0.0, categoryName: "testCat")
         let testTask = realm.objects(Task).filter("name = 'test'").first!
-        let newTask = realm.objects(Task).filter("name = newTask").first!
+        let newTest = realm.objects(Task).filter("name = 'newTest'").first!
         Database.addRecord(parentTask: testTask, note: "testNote", timeSpent: 0.0, date: NSDate())
         
-        Database.updateRecord(record: realm.objects(Task).filter("name = 'test'").first!.records.first!, task: newTask, note: "testTestNote", timeSpent: 4.50, date: NSDate())
+        Database.updateRecord(record: realm.objects(Task).filter("name = 'test'").first!.records.first!, task: newTest, note: "testTestNote", timeSpent: 4.50, date: NSDate())
         
         let movedTest = (realm.objects(Task).filter("name = 'newTest'").first!.records.count == 1 && realm.objects(Task).filter("name = 'test'").first!.records.count == 0)
         let noteTest = (realm.objects(Task).filter("name = 'newTest'").first!.records.first!.note == "testTestNote")
