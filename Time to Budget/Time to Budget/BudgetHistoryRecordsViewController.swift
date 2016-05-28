@@ -11,11 +11,11 @@ import RealmSwift
 
 class BudgetHistoryRecordsViewController: UITableViewController {
     
-    //============== Realm Properties ==============
-    var currentTask:Task?
+    // ============== Realm Properties ==============
+    var currentTask: Task?
     var recordsList = List<Record>()
 
-    //=================== View Controller Methods ===================
+    // =================== View Controller Methods ===================
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -42,13 +42,13 @@ class BudgetHistoryRecordsViewController: UITableViewController {
         let indexPath = self.tableView.indexPathForSelectedRow!
         
         if segue.identifier == "showHistoryRecord" {
-            let historyRecordVC = segue.destinationViewController as! BudgetHistoryRecordViewController
-            historyRecordVC.currentRecord = self.recordsList[indexPath.row]
-            historyRecordVC.currentTask = self.currentTask!
+            let historyRecordVC = segue.destinationViewController as? BudgetHistoryRecordViewController
+            historyRecordVC?.currentRecord = self.recordsList[indexPath.row]
+            historyRecordVC?.currentTask = self.currentTask!
         }
     }
 
-    //========================= UITableViewDataSource Methods =========================
+    // ========================= UITableViewDataSource Methods =========================
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
@@ -65,8 +65,9 @@ class BudgetHistoryRecordsViewController: UITableViewController {
         return Factory.prepareRecordCell(tableView: self.tableView, recordList: recordsList, indexPath: indexPath)
     }
     
-    //========================= UITableViewDelegate Methods =========================
+    // ========================= UITableViewDelegate Methods =========================
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         performSegueWithIdentifier("showHistoryRecord", sender: self)
     }
+    
 }

@@ -11,7 +11,7 @@ import RealmSwift
 
 class SettingsViewController: UITableViewController {
     
-    //==================== View Controller Methods ====================
+    // ==================== View Controller Methods ====================
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -27,7 +27,7 @@ class SettingsViewController: UITableViewController {
         self.navigationItem.title = "Settings"
     }
     
-    //==================== UITableViewDataSource Methods ====================
+    // ==================== UITableViewDataSource Methods ====================
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 3
     }
@@ -104,7 +104,7 @@ class SettingsViewController: UITableViewController {
         }
     }
     
-    //==================== UITableViewDelegate Methods ====================
+    // ==================== UITableViewDelegate Methods ====================
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         switch indexPath.section {
         case 0:
@@ -140,7 +140,8 @@ class SettingsViewController: UITableViewController {
             }
         case 2:
             for views in tabBarController!.viewControllers! {
-                (views as! UINavigationController).popToRootViewControllerAnimated(false)
+                let opViews = views as? UINavigationController
+                opViews?.popToRootViewControllerAnimated(false)
             }
             
             switch indexPath.row {
@@ -160,7 +161,7 @@ class SettingsViewController: UITableViewController {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
     
-    //==================== Helper Methods ====================
+    // ==================== Helper Methods ====================
     /**
     Displays an alert message asking the user if they are sure they would like to 
     reset the database, and deletes everything in the database and restores the default
@@ -217,4 +218,5 @@ class SettingsViewController: UITableViewController {
         
         self.presentViewController(alert, animated: true, completion: {})
     }
+    
 }

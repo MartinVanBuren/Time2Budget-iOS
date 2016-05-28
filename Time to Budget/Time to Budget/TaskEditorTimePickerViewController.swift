@@ -10,18 +10,18 @@ import UIKit
 
 class TaskEditorTimePickerViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
 
-    //========== View Properties ==========
-    var timePicked:Time = Time()
-    var taskEditorVC:TaskEditorViewController!
+    // ========== View Properties ==========
+    var timePicked: Time = Time()
+    var taskEditorVC: TaskEditorViewController!
     @IBOutlet weak var doneButton: UIButton!
     @IBOutlet weak var colonLabel: UILabel!
     
-    //========== Time Picker Properties ==========
+    // ========== Time Picker Properties ==========
     @IBOutlet weak var timePicker: UIPickerView!
-    var timeHourPickerData:[Int] = Factory.prepareTimeHourPickerData()
-    var timeMinutePickerData:[Int] = Factory.prepareTimeMinutePickerData()
+    var timeHourPickerData: [Int] = Factory.prepareTimeHourPickerData()
+    var timeMinutePickerData: [Int] = Factory.prepareTimeMinutePickerData()
     
-    //==================== View Controller Methods ====================
+    // ==================== View Controller Methods ====================
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -48,7 +48,7 @@ class TaskEditorTimePickerViewController: UIViewController, UIPickerViewDataSour
         labelForMinutes()
     }
     
-    //==================== UIPickerDataSource Methods ====================
+    // ==================== UIPickerDataSource Methods ====================
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
         return 2
     }
@@ -147,4 +147,5 @@ class TaskEditorTimePickerViewController: UIViewController, UIPickerViewDataSour
         
         self.view.addSubview(minsLabel)
     }
+    
 }

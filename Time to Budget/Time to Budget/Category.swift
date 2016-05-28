@@ -10,21 +10,22 @@ import Foundation
 import RealmSwift
 
 public class Category: Object {
-    //==================== Properties ====================
+    // ==================== Properties ====================
     public dynamic var name = ""
     public dynamic var totalTimeRemaining = 0.0
     public dynamic var totalTimeBudgeted = 0.0
     public dynamic var parent: Budget!
     public let tasks = List<Task>()
     
-    //==================== Methods ====================
+    // ==================== Methods ====================
     public func calcTime() {
         self.totalTimeRemaining = 0.0
         self.totalTimeBudgeted = 0.0
         
-        for var i = 0; i < self.tasks.count; i++ {
-            self.totalTimeRemaining += self.tasks[i].timeRemaining
-            self.totalTimeBudgeted += self.tasks[i].timeBudgeted
+        for task in tasks {
+            totalTimeRemaining += task.timeRemaining
+            totalTimeBudgeted += task.timeBudgeted
         }
     }
+    
 }

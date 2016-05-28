@@ -11,10 +11,10 @@ import RealmSwift
 
 class BudgetHistoryViewController: UITableViewController {
     
-    //======== Realm Properties =========
-    var currentBudget:Budget?
+    // ======== Realm Properties =========
+    var currentBudget: Budget?
 
-    //================ View Controller Methods ================
+    // ================ View Controller Methods ================
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -45,12 +45,12 @@ class BudgetHistoryViewController: UITableViewController {
         
         if segue.identifier == "showHistoryRecords" {
             // Pass the selected task into the Budget History Records View.
-            let historyRecordsVC = segue.destinationViewController as! BudgetHistoryRecordsViewController
-            historyRecordsVC.currentTask = currentBudget?.categories[indexPath.section].tasks[indexPath.row]
+            let historyRecordsVC = segue.destinationViewController as? BudgetHistoryRecordsViewController
+            historyRecordsVC?.currentTask = currentBudget?.categories[indexPath.section].tasks[indexPath.row]
         }
     }
 
-    //===================== UITableViewDataSource Methods =====================
+    // ===================== UITableViewDataSource Methods =====================
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return Int(currentBudget!.categories.count)
     }
@@ -71,7 +71,7 @@ class BudgetHistoryViewController: UITableViewController {
         return 44
     }
     
-    //===================== UITableViewDelegate Methods =====================
+    // ===================== UITableViewDelegate Methods =====================
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         performSegueWithIdentifier("showHistoryRecords", sender: self)
     }

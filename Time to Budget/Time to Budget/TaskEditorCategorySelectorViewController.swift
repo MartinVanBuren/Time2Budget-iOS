@@ -12,24 +12,24 @@ import Instructions
 
 class TaskEditorCategorySelectorViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, CoachMarksControllerDataSource {
 
-    //========== View Properties ==========
-    var taskEditorVC:TaskEditorViewController!
+    // ========== View Properties ==========
+    var taskEditorVC: TaskEditorViewController!
     var delegate: writeCategoryBackDelegate?
-    var returning:Bool? = false
+    var returning: Bool? = false
     @IBOutlet weak var tableView: UITableView!
     let tutorialController = CoachMarksController()
     
-    //========== Realm Properties ==========
-    var realm:Realm!
-    var currentBudget:Budget!
-    var notificationToken:NotificationToken!
+    // ========== Realm Properties ==========
+    var realm: Realm!
+    var currentBudget: Budget!
+    var notificationToken: NotificationToken!
     
-    //==================== View Controller Methods ====================
+    // ==================== View Controller Methods ====================
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Setup tutorial controller
-        tutorialController.datasource = self
+        tutorialController.dataSource = self
         Style.tutorialController(self.tutorialController)
         
         // Register nibs for Cells/Headers
@@ -69,10 +69,10 @@ class TaskEditorCategorySelectorViewController: UIViewController, UITableViewDat
         // Setup tutorial points of interest
         self.tableView.reloadData()
         Tutorial.addTaskPOI[0] = self.navigationController?.navigationBar
-        Tutorial.addTaskPOI[1] = (self.navigationItem.rightBarButtonItem!.valueForKey("view") as! UIView)
+        Tutorial.addTaskPOI[1] = (self.navigationItem.rightBarButtonItem!.valueForKey("view") as? UIView)
     }
     
-    //==================== UITableViewDataSource Methods ====================
+    // ==================== UITableViewDataSource Methods ====================
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 0
     }
@@ -99,19 +99,19 @@ class TaskEditorCategorySelectorViewController: UIViewController, UITableViewDat
         return UITableViewHeaderFooterView()
     }
     
-    //==================== UITableViewDelegate Methods ====================
+    // ==================== UITableViewDelegate Methods ====================
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         // Pass the category selected back to the Task Editor view and then return to previous view.
         self.delegate?.writeCategoryBack(currentBudget.categories[indexPath.row])
         self.navigationController?.popViewControllerAnimated(true)
     }
     
-    //==================== IBAction Methods ====================
+    // ==================== IBAction Methods ====================
     @IBAction func addCategoryButtonPressed(sender: UIBarButtonItem) {
         Factory.displayAddCategoryAlert(viewController: self)
     }
     
-    //==================== CoachMarksControllerDataSource Methods ====================
+    // ==================== CoachMarksControllerDataSource Methods ====================
     func numberOfCoachMarksForCoachMarksController(coachMarksController: CoachMarksController) -> Int {
         return Tutorial.addTaskPOI.count
     }
@@ -129,4 +129,5 @@ class TaskEditorCategorySelectorViewController: UIViewController, UITableViewDat
         return (bodyView: coachViews.bodyView, arrowView: coachViews.arrowView)
         
     }
+    
 }

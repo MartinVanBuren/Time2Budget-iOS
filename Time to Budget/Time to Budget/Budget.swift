@@ -10,15 +10,15 @@ import Foundation
 import RealmSwift
 
 public class Budget: Object {
-    //==================== Properties ====================
+    // ==================== Properties ====================
     public dynamic var startDate = NSDate()
     public dynamic var endDate = NSDate()
     public dynamic var name = ""
     public dynamic var isCurrent = false
     public let categories = List<Category>()
-    public dynamic var clock:Clock? = Clock()
+    public dynamic var clock: Clock? = Clock()
     
-    //==================== Methods ====================
+    // ==================== Methods ====================
     public func autoInit() {
         // Retrieve information needed to calculate the current budget information
         let dt = NSDate()
@@ -44,16 +44,13 @@ public class Budget: Object {
         let endingDate = endDate
         let dif = cal.compareDate(currentDate, toDate: endingDate, toUnitGranularity: NSCalendarUnit.Second)
         
-        if dif == NSComparisonResult.OrderedAscending
-        {
+        if dif == NSComparisonResult.OrderedAscending {
             return false
         }
-        else if dif == NSComparisonResult.OrderedDescending
-        {
+        else if dif == NSComparisonResult.OrderedDescending {
             return true
         }
-        else
-        {
+        else {
             return true
         }
     }
@@ -64,5 +61,8 @@ public class Budget: Object {
         return dateFormatter.stringFromDate(dt)
     }
     
-    private func daySec(diff: Int) -> NSTimeInterval { return NSTimeInterval(60*60*24*diff) }
+    private func daySec(diff: Int) -> NSTimeInterval {
+        return NSTimeInterval(60*60*24*diff)
+    }
+    
 }

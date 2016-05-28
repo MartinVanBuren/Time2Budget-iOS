@@ -11,9 +11,9 @@ import RealmSwift
 
 class BudgetHistoryListViewController: UITableViewController {
     
-    //============= Realm Properties =============
-    var realm:Realm!
-    var budgetList:Results<Budget>!
+    // ============= Realm Properties =============
+    var realm: Realm!
+    var budgetList: Results<Budget>!
     var notificationToken: NotificationToken?
 
     override func viewDidLoad() {
@@ -37,13 +37,13 @@ class BudgetHistoryListViewController: UITableViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "showHistoryBudget" {
             // Pass the selected budget into the Budget History View Controller
-            let historyBudgetVC = segue.destinationViewController as! BudgetHistoryViewController
+            let historyBudgetVC = segue.destinationViewController as? BudgetHistoryViewController
             let indexPath = self.tableView.indexPathForSelectedRow!
-            historyBudgetVC.currentBudget = self.budgetList[indexPath.row]
+            historyBudgetVC?.currentBudget = self.budgetList[indexPath.row]
         }
     }
 
-    //======================= UITableViewDataSource Methods =======================
+    // ======================= UITableViewDataSource Methods =======================
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
@@ -60,8 +60,9 @@ class BudgetHistoryListViewController: UITableViewController {
         return Factory.prepareBasicCell(tableView: self.tableView, titleText: self.budgetList[indexPath.row].name)
     }
     
-    //========================== UITableViewDelegate Methods ==========================
+    // ========================== UITableViewDelegate Methods ==========================
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         performSegueWithIdentifier("showHistoryBudget", sender: self)
     }
+    
 }

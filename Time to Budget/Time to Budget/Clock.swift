@@ -10,12 +10,12 @@ import Foundation
 import RealmSwift
 
 public class Clock: Object {
-    //==================== Properties ====================
-    public dynamic var clockedIn:Bool = false
-    public dynamic var startTime:NSTimeInterval = NSDate.timeIntervalSinceReferenceDate()
-    public dynamic var finalTime:Double = 0.0
+    // ==================== Properties ====================
+    public dynamic var clockedIn: Bool = false
+    public dynamic var startTime: NSTimeInterval = NSDate.timeIntervalSinceReferenceDate()
+    public dynamic var finalTime: Double = 0.0
     
-    //==================== Methods ====================
+    // ==================== Methods ====================
     internal func clockInOut() {
         if self.clockedIn {
             self.clockedIn = false
@@ -53,4 +53,5 @@ public class Clock: Object {
             self.startTime = NSDate.timeIntervalSinceReferenceDate()
         }
     }
+    
 }

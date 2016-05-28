@@ -12,31 +12,31 @@ import Instructions
 
 class RecordsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITabBarControllerDelegate, CoachMarksControllerDataSource {
 
-    //========= View Properties =========
+    // ========= View Properties =========
     var returning = false
-    var editRecord:Bool = false
-    var promptEnabled:Bool = false
+    var editRecord: Bool = false
+    var promptEnabled: Bool = false
     var timeReturning = 0
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var clockButton: UIButton!
     let tutorialController = CoachMarksController()
 
-    //========= Time Clock Properties =========
-    var timer:NSTimer!
-    var finalClockTime:Time?
+    // ========= Time Clock Properties =========
+    var timer: NSTimer!
+    var finalClockTime: Time?
     
-    //========= Realm Properties =========
-    var realm:Realm!
-    var currentTask:Task?
+    // ========= Realm Properties =========
+    var realm: Realm!
+    var currentTask: Task?
     var recordList = List<Record>()
     var notificationToken: NotificationToken!
     
-    //================== View Controller Methods ==================
+    // ================== View Controller Methods ==================
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Setting up tutorial controller
-        self.tutorialController.datasource = self
+        self.tutorialController.dataSource = self
         Style.tutorialController(self.tutorialController)
         Tutorial.recordsViewPOI[1] = self.navigationController?.navigationBar
         Tutorial.recordsViewPOI[2] = self.navigationController?.navigationBar
@@ -115,7 +115,7 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
     
     override func viewWillDisappear(animated: Bool) {
         // Invalidate timer when leaving the view to avoid conflicts.
-        if (self.isMovingFromParentViewController()){
+        if (self.isMovingFromParentViewController()) {
             self.currentTask = nil
             if self.timer != nil {
                 if self.timer.valid {
@@ -135,24 +135,25 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
         if segue.identifier == "showTrackingViewAlt" {
             returning = true
             // Retrieve targeted view
-            let recordEditorVC = (segue.destinationViewController as! UINavigationController).topViewController as! RecordEditorViewController
+            let navController = segue.destinationViewController as? UINavigationController
+            let recordEditorVC = navController?.topViewController as? RecordEditorViewController
             
             if self.editRecord {
                 // Pass the current task and selected record.
                 let indexPath = self.tableView.indexPathForSelectedRow!
-                recordEditorVC.editRecord = true
-                recordEditorVC.currentTask = self.currentTask
-                recordEditorVC.currentRecord = recordList[indexPath.row]
+                recordEditorVC?.editRecord = true
+                recordEditorVC?.currentTask = self.currentTask
+                recordEditorVC?.currentRecord = recordList[indexPath.row]
                 self.editRecord = false
             } else {
                 // Pass the current task and the time spent from the clock button if any.
-                recordEditorVC.currentTask = self.currentTask
-                recordEditorVC.timeSpent = self.finalClockTime
+                recordEditorVC?.currentTask = self.currentTask
+                recordEditorVC?.timeSpent = self.finalClockTime
             }
         }
     }
     
-    //========================== UITabBarControllerDelegate Methods ==========================
+    // ========================== UITabBarControllerDelegate Methods ==========================
     func tabBarController(tabBarController: UITabBarController, didSelectViewController viewController: UIViewController) {
         // If the user navigates away from this tab then pop to the budget view controller to avoid conflicts.
         if (viewController != self.navigationController) {
@@ -161,7 +162,7 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
         }
     }
     
-    //========================== UITableViewDataSource Methods ==========================
+    // ========================== UITableViewDataSource Methods ==========================
 
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 44
@@ -193,7 +194,7 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
         return 1
     }
     
-    //============================ UITableViewDelegate Methods ============================
+    // ============================ UITableViewDelegate Methods ============================
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         self.editRecord = true
         performSegueWithIdentifier("showTrackingViewAlt", sender: self)
@@ -203,7 +204,7 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
         Factory.displayDeleteRecordAlert(self, record: recordList[indexPath.row])
     }
     
-    //============================= IBAction Methods =============================
+    // ============================= IBAction Methods =============================
     @IBAction func addRecordButtonPressed(sender: UIBarButtonItem) {
         self.editRecord = false
         performSegueWithIdentifier("showTrackingViewAlt", sender: self)
@@ -225,7 +226,7 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
         }
     }
     
-    //==================== CoachMarksDataSource Methods ====================
+    // ==================== CoachMarksDataSource Methods ====================
     func numberOfCoachMarksForCoachMarksController(coachMarksController: CoachMarksController) -> Int {
         return Tutorial.recordsViewPOI.count
     }
@@ -257,7 +258,7 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
     */
     func initializeClock() {
         self.updateClock()
-        let aSelector:Selector = "updateClock"
+        let aSelector: Selector = #selector(RecordsViewController.updateClock)
         self.timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: aSelector, userInfo: nil, repeats: true)
     }
     
@@ -302,9 +303,9 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
         let seconds = Int(elapsedTime)
         elapsedTime -= (NSTimeInterval(seconds))
         
-        var hoursString:String!
-        var minutesString:String!
-        var secondsString:String!
+        var hoursString: String!
+        var minutesString: String!
+        var secondsString: String!
         
         if hours >= 10 {
             hoursString = "\(hours):"
@@ -356,7 +357,7 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
      - returns: Nothing
      */
     func fixInsetSegue() {
-        timeReturning++
+        timeReturning += 1
         
         if(timeReturning >= 2) {
             let top = self.navigationController!.navigationBar.frame.size.height + self.navigationController!.navigationBar.frame.origin.y
@@ -367,4 +368,5 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
         
         self.returning = false
     }
+    
 }

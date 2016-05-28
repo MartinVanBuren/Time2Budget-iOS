@@ -1,0 +1,7 @@
+except:
+    - lower-camel-case
+    - upper-camel-case
+    - trailing-closure
+    - redundant-parentheses
+    - trailing-whitespace
+    - comment-whitespace

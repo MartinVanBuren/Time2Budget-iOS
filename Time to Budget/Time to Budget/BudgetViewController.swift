@@ -12,26 +12,26 @@ import Instructions
 
 class BudgetViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, CoachMarksControllerDataSource {
     
-    //============ View Properties ============
-    var displayPrompt:Bool = false
+    // ============ View Properties ============
+    var displayPrompt: Bool = false
     @IBOutlet weak var tableView: UITableView!
     let tutorialController = CoachMarksController()
     
-    //============ Time Clock Properties ============
-    var finalClockTime:Time?
+    // ============ Time Clock Properties ============
+    var finalClockTime: Time?
     @IBOutlet weak var clockButton: UIButton!
-    var timer:NSTimer!
+    var timer: NSTimer!
     
-    //============ Realm Properties ============
-    var realm:Realm!
-    var currentBudget:Budget?
+    // ============ Realm Properties ============
+    var realm: Realm!
+    var currentBudget: Budget?
     var notificationToken: NotificationToken!
     
-    //============ View Controller Functions ============
+    // ============ View Controller Functions ============
     override func viewDidLoad() {
         super.viewDidLoad()
         // Setting up tutorial controller
-        self.tutorialController.datasource = self
+        self.tutorialController.dataSource = self
         Style.tutorialController(self.tutorialController)
         
         // Fetch Database
@@ -96,7 +96,7 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
         Tutorial.budgetViewPOI[0] = self.navigationController?.navigationBar
         Tutorial.budgetViewPOI[1] = self.navigationController?.navigationBar
         Tutorial.budgetViewPOI[2] = self.navigationController?.navigationBar
-        Tutorial.budgetViewPOI[3] = (self.navigationItem.rightBarButtonItem!.valueForKey("view") as! UIView)
+        Tutorial.budgetViewPOI[3] = self.navigationItem.rightBarButtonItem!.valueForKey("view") as? UIView
         Tutorial.budgetViewPOI[4] = self.clockButton
     }
     
@@ -109,18 +109,19 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
             self.clearPrompt()
             
             // Pass the selected task into the Records View.
-            let recordsVC:RecordsViewController = segue.destinationViewController as! RecordsViewController
+            let recordsVC = segue.destinationViewController as? RecordsViewController
             let selectedTask = currentBudget!.categories[indexPath.section].tasks[indexPath.row]
-            recordsVC.currentTask = selectedTask
+            recordsVC?.currentTask = selectedTask
             
         } else if segue.identifier == "showTrackingView" {
             // Pass the time spent from the clock button if any.
-            let recordEditorVC = (segue.destinationViewController as! UINavigationController).topViewController as! RecordEditorViewController
-            recordEditorVC.timeSpent = self.finalClockTime
+            let navController = segue.destinationViewController as? UINavigationController
+            let recordEditorVC = navController?.topViewController as? RecordEditorViewController
+            recordEditorVC?.timeSpent = self.finalClockTime
         }
     }
     
-    //==================== UITableViewDataSource Methods ====================
+    // ==================== UITableViewDataSource Methods ====================
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         
         return Int(currentBudget!.categories.count)
@@ -153,7 +154,7 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
         return headerView
     }
     
-    //==================== IBAction Methods ====================
+    // ==================== IBAction Methods ====================
     @IBAction func addRecordButtonPressed(sender: UIBarButtonItem) {
         performSegueWithIdentifier("showTrackingView", sender: self)
     }
@@ -174,7 +175,7 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
         }
     }
     
-    //==================== UITableViewDelegate Methods ====================
+    // ==================== UITableViewDelegate Methods ====================
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         performSegueWithIdentifier("showRecordsView", sender: self)
     }
@@ -184,7 +185,7 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
         return 44
     }
     
-    //==================== CoachMarksDataSource Methods ====================
+    // ==================== CoachMarksDataSource Methods ====================
     func numberOfCoachMarksForCoachMarksController(coachMarksController: CoachMarksController) -> Int {
         return Tutorial.budgetViewPOI.count
     }
@@ -203,7 +204,7 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
         
     }
     
-    //==================== Helper Methods ====================
+    // ==================== Helper Methods ====================
     
     /**
     Creates a timer to update the clock button every second.
@@ -216,7 +217,7 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
     */
     func initializeClock() {
         self.updateClock()
-        let aSelector:Selector = "updateClock"
+        let aSelector: Selector = #selector(BudgetViewController.updateClock)
         self.timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: aSelector, userInfo: nil, repeats: true)
     }
     
@@ -262,9 +263,9 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
         elapsedTime -= (NSTimeInterval(seconds))
         
         // Generate a string to represent the elapsed time.
-        var hoursString:String!
-        var minutesString:String!
-        var secondsString:String!
+        var hoursString: String!
+        var minutesString: String!
+        var secondsString: String!
         
         if hours >= 10 {
             hoursString = "\(hours):"
@@ -304,7 +305,7 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
      - returns: Nothing
      */
     func registerPromptTap() {
-        let navSingleTap = UITapGestureRecognizer(target: self, action: "navSingleTap")
+        let navSingleTap = UITapGestureRecognizer(target: self, action: #selector(BudgetViewController.navSingleTap))
         navSingleTap.numberOfTapsRequired = 1
         self.navigationController?.navigationBar.subviews[1].userInteractionEnabled = true
         self.navigationController?.navigationBar.subviews[1].addGestureRecognizer(navSingleTap)

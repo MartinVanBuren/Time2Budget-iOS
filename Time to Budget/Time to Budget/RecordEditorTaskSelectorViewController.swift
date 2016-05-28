@@ -12,23 +12,23 @@ import Instructions
 
 class RecordEditorTaskSelectorViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, CoachMarksControllerDataSource {
 
-    //========== View Properties ==========
-    var recordEditorVC:RecordEditorViewController!
+    // ========== View Properties ==========
+    var recordEditorVC: RecordEditorViewController!
     var delegate: writeTaskBackDelegate?
-    var returning:Bool? = false
+    var returning: Bool? = false
     @IBOutlet weak var tableView: UITableView!
     let tutorialController = CoachMarksController()
     
-    //========== Realm Properties ==========
-    var realm:Realm!
-    var currentBudget:Budget!
+    // ========== Realm Properties ==========
+    var realm: Realm!
+    var currentBudget: Budget!
     
-    //==================== View Controller Methods ====================
+    // ==================== View Controller Methods ====================
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Setup Tutorial controller
-        self.tutorialController.datasource = self
+        self.tutorialController.dataSource = self
         Style.tutorialController(self.tutorialController)
         
         // Register Nibs for Cells/Header Views
@@ -69,10 +69,10 @@ class RecordEditorTaskSelectorViewController: UIViewController, UITableViewDataS
         // Setup Tutorial points of interest
         self.tableView.reloadData()
         Tutorial.addRecordPOI[0] = self.navigationController?.navigationBar
-        Tutorial.addRecordPOI[1] = (self.navigationItem.rightBarButtonItem!.valueForKey("view") as! UIView)
+        Tutorial.addRecordPOI[1] = (self.navigationItem.rightBarButtonItem!.valueForKey("view") as? UIView)
     }
     
-    //==================== UITableViewDataSource Methods ====================
+    // ==================== UITableViewDataSource Methods ====================
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 44
     }
@@ -99,7 +99,7 @@ class RecordEditorTaskSelectorViewController: UIViewController, UITableViewDataS
         return Factory.prepareCategoryView(tableView: tableView, categoryList: currentBudget.categories, section: section)
     }
     
-    //==================== UITableViewDelegate Methods ====================
+    // ==================== UITableViewDelegate Methods ====================
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         // Pass the selected task back to the Record Editor and return to that view.
         let currentTask = currentBudget.categories[indexPath.section].tasks[indexPath.row]
@@ -108,12 +108,12 @@ class RecordEditorTaskSelectorViewController: UIViewController, UITableViewDataS
         self.navigationController?.popViewControllerAnimated(true)
     }
     
-    //==================== IBAction Methods ====================
+    // ==================== IBAction Methods ====================
     @IBAction func addTaskButtonPressed(sender: UIBarButtonItem) {
         performSegueWithIdentifier("showTaskEditorFromRecordEditor", sender: self)
     }
     
-    //==================== CoachMarksControllerDataSource Methods ====================
+    // ==================== CoachMarksControllerDataSource Methods ====================
     func numberOfCoachMarksForCoachMarksController(coachMarksController: CoachMarksController) -> Int {
         return Tutorial.addRecordPOI.count
     }
@@ -131,10 +131,5 @@ class RecordEditorTaskSelectorViewController: UIViewController, UITableViewDataS
         return (bodyView: coachViews.bodyView, arrowView: coachViews.arrowView)
         
     }
+    
 }
-
-
-
-
-
-

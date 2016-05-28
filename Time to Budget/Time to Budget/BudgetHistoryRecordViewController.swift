@@ -11,11 +11,11 @@ import RealmSwift
 
 class BudgetHistoryRecordViewController: UITableViewController {
 
-    //========== Realm Properties ==========
-    var currentRecord:Record?
-    var currentTask:Task?
+    // ========== Realm Properties ==========
+    var currentRecord: Record?
+    var currentTask: Task?
     
-    //==================== View Controller Methods ====================
+    // ==================== View Controller Methods ====================
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -33,7 +33,7 @@ class BudgetHistoryRecordViewController: UITableViewController {
         self.tableView.reloadData()
     }
 
-    //==================== UITableViewDataSource Methods ====================
+    // ==================== UITableViewDataSource Methods ====================
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
@@ -71,8 +71,9 @@ class BudgetHistoryRecordViewController: UITableViewController {
         }
     }
     
-    //==================== UITableViewDelegate Methods ====================
+    // ==================== UITableViewDelegate Methods ====================
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
+    
 }

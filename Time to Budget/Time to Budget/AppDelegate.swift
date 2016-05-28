@@ -33,7 +33,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Change initial view controller based on the showWelcome bool
         self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
         let storyboard = UIStoryboard(name: "iPhone", bundle: nil)
-        let initialView:UIViewController!
+        let initialView: UIViewController!
         
         if settings.objectForKey("showWelcome") == nil {
             initialView = storyboard.instantiateViewControllerWithIdentifier("WelcomeViewController")
@@ -92,4 +92,3 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
 }
-

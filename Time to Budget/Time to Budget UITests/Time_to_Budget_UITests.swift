@@ -184,7 +184,7 @@ class Time_to_Budget_UITests: XCTestCase {
         XCTAssert(deleteTest)
     }
     
-    //========================== Helper Functions ==========================
+    // ========================== Helper Functions ==========================
     
     func addCategory() {
         let app = XCUIApplication()
@@ -193,7 +193,7 @@ class Time_to_Budget_UITests: XCTestCase {
         app.alerts["New Category"].collectionViews.buttons["Add"].tap()
     }
     
-    func addTask(taskName:String = "Test", taskMemo:String = "This is a test.", taskHrs:String = "2", taskMins:String = "45") {
+    func addTask(taskName: String = "Test", taskMemo: String = "This is a test.", taskHrs: String = "2", taskMins: String = "45") {
         let app = XCUIApplication()
         app.tabBars.buttons["Editor"].tap()
         
@@ -216,7 +216,7 @@ class Time_to_Budget_UITests: XCTestCase {
         app.buttons["Save Task"].tap()
     }
     
-    func addRecord(recMemo:String = "This is a test record.", recHrs:String = "2", recMins:String = "45") {
+    func addRecord(recMemo: String = "This is a test record.", recHrs: String = "2", recMins: String = "45") {
         let app = XCUIApplication()
         
         app.tabBars.buttons["Budget"].tap()
@@ -233,4 +233,5 @@ class Time_to_Budget_UITests: XCTestCase {
         
         app.buttons["Save Record"].tap()
     }
+    
 }

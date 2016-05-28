@@ -148,4 +148,5 @@ class Time_Tests: XCTestCase {
         
         XCTAssert((time.hours == 6 && time.minutes == 15), "Failed to Convert Double to Time")
     }
+    
 }

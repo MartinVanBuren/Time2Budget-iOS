@@ -10,7 +10,7 @@ import UIKit
 import RealmSwift
 
 public class Factory {
-    //==================== Static Methods ====================
+    // ==================== Static Methods ====================
     /**
     Calculates time to constrain time to n hours and 0 <= n <= 60 minutes.
     
@@ -20,31 +20,35 @@ public class Factory {
     - Parameter None:
     - returns: Nothing
     */
-    class func prepareCategoryCell(tableView tableView: UITableView, categoryList: List<Category>, section: Int) -> UITableViewCell {
+    
+    class func prepareCategoryCell(tableView tableView: UITableView, categoryList: List<Category>, section: Int) -> CategoryCell {
         
         let thisCategory = categoryList[section]
         
-        let preparedCell:CategoryCell = tableView.dequeueReusableCellWithIdentifier("CategoryCell") as! CategoryCell
+        if let preparedCell = tableView.dequeueReusableCellWithIdentifier("CategoryCell") as? CategoryCell {
+            preparedCell.customContentView.backgroundColor = UIColor.clearColor()
+            preparedCell.backgroundColor = UIColor.clearColor()
+            
+            preparedCell.sectionNameLabel.text = thisCategory.name
+            
+            preparedCell.remainingTimeBarOutline.layer.cornerRadius = 60/8
+            preparedCell.remainingTimeBar.layer.cornerRadius = 60/8
+            preparedCell.remainingTimeBarOutline.layer.masksToBounds = true
+            preparedCell.remainingTimeBar.layer.masksToBounds = true
+            preparedCell.remainingTimeBarOutline.layer.borderWidth = 1.0
+            preparedCell.remainingTimeBarOutline.layer.borderColor = UIColor.greenColor().CGColor
+            
+            preparedCell.remainingTimeLabel.text = Time(newTime: thisCategory.totalTimeRemaining).toString()
+            
+            preparedCell.category = thisCategory
+            
+            Style.category(preparedCell)
+            
+            return preparedCell
+        } else {
+            return CategoryCell()
+        }
         
-        preparedCell.customContentView.backgroundColor = UIColor.clearColor()
-        preparedCell.backgroundColor = UIColor.clearColor()
-        
-        preparedCell.sectionNameLabel.text = thisCategory.name
-        
-        preparedCell.remainingTimeBarOutline.layer.cornerRadius = 60/8
-        preparedCell.remainingTimeBar.layer.cornerRadius = 60/8
-        preparedCell.remainingTimeBarOutline.layer.masksToBounds = true
-        preparedCell.remainingTimeBar.layer.masksToBounds = true
-        preparedCell.remainingTimeBarOutline.layer.borderWidth = 1.0
-        preparedCell.remainingTimeBarOutline.layer.borderColor = UIColor.greenColor().CGColor
-        
-        preparedCell.remainingTimeLabel.text = Time(newTime: thisCategory.totalTimeRemaining).toString()
-        
-        preparedCell.category = thisCategory
-        
-        Style.category(preparedCell)
-        
-        return preparedCell
     }
 
     class func prepareCategoryView(tableView tableView: UITableView, categoryList: List<Category>, section: Int, editorViewController: BudgetEditorViewController?=nil) -> CategoryView {
@@ -52,32 +56,35 @@ public class Factory {
         let thisCategory = categoryList[section]
         var editor = false
         
-        let preparedView:CategoryView = tableView.dequeueReusableHeaderFooterViewWithIdentifier("CategoryView") as! CategoryView
-        
-        if let unwrappedVC = editorViewController {
-            preparedView.VC = unwrappedVC
-            preparedView.editButton.enabled = true
-            preparedView.editButton.hidden = false
-            editor = true
+        if let preparedView = tableView.dequeueReusableHeaderFooterViewWithIdentifier("CategoryView") as? CategoryView {
+            if let unwrappedVC = editorViewController {
+                preparedView.VC = unwrappedVC
+                preparedView.editButton.enabled = true
+                preparedView.editButton.hidden = false
+                editor = true
+            } else {
+                preparedView.editButton.enabled = false
+                preparedView.editButton.hidden = true
+            }
+            
+            if editor {
+                preparedView.remainingTimeLabel.text = Time(newTime: thisCategory.totalTimeBudgeted).toString()
+            } else {
+                preparedView.remainingTimeLabel.text = Time(newTime: thisCategory.totalTimeRemaining).toString()
+            }
+            
+            preparedView.sectionNameLabel.text = thisCategory.name
+            
+            preparedView.category = thisCategory
+            preparedView.editor = editor
+            
+            Style.category(preparedView)
+            
+            return preparedView
         } else {
-            preparedView.editButton.enabled = false
-            preparedView.editButton.hidden = true
+            return CategoryView()
         }
         
-        if editor {
-            preparedView.remainingTimeLabel.text = Time(newTime: thisCategory.totalTimeBudgeted).toString()
-        } else {
-            preparedView.remainingTimeLabel.text = Time(newTime: thisCategory.totalTimeRemaining).toString()
-        }
-        
-        preparedView.sectionNameLabel.text = thisCategory.name
-        
-        preparedView.category = thisCategory
-        preparedView.editor = editor
-        
-        Style.category(preparedView)
-        
-        return preparedView
     }
     
     class func prepareTaskCell(tableView tableView: UITableView, categoryList: List<Category>, indexPath: NSIndexPath, editor: Bool) -> UITableViewCell {
@@ -85,163 +92,196 @@ public class Factory {
         let thisTask = categoryList[indexPath.section].tasks[indexPath.row]
         
         if thisTask.memo == "" {
-            var preparedCell = tableView.dequeueReusableCellWithIdentifier("DetailCell") as! DetailCell
-            
-            preparedCell.title.text = thisTask.name
-            preparedCell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
-            
-            if editor {
-                preparedCell.detail.text = Time(newTime: thisTask.timeBudgeted).toString()
+            if let preparedCell = tableView.dequeueReusableCellWithIdentifier("DetailCell") as? DetailCell {
+                preparedCell.title.text = thisTask.name
+                preparedCell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
+                
+                if editor {
+                    preparedCell.detail.text = Time(newTime: thisTask.timeBudgeted).toString()
+                } else {
+                    preparedCell.detail.text = Time(newTime: thisTask.timeRemaining).toString()
+                }
+                
+                preparedCell.task = thisTask
+                preparedCell.editor = editor
+                
+                Style.task(preparedCell)
+                
+                return preparedCell
             } else {
-                preparedCell.detail.text = Time(newTime: thisTask.timeRemaining).toString()
+                return DetailCell()
+            }
+        } else {
+            if let preparedCell = tableView.dequeueReusableCellWithIdentifier("SubtitleDetailCell") as? SubtitleDetailCell {
+                preparedCell.title.text = thisTask.name
+                preparedCell.subtitle.text = thisTask.memo
+                preparedCell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
+                
+                if editor {
+                    preparedCell.detail.text = Time(newTime: thisTask.timeBudgeted).toString()
+                } else {
+                    preparedCell.detail.text = Time(newTime: thisTask.timeRemaining).toString()
+                }
+                
+                preparedCell.task = thisTask
+                preparedCell.editor = editor
+                
+                Style.task(preparedCell)
+                
+                return preparedCell
+            } else {
+                return SubtitleDetailCell()
+            }
+        }
+    }
+    
+    class func prepareAddRecordTaskCell(tableView tableView: UITableView, currentTask: Task?) -> DetailCell {
+        
+        if let preparedCell = tableView.dequeueReusableCellWithIdentifier("DetailCell") as? DetailCell {
+            preparedCell.title.text = "Task"
+            
+            if let unwrappedTaskName = currentTask?.name {
+                preparedCell.detail.text = unwrappedTaskName
+            } else {
+                preparedCell.detail.text = "Choose a Task"
             }
             
-            preparedCell.task = thisTask
-            preparedCell.editor = editor
+            preparedCell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
             
-            preparedCell = Style.task(preparedCell)
+            Style.detailCell(preparedCell)
             
             return preparedCell
         } else {
-            var preparedCell = tableView.dequeueReusableCellWithIdentifier("SubtitleDetailCell") as! SubtitleDetailCell
+            return DetailCell()
+        }
+        
+    }
+    
+    class func prepareAddRecordTimeCell(tableView tableView: UITableView, timeSpent: Time?) -> DetailCell {
+        
+        if let preparedCell = tableView.dequeueReusableCellWithIdentifier("DetailCell") as? DetailCell {
+            preparedCell.title.text = "Time Spent"
             
-            preparedCell.title.text = thisTask.name
-            preparedCell.subtitle.text = thisTask.memo
-            preparedCell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
-            
-            if editor {
-                preparedCell.detail.text = Time(newTime: thisTask.timeBudgeted).toString()
+            if let unwrappedTimeSpent = timeSpent?.toDouble() {
+                preparedCell.detail.text = Time(newTime: unwrappedTimeSpent).toString()
             } else {
-                preparedCell.detail.text = Time(newTime: thisTask.timeRemaining).toString()
+                preparedCell.detail.text = "00:00"
             }
             
-            preparedCell.task = thisTask
-            preparedCell.editor = editor
-            
-            preparedCell = Style.task(preparedCell)
+            preparedCell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
+            Style.detailCell(preparedCell)
             
             return preparedCell
-        }
-    }
-    
-    class func prepareAddRecordTaskCell(tableView tableView: UITableView, currentTask:Task?) -> UITableViewCell {
-        let preparedCell = tableView.dequeueReusableCellWithIdentifier("DetailCell") as! DetailCell
-        
-        preparedCell.title.text = "Task"
-        
-        if let unwrappedTaskName = currentTask?.name {
-            preparedCell.detail.text = unwrappedTaskName
         } else {
-            preparedCell.detail.text = "Choose a Task"
+            return DetailCell()
         }
         
-        preparedCell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
-        Style.detailCell(preparedCell)
-        
-        return preparedCell
     }
     
-    class func prepareAddRecordTimeCell(tableView tableView: UITableView, timeSpent: Time?) -> UITableViewCell {
-        let preparedCell = tableView.dequeueReusableCellWithIdentifier("DetailCell") as! DetailCell
+    class func prepareAddRecordDateCell(tableView tableView: UITableView, date: NSDate?) -> DetailCell {
         
-        preparedCell.title.text = "Time Spent"
-        
-        if let unwrappedTimeSpent = timeSpent?.toDouble() {
-            preparedCell.detail.text = Time(newTime: unwrappedTimeSpent).toString()
-        } else {
-            preparedCell.detail.text = "00:00"
-        }
-        
-        preparedCell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
-        Style.detailCell(preparedCell)
-        
-        return preparedCell
-    }
-    
-    class func prepareAddRecordDateCell(tableView tableView: UITableView, date: NSDate?) -> UITableViewCell {
-        let preparedCell = tableView.dequeueReusableCellWithIdentifier("DetailCell") as! DetailCell
-        
-        preparedCell.title.text = "Date"
-        
-        if let unwrappedDate = date {
-            let dateFormatter = NSDateFormatter()
-            dateFormatter.dateFormat = "MMMM dd, yyyy"
+        if let preparedCell = tableView.dequeueReusableCellWithIdentifier("DetailCell") as? DetailCell {
+            preparedCell.title.text = "Date"
             
-            preparedCell.detail.text = dateFormatter.stringFromDate(unwrappedDate)
+            if let unwrappedDate = date {
+                let dateFormatter = NSDateFormatter()
+                dateFormatter.dateFormat = "MMMM dd, yyyy"
+                
+                preparedCell.detail.text = dateFormatter.stringFromDate(unwrappedDate)
+            } else {
+                preparedCell.detail.text = "Current Date"
+            }
+            
+            preparedCell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
+            Style.detailCell(preparedCell)
+            
+            return preparedCell
         } else {
-            preparedCell.detail.text = "Current Date"
+            return DetailCell()
         }
         
-        preparedCell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
-        Style.detailCell(preparedCell)
-        
-        return preparedCell
     }
     
     class func prepareNameTextfieldCell(tableView tableView: UITableView, name: String?) -> NameTextfieldCell {
-        let preparedCell = tableView.dequeueReusableCellWithIdentifier("NameTextfieldCell") as! NameTextfieldCell
         
-        if let unwrappedName = name {
-            preparedCell.textField.text = unwrappedName
+        if let preparedCell = tableView.dequeueReusableCellWithIdentifier("NameTextfieldCell") as? NameTextfieldCell {
+            if let unwrappedName = name {
+                preparedCell.textField.text = unwrappedName
+            } else {
+                preparedCell.textField.placeholder = "Name (Required)"
+            }
+            
+            preparedCell.selectionStyle = .None
+            
+            Style.textfieldCell(preparedCell)
+            
+            return preparedCell
         } else {
-            preparedCell.textField.placeholder = "Name (Required)"
+            return NameTextfieldCell()
         }
         
-        preparedCell.selectionStyle = .None
-        
-        Style.textfieldCell(preparedCell)
-        
-        return preparedCell
     }
     
     class func prepareMemoTextfieldCell(tableView tableView: UITableView, memo: String?) -> MemoTextfieldCell {
-        let preparedCell = tableView.dequeueReusableCellWithIdentifier("MemoTextfieldCell") as! MemoTextfieldCell
         
-        if let unwrappedMemo = memo {
-            preparedCell.textField.text = unwrappedMemo
+        if let preparedCell = tableView.dequeueReusableCellWithIdentifier("MemoTextfieldCell") as? MemoTextfieldCell {
+            if let unwrappedMemo = memo {
+                preparedCell.textField.text = unwrappedMemo
+            } else {
+                preparedCell.textField.placeholder = "Description (Optional)"
+            }
+            
+            preparedCell.selectionStyle = .None
+            
+            Style.textfieldCell(preparedCell)
+            
+            return preparedCell
         } else {
-            preparedCell.textField.placeholder = "Description (Optional)"
+            return MemoTextfieldCell()
         }
         
-        preparedCell.selectionStyle = .None
-        
-        Style.textfieldCell(preparedCell)
-        
-        return preparedCell
     }
     
-    class func prepareAddTaskCategoryCell(tableView tableView: UITableView, categoryName: String?) -> UITableViewCell {
-        let preparedCell = tableView.dequeueReusableCellWithIdentifier("DetailCell") as! DetailCell
+    class func prepareAddTaskCategoryCell(tableView tableView: UITableView, categoryName: String?) -> DetailCell {
         
-        preparedCell.title.text = "Category"
-        
-        if let unwrappedCategoryName = categoryName {
-            preparedCell.detail.text = unwrappedCategoryName
+        if let preparedCell = tableView.dequeueReusableCellWithIdentifier("DetailCell") as? DetailCell {
+            preparedCell.title.text = "Category"
+            
+            if let unwrappedCategoryName = categoryName {
+                preparedCell.detail.text = unwrappedCategoryName
+            } else {
+                preparedCell.detail.text = "Choose Category"
+            }
+            
+            preparedCell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
+            Style.detailCell(preparedCell)
+            
+            return preparedCell
         } else {
-            preparedCell.detail.text = "Choose Category"
+            return DetailCell()
         }
         
-        preparedCell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
-        Style.detailCell(preparedCell)
-        
-        return preparedCell
     }
     
-    class func prepareAddTaskTimeCell(tableView tableView: UITableView, time: Double?) -> UITableViewCell {
-        let preparedCell = tableView.dequeueReusableCellWithIdentifier("DetailCell") as! DetailCell
+    class func prepareAddTaskTimeCell(tableView tableView: UITableView, time: Double?) -> DetailCell {
         
-        preparedCell.title.text = "Time Budgeted"
-        
-        if let unwrappedTime = time {
-            preparedCell.detail.text = Time(newTime: unwrappedTime).toString()
+        if let preparedCell = tableView.dequeueReusableCellWithIdentifier("DetailCell") as? DetailCell {
+            preparedCell.title.text = "Time Budgeted"
+            
+            if let unwrappedTime = time {
+                preparedCell.detail.text = Time(newTime: unwrappedTime).toString()
+            } else {
+                preparedCell.detail.text = "00:00"
+            }
+            
+            preparedCell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
+            Style.detailCell(preparedCell)
+            
+            return preparedCell
         } else {
-            preparedCell.detail.text = "00:00"
+            return DetailCell()
         }
         
-        preparedCell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
-        Style.detailCell(preparedCell)
-        
-        return preparedCell
     }
     
     class func prepareRecordCell(tableView tableView: UITableView, recordList: List<Record>, indexPath: NSIndexPath) -> UITableViewCell {
@@ -249,33 +289,39 @@ public class Factory {
         let thisRecord = recordList[indexPath.row]
         
         if thisRecord.note == "" {
-            var preparedCell = tableView.dequeueReusableCellWithIdentifier("DetailCell") as! DetailCell
+            if let preparedCell = tableView.dequeueReusableCellWithIdentifier("DetailCell") as? DetailCell {
+                preparedCell.title.text = thisRecord.dateToString()
+                preparedCell.detail.text = Time(newTime: thisRecord.timeSpent).toString()
+                preparedCell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
+                
+                Style.record(preparedCell)
+                
+                return preparedCell
+            } else {
+                return DetailCell()
+            }
             
-            preparedCell.title.text = thisRecord.dateToString()
-            preparedCell.detail.text = Time(newTime: thisRecord.timeSpent).toString()
-            preparedCell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
-            
-            preparedCell = Style.record(preparedCell)
-            
-            return preparedCell
         } else {
-            var preparedCell = tableView.dequeueReusableCellWithIdentifier("SubtitleDetailCell") as! SubtitleDetailCell
+            if let preparedCell = tableView.dequeueReusableCellWithIdentifier("SubtitleDetailCell") as? SubtitleDetailCell {
+                preparedCell.title.text = thisRecord.note
+                preparedCell.subtitle.text = thisRecord.dateToString()
+                preparedCell.detail.text = Time(newTime: thisRecord.timeSpent).toString()
+                preparedCell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
+                
+                Style.record(preparedCell)
+                
+                return preparedCell
+            } else {
+                return SubtitleDetailCell()
+            }
             
-            preparedCell.title.text = thisRecord.note
-            preparedCell.subtitle.text = thisRecord.dateToString()
-            preparedCell.detail.text = Time(newTime: thisRecord.timeSpent).toString()
-            preparedCell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
-            
-            preparedCell = Style.record(preparedCell)
-            
-            return preparedCell
         }
     }
     
     class func prepareTimeHourPickerData() -> [Int] {
-        var finalValue:[Int] = []
+        var finalValue: [Int] = []
         
-        for var i = 0; i <= 99; i++ {
+        for i in 0...99 {
             finalValue.append(i)
         }
         
@@ -283,9 +329,9 @@ public class Factory {
     }
     
     class func prepareTimeMinutePickerData() -> [Int] {
-        var finalValue:[Int] = []
+        var finalValue: [Int] = []
         
-        for var i = 0; i < 4; i++ {
+        for i in 0...3 {
             finalValue.append(i * 15)
         }
         
@@ -293,10 +339,10 @@ public class Factory {
     }
     
     class func prepareCategoryPickerData(categoryList: Results<Category>) -> [String] {
-        var finalData:[String] = []
+        var finalData: [String] = []
         
-        for var i = 0; i < Int(categoryList.count); i++ {
-            finalData.append(categoryList[i].name)
+        for category in categoryList {
+            finalData.append(category.name)
         }
         
         return finalData
@@ -314,14 +360,18 @@ public class Factory {
     }
     
     class func prepareBasicHeader(tableView tableView: UITableView, titleText: String) -> UIView {
-        let preparedView = tableView.dequeueReusableHeaderFooterViewWithIdentifier("CategoryView") as! CategoryView
         
-        preparedView.sectionNameLabel.text = titleText
-        preparedView.remainingTimeLabel.hidden = true
-        preparedView.editButton.enabled = false
-        Style.basicHeader(preparedView)
+        if let preparedView = tableView.dequeueReusableHeaderFooterViewWithIdentifier("CategoryView") as? CategoryView {
+            preparedView.sectionNameLabel.text = titleText
+            preparedView.remainingTimeLabel.hidden = true
+            preparedView.editButton.enabled = false
+            Style.basicHeader(preparedView)
+            
+            return preparedView
+        } else {
+            return CategoryView()
+        }
         
-        return preparedView
     }
 
     class func displayDeleteTaskAlert(viewController viewController: BudgetEditorViewController, indexPath: NSIndexPath) {
@@ -385,7 +435,13 @@ public class Factory {
         alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: { (action) -> Void in
             
         }))
-        alert.addTextFieldWithConfigurationHandler {(textField) -> Void in inputTextField = textField; inputTextField.placeholder = "Enter Category Name"; inputTextField.autocapitalizationType = UITextAutocapitalizationType.Words; inputTextField.keyboardAppearance = UIKeyboardAppearance.Dark; inputTextField.clearButtonMode = UITextFieldViewMode.WhileEditing}
+        alert.addTextFieldWithConfigurationHandler { (textField) -> Void in
+            inputTextField = textField
+            inputTextField.placeholder = "Enter Category Name"
+            inputTextField.autocapitalizationType = UITextAutocapitalizationType.Words
+            inputTextField.keyboardAppearance = UIKeyboardAppearance.Dark
+            inputTextField.clearButtonMode = UITextFieldViewMode.WhileEditing
+        }
         
         
         viewController.presentViewController(alert, animated: true, completion: {})
@@ -406,7 +462,13 @@ public class Factory {
         alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: { (action) -> Void in
             
         }))
-        alert.addTextFieldWithConfigurationHandler {(textField) -> Void in inputTextField = textField; inputTextField.placeholder = "Enter Category Name"; inputTextField.autocapitalizationType = UITextAutocapitalizationType.Words; inputTextField.keyboardAppearance = UIKeyboardAppearance.Dark; inputTextField.clearButtonMode = UITextFieldViewMode.WhileEditing}
+        alert.addTextFieldWithConfigurationHandler { (textField) -> Void in
+            inputTextField = textField
+            inputTextField.placeholder = "Enter Category Name"
+            inputTextField.autocapitalizationType = UITextAutocapitalizationType.Words
+            inputTextField.keyboardAppearance = UIKeyboardAppearance.Dark
+            inputTextField.clearButtonMode = UITextFieldViewMode.WhileEditing
+        }
         
         
         viewController.presentViewController(alert, animated: true, completion: {})
@@ -451,7 +513,13 @@ public class Factory {
             
         }))
         
-        alert.addTextFieldWithConfigurationHandler {(textField) -> Void in inputTextField = textField; inputTextField.text = category.name; inputTextField.autocapitalizationType = UITextAutocapitalizationType.Words; inputTextField.keyboardAppearance = UIKeyboardAppearance.Dark; inputTextField.clearButtonMode = UITextFieldViewMode.WhileEditing}
+        alert.addTextFieldWithConfigurationHandler { (textField) -> Void in
+            inputTextField = textField
+            inputTextField.text = category.name
+            inputTextField.autocapitalizationType = UITextAutocapitalizationType.Words
+            inputTextField.keyboardAppearance = UIKeyboardAppearance.Dark
+            inputTextField.clearButtonMode = UITextFieldViewMode.WhileEditing
+        }
         
         viewController.presentViewController(alert, animated: true, completion: {})
     }

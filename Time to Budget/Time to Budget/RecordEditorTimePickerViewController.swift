@@ -10,18 +10,18 @@ import UIKit
 
 class RecordEditorTimePickerViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
 
-    //========== View Properties ==========
-    var recordEditorVC:RecordEditorViewController!
+    // ========== View Properties ==========
+    var recordEditorVC: RecordEditorViewController!
     @IBOutlet weak var timePicker: UIPickerView!
     @IBOutlet weak var doneButton: UIButton!
     @IBOutlet weak var colonLabel: UILabel!
     
-    //========== Time Picker Properties ==========
-    var timeHourPickerData:[Int] = Factory.prepareTimeHourPickerData()
-    var timeMinutePickerData:[Int] = Factory.prepareTimeMinutePickerData()
-    var timePicked:Time = Time()
+    // ========== Time Picker Properties ==========
+    var timeHourPickerData: [Int] = Factory.prepareTimeHourPickerData()
+    var timeMinutePickerData: [Int] = Factory.prepareTimeMinutePickerData()
+    var timePicked: Time = Time()
 
-    //==================== View Controller Methods ====================
+    // ==================== View Controller Methods ====================
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -49,7 +49,7 @@ class RecordEditorTimePickerViewController: UIViewController, UIPickerViewDataSo
         labelForMinutes()
     }
 
-    //==================== UIPickerViewDataSource Methods ====================
+    // ==================== UIPickerViewDataSource Methods ====================
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
         return 2
     }
@@ -62,7 +62,7 @@ class RecordEditorTimePickerViewController: UIViewController, UIPickerViewDataSo
         }
     }
     
-    //==================== UIPickerDelegate Methods ====================
+    // ==================== UIPickerDelegate Methods ====================
     func pickerView(pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
         if component == 0 {
             return Style.picker(timeHourPickerData[row])
@@ -80,14 +80,14 @@ class RecordEditorTimePickerViewController: UIViewController, UIPickerViewDataSo
         }
     }
     
-    //==================== IBAction Methods ====================
+    // ==================== IBAction Methods ====================
     @IBAction func saveButtonPressed(sender: UIButton) {
         recordEditorVC.timeSpent = self.timePicked
         
         self.navigationController?.popViewControllerAnimated(true)
     }
     
-    //==================== Helper Methods ====================
+    // ==================== Helper Methods ====================
     /**
      Returns the integer index for the currently selected hour based on the self.timePicked.hours property.
      
@@ -149,11 +149,5 @@ class RecordEditorTimePickerViewController: UIViewController, UIPickerViewDataSo
         
         self.view.addSubview(minsLabel)
     }
+    
 }
-
-
-
-
-
-
-

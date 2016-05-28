@@ -28,9 +28,9 @@ Class Methods:
 */
 public class Time {
     //============ Attributes ==========
-    public var hours:Int = 0
-    public var minutes:Int = 0
-    public var isNegative:Bool = false
+    public var hours: Int = 0
+    public var minutes: Int = 0
+    public var isNegative: Bool = false
     
     
     //============ Constructors ============
@@ -93,8 +93,8 @@ public class Time {
     - returns: Nothing
     */
     public func setByDouble(newTime: Double) {
-        var tempHrs:Double!
-        var tempMins:Double!
+        var tempHrs: Double!
+        var tempMins: Double!
         
         if newTime < 0 {
             tempHrs = ceil(atof(String(format: "%f", newTime)))
@@ -138,7 +138,7 @@ public class Time {
     */
     public func toDouble() -> Double {
         
-        var tempMin:Double!
+        var tempMin: Double!
         
         switch self.minutes {
         case 15:
@@ -151,7 +151,7 @@ public class Time {
             tempMin = 0
         }
         
-        var finalDouble:Double!
+        var finalDouble: Double!
         
         if self.isNegative {
             finalDouble = (Double(self.hours) - tempMin)
@@ -195,4 +195,5 @@ public class Time {
         }
         
     }
+    
 }

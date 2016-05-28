@@ -10,11 +10,11 @@ import UIKit
 import RealmSwift
 
 public class Database {
-    //========== Static Properties ==========
+    // ========== Static Properties ==========
     static var testingEnabled = false
     static var debugEnabled = false
     
-    //==================== Static Methods ====================
+    // ==================== Static Methods ====================
     /**
      Calculates time to constrain time to n hours and 0 <= n <= 60 minutes.
      
@@ -164,17 +164,13 @@ public class Database {
         let newCategories = List<Category>()
         let oldCategories = oldBudget.categories
         
-        for var i = 0; i < oldCategories.count; i++ {
-            let oldCategory = oldCategories[i] 
-            
+        for oldCategory in oldCategories {
             let newCategory = Category()
             
             newCategory.name = oldCategory.name
             newCategory.parent = newBudget
             
-            for var x = 0; x < oldCategory.tasks.count; x++ {
-                let oldTask = oldCategory.tasks[x] 
-                
+            for oldTask in oldCategory.tasks {
                 let newTask = Task()
                 newTask.name = oldTask.name
                 newTask.memo = oldTask.memo
@@ -295,14 +291,6 @@ public class Database {
             
             parentCategory.tasks.append(newTask)
             parentCategory.calcTime()
-        }
-        
-        if self.debugEnabled {
-            //let testTask = realm.objects(Task).filter("name = '\(name)'").first!
-            //print("addTask->testTask.name: ", testTask.name)
-            //print("addTask->testTask.memo: ", testTask.memo)
-            //print("addTask->testTask.time: ", testTask.timeBudgeted)
-            //print("addTask->testTask.categoryName: ", testTask.parent.name)
         }
         
         return newTask
@@ -449,7 +437,6 @@ public class Database {
         let realm = Database.getRealm()
         let oldTask = record.parent
         let oldIndex = oldTask.records.indexOf(record)!
-        //let newTask = (realm.objects(Task).filter("name = '\(newTaskName)'")).first!
         
         try! realm.write {
             oldTask.records.removeAtIndex(oldIndex)
@@ -460,7 +447,6 @@ public class Database {
         }
         
         if self.debugEnabled {
-            //let testRecord = realm.objects(Task).filter("name = '\(newTaskName)'").first!.records.filter("note = '\(record.note)'").first!
             print("addRecord->testRecord.note", record.note)
             print("addRecord->testRecord.timeSpent", record.timeSpent)
             print("addRecord->testRecord.date", record.date)
@@ -494,7 +480,6 @@ public class Database {
             Database.moveRecord(record: record, newTask: task)
         }
         if self.debugEnabled {
-            //let testRecord = realm.objects(Task).filter("name = '\(taskName)'").first!.records.filter("note = '\(note)'").first!
             print("addRecord->testRecord.note", record.note)
             print("addRecord->testRecord.timeSpent", record.timeSpent)
             print("addRecord->testRecord.date", record.date)
@@ -529,18 +514,5 @@ public class Database {
             return task.clock!.finalTime
         }
     }
+    
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-

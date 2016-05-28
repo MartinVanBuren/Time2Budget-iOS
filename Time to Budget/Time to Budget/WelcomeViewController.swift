@@ -10,10 +10,10 @@ import UIKit
 
 class WelcomeViewController: UIPageViewController {
     
-    private var orderedViewControllers:[UIViewController] = []
-    private var currentIndex:Int!
-    private var nextIndex:Int!
-    private var backgroundColors:[UIColor] = []
+    private var orderedViewControllers: [UIViewController] = []
+    private var currentIndex: Int!
+    private var nextIndex: Int!
+    private var backgroundColors: [UIColor] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,11 +31,9 @@ class WelcomeViewController: UIPageViewController {
         
         orderedViewControllers.removeAll()
         
-        for (var i=1; i<=6; i++) {
+        for i in 1...6 {
             orderedViewControllers.append(storyboard.instantiateViewControllerWithIdentifier("WelcomePage\(i)"))
         }
-        
-        
         
         if let firstViewController = orderedViewControllers.first {
             setViewControllers([firstViewController],
@@ -75,9 +73,11 @@ class WelcomeViewController: UIPageViewController {
     func presentationIndexForPageViewController(pageViewController: UIPageViewController) -> Int {
         return currentIndex
     }
+    
 }
 
 extension WelcomeViewController: UIPageViewControllerDataSource {
+    
     func pageViewController(pageViewController: UIPageViewController,
         viewControllerBeforeViewController viewController: UIViewController) -> UIViewController? {
             guard let currentIndex = orderedViewControllers.indexOf(viewController) else {
@@ -116,9 +116,11 @@ extension WelcomeViewController: UIPageViewControllerDataSource {
             
             return orderedViewControllers[nextIndex]
     }
+    
 }
 
 extension WelcomeViewController: UIPageViewControllerDelegate {
+    
     func pageViewController(pageViewController: UIPageViewController, willTransitionToViewControllers pendingViewControllers: [UIViewController]) {
         let viewControllerIndex = orderedViewControllers.indexOf(pendingViewControllers.first!)
         self.nextIndex = viewControllerIndex
@@ -132,4 +134,5 @@ extension WelcomeViewController: UIPageViewControllerDelegate {
             }, completion: nil)
         }
     }
+    
 }

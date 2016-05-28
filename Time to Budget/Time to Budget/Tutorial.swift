@@ -35,11 +35,11 @@ public class Tutorial {
         settings.setBool(false, forKey: "showTutorialAddTaskView")
     }
     
-    class func shouldRun(budgetView budgetView:Bool = false,
-                                    budgetEditor:Bool = false,
-                                    recordsView:Bool = false,
-                                    addRecordView:Bool = false,
-                                    addTaskView:Bool = false) -> Bool {
+    class func shouldRun(budgetView budgetView: Bool = false,
+                                    budgetEditor: Bool = false,
+                                    recordsView: Bool = false,
+                                    addRecordView: Bool = false,
+                                    addTaskView: Bool = false) -> Bool {
         let settings = NSUserDefaults.standardUserDefaults()
         
         if budgetView {
@@ -82,11 +82,11 @@ public class Tutorial {
         return false
     }
     
-    private class func didRun(budgetView budgetView:Bool = false,
-                                         budgetEditor:Bool = false,
-                                         recordsView:Bool = false,
-                                         addRecordView:Bool = false,
-                                         addTaskView:Bool = false) {
+    private class func didRun(budgetView budgetView: Bool = false,
+                                         budgetEditor: Bool = false,
+                                         recordsView: Bool = false,
+                                         addRecordView: Bool = false,
+                                         addTaskView: Bool = false) {
         let settings = NSUserDefaults.standardUserDefaults()
         
         if budgetView {
@@ -103,11 +103,11 @@ public class Tutorial {
     }
     
     class func getHintLabelForIndex(index: Int,
-                                    budgetView:Bool = false,
-                                    budgetEditor:Bool = false,
-                                    recordsView:Bool = false,
-                                    addRecordView:Bool = false,
-                                    addTaskView:Bool = false) -> String {
+                                    budgetView: Bool = false,
+                                    budgetEditor: Bool = false,
+                                    recordsView: Bool = false,
+                                    addRecordView: Bool = false,
+                                    addTaskView: Bool = false) -> String {
         if budgetView {
             return budgetViewHintLabels(index)
         } else if budgetEditor {
@@ -201,4 +201,5 @@ public class Tutorial {
             return "Oops too many coach mark calls!"
         }
     }
+    
 }

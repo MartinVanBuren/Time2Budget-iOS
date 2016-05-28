@@ -10,13 +10,13 @@ import UIKit
 
 class RecordEditorDatePickerViewController: UIViewController {
 
-    //=========== View Properties ===========
-    var recordEditorVC:RecordEditorViewController!
+    // =========== View Properties ===========
+    var recordEditorVC: RecordEditorViewController!
     @IBOutlet weak var doneButton: UIButton!
     @IBOutlet weak var datePicker: UIDatePicker!
-    var datePicked:NSDate!
+    var datePicked: NSDate!
     
-    //====================== View Controller Methods ======================
+    // ====================== View Controller Methods ======================
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -29,7 +29,7 @@ class RecordEditorDatePickerViewController: UIViewController {
         self.datePicker.setDate(self.recordEditorVC.date, animated: true)
     }
     
-    //====================== IBAction Methods ======================
+    // ====================== IBAction Methods ======================
     @IBAction func saveButtonPressed(sender: UIButton) {
         // Update the date picked and return to previous view.
         recordEditorVC.date = self.datePicked
@@ -40,4 +40,5 @@ class RecordEditorDatePickerViewController: UIViewController {
         // Update the current selected date.
         datePicked = sender.date
     }
+    
 }

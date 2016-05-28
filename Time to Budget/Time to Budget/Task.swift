@@ -10,9 +10,9 @@ import Foundation
 import RealmSwift
 
 public class Task: Object {
-    //==================== Properties ====================
-    public dynamic var parent:Category!
-    public dynamic var clock:Clock? = Clock()
+    // ==================== Properties ====================
+    public dynamic var parent: Category!
+    public dynamic var clock: Clock? = Clock()
     public dynamic var name = ""
     public dynamic var memo = ""
     public dynamic var timeBudgeted = 0.0
@@ -20,17 +20,18 @@ public class Task: Object {
     public dynamic var timeRemaining = 0.0
     public let records = List<Record>()
     
-    //==================== Methods ====================
+    // ==================== Methods ====================
     public func calcTime() {
         self.totalTimeSpent = 0.0
         self.timeRemaining = 0.0
-            
-        for var i = 0; i < self.records.count; i++ {
-            self.totalTimeSpent += self.records[i].timeSpent
+        
+        for record in records {
+            totalTimeSpent += record.timeSpent
         }
         
         self.timeRemaining = (self.timeBudgeted - self.totalTimeSpent)
         
         self.parent.calcTime()
     }
+    
 }

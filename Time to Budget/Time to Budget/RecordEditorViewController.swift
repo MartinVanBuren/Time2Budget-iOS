@@ -11,20 +11,20 @@ import RealmSwift
 
 class RecordEditorViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, writeTaskBackDelegate {
     
-    //============ View Properties ============
+    // ============ View Properties ============
     @IBOutlet weak var saveRecordButton: UIButton!
     @IBOutlet weak var tableView: UITableView!
-    var editRecord:Bool = false
-    var returning:Bool? = false
+    var editRecord: Bool = false
+    var returning: Bool? = false
     
     //============ Record Properties ============
-    var currentTask:Task?
-    var currentRecord:Record?
-    var timeSpent:Time?
-    var date:NSDate = NSDate()
-    var memo:String!
+    var currentTask: Task?
+    var currentRecord: Record?
+    var timeSpent: Time?
+    var date: NSDate = NSDate()
+    var memo: String!
     
-    //===================== View Controller Methods =====================
+    // ===================== View Controller Methods =====================
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -57,27 +57,27 @@ class RecordEditorViewController: UIViewController, UITableViewDataSource, UITab
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if (segue.identifier == "showTaskSelectorView") {
             // Pass self into the target view.
-            let taskSelectorVC = (segue.destinationViewController as! RecordEditorTaskSelectorViewController)
-            taskSelectorVC.delegate = self
+            let taskSelectorVC = (segue.destinationViewController as? RecordEditorTaskSelectorViewController)
+            taskSelectorVC?.delegate = self
         } else if (segue.identifier == "showTimePickerView") {
             // Pass self into the target view.
-            let timePickerVC = segue.destinationViewController as! RecordEditorTimePickerViewController
-            timePickerVC.recordEditorVC = self
+            let timePickerVC = segue.destinationViewController as? RecordEditorTimePickerViewController
+            timePickerVC?.recordEditorVC = self
         } else if (segue.identifier == "showDatePickerView") {
             // Pass self into the target view.
-            let datePickerVC = segue.destinationViewController as! RecordEditorDatePickerViewController
-            datePickerVC.recordEditorVC = self
+            let datePickerVC = segue.destinationViewController as? RecordEditorDatePickerViewController
+            datePickerVC?.recordEditorVC = self
         }
     }
     
-    //=============== Protocol Methods ===============
+    // =============== Protocol Methods ===============
     func writeTaskBack(task: Task) {
         // Retrieve Task back from the Record Editor Task Selector View.
         self.currentTask = task
         self.tableView.reloadData()
     }
     
-    //==================== UITableViewDataSource Methods ====================
+    // ==================== UITableViewDataSource Methods ====================
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
@@ -102,7 +102,7 @@ class RecordEditorViewController: UIViewController, UITableViewDataSource, UITab
         }
     }
     
-    //==================== UITableViewDataSource Methods ====================
+    // ==================== UITableViewDataSource Methods ====================
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         switch indexPath.row {
@@ -126,14 +126,14 @@ class RecordEditorViewController: UIViewController, UITableViewDataSource, UITab
         return 0
     }
     
-    //==================== UITextFieldDelegate Methods ====================
+    // ==================== UITextFieldDelegate Methods ====================
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         // Close keyboard when finished editing.
         self.view.endEditing(true)
         return true
     }
     
-    //==================== IBAction Methods ====================
+    // ==================== IBAction Methods ====================
     @IBAction func cancelButtonPressed(sender: UIBarButtonItem) {
         // Return to previous view.
         self.dismissViewControllerAnimated(true, completion: nil)
@@ -185,4 +185,5 @@ class RecordEditorViewController: UIViewController, UITableViewDataSource, UITab
             Factory.displayAlert(viewController: self, title: "Task Not Selected", message: "You must select a Task.")
         }
     }
+    
 }

@@ -155,7 +155,7 @@ public class Style {
      - returns: Nothing
      */
     class func picker(pickerData: Int) -> NSAttributedString {
-        let attributes : [String : AnyObject]? = [NSForegroundColorAttributeName : self.textColor]
+        let attributes: [String: AnyObject]? = [NSForegroundColorAttributeName: self.textColor]
         let attributedString = NSAttributedString(string: "\(pickerData)", attributes: attributes)
         return attributedString
     }
@@ -360,7 +360,7 @@ public class Style {
             cell.remainingTimeBarOutline.layer.borderColor = self.blue.CGColor
             cell.remainingTimeBar.layer.mask = nil
         } else {
-            var barRatio:CGFloat!
+            var barRatio: CGFloat!
             
             if cell.category!.totalTimeRemaining >= 0 {
                 barRatio = CGFloat(cell.category!.totalTimeRemaining/cell.category!.totalTimeBudgeted)
@@ -407,7 +407,7 @@ public class Style {
                 view.remainingTimeBarOutline.layer.borderColor = self.blue.CGColor
                 view.remainingTimeBar.layer.mask = nil
             } else {
-                var barRatio:CGFloat!
+                var barRatio: CGFloat!
                 
                 if view.category!.totalTimeRemaining >= 0 && view.category!.totalTimeBudgeted > 0 {
                     barRatio = CGFloat(view.category!.totalTimeRemaining/view.category!.totalTimeBudgeted)
@@ -485,4 +485,5 @@ public class Style {
         
         return cell
     }
+    
 }

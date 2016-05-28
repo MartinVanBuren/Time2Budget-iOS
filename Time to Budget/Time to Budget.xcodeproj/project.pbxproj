@@ -22,6 +22,7 @@
 		5B9DE8B61C6E7AF40065BFCA /* RealmSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5B9DE8AD1C6E7ADF0065BFCA /* RealmSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5BB55CB71BA8ABF700F43891 /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB55CB61BA8ABF700F43891 /* Style.swift */; };
 		5BB60D4D1BD00D57003408D0 /* Time_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9320D5881A7476A50013018C /* Time_Tests.swift */; };
+		5BCE7D771CF7E9C100B9BA9E /* .tailor.yml in Resources */ = {isa = PBXBuildFile; fileRef = 5BCE7D761CF7E9C100B9BA9E /* .tailor.yml */; };
 		5BDE190A1C1A2E8400DF8F95 /* Clock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDE19091C1A2E8400DF8F95 /* Clock.swift */; };
 		5BF78C481BD86F8A0082F1BC /* Time_to_Budget_UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF78C471BD86F8A0082F1BC /* Time_to_Budget_UITests.swift */; };
 		5BF979491C0290CB00F005EC /* CategoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BF979441C0290CB00F005EC /* CategoryCell.xib */; };
@@ -105,6 +106,7 @@
 		5B9DE8AB1C6E7ADF0065BFCA /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Realm.framework; sourceTree = SOURCE_ROOT; };
 		5B9DE8AD1C6E7ADF0065BFCA /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RealmSwift.framework; sourceTree = SOURCE_ROOT; };
 		5BB55CB61BA8ABF700F43891 /* Style.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Style.swift; sourceTree = "<group>"; };
+		5BCE7D761CF7E9C100B9BA9E /* .tailor.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .tailor.yml; sourceTree = "<group>"; };
 		5BDE19091C1A2E8400DF8F95 /* Clock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Clock.swift; sourceTree = "<group>"; };
 		5BF78C451BD86F8A0082F1BC /* Time to Budget UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Time to Budget UITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5BF78C471BD86F8A0082F1BC /* Time_to_Budget_UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Time_to_Budget_UITests.swift; sourceTree = "<group>"; };
@@ -307,6 +309,7 @@
 		93F0E4DE1A720B64009D95EC = {
 			isa = PBXGroup;
 			children = (
+				5BCE7D761CF7E9C100B9BA9E /* .tailor.yml */,
 				93F0E4E91A720B64009D95EC /* Time to Budget */,
 				93F0E4EB1A720B64009D95EC /* Info.plist */,
 				9320D5761A746E900013018C /* Time to Budget Tests */,
@@ -436,6 +439,7 @@
 				93F0E4E51A720B64009D95EC /* Resources */,
 				5BF78C401BD85B420082F1BC /* Embed Frameworks */,
 				5B17E2441BDF2F240014CF2D /* ShellScript */,
+				A3AEBB3B45D8CBE5929D75B5 /* Tailor */,
 			);
 			buildRules = (
 			);
@@ -519,6 +523,7 @@
 				5BF9794A1C0290CB00F005EC /* DetailCell.xib in Resources */,
 				93F0E4F71A720B64009D95EC /* LaunchScreen.xib in Resources */,
 				93F0E50D1A720BD4009D95EC /* iPhone.storyboard in Resources */,
+				5BCE7D771CF7E9C100B9BA9E /* .tailor.yml in Resources */,
 				5BF9794C1C0290CB00F005EC /* SubtitleDetailCell.xib in Resources */,
 				93F0E4F41A720B64009D95EC /* Images.xcassets in Resources */,
 				5B3BCDEE1C07B1C2007C8A2E /* CategoryView.xib in Resources */,
@@ -540,6 +545,20 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "bash \"${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework/strip-frameworks.sh\"";
+		};
+		A3AEBB3B45D8CBE5929D75B5 /* Tailor */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = Tailor;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if hash tailor 2>/dev/null; then\n  tailor\nelse\n  echo \"warning: Please install Tailor from https://tailor.sh\"\nfi";
 		};
 /* End PBXShellScriptBuildPhase section */
 

@@ -11,18 +11,18 @@ import UIKit
 class TaskEditorViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, writeCategoryBackDelegate {
 
     //========== View Properties ==========
-    var budgetEditorViewController:BudgetEditorViewController!
-    var currentTask:Task?
-    var returning:Bool? = false
-    var editTask:Bool = false
+    var budgetEditorViewController: BudgetEditorViewController!
+    var currentTask: Task?
+    var returning: Bool? = false
+    var editTask: Bool = false
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var saveTaskButton: UIButton!
     
     //========== Task Properties ==========
-    var taskName:String?
-    var taskMemo:String!
-    var taskCategory:String?
-    internal var taskTime:Double? = 0.0
+    var taskName: String?
+    var taskMemo: String!
+    var taskCategory: String?
+    internal var taskTime: Double? = 0.0
     
     //==================== View Controller Methods ====================
     override func viewDidLoad() {
@@ -64,12 +64,12 @@ class TaskEditorViewController: UIViewController, UITableViewDataSource, UITable
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if (segue.identifier == "showTaskEditorTimePickerView") {
             // Pass self into target view.
-            let timePickerVC = segue.destinationViewController as! TaskEditorTimePickerViewController
-            timePickerVC.taskEditorVC = self
+            let timePickerVC = segue.destinationViewController as? TaskEditorTimePickerViewController
+            timePickerVC?.taskEditorVC = self
         } else if (segue.identifier == "showTaskEditorCategorySelectorView") {
             // Pass self into target view.
-            let categorySelectorVC = segue.destinationViewController as! TaskEditorCategorySelectorViewController
-            categorySelectorVC.delegate = self
+            let categorySelectorVC = segue.destinationViewController as? TaskEditorCategorySelectorViewController
+            categorySelectorVC?.delegate = self
         }
     }
     
@@ -184,4 +184,5 @@ class TaskEditorViewController: UIViewController, UITableViewDataSource, UITable
             Factory.displayAlert(viewController: self, title: "Task Must Be Named", message: "You must name the task before saving.")
         }
     }
+    
 }

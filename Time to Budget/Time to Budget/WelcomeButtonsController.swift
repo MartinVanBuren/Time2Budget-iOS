@@ -59,4 +59,5 @@ class WelcomeButtonsController: UIViewController {
         let mainView = storyboard.instantiateViewControllerWithIdentifier("MainTabBarController")
         self.presentViewController(mainView, animated: true, completion: nil)
     }
+    
 }
