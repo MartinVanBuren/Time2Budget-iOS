@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "93F0E4E61A720B64009D95EC"
-               BuildableName = "Time to Budget.app"
-               BlueprintName = "Time to Budget"
-               ReferencedContainer = "container:Time to Budget/Time to Budget.xcodeproj">
+               BuildableName = "Time2Budget.app"
+               BlueprintName = "Time2Budget"
+               ReferencedContainer = "container:Time to Budget/Time2Budget.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -29,9 +29,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "9320D5741A746E8F0013018C"
-               BuildableName = "Time to Budget Tests.xctest"
-               BlueprintName = "Time to Budget Tests"
-               ReferencedContainer = "container:Time to Budget/Time to Budget.xcodeproj">
+               BuildableName = "Time2Budget.xctest"
+               BlueprintName = "Time2Budget Tests"
+               ReferencedContainer = "container:Time to Budget/Time2Budget.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -43,9 +43,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "5BF78C441BD86F8A0082F1BC"
-               BuildableName = "Time to Budget UITests.xctest"
-               BlueprintName = "Time to Budget UITests"
-               ReferencedContainer = "container:Time to Budget/Time to Budget.xcodeproj">
+               BuildableName = "Time2Budget.xctest"
+               BlueprintName = "Time2Budget UITests"
+               ReferencedContainer = "container:Time to Budget/Time2Budget.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -61,9 +61,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "9320D5741A746E8F0013018C"
-               BuildableName = "Time to Budget Tests.xctest"
-               BlueprintName = "Time to Budget Tests"
-               ReferencedContainer = "container:Time to Budget/Time to Budget.xcodeproj">
+               BuildableName = "Time2Budget.xctest"
+               BlueprintName = "Time2Budget Tests"
+               ReferencedContainer = "container:Time to Budget/Time2Budget.xcodeproj">
             </BuildableReference>
          </TestableReference>
          <TestableReference
@@ -71,9 +71,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "5BF78C441BD86F8A0082F1BC"
-               BuildableName = "Time to Budget UITests.xctest"
-               BlueprintName = "Time to Budget UITests"
-               ReferencedContainer = "container:Time to Budget/Time to Budget.xcodeproj">
+               BuildableName = "Time2Budget.xctest"
+               BlueprintName = "Time2Budget UITests"
+               ReferencedContainer = "container:Time to Budget/Time2Budget.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -81,9 +81,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "93F0E4E61A720B64009D95EC"
-            BuildableName = "Time to Budget.app"
-            BlueprintName = "Time to Budget"
-            ReferencedContainer = "container:Time to Budget/Time to Budget.xcodeproj">
+            BuildableName = "Time2Budget.app"
+            BlueprintName = "Time2Budget"
+            ReferencedContainer = "container:Time to Budget/Time2Budget.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -104,9 +104,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "93F0E4E61A720B64009D95EC"
-            BuildableName = "Time to Budget.app"
-            BlueprintName = "Time to Budget"
-            ReferencedContainer = "container:Time to Budget/Time to Budget.xcodeproj">
+            BuildableName = "Time2Budget.app"
+            BlueprintName = "Time2Budget"
+            ReferencedContainer = "container:Time to Budget/Time2Budget.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -123,9 +123,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "93F0E4E61A720B64009D95EC"
-            BuildableName = "Time to Budget.app"
-            BlueprintName = "Time to Budget"
-            ReferencedContainer = "container:Time to Budget/Time to Budget.xcodeproj">
+            BuildableName = "Time2Budget.app"
+            BlueprintName = "Time2Budget"
+            ReferencedContainer = "container:Time to Budget/Time2Budget.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

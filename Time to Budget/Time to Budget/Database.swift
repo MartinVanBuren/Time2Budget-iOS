@@ -60,7 +60,7 @@ public class Database {
         // Tell Realm to use this new configuration object for the default Realm
         Realm.Configuration.defaultConfiguration = config
         
-        _ = Database.getRealm()
+        Database.getRealm()
     }
     
     public class func restoreDefaultBudget() {

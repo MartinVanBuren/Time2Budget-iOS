@@ -111,7 +111,7 @@ class SettingsViewController: UITableViewController {
             switch indexPath.row {
             case 0:
                 let appVersionString = NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleShortVersionString")!
-                Factory.displayAlert(viewController: self, title: "Time to Budget", message: "Version \(appVersionString)\nCopyright © 2015 Arrken Software LLC\nCreated by Robert Kennedy\n\nDatabase - realm/Realm\nTutorial - ephread/Instructions")
+                Factory.displayAlert(viewController: self, title: "Time2Budget", message: "Version \(appVersionString)\nCopyright © 2015 Arrken Software LLC\nCreated by Robert Kennedy\n\nDatabase - realm/Realm\nTutorial - ephread/Instructions")
             case 1:
                 let url = NSURL(string: "https://arrkensoftware.typeform.com/to/zvWlEk")
                 UIApplication.sharedApplication().openURL(url!)
@@ -132,7 +132,7 @@ class SettingsViewController: UITableViewController {
             case 1:
                 let settings = NSUserDefaults.standardUserDefaults()
                 settings.setBool(true, forKey: "showWelcome")
-                Factory.displayAlert(viewController: self, title: "Welcome Enabled", message: "The welcome screen will now run when you restart Time to Budget.")
+                Factory.displayAlert(viewController: self, title: "Welcome Enabled", message: "The welcome screen will now run when you restart Time2Budget.")
             case 2:
                 UIApplication.sharedApplication().openURL(NSURL(string: UIApplicationOpenSettingsURLString)!)
             default:

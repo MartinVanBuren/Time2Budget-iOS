@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		5B16AA2F1C8676A70019E4F8 /* WelcomeButtonsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B16AA2E1C8676A70019E4F8 /* WelcomeButtonsController.swift */; };
-		5B3140401BFBA2DA003644D9 /* Database_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93BC90441A74C84200A63932 /* Database_Tests.swift */; };
 		5B3BCDEE1C07B1C2007C8A2E /* CategoryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B3BCDED1C07B1C2007C8A2E /* CategoryView.xib */; };
 		5B3BCDF01C07B5B9007C8A2E /* CategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3BCDEF1C07B5B9007C8A2E /* CategoryView.swift */; };
 		5B55BC7C1C6A9CED005B81F7 /* Instructions.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5B536D681C6A96F60007081C /* Instructions.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -21,10 +20,8 @@
 		5B9DE8B51C6E7AF40065BFCA /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B9DE8AD1C6E7ADF0065BFCA /* RealmSwift.framework */; };
 		5B9DE8B61C6E7AF40065BFCA /* RealmSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5B9DE8AD1C6E7ADF0065BFCA /* RealmSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5BB55CB71BA8ABF700F43891 /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB55CB61BA8ABF700F43891 /* Style.swift */; };
-		5BB60D4D1BD00D57003408D0 /* Time_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9320D5881A7476A50013018C /* Time_Tests.swift */; };
 		5BCE7D771CF7E9C100B9BA9E /* .tailor.yml in Resources */ = {isa = PBXBuildFile; fileRef = 5BCE7D761CF7E9C100B9BA9E /* .tailor.yml */; };
 		5BDE190A1C1A2E8400DF8F95 /* Clock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDE19091C1A2E8400DF8F95 /* Clock.swift */; };
-		5BF78C481BD86F8A0082F1BC /* Time_to_Budget_UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF78C471BD86F8A0082F1BC /* Time_to_Budget_UITests.swift */; };
 		5BF979491C0290CB00F005EC /* CategoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BF979441C0290CB00F005EC /* CategoryCell.xib */; };
 		5BF9794A1C0290CB00F005EC /* DetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BF979451C0290CB00F005EC /* DetailCell.xib */; };
 		5BF9794C1C0290CB00F005EC /* SubtitleDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BF979471C0290CB00F005EC /* SubtitleDetailCell.xib */; };
@@ -108,8 +105,8 @@
 		5BB55CB61BA8ABF700F43891 /* Style.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Style.swift; sourceTree = "<group>"; };
 		5BCE7D761CF7E9C100B9BA9E /* .tailor.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .tailor.yml; sourceTree = "<group>"; };
 		5BDE19091C1A2E8400DF8F95 /* Clock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Clock.swift; sourceTree = "<group>"; };
-		5BF78C451BD86F8A0082F1BC /* Time to Budget UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Time to Budget UITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		5BF78C471BD86F8A0082F1BC /* Time_to_Budget_UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Time_to_Budget_UITests.swift; sourceTree = "<group>"; };
+		5BF78C451BD86F8A0082F1BC /* Time2Budget.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Time2Budget.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		5BF78C471BD86F8A0082F1BC /* Time2Budget_UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Time2Budget_UITests.swift; sourceTree = "<group>"; };
 		5BF78C491BD86F8A0082F1BC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5BF979441C0290CB00F005EC /* CategoryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CategoryCell.xib; sourceTree = "<group>"; };
 		5BF979451C0290CB00F005EC /* DetailCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailCell.xib; sourceTree = "<group>"; };
@@ -117,7 +114,7 @@
 		5BF979501C02A7F400F005EC /* MemoTextfieldCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemoTextfieldCell.swift; sourceTree = "<group>"; };
 		5BFCB0D71C84F1880004C3B6 /* WelcomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		9320D56E1A74625B0013018C /* MarshalOperator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarshalOperator.swift; sourceTree = "<group>"; };
-		9320D5751A746E8F0013018C /* Time to Budget Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Time to Budget Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9320D5751A746E8F0013018C /* Time2Budget.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Time2Budget.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9320D5781A746E900013018C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9320D5881A7476A50013018C /* Time_Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Time_Tests.swift; sourceTree = "<group>"; };
 		93223B481A86840500365D3A /* RecordEditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordEditorViewController.swift; sourceTree = "<group>"; };
@@ -136,7 +133,7 @@
 		93B2E5F61A903E890058372F /* RecordEditorDatePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordEditorDatePickerViewController.swift; sourceTree = "<group>"; };
 		93BC90441A74C84200A63932 /* Database_Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Database_Tests.swift; sourceTree = "<group>"; };
 		93CBED511AAB4C2000079482 /* Time to Budget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Time to Budget.entitlements"; sourceTree = "<group>"; };
-		93F0E4E71A720B64009D95EC /* Time to Budget.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Time to Budget.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		93F0E4E71A720B64009D95EC /* Time2Budget.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Time2Budget.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		93F0E4EB1A720B64009D95EC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = "Time to Budget/Info.plist"; sourceTree = "<group>"; };
 		93F0E4EC1A720B64009D95EC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		93F0E4F31A720B64009D95EC /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -212,7 +209,7 @@
 		5BF78C461BD86F8A0082F1BC /* Time to Budget UITests */ = {
 			isa = PBXGroup;
 			children = (
-				5BF78C471BD86F8A0082F1BC /* Time_to_Budget_UITests.swift */,
+				5BF78C471BD86F8A0082F1BC /* Time2Budget_UITests.swift */,
 				5BF78C491BD86F8A0082F1BC /* Info.plist */,
 			);
 			path = "Time to Budget UITests";
@@ -321,9 +318,9 @@
 		93F0E4E81A720B64009D95EC /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				93F0E4E71A720B64009D95EC /* Time to Budget.app */,
-				9320D5751A746E8F0013018C /* Time to Budget Tests.xctest */,
-				5BF78C451BD86F8A0082F1BC /* Time to Budget UITests.xctest */,
+				93F0E4E71A720B64009D95EC /* Time2Budget.app */,
+				9320D5751A746E8F0013018C /* Time2Budget.xctest */,
+				5BF78C451BD86F8A0082F1BC /* Time2Budget.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -394,9 +391,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		5BF78C441BD86F8A0082F1BC /* Time to Budget UITests */ = {
+		5BF78C441BD86F8A0082F1BC /* Time2Budget UITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 5BF78C4C1BD86F8A0082F1BC /* Build configuration list for PBXNativeTarget "Time to Budget UITests" */;
+			buildConfigurationList = 5BF78C4C1BD86F8A0082F1BC /* Build configuration list for PBXNativeTarget "Time2Budget UITests" */;
 			buildPhases = (
 				5BF78C411BD86F8A0082F1BC /* Sources */,
 				5BF78C421BD86F8A0082F1BC /* Frameworks */,
@@ -407,14 +404,14 @@
 			dependencies = (
 				5BF78C4B1BD86F8A0082F1BC /* PBXTargetDependency */,
 			);
-			name = "Time to Budget UITests";
+			name = "Time2Budget UITests";
 			productName = "Time to Budget UITests";
-			productReference = 5BF78C451BD86F8A0082F1BC /* Time to Budget UITests.xctest */;
+			productReference = 5BF78C451BD86F8A0082F1BC /* Time2Budget.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
-		9320D5741A746E8F0013018C /* Time to Budget Tests */ = {
+		9320D5741A746E8F0013018C /* Time2Budget Tests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 9320D57D1A746E900013018C /* Build configuration list for PBXNativeTarget "Time to Budget Tests" */;
+			buildConfigurationList = 9320D57D1A746E900013018C /* Build configuration list for PBXNativeTarget "Time2Budget Tests" */;
 			buildPhases = (
 				9320D5711A746E8F0013018C /* Sources */,
 				9320D5721A746E8F0013018C /* Frameworks */,
@@ -425,14 +422,14 @@
 			dependencies = (
 				9320D57C1A746E900013018C /* PBXTargetDependency */,
 			);
-			name = "Time to Budget Tests";
+			name = "Time2Budget Tests";
 			productName = "Time to Budget Tests";
-			productReference = 9320D5751A746E8F0013018C /* Time to Budget Tests.xctest */;
+			productReference = 9320D5751A746E8F0013018C /* Time2Budget.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		93F0E4E61A720B64009D95EC /* Time to Budget */ = {
+		93F0E4E61A720B64009D95EC /* Time2Budget */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 93F0E5061A720B65009D95EC /* Build configuration list for PBXNativeTarget "Time to Budget" */;
+			buildConfigurationList = 93F0E5061A720B65009D95EC /* Build configuration list for PBXNativeTarget "Time2Budget" */;
 			buildPhases = (
 				93F0E4E31A720B64009D95EC /* Sources */,
 				93F0E4E41A720B64009D95EC /* Frameworks */,
@@ -445,9 +442,9 @@
 			);
 			dependencies = (
 			);
-			name = "Time to Budget";
+			name = Time2Budget;
 			productName = "Time to Budget";
-			productReference = 93F0E4E71A720B64009D95EC /* Time to Budget.app */;
+			productReference = 93F0E4E71A720B64009D95EC /* Time2Budget.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -480,7 +477,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 93F0E4E21A720B64009D95EC /* Build configuration list for PBXProject "Time to Budget" */;
+			buildConfigurationList = 93F0E4E21A720B64009D95EC /* Build configuration list for PBXProject "Time2Budget" */;
 			compatibilityVersion = "Xcode 6.3";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -493,9 +490,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				93F0E4E61A720B64009D95EC /* Time to Budget */,
-				9320D5741A746E8F0013018C /* Time to Budget Tests */,
-				5BF78C441BD86F8A0082F1BC /* Time to Budget UITests */,
+				93F0E4E61A720B64009D95EC /* Time2Budget */,
+				9320D5741A746E8F0013018C /* Time2Budget Tests */,
+				5BF78C441BD86F8A0082F1BC /* Time2Budget UITests */,
 			);
 		};
 /* End PBXProject section */
@@ -567,7 +564,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5BF78C481BD86F8A0082F1BC /* Time_to_Budget_UITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -575,8 +571,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5B3140401BFBA2DA003644D9 /* Database_Tests.swift in Sources */,
-				5BB60D4D1BD00D57003408D0 /* Time_Tests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -628,12 +622,12 @@
 /* Begin PBXTargetDependency section */
 		5BF78C4B1BD86F8A0082F1BC /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 93F0E4E61A720B64009D95EC /* Time to Budget */;
+			target = 93F0E4E61A720B64009D95EC /* Time2Budget */;
 			targetProxy = 5BF78C4A1BD86F8A0082F1BC /* PBXContainerItemProxy */;
 		};
 		9320D57C1A746E900013018C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 93F0E4E61A720B64009D95EC /* Time to Budget */;
+			target = 93F0E4E61A720B64009D95EC /* Time2Budget */;
 			targetProxy = 9320D57B1A746E900013018C /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -660,8 +654,8 @@
 				INFOPLIST_FILE = "Time to Budget UITests/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "arrken.Time-to-Budget-UITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = "arrken.Time2Budget-UITests";
+				PRODUCT_NAME = Time2Budget;
 				TEST_TARGET_NAME = "Time to Budget";
 				USES_XCTRUNNER = YES;
 			};
@@ -678,8 +672,8 @@
 				INFOPLIST_FILE = "Time to Budget UITests/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "arrken.Time-to-Budget-UITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = "arrken.Time2Budget-UITests";
+				PRODUCT_NAME = Time2Budget;
 				TEST_TARGET_NAME = "Time to Budget";
 				USES_XCTRUNNER = YES;
 			};
@@ -701,9 +695,9 @@
 				INFOPLIST_FILE = "Time to Budget Tests/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.arrken.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Time to Budget.app/Time to Budget";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.arrken.Time-to-Budget";
+				PRODUCT_NAME = Time2Budget;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Time2Budget.app/Time2Budget";
 			};
 			name = Debug;
 		};
@@ -719,9 +713,9 @@
 				INFOPLIST_FILE = "Time to Budget Tests/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.arrken.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Time to Budget.app/Time to Budget";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.arrken.Time-to-Budget";
+				PRODUCT_NAME = Time2Budget;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Time2Budget.app/Time2Budget";
 			};
 			name = Release;
 		};
@@ -818,8 +812,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				ONLY_ACTIVE_ARCH = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.arrken.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.arrken.Time-to-Budget";
+				PRODUCT_NAME = Time2Budget;
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "arm64 armv7 armv7s";
@@ -840,8 +834,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				ONLY_ACTIVE_ARCH = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.arrken.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.arrken.Time-to-Budget";
+				PRODUCT_NAME = Time2Budget;
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "arm64 armv7 armv7s";
@@ -851,7 +845,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		5BF78C4C1BD86F8A0082F1BC /* Build configuration list for PBXNativeTarget "Time to Budget UITests" */ = {
+		5BF78C4C1BD86F8A0082F1BC /* Build configuration list for PBXNativeTarget "Time2Budget UITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				5BF78C4D1BD86F8A0082F1BC /* Debug */,
@@ -860,7 +854,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		9320D57D1A746E900013018C /* Build configuration list for PBXNativeTarget "Time to Budget Tests" */ = {
+		9320D57D1A746E900013018C /* Build configuration list for PBXNativeTarget "Time2Budget Tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9320D57E1A746E900013018C /* Debug */,
@@ -869,7 +863,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		93F0E4E21A720B64009D95EC /* Build configuration list for PBXProject "Time to Budget" */ = {
+		93F0E4E21A720B64009D95EC /* Build configuration list for PBXProject "Time2Budget" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				93F0E5041A720B65009D95EC /* Debug */,
@@ -878,7 +872,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		93F0E5061A720B65009D95EC /* Build configuration list for PBXNativeTarget "Time to Budget" */ = {
+		93F0E5061A720B65009D95EC /* Build configuration list for PBXNativeTarget "Time2Budget" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				93F0E5071A720B65009D95EC /* Debug */,

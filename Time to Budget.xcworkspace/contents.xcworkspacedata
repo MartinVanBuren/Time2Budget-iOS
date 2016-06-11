@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "container:Time to Budget/Time to Budget.xcodeproj">
+      location = "container:/Users/Martin/Desktop/repositories/timetobudget_ios/Time to Budget/Time2Budget.xcodeproj">
    </FileRef>
 </Workspace>

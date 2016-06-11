@@ -8,7 +8,7 @@
 
 import XCTest
 
-class Time_to_Budget_UITests: XCTestCase {
+class Time2Budget_UITests: XCTestCase {
         
     override func setUp() {
         super.setUp()
