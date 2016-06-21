@@ -134,6 +134,7 @@
    </AnalyzeAction>
    <ArchiveAction
       buildConfiguration = "Release"
+      customArchiveName = "Time2Budget"
       revealArchiveInOrganizer = "YES">
    </ArchiveAction>
 </Scheme>

@@ -1,26 +1,8 @@
-//
-//  Factory.swift
-//  Time to Budget
-//
-//  Created by Robert Kennedy on 12/14/14.
-//  Copyright (c) 2014 Arrken Games, LLC. All rights reserved.
-//
-
 import UIKit
 import RealmSwift
 
 public class Factory {
-    // ==================== Static Methods ====================
-    /**
-    Calculates time to constrain time to n hours and 0 <= n <= 60 minutes.
-    
-    This method will take the current values of self.hours and self.minutes and convert them into a proper format.
-    For Example, 5h 70m will be converted into 6h 10m
-    
-    - Parameter None:
-    - returns: Nothing
-    */
-    
+
     class func prepareCategoryCell(tableView tableView: UITableView, categoryList: List<Category>, section: Int) -> CategoryCell {
         
         let thisCategory = categoryList[section]

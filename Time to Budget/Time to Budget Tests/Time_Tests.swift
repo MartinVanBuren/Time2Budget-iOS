@@ -1,11 +1,3 @@
-//
-//  Time_Tests.swift
-//  Time to Budget
-//
-//  Created by Robert Kennedy on 1/24/15.
-//  Copyright (c) 2015 Arrken Games, LLC. All rights reserved.
-//
-
 import XCTest
 @testable import Time_to_Budget
 

@@ -1,11 +1,3 @@
-//
-//  SettingsViewController.swift
-//  Time to Budget
-//
-//  Created by Robert Kennedy on 3/1/15.
-//  Copyright (c) 2015 Arrken Games, LLC. All rights reserved.
-//
-
 import UIKit
 import RealmSwift
 
@@ -162,14 +154,6 @@ class SettingsViewController: UITableViewController {
     }
     
     // ==================== Helper Methods ====================
-    /**
-    Displays an alert message asking the user if they are sure they would like to 
-    reset the database, and deletes everything in the database and restores the default
-    budget if the user agrees.
-    
-    - Parameter None:
-    - returns: Nothing
-    */
     func displayResetToDefaultAlert() {
         let alert = UIAlertController(title: "Are You Sure?", message: "Are you sure you want to erase all information, including archived budgets, and restore the default budget?", preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
@@ -179,15 +163,7 @@ class SettingsViewController: UITableViewController {
         
         self.presentViewController(alert, animated: true, completion: {})
     }
-    
-    /**
-     Displays an alert message asking the user if they are sure they would like to
-     reset the budget history, and deletes all non-current budgets in the database 
-     if the user says yes.
-     
-     - Parameter None:
-     - returns: Nothing
-     */
+
     func displayResetHistoryAlert() {
         let realm = Database.getRealm()
         let alert = UIAlertController(title: "Are You Sure?", message: "Are you sure you want to erase all non-current budgets?", preferredStyle: UIAlertControllerStyle.Alert)
@@ -201,14 +177,7 @@ class SettingsViewController: UITableViewController {
         
         self.presentViewController(alert, animated: true, completion: {})
     }
-    
-    /**
-     Displays an alert message asking the user if they are sure they would like to
-     archive the current budget, and creates a new budget if the user says yes.
-     
-     - Parameter None:
-     - returns: Nothing
-     */
+
     func displayArchiveBudgetAlert() {
         let alert = UIAlertController(title: "Are You Sure?", message: "Are you sure you want to archive the current budget?", preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler: { (action) -> Void in

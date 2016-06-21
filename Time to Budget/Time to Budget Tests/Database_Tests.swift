@@ -1,11 +1,3 @@
-//
-//  Database_Tests.swift
-//  Time to Budget
-//
-//  Created by Robert Kennedy on 1/25/15.
-//  Copyright (c) 2015 Arrken Games, LLC. All rights reserved.
-//
-
 import XCTest
 import RealmSwift
 @testable import Time_to_Budget

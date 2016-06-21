@@ -1,11 +1,3 @@
-//
-//  AppDelegate.swift
-//  Time to Budget
-//
-//  Created by Robert Kennedy on 1/22/15.
-//  Copyright (c) 2015 Arrken Games, LLC. All rights reserved.
-//
-
 import UIKit
 import RealmSwift
 

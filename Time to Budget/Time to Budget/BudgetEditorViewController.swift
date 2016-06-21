@@ -1,11 +1,3 @@
-//
-//  BudgetEditorViewController.swift
-//  Time to Budget
-//
-//  Created by Robert Kennedy on 1/23/15.
-//  Copyright (c) 2015 Arrken Games, LLC. All rights reserved.
-//
-
 import UIKit
 import RealmSwift
 import Instructions
@@ -183,16 +175,6 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
     }
 
     // ==================== Helper Methods ====================
-
-    /**
-    Handler for dragging and dropping Task cells in order that the user may rearrange their budget.
-    
-    This method handles long press gestures for Task cells but animating the cell and allowing it to 
-    move up and down the table view, updating the database as the user drags.
-
-    - Parameter None:
-    - returns: Nothing
-    */
     func longPressGestureRecognized(gestureRecognizer: UIGestureRecognizer) {
         // Retrieve information
         let longPress = gestureRecognizer
@@ -287,15 +269,6 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
         }
     }
 
-    /**
-     Generates and returns a snapshot of the view passed into it.
-
-     This method generates a snapshot of the view that is passed into it. This is used to
-     simulate the dragging and dropping of table view cells.
-
-     - Parameter inputView: The UIView of the input UITableViewCell.
-     - returns: A snapshot of the input cell.
-     */
     func snapshotOfCell(inputView: UIView) -> UIView {
         UIGraphicsBeginImageContextWithOptions(inputView.bounds.size, false, 0.0)
         inputView.layer.renderInContext(UIGraphicsGetCurrentContext()!)
@@ -310,16 +283,6 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
         return cellSnapshot
     }
 
-    /**
-     Updates the navigation bar title to relfect how much time is remaining in the weeks budget.
-
-     This method calculates how much that can be spent on this week's budget is remaining for
-     the user to allocate to Tasks. It then updates the navigation bar title to display
-     the amount of time remaining.
-
-     - Parameter None:
-     - returns: Nothing
-     */
     func updateTimeRemaining() {
         var taskTimeList: [Time] = []
         let newTime = Time(newTime: 168.0)

@@ -5,3 +5,4 @@ except:
     - redundant-parentheses
     - trailing-whitespace
     - comment-whitespace
+    - todo-syntax

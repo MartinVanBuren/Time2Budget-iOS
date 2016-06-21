@@ -1,11 +1,3 @@
-//
-//  Database.swift
-//  Time to Budget
-//
-//  Created by Robert Kennedy on 1/23/15.
-//  Copyright (c) 2015 Arrken Games, LLC. All rights reserved.
-//
-
 import UIKit
 import RealmSwift
 
@@ -15,15 +7,6 @@ public class Database {
     static var debugEnabled = false
     
     // ==================== Static Methods ====================
-    /**
-     Calculates time to constrain time to n hours and 0 <= n <= 60 minutes.
-     
-     This method will take the current values of self.hours and self.minutes and convert them into a proper format.
-     For Example, 5h 70m will be converted into 6h 10m
-     
-     - Parameter None:
-     - returns: Nothing
-     */
     public class func getRealm() -> Realm {
         if Database.testingEnabled {
             let config = Realm.Configuration(inMemoryIdentifier: "DatabaseTest")

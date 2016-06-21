@@ -1,11 +1,3 @@
-//
-//  WelcomeButtonsController.swift
-//  Time to Budget
-//
-//  Created by Robert Kennedy on 3/1/16.
-//  Copyright © 2016 Arrken Software, LLC. All rights reserved.
-//
-
 import Foundation
 import UIKit
 

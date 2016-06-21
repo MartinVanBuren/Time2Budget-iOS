@@ -1,11 +1,3 @@
-//
-//  NewCategoryView.swift
-//  Time to Budget
-//
-//  Created by Robert Kennedy on 11/26/15.
-//  Copyright © 2015 Arrken Software, LLC. All rights reserved.
-//
-
 import UIKit
 
 class CategoryView: UITableViewHeaderFooterView {

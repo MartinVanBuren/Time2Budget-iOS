@@ -1,11 +1,3 @@
-//
-//  BudgetViewController.swift
-//  Time to Budget
-//
-//  Created by Robert Kennedy on 1/23/15.
-//  Copyright (c) 2015 Arrken Games, LLC. All rights reserved.
-//
-
 import UIKit
 import RealmSwift
 import Instructions
@@ -205,48 +197,21 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     // ==================== Helper Methods ====================
-    
-    /**
-    Creates a timer to update the clock button every second.
-    
-    This method calls updateClock() and generates a timer to repeat updateClock() every second in order to
-    show the current amount of time the user has been clocked in on the clock button.
-    
-    - Parameter None:
-    - returns: Nothing
-    */
+    // FIXME: Refactor into a class.
     func initializeClock() {
         self.updateClock()
         let aSelector: Selector = #selector(BudgetViewController.updateClock)
         self.timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: aSelector, userInfo: nil, repeats: true)
     }
-    
-    /**
-     Invalidates the timer created by initializeClock() and resets the clock button back to default.
-     
-     This method invalidates the timer used to update the clock button time and then sets the clock button text
-     back to it's default "Clock In".
-     
-     - Parameter None:
-     - returns: Nothing
-     */
+
+    // FIXME: Refactor into a class.
     func invalidateClock() {
         self.timer.invalidate()
         self.clockButton.setTitle("Clock In", forState: UIControlState.Normal)
         self.clockButton.setTitle("Clock In", forState: UIControlState.Highlighted)
     }
-    
-    /**
-     Calculates the current amount of time the user has been clocked in and updates the clock button accordingly.
-     
-     This method calculates the amount of time the user have been clocked in by subtracting the time clocked in 
-     by the current time and breaks it down into hours, minutes, and seconds. These are then converted into a 
-     readable string format for use on the clock button title. The clock button title is then updated and animated
-     to relflect the elapsed time since the user clocked in.
-     
-     - Parameter None:
-     - returns: Nothing
-     */
+
+    // FIXME: Refactor into a class.
     func updateClock() {
         // Calculate elapsed time.
         let currentTime = NSDate.timeIntervalSinceReferenceDate()
@@ -293,30 +258,14 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
         self.clockButton.setTitle(("Clock Out - " + finalTimeString), forState: UIControlState.Highlighted)
         UIView.setAnimationsEnabled(true)
     }
-    
-    /**
-     Creates and registers a tap gesture for the navigation bar title to display the current budget name on tap.
-     
-     This method generates a UITapGestureRecognizer and then registers to the navigations bar's title text
-     so that if the title is tapped the view will display the current budget name in the navigation bar
-     prompt.
-     
-     - Parameter None:
-     - returns: Nothing
-     */
+
     func registerPromptTap() {
         let navSingleTap = UITapGestureRecognizer(target: self, action: #selector(BudgetViewController.navSingleTap))
         navSingleTap.numberOfTapsRequired = 1
         self.navigationController?.navigationBar.subviews[1].userInteractionEnabled = true
         self.navigationController?.navigationBar.subviews[1].addGestureRecognizer(navSingleTap)
     }
-    
-    /**
-     Toggles whether the current budget name is displayed in the navigation bar prompt.
-     
-     - Parameter None:
-     - returns: Nothing
-     */
+
     func navSingleTap() {
         if displayPrompt == false {
             displayPrompt = true
@@ -325,13 +274,7 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
             clearPrompt()
         }
     }
-    
-    /**
-     Clears the navigation bar prompt so it is no longer displayed.
-     
-     - Parameter None:
-     - returns: Nothing
-     */
+
     func clearPrompt() {
         displayPrompt = false
         self.navigationItem.prompt = nil

@@ -1,11 +1,3 @@
-//
-//  TaskEditorViewController.swift
-//  Time to Budget
-//
-//  Created by Robert Kennedy on 3/1/15.
-//  Copyright (c) 2015 Arrken Games, LLC. All rights reserved.
-//
-
 import UIKit
 
 class TaskEditorViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, writeCategoryBackDelegate {

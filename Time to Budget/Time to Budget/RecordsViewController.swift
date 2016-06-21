@@ -1,11 +1,3 @@
-//
-//  RecordViewController.swift
-//  Time to Budget
-//
-//  Created by Robert Kennedy on 12/8/14.
-//  Copyright (c) 2014 Arrken Games, LLC. All rights reserved.
-//
-
 import UIKit
 import RealmSwift
 import Instructions
@@ -246,48 +238,21 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     // ============================= Helper Functions =============================
-    
-    /**
-    Creates a timer to update the clock button every second.
-    
-    This method calls updateClock() and generates a timer to repeat updateClock() every second in order to
-    show the current amount of time the user has been clocked in on the clock button.
-    
-    - Parameter None:
-    - returns: Nothing
-    */
+    // FIXME: Refactor into a class.
     func initializeClock() {
         self.updateClock()
         let aSelector: Selector = #selector(RecordsViewController.updateClock)
         self.timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: aSelector, userInfo: nil, repeats: true)
     }
-    
-    /**
-     Invalidates the timer created by initializeClock() and resets the clock button back to default.
-     
-     This method invalidates the timer used to update the clock button time and then sets the clock button text
-     back to it's default "Clock In".
-     
-     - Parameter None:
-     - returns: Nothing
-     */
+
+    // FIXME: Refactor into a class.
     func invalidateClock() {
         self.timer.invalidate()
         self.clockButton.setTitle("Clock In", forState: UIControlState.Normal)
         self.clockButton.setTitle("Clock In", forState: UIControlState.Highlighted)
     }
-    
-    /**
-     Calculates the current amount of time the user has been clocked in and updates the clock button accordingly.
-     
-     This method calculates the amount of time the user have been clocked in by subtracting the time clocked in
-     by the current time and breaks it down into hours, minutes, and seconds. These are then converted into a
-     readable string format for use on the clock button title. The clock button title is then updated and animated
-     to relflect the elapsed time since the user clocked in.
-     
-     - Parameter None:
-     - returns: Nothing
-     */
+
+    // FIXME: Refactor into a class.
     func updateClock() {
         
         let currentTime = NSDate.timeIntervalSinceReferenceDate()
@@ -332,13 +297,7 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
         self.clockButton.setTitle(("Clock Out - " + finalTimeString), forState: UIControlState.Highlighted)
         UIView.setAnimationsEnabled(true)
     }
-    
-    /**
-     Calculates the proper content inset for the tableView during load and applies it to the table view.
-     
-     - Parameter None:
-     - returns: Nothing
-     */
+
     func fixInsetLoad() {
         if currentTask!.memo == "" {
             UIView.animateWithDuration(CATransaction.animationDuration(), animations: {
@@ -349,13 +308,7 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
             })
         }
     }
-    
-    /**
-     Calculates the proper content inset for the tableView during segue and applies it to the table view.
-     
-     - Parameter None:
-     - returns: Nothing
-     */
+
     func fixInsetSegue() {
         timeReturning += 1
         

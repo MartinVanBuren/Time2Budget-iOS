@@ -1,11 +1,3 @@
-//
-//  TimePickerViewController.swift
-//  Time to Budget
-//
-//  Created by Robert Kennedy on 2/14/15.
-//  Copyright (c) 2015 Arrken Games, LLC. All rights reserved.
-//
-
 import UIKit
 
 class RecordEditorTimePickerViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
@@ -88,22 +80,10 @@ class RecordEditorTimePickerViewController: UIViewController, UIPickerViewDataSo
     }
     
     // ==================== Helper Methods ====================
-    /**
-     Returns the integer index for the currently selected hour based on the self.timePicked.hours property.
-     
-     - Parameter None:
-     - returns: Int index for the currently selected hour.
-     */
     func getHourIndex() -> Int {
         return timePicked.hours
     }
-    
-    /**
-     Returns the integer index for the currently selected minutes based on the seld.timePicked.minutes property.
-     
-     - Parameter None:
-     - returns: Int index for the currently selected minutes.
-     */
+
     func getMinIndex() -> Int {
         if timePicked.minutes == 15 {
             return 1

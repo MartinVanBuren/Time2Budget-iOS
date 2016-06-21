@@ -206,12 +206,13 @@
 			path = ..;
 			sourceTree = "<group>";
 		};
-		5BF78C461BD86F8A0082F1BC /* Time to Budget UITests */ = {
+		5BF78C461BD86F8A0082F1BC /* Time2Budget-UITests */ = {
 			isa = PBXGroup;
 			children = (
 				5BF78C471BD86F8A0082F1BC /* Time2Budget_UITests.swift */,
 				5BF78C491BD86F8A0082F1BC /* Info.plist */,
 			);
+			name = "Time2Budget-UITests";
 			path = "Time to Budget UITests";
 			sourceTree = "<group>";
 		};
@@ -251,13 +252,14 @@
 			name = "Welcome Screen";
 			sourceTree = "<group>";
 		};
-		9320D5761A746E900013018C /* Time to Budget Tests */ = {
+		9320D5761A746E900013018C /* Time2Budget-Tests */ = {
 			isa = PBXGroup;
 			children = (
 				93BC90441A74C84200A63932 /* Database_Tests.swift */,
 				9320D5881A7476A50013018C /* Time_Tests.swift */,
 				9320D5781A746E900013018C /* Info.plist */,
 			);
+			name = "Time2Budget-Tests";
 			path = "Time to Budget Tests";
 			sourceTree = "<group>";
 		};
@@ -307,10 +309,10 @@
 			isa = PBXGroup;
 			children = (
 				5BCE7D761CF7E9C100B9BA9E /* .tailor.yml */,
-				93F0E4E91A720B64009D95EC /* Time to Budget */,
+				93F0E4E91A720B64009D95EC /* Time2Budget */,
 				93F0E4EB1A720B64009D95EC /* Info.plist */,
-				9320D5761A746E900013018C /* Time to Budget Tests */,
-				5BF78C461BD86F8A0082F1BC /* Time to Budget UITests */,
+				9320D5761A746E900013018C /* Time2Budget-Tests */,
+				5BF78C461BD86F8A0082F1BC /* Time2Budget-UITests */,
 				93F0E4E81A720B64009D95EC /* Products */,
 			);
 			sourceTree = "<group>";
@@ -325,7 +327,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		93F0E4E91A720B64009D95EC /* Time to Budget */ = {
+		93F0E4E91A720B64009D95EC /* Time2Budget */ = {
 			isa = PBXGroup;
 			children = (
 				93CBED511AAB4C2000079482 /* Time to Budget.entitlements */,
@@ -337,6 +339,7 @@
 				5BF9794E1C0290EF00F005EC /* UI */,
 				93F0E4EA1A720B64009D95EC /* Dependancies */,
 			);
+			name = Time2Budget;
 			path = "Time to Budget";
 			sourceTree = "<group>";
 		};
@@ -435,7 +438,8 @@
 				93F0E4E41A720B64009D95EC /* Frameworks */,
 				93F0E4E51A720B64009D95EC /* Resources */,
 				5BF78C401BD85B420082F1BC /* Embed Frameworks */,
-				5B17E2441BDF2F240014CF2D /* ShellScript */,
+				5B17E2441BDF2F240014CF2D /* Realm Deployment */,
+				5BF0BDAC1D19A5EB00561F35 /* Fixme Warnings */,
 				A3AEBB3B45D8CBE5929D75B5 /* Tailor */,
 			);
 			buildRules = (
@@ -530,18 +534,33 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		5B17E2441BDF2F240014CF2D /* ShellScript */ = {
+		5B17E2441BDF2F240014CF2D /* Realm Deployment */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
+			name = "Realm Deployment";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "bash \"${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework/strip-frameworks.sh\"";
+		};
+		5BF0BDAC1D19A5EB00561F35 /* Fixme Warnings */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Fixme Warnings";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "TAGS=\"TODO:|FIXME:|WARNING:\"\nfind \"${SRCROOT}\" \\( -name \"*.swift\" \\) -print0 | xargs -0 egrep --with-filename --line-number --only-matching \"($TAGS).*\\$\" | perl -p -e \"s/($TAGS)/ warning: \\$1/\"";
 		};
 		A3AEBB3B45D8CBE5929D75B5 /* Tailor */ = {
 			isa = PBXShellScriptBuildPhase;

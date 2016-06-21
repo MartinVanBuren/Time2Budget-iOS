@@ -1,16 +1,8 @@
-//
-//  Task.swift
-//  Time to Budget
-//
-//  Created by Robert Kennedy on 12/11/14.
-//  Copyright (c) 2014 Arrken Games, LLC. All rights reserved.
-//
-
 import Foundation
 import RealmSwift
 
 public class Task: Object {
-    // ==================== Properties ====================
+
     public dynamic var parent: Category!
     public dynamic var clock: Clock? = Clock()
     public dynamic var name = ""
@@ -19,8 +11,7 @@ public class Task: Object {
     public dynamic var totalTimeSpent = 0.0
     public dynamic var timeRemaining = 0.0
     public let records = List<Record>()
-    
-    // ==================== Methods ====================
+
     public func calcTime() {
         self.totalTimeSpent = 0.0
         self.timeRemaining = 0.0

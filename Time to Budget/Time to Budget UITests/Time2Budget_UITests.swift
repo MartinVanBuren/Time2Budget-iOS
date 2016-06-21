@@ -1,11 +1,3 @@
-//
-//  Time_to_Budget_UITests.swift
-//  Time to Budget UITests
-//
-//  Created by Robert Kennedy on 10/21/15.
-//  Copyright © 2015 Arrken Games, LLC. All rights reserved.
-//
-
 import XCTest
 
 class Time2Budget_UITests: XCTestCase {
