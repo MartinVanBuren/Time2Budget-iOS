@@ -10,8 +10,8 @@ class TaskEditorTimePickerViewController: UIViewController, UIPickerViewDataSour
     
     // ========== Time Picker Properties ==========
     @IBOutlet weak var timePicker: UIPickerView!
-    var timeHourPickerData: [Int] = Factory.prepareTimeHourPickerData()
-    var timeMinutePickerData: [Int] = Factory.prepareTimeMinutePickerData()
+    var timeHourPickerData: [Int] = PickerFactory().prepareTimeHourPickerData()
+    var timeMinutePickerData: [Int] = PickerFactory().prepareTimeMinutePickerData()
     
     // ==================== View Controller Methods ====================
     override func viewDidLoad() {
@@ -23,12 +23,7 @@ class TaskEditorTimePickerViewController: UIViewController, UIPickerViewDataSour
         Style.label(colonLabel)
         
         // Apply previous time if any to the UIPicker.
-        if let unwrappedTime = taskEditorVC.taskTime {
-            timePicked = Time(newTime: unwrappedTime)
-        } else {
-            timePicked.hours = 0
-            timePicked.minutes = 0
-        }
+        timePicked = Time(newTime: taskEditorVC.taskTime)
         
         // Update UIPicker to reflect above changes.
         timePicker.selectRow(getHourIndex(), inComponent: 0, animated: true)

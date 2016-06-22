@@ -22,6 +22,9 @@
 		5BB55CB71BA8ABF700F43891 /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB55CB61BA8ABF700F43891 /* Style.swift */; };
 		5BCE7D771CF7E9C100B9BA9E /* .tailor.yml in Resources */ = {isa = PBXBuildFile; fileRef = 5BCE7D761CF7E9C100B9BA9E /* .tailor.yml */; };
 		5BDE190A1C1A2E8400DF8F95 /* Clock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDE19091C1A2E8400DF8F95 /* Clock.swift */; };
+		5BEA2A5F1D1B2906008B3AF5 /* AlertFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEA2A5E1D1B2906008B3AF5 /* AlertFactory.swift */; };
+		5BEA2A611D1B2A16008B3AF5 /* PickerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEA2A601D1B2A16008B3AF5 /* PickerFactory.swift */; };
+		5BEA2A631D1B2AC3008B3AF5 /* NotificationFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEA2A621D1B2AC3008B3AF5 /* NotificationFactory.swift */; };
 		5BF979491C0290CB00F005EC /* CategoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BF979441C0290CB00F005EC /* CategoryCell.xib */; };
 		5BF9794A1C0290CB00F005EC /* DetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BF979451C0290CB00F005EC /* DetailCell.xib */; };
 		5BF9794C1C0290CB00F005EC /* SubtitleDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BF979471C0290CB00F005EC /* SubtitleDetailCell.xib */; };
@@ -48,7 +51,7 @@
 		93F0E50D1A720BD4009D95EC /* iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 93F0E50C1A720BD4009D95EC /* iPhone.storyboard */; };
 		93F0E5201A720BF4009D95EC /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F0E5101A720BF4009D95EC /* Category.swift */; };
 		93F0E5211A720BF4009D95EC /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F0E5111A720BF4009D95EC /* CategoryCell.swift */; };
-		93F0E5241A720BF4009D95EC /* Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F0E5141A720BF4009D95EC /* Factory.swift */; };
+		93F0E5241A720BF4009D95EC /* CellFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F0E5141A720BF4009D95EC /* CellFactory.swift */; };
 		93F0E5251A720BF4009D95EC /* Record.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F0E5151A720BF4009D95EC /* Record.swift */; };
 		93F0E5261A720BF4009D95EC /* RecordsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F0E5161A720BF4009D95EC /* RecordsViewController.swift */; };
 		93F0E5271A720BF4009D95EC /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F0E5171A720BF4009D95EC /* Task.swift */; };
@@ -105,6 +108,9 @@
 		5BB55CB61BA8ABF700F43891 /* Style.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Style.swift; sourceTree = "<group>"; };
 		5BCE7D761CF7E9C100B9BA9E /* .tailor.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .tailor.yml; sourceTree = "<group>"; };
 		5BDE19091C1A2E8400DF8F95 /* Clock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Clock.swift; sourceTree = "<group>"; };
+		5BEA2A5E1D1B2906008B3AF5 /* AlertFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertFactory.swift; sourceTree = "<group>"; };
+		5BEA2A601D1B2A16008B3AF5 /* PickerFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickerFactory.swift; sourceTree = "<group>"; };
+		5BEA2A621D1B2AC3008B3AF5 /* NotificationFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationFactory.swift; sourceTree = "<group>"; };
 		5BF78C451BD86F8A0082F1BC /* Time2Budget.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Time2Budget.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5BF78C471BD86F8A0082F1BC /* Time2Budget_UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Time2Budget_UITests.swift; sourceTree = "<group>"; };
 		5BF78C491BD86F8A0082F1BC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -141,7 +147,7 @@
 		93F0E50C1A720BD4009D95EC /* iPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = iPhone.storyboard; sourceTree = "<group>"; };
 		93F0E5101A720BF4009D95EC /* Category.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		93F0E5111A720BF4009D95EC /* CategoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
-		93F0E5141A720BF4009D95EC /* Factory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Factory.swift; sourceTree = "<group>"; };
+		93F0E5141A720BF4009D95EC /* CellFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellFactory.swift; sourceTree = "<group>"; };
 		93F0E5151A720BF4009D95EC /* Record.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Record.swift; sourceTree = "<group>"; };
 		93F0E5161A720BF4009D95EC /* RecordsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordsViewController.swift; sourceTree = "<group>"; };
 		93F0E5171A720BF4009D95EC /* Task.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
@@ -368,7 +374,10 @@
 		93F0E52F1A720C38009D95EC /* Support Classes */ = {
 			isa = PBXGroup;
 			children = (
-				93F0E5141A720BF4009D95EC /* Factory.swift */,
+				93F0E5141A720BF4009D95EC /* CellFactory.swift */,
+				5BEA2A5E1D1B2906008B3AF5 /* AlertFactory.swift */,
+				5BEA2A601D1B2A16008B3AF5 /* PickerFactory.swift */,
+				5BEA2A621D1B2AC3008B3AF5 /* NotificationFactory.swift */,
 				9320D56E1A74625B0013018C /* MarshalOperator.swift */,
 				5B9679FB1BBE13D400DBEB61 /* Protocol.swift */,
 				5BB55CB61BA8ABF700F43891 /* Style.swift */,
@@ -584,7 +593,7 @@
 			files = (
 				5B3BCDF01C07B5B9007C8A2E /* CategoryView.swift in Sources */,
 				93967CBD1AB22D4900D46CF6 /* BudgetHistoryRecordsViewController.swift in Sources */,
-				93F0E5241A720BF4009D95EC /* Factory.swift in Sources */,
+				93F0E5241A720BF4009D95EC /* CellFactory.swift in Sources */,
 				5B922F0A1BDA7C4E00F851D3 /* DetailCell.swift in Sources */,
 				93F0E53E1A7214E1009D95EC /* Budget.swift in Sources */,
 				93F0E5401A72194D009D95EC /* BudgetEditorViewController.swift in Sources */,
@@ -598,9 +607,11 @@
 				93967CBF1AB22D5800D46CF6 /* BudgetHistoryRecordViewController.swift in Sources */,
 				93F0E52A1A720BF4009D95EC /* Time.swift in Sources */,
 				93F0E5251A720BF4009D95EC /* Record.swift in Sources */,
+				5BEA2A611D1B2A16008B3AF5 /* PickerFactory.swift in Sources */,
 				93223B491A86840500365D3A /* RecordEditorViewController.swift in Sources */,
 				939DB8901AA2CD330047C108 /* SubtitleDetailCell.swift in Sources */,
 				93F0E5271A720BF4009D95EC /* Task.swift in Sources */,
+				5BEA2A631D1B2AC3008B3AF5 /* NotificationFactory.swift in Sources */,
 				9385F1761AA39D30000C8726 /* TaskEditorViewController.swift in Sources */,
 				5B16AA2F1C8676A70019E4F8 /* WelcomeButtonsController.swift in Sources */,
 				5B9DE8AA1C6D2D3A0065BFCA /* Tutorial.swift in Sources */,
@@ -614,6 +625,7 @@
 				93967CBA1AB22D2000D46CF6 /* BudgetHistoryListViewController.swift in Sources */,
 				93B2E5F71A903E890058372F /* RecordEditorDatePickerViewController.swift in Sources */,
 				93F0E5211A720BF4009D95EC /* CategoryCell.swift in Sources */,
+				5BEA2A5F1D1B2906008B3AF5 /* AlertFactory.swift in Sources */,
 				9385F1741AA397C8000C8726 /* SettingsViewController.swift in Sources */,
 				9385F17A1AA3C3A3000C8726 /* TaskEditorTimePickerViewController.swift in Sources */,
 				93B2E5F31A9032B80058372F /* RecordEditorTaskSelectorViewController.swift in Sources */,

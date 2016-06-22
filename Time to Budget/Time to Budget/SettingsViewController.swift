@@ -42,52 +42,56 @@ class SettingsViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let cellFactory = CellFactory()
+        
         switch section {
         case 2:
-            return Factory.prepareBasicHeader(tableView: tableView, titleText: "Database")
+            return cellFactory.prepareBasicHeader(tableView: tableView, titleText: "Database")
         case 1:
-            return Factory.prepareBasicHeader(tableView: tableView, titleText: "Application")
+            return cellFactory.prepareBasicHeader(tableView: tableView, titleText: "Application")
         case 0:
-            return Factory.prepareBasicHeader(tableView: tableView, titleText: "About")
+            return cellFactory.prepareBasicHeader(tableView: tableView, titleText: "About")
         default:
             return UIView()
         }
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cellFactory = CellFactory()
+        
         switch indexPath.section {
         case 1:
             switch indexPath.row {
             case 0:
-                return Factory.prepareBasicCell(tableView: tableView, titleText: "Enable Tutorial")
+                return cellFactory.prepareBasicCell(tableView: tableView, titleText: "Enable Tutorial")
             case 1:
-                return Factory.prepareBasicCell(tableView: tableView, titleText: "Enable Welcome Screen")
+                return cellFactory.prepareBasicCell(tableView: tableView, titleText: "Enable Welcome Screen")
             case 2:
-                return Factory.prepareBasicCell(tableView: tableView, titleText: "System Settings")
+                return cellFactory.prepareBasicCell(tableView: tableView, titleText: "System Settings")
             default:
                 return UITableViewCell()
             }
         case 0:
             switch indexPath.row {
             case 0:
-                return Factory.prepareBasicCell(tableView: tableView, titleText: "Info")
+                return cellFactory.prepareBasicCell(tableView: tableView, titleText: "Info")
             case 1:
-                return Factory.prepareBasicCell(tableView: tableView, titleText: "Feedback")
+                return cellFactory.prepareBasicCell(tableView: tableView, titleText: "Feedback")
             case 2:
-                return Factory.prepareBasicCell(tableView: tableView, titleText: "Blog")
+                return cellFactory.prepareBasicCell(tableView: tableView, titleText: "Blog")
             case 3:
-                return Factory.prepareBasicCell(tableView: tableView, titleText: "Privacy Policy")
+                return cellFactory.prepareBasicCell(tableView: tableView, titleText: "Privacy Policy")
             default:
                 return UITableViewCell()
             }
         case 2:
             switch indexPath.row {
             case 0:
-                return Factory.prepareBasicCell(tableView: tableView, titleText: "Archive Budget")
+                return cellFactory.prepareBasicCell(tableView: tableView, titleText: "Archive Budget")
             case 1:
-                return Factory.prepareBasicCell(tableView: tableView, titleText: "Clear Budget History")
+                return cellFactory.prepareBasicCell(tableView: tableView, titleText: "Clear Budget History")
             case 2:
-                return Factory.prepareBasicCell(tableView: tableView, titleText: "Reset All to Default Budget")
+                return cellFactory.prepareBasicCell(tableView: tableView, titleText: "Reset All to Default Budget")
             default:
                 return UITableViewCell()
             }
@@ -98,12 +102,14 @@ class SettingsViewController: UITableViewController {
     
     // ==================== UITableViewDelegate Methods ====================
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let alertFactory = AlertFactory()
+        
         switch indexPath.section {
         case 0:
             switch indexPath.row {
             case 0:
                 let appVersionString = NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleShortVersionString")!
-                Factory.displayAlert(viewController: self, title: "Time2Budget", message: "Version \(appVersionString)\nCopyright © 2015 Arrken Software LLC\nCreated by Robert Kennedy\n\nDatabase - realm/Realm\nTutorial - ephread/Instructions")
+                alertFactory.displayAlert(viewController: self, title: "Time2Budget", message: "Version \(appVersionString)\nCopyright © 2015 Arrken Software LLC\nCreated by Robert Kennedy\n\nDatabase - realm/Realm\nTutorial - ephread/Instructions")
             case 1:
                 let url = NSURL(string: "https://arrkensoftware.typeform.com/to/zvWlEk")
                 UIApplication.sharedApplication().openURL(url!)
@@ -120,11 +126,11 @@ class SettingsViewController: UITableViewController {
             switch indexPath.row {
             case 0:
                 Tutorial.enableTutorials()
-                Factory.displayAlert(viewController: self, title: "Tutorial Enabled", message: "The tutorial will now run when you return to the Budget View and Budget Editor.")
+                alertFactory.displayAlert(viewController: self, title: "Tutorial Enabled", message: "The tutorial will now run when you return to the Budget View and Budget Editor.")
             case 1:
                 let settings = NSUserDefaults.standardUserDefaults()
                 settings.setBool(true, forKey: "showWelcome")
-                Factory.displayAlert(viewController: self, title: "Welcome Enabled", message: "The welcome screen will now run when you restart Time2Budget.")
+                alertFactory.displayAlert(viewController: self, title: "Welcome Enabled", message: "The welcome screen will now run when you restart Time2Budget.")
             case 2:
                 UIApplication.sharedApplication().openURL(NSURL(string: UIApplicationOpenSettingsURLString)!)
             default:

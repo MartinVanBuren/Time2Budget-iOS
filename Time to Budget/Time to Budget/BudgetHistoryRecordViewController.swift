@@ -39,24 +39,26 @@ class BudgetHistoryRecordViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cellFactory = CellFactory()
+        
         switch indexPath.row {
         case 0:
-            let cell = Factory.prepareAddRecordTaskCell(tableView: tableView, currentTask: currentTask)
+            let cell = cellFactory.prepareAddRecordTaskCell(tableView: tableView, currentTask: currentTask)
             cell.accessoryType = UITableViewCellAccessoryType.None
             cell.userInteractionEnabled = false
             return cell
         case 1:
-            let cell =  Factory.prepareAddRecordTimeCell(tableView: tableView, timeSpent: Time(newTime: currentRecord!.timeSpent))
+            let cell =  cellFactory.prepareAddRecordTimeCell(tableView: tableView, timeSpent: Time(newTime: currentRecord!.timeSpent))
             cell.accessoryType = UITableViewCellAccessoryType.None
             cell.userInteractionEnabled = false
             return cell
         case 2:
-            let cell =  Factory.prepareAddRecordDateCell(tableView: tableView, date: currentRecord?.date)
+            let cell =  cellFactory.prepareAddRecordDateCell(tableView: tableView, date: currentRecord?.date)
             cell.accessoryType = UITableViewCellAccessoryType.None
             cell.userInteractionEnabled = false
             return cell
         default:
-            let cell = Factory.prepareMemoTextfieldCell(tableView: tableView, memo: currentRecord?.note)
+            let cell = cellFactory.prepareMemoTextfieldCell(tableView: tableView, memo: currentRecord?.note)
             cell.textField.placeholder = "No Memo"
             cell.userInteractionEnabled = false
             return cell

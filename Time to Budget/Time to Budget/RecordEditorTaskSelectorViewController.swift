@@ -78,7 +78,7 @@ class RecordEditorTaskSelectorViewController: UIViewController, UITableViewDataS
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let taskCell = Factory.prepareTaskCell(tableView: tableView, categoryList: currentBudget.categories, indexPath: indexPath, editor: false)
+        let taskCell = CellFactory().prepareTaskCell(tableView: tableView, categoryList: currentBudget.categories, indexPath: indexPath, editor: false)
         
         if indexPath.section == 0 && indexPath.row == 0 {
             Tutorial.addRecordPOI[0] = taskCell
@@ -88,7 +88,7 @@ class RecordEditorTaskSelectorViewController: UIViewController, UITableViewDataS
     }
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return Factory.prepareCategoryView(tableView: tableView, categoryList: currentBudget.categories, section: section)
+        return CellFactory().prepareCategoryView(tableView: tableView, categoryList: currentBudget.categories, section: section)
     }
     
     // ==================== UITableViewDelegate Methods ====================

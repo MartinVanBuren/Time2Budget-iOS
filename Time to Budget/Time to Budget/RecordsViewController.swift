@@ -127,7 +127,7 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
             } else {
                 // Pass the current task and the time spent from the clock button if any.
                 recordEditorVC?.currentTask = currentTask
-                recordEditorVC?.timeSpent = finalClockTime
+                recordEditorVC?.timeSpent = finalClockTime!.toDouble()
             }
         }
     }
@@ -148,7 +148,7 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = Factory.prepareBasicHeader(tableView: tableView, titleText: "Records")
+        let headerView = CellFactory().prepareBasicHeader(tableView: tableView, titleText: "Records")
         
         Tutorial.recordsViewPOI[1] = headerView
         
@@ -160,7 +160,7 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let recordCell = Factory.prepareRecordCell(tableView: tableView, recordList: recordList, indexPath: indexPath)
+        let recordCell = CellFactory().prepareRecordCell(tableView: tableView, recordList: recordList, indexPath: indexPath)
         
         if(indexPath.section == 0 && indexPath.row == 0) {
             Tutorial.recordsViewPOI[2] = recordCell
@@ -180,7 +180,7 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        Factory.displayDeleteRecordAlert(self, record: recordList[indexPath.row])
+        AlertFactory().displayDeleteRecordAlert(self, record: recordList[indexPath.row])
     }
     
     // ============================= IBAction Methods =============================
@@ -225,21 +225,18 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     // ============================= Helper Functions =============================
-    // FIXME: Refactor into a class.
     func initializeClock() {
         updateClock()
         let aSelector: Selector = #selector(RecordsViewController.updateClock)
         timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: aSelector, userInfo: nil, repeats: true)
     }
 
-    // FIXME: Refactor into a class.
     func invalidateClock() {
         timer.invalidate()
         clockButton.setTitle("Clock In", forState: UIControlState.Normal)
         clockButton.setTitle("Clock In", forState: UIControlState.Highlighted)
     }
 
-    // FIXME: Refactor into a class.
     func updateClock() {
         
         let currentTime = NSDate.timeIntervalSinceReferenceDate()

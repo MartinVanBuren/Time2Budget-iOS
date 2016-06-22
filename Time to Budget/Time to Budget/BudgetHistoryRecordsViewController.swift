@@ -54,7 +54,7 @@ class BudgetHistoryRecordsViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        return Factory.prepareRecordCell(tableView: tableView, recordList: recordsList, indexPath: indexPath)
+        return CellFactory().prepareRecordCell(tableView: tableView, recordList: recordsList, indexPath: indexPath)
     }
     
     // ========================= UITableViewDelegate Methods =========================

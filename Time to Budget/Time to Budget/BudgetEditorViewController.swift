@@ -102,7 +102,7 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let taskCell = Factory.prepareTaskCell(tableView: tableView, categoryList: currentBudget!.categories, indexPath: indexPath, editor: true)
+        let taskCell = CellFactory().prepareTaskCell(tableView: tableView, categoryList: currentBudget!.categories, indexPath: indexPath, editor: true)
 
         if indexPath.section == 0 && indexPath.row == 0 {
             Tutorial.budgetEditorPOI[2] = taskCell
@@ -115,7 +115,7 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
     }
 
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = Factory.prepareCategoryView(tableView: tableView, categoryList: currentBudget.categories, section: section, editorViewController: self)
+        let headerView = CellFactory().prepareCategoryView(tableView: tableView, categoryList: currentBudget.categories, section: section, editorViewController: self)
 
         if section == 0 {
             Tutorial.budgetEditorPOI[1] = headerView
@@ -136,7 +136,7 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
     }
 
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        Factory.displayDeleteTaskAlert(viewController: self, indexPath: indexPath)
+        AlertFactory().displayDeleteTaskAlert(viewController: self, indexPath: indexPath)
     }
 
     // ==================== IBAction Methods ====================
@@ -146,7 +146,7 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
     }
 
     @IBAction func addCategoryButtonPressed(sender: UIBarButtonItem) {
-        Factory.displayAddCategoryAlert(viewController: self)
+        AlertFactory().displayAddCategoryAlert(viewController: self)
     }
 
     // ==================== CoachMarksDataSource Methods ====================

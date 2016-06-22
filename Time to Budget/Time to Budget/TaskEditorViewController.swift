@@ -14,7 +14,7 @@ class TaskEditorViewController: UIViewController, UITableViewDataSource, UITable
     var taskName: String?
     var taskMemo: String!
     var taskCategory: String?
-    internal var taskTime: Double? = 0.0
+    var taskTime: Double = 0.0
     
     //==================== View Controller Methods ====================
     override func viewDidLoad() {
@@ -75,19 +75,21 @@ class TaskEditorViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cellFactory = CellFactory()
+        
         switch indexPath.row {
         case 0:
-            let preparedCell = Factory.prepareNameTextfieldCell(tableView: tableView, name: taskName)
+            let preparedCell = cellFactory.prepareNameTextfieldCell(tableView: tableView, name: taskName)
             preparedCell.textField.delegate = self
             return preparedCell
         case 1:
-            let preparedCell = Factory.prepareMemoTextfieldCell(tableView: tableView, memo: taskMemo)
+            let preparedCell = cellFactory.prepareMemoTextfieldCell(tableView: tableView, memo: taskMemo)
             preparedCell.textField.delegate = self
             return preparedCell
         case 2:
-            return Factory.prepareAddTaskCategoryCell(tableView: tableView, categoryName: taskCategory)
+            return cellFactory.prepareAddTaskCategoryCell(tableView: tableView, categoryName: taskCategory)
         default:
-            return Factory.prepareAddTaskTimeCell(tableView: tableView, time: taskTime)
+            return cellFactory.prepareAddTaskTimeCell(tableView: tableView, time: taskTime)
         }
     }
     
@@ -127,11 +129,7 @@ class TaskEditorViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     @IBAction func taskMemoTextfieldChanged(sender: UITextField) {
-        if sender.text == "" {
-            taskMemo = nil
-        } else {
-            taskMemo = sender.text
-        }
+        taskMemo = sender.text!
     }
     
     @IBAction func cancelButtonPressed(sender: UIBarButtonItem) {
@@ -139,42 +137,48 @@ class TaskEditorViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     @IBAction func saveButtonPressed(sender: UIButton) {
-        // Verify task.memo is no nil
-        if taskMemo == nil {
-            taskMemo = ""
+        if taskInfoIsValid() { submitTask() }
+    }
+    
+    func submitTask() {
+        if taskMemo == nil { taskMemo = "" }
+        
+        if editTask {
+            updateTask()
+        } else {
+            addTask()
+        }
+    }
+    
+    func taskInfoIsValid() -> Bool {
+        let alertFactory = AlertFactory()
+        
+        if taskName == nil {
+            alertFactory.displayAlert(viewController: self, title: "Task Not Named", message: "You must name the task before saving.")
+            return false
         }
         
-        // Verify that a task name has been given.
-        if let unwrappedName = taskName {
-            // Verify that a category has been selected.
-            if let unwrappedCategory = taskCategory {
-                // Verify that a time has been selected.
-                if let unwrappedTime = taskTime {
-                    // Determine whether to edit a task or add a new one.
-                    if editTask {
-                        // Verify a previous task is available.
-                        if let unwrappedTask = currentTask {
-                            // Update the previous task in the database and return to previous view.
-                            Database.updateTask(task: unwrappedTask, name: unwrappedName, memo: taskMemo, time: unwrappedTime, categoryName: unwrappedCategory)
-                            dismissViewControllerAnimated(true, completion: {})
-                        } else {
-                            // Alert user that there was an error accessing the previous task.
-                            Factory.displayAlert(viewController: self, title: "Error: Task Missing", message: "Task missing while in edit mode. D':")
-                        }
-                    } else {
-                        // Add a new task to the database and return to previous view.
-                        Database.addTask(name: unwrappedName, memo: taskMemo, time: unwrappedTime, categoryName: unwrappedCategory)
-                        dismissViewControllerAnimated(true, completion: {})
-                    }
-                }
-            } else {
-                // Alert the user that a category has not been selected.
-                Factory.displayAlert(viewController: self, title: "Category Not Selected", message: "You must select a Category")
-            }
-        } else {
-            // Alert the user that a task name was not given.
-            Factory.displayAlert(viewController: self, title: "Task Must Be Named", message: "You must name the task before saving.")
+        if taskCategory == nil {
+            alertFactory.displayAlert(viewController: self, title: "Category Not Selected", message: "You must select a Category")
+            return false
         }
+        
+        return true
+    }
+    
+    func updateTask() {
+        if let unwrappedTask = currentTask {
+            Database.updateTask(task: unwrappedTask, name: taskName!, memo: taskMemo, time: taskTime, categoryName: taskCategory!)
+            dismissViewControllerAnimated(true, completion: {})
+        } else {
+            AlertFactory().displayAlert(viewController: self, title: "Error: Task Missing", message: "Task missing while in edit mode. D':")
+        }
+
+    }
+    
+    func addTask() {
+        Database.addTask(name: taskName!, memo: taskMemo, time: taskTime, categoryName: taskCategory!)
+        dismissViewControllerAnimated(true, completion: {})
     }
     
 }

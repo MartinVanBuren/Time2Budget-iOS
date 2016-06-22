@@ -140,7 +140,7 @@ public class Database {
         }
         
         UIApplication.sharedApplication().cancelAllLocalNotifications()
-        UIApplication.sharedApplication().scheduleLocalNotification(Factory.archiveBudgetNotification())
+        UIApplication.sharedApplication().scheduleLocalNotification(NotificationFactory().archiveBudgetNotification())
     }
     
     public class func migrateToNewBudget(oldBudget oldBudget: Budget, newBudget: Budget) {

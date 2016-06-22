@@ -47,7 +47,7 @@ class BudgetHistoryListViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        return Factory.prepareBasicCell(tableView: tableView, titleText: budgetList[indexPath.row].name)
+        return CellFactory().prepareBasicCell(tableView: tableView, titleText: budgetList[indexPath.row].name)
     }
     
     // ========================== UITableViewDelegate Methods ==========================

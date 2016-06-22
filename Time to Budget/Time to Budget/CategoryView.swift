@@ -13,7 +13,7 @@ class CategoryView: UITableViewHeaderFooterView {
     var editor: Bool?
 
     @IBAction func editCategoryButtonPressed(sender: UIButton) {
-        Factory.displayEditCategoryAlert(viewController: self.VC!, categoryName: self.sectionNameLabel.text!)
+        AlertFactory().displayEditCategoryAlert(viewController: self.VC!, categoryName: self.sectionNameLabel.text!)
     }
     
 }

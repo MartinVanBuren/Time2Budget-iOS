@@ -9,8 +9,8 @@ class RecordEditorTimePickerViewController: UIViewController, UIPickerViewDataSo
     @IBOutlet weak var colonLabel: UILabel!
     
     // ========== Time Picker Properties ==========
-    var timeHourPickerData: [Int] = Factory.prepareTimeHourPickerData()
-    var timeMinutePickerData: [Int] = Factory.prepareTimeMinutePickerData()
+    var timeHourPickerData: [Int] = PickerFactory().prepareTimeHourPickerData()
+    var timeMinutePickerData: [Int] = PickerFactory().prepareTimeMinutePickerData()
     var timePicked: Time = Time()
 
     // ==================== View Controller Methods ====================
@@ -25,12 +25,7 @@ class RecordEditorTimePickerViewController: UIViewController, UIPickerViewDataSo
         timePicker.dataSource = self
         timePicker.delegate = self
         
-        if let unwrappedTime = recordEditorVC.timeSpent {
-            timePicked = unwrappedTime
-        } else {
-            timePicked.hours = 0
-            timePicked.minutes = 0
-        }
+        timePicked = Time(newTime: recordEditorVC.timeSpent)
         
         timePicker.selectRow(getHourIndex(), inComponent: 0, animated: true)
         timePicker.selectRow(getMinIndex(), inComponent: 1, animated: true)
@@ -74,7 +69,7 @@ class RecordEditorTimePickerViewController: UIViewController, UIPickerViewDataSo
     
     // ==================== IBAction Methods ====================
     @IBAction func saveButtonPressed(sender: UIButton) {
-        recordEditorVC.timeSpent = timePicked
+        recordEditorVC.timeSpent = timePicked.toDouble()
         
         navigationController?.popViewControllerAnimated(true)
     }

@@ -12,7 +12,7 @@ class RecordEditorViewController: UIViewController, UITableViewDataSource, UITab
     //============ Record Properties ============
     var currentTask: Task?
     var currentRecord: Record?
-    var timeSpent: Time?
+    var timeSpent: Double = 0.0
     var date: NSDate = NSDate()
     var memo: String!
     
@@ -32,7 +32,7 @@ class RecordEditorViewController: UIViewController, UITableViewDataSource, UITab
         
         // Apply the record information if any was passed into the view.
         if let unwrappedRecord = currentRecord {
-            timeSpent = Time(newTime: unwrappedRecord.timeSpent)
+            timeSpent = unwrappedRecord.timeSpent
             date = unwrappedRecord.date
             navigationItem.title = "Edit Record"
             
@@ -80,15 +80,17 @@ class RecordEditorViewController: UIViewController, UITableViewDataSource, UITab
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cellFactory = CellFactory()
+        
         switch indexPath.row {
         case 0:
-            return Factory.prepareAddRecordTaskCell(tableView: tableView, currentTask: currentTask)
+            return cellFactory.prepareAddRecordTaskCell(tableView: tableView, currentTask: currentTask)
         case 1:
-            return Factory.prepareAddRecordTimeCell(tableView: tableView, timeSpent: timeSpent)
+            return cellFactory.prepareAddRecordTimeCell(tableView: tableView, timeSpent: Time(newTime: timeSpent))
         case 2:
-            return Factory.prepareAddRecordDateCell(tableView: tableView, date: date)
+            return cellFactory.prepareAddRecordDateCell(tableView: tableView, date: date)
         default:
-            let preparedCell = Factory.prepareMemoTextfieldCell(tableView: tableView, memo: memo)
+            let preparedCell = cellFactory.prepareMemoTextfieldCell(tableView: tableView, memo: memo)
             preparedCell.textField.delegate = self
             return preparedCell
         }
@@ -137,45 +139,43 @@ class RecordEditorViewController: UIViewController, UITableViewDataSource, UITab
     }
     
     @IBAction func saveRecordButtonPressed(sender: UIButton) {
-        // Verify that memo is not nil.
-        if memo == nil {
-            memo = ""
+        
+        if recordInfoIsValid() { submitRecord() }
+    }
+    
+    func submitRecord() {
+        if memo == nil { memo = "" }
+        
+        if editRecord {
+            updateRecord()
+        } else {
+            addRecord()
+        }
+    }
+
+    func recordInfoIsValid() -> Bool {
+        let alertFactory = AlertFactory()
+        
+        if currentTask == nil {
+            alertFactory.displayAlert(viewController: self, title: "Task Not Selected", message: "You must select a Task.")
+            return false
         }
         
-        // Verify that a task is selected.
-        if let unwrappedTask = currentTask {
-            // Verify that an amount of time has been selected.
-            if let unwrappedTime = timeSpent {
-                // Verify that the amount selected is not zero.
-                if unwrappedTime.toDouble() != 0.0 {
-                    // Check if a record is being edited or if a new one is being added.
-                    if editRecord {
-                        // Verify that the previous record exists.
-                        if let unwrappedRecord = currentRecord {
-                            // Update previous record in the database and return to previous view.
-                            Database.updateRecord(record: unwrappedRecord, task: unwrappedTask, note: memo, timeSpent: unwrappedTime.toDouble(), date: date)
-                            navigationController?.dismissViewControllerAnimated(true, completion: nil)
-                        } else {
-                            // Display alert
-                            Factory.displayAlert(viewController: self, title: "Error: Record Missing", message: "Record missing while in edit mode. D':")
-                        }
-                    } else {
-                        // Add the new record to the database and return to previous view.
-                        Database.addRecord(parentTask: unwrappedTask, note: memo, timeSpent: unwrappedTime.toDouble(), date: date)
-                        navigationController?.dismissViewControllerAnimated(true, completion: nil)
-                    }
-                } else {
-                    // Alert user that they can't select 00:00 time.
-                    Factory.displayAlert(viewController: self, title: "Time Spent Cannot Be 00:00", message: "You must select an amount of time to spend.")
-                }
-            } else {
-                // Alert user that they haven't selected an amount of time.
-                Factory.displayAlert(viewController: self, title: "Time Spent Cannot Be 00:00", message: "You must select an amount of time to spend.")
-            }
+        return true
+    }
+    
+    func updateRecord() {
+        if let unwrappedRecord = currentRecord {
+            Database.updateRecord(record: unwrappedRecord, task: currentTask!, note: memo, timeSpent: timeSpent, date: date)
+            navigationController?.dismissViewControllerAnimated(true, completion: nil)
         } else {
-            // Alert user that they haven't selected a Task.
-            Factory.displayAlert(viewController: self, title: "Task Not Selected", message: "You must select a Task.")
+            AlertFactory().displayAlert(viewController: self, title: "Error: Record Missing", message: "Record missing while in edit mode. D':")
         }
+    }
+    
+    func addRecord() {
+        Database.addRecord(parentTask: currentTask!, note: memo, timeSpent: timeSpent, date: date)
+        navigationController?.dismissViewControllerAnimated(true, completion: nil)
     }
     
 }

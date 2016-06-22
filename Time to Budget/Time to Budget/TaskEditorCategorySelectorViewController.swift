@@ -71,7 +71,7 @@ class TaskEditorCategorySelectorViewController: UIViewController, UITableViewDat
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let catCell = Factory.prepareCategoryCell(tableView: tableView, categoryList: currentBudget.categories, section: indexPath.row)
+        let catCell = CellFactory().prepareCategoryCell(tableView: tableView, categoryList: currentBudget.categories, section: indexPath.row)
         
         if indexPath.section == 0 && indexPath.row == 0 {
             Tutorial.addTaskPOI[0] = catCell
@@ -93,7 +93,7 @@ class TaskEditorCategorySelectorViewController: UIViewController, UITableViewDat
     
     // ==================== IBAction Methods ====================
     @IBAction func addCategoryButtonPressed(sender: UIBarButtonItem) {
-        Factory.displayAddCategoryAlert(viewController: self)
+        AlertFactory().displayAddCategoryAlert(viewController: self)
     }
     
     // ==================== CoachMarksControllerDataSource Methods ====================

@@ -105,7 +105,9 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
             // Pass the time spent from the clock button if any.
             let navController = segue.destinationViewController as? UINavigationController
             let recordEditorVC = navController?.topViewController as? RecordEditorViewController
-            recordEditorVC?.timeSpent = finalClockTime
+            if finalClockTime != nil {
+                recordEditorVC?.timeSpent = finalClockTime!.toDouble()
+            }
         }
     }
     
@@ -123,7 +125,7 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let taskCell = Factory.prepareTaskCell(tableView: tableView, categoryList: currentBudget!.categories, indexPath: indexPath, editor: false)
+        let taskCell = CellFactory().prepareTaskCell(tableView: tableView, categoryList: currentBudget!.categories, indexPath: indexPath, editor: false)
         
         if(indexPath.section == 0 && indexPath.row == 0) {
             Tutorial.budgetViewPOI[2] = taskCell
@@ -133,7 +135,7 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = Factory.prepareCategoryView(tableView: tableView, categoryList: currentBudget!.categories, section: section)
+        let headerView = CellFactory().prepareCategoryView(tableView: tableView, categoryList: currentBudget!.categories, section: section)
         
         if(section == 0) {
             Tutorial.budgetViewPOI[1] = headerView
@@ -193,21 +195,18 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     // ==================== Helper Methods ====================
-    // FIXME: Refactor into a class.
     func initializeClock() {
         updateClock()
         let aSelector: Selector = #selector(BudgetViewController.updateClock)
         timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: aSelector, userInfo: nil, repeats: true)
     }
-
-    // FIXME: Refactor into a class.
+    
     func invalidateClock() {
         timer.invalidate()
         clockButton.setTitle("Clock In", forState: UIControlState.Normal)
         clockButton.setTitle("Clock In", forState: UIControlState.Highlighted)
     }
-
-    // FIXME: Refactor into a class.
+    
     func updateClock() {
         // Calculate elapsed time.
         let currentTime = NSDate.timeIntervalSinceReferenceDate()
@@ -254,7 +253,7 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
         clockButton.setTitle(("Clock Out - " + finalTimeString), forState: UIControlState.Highlighted)
         UIView.setAnimationsEnabled(true)
     }
-
+    
     func registerPromptTap() {
         let navSingleTap = UITapGestureRecognizer(target: self, action: #selector(BudgetViewController.navSingleTap))
         navSingleTap.numberOfTapsRequired = 1

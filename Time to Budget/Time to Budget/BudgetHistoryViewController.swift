@@ -52,11 +52,11 @@ class BudgetHistoryViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        return Factory.prepareTaskCell(tableView: tableView, categoryList: currentBudget!.categories, indexPath: indexPath, editor: false)
+        return CellFactory().prepareTaskCell(tableView: tableView, categoryList: currentBudget!.categories, indexPath: indexPath, editor: false)
     }
     
     override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return Factory.prepareCategoryView(tableView: tableView, categoryList: currentBudget!.categories, section: section)
+        return CellFactory().prepareCategoryView(tableView: tableView, categoryList: currentBudget!.categories, section: section)
     }
     
     override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
