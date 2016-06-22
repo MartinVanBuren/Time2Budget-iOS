@@ -440,7 +440,6 @@
 				5BF78C401BD85B420082F1BC /* Embed Frameworks */,
 				5B17E2441BDF2F240014CF2D /* Realm Deployment */,
 				5BF0BDAC1D19A5EB00561F35 /* Fixme Warnings */,
-				A3AEBB3B45D8CBE5929D75B5 /* Tailor */,
 			);
 			buildRules = (
 			);
@@ -561,20 +560,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "TAGS=\"TODO:|FIXME:|WARNING:\"\nfind \"${SRCROOT}\" \\( -name \"*.swift\" \\) -print0 | xargs -0 egrep --with-filename --line-number --only-matching \"($TAGS).*\\$\" | perl -p -e \"s/($TAGS)/ warning: \\$1/\"";
-		};
-		A3AEBB3B45D8CBE5929D75B5 /* Tailor */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = Tailor;
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "if hash tailor 2>/dev/null; then\n  tailor\nelse\n  echo \"warning: Please install Tailor from https://tailor.sh\"\nfi";
 		};
 /* End PBXShellScriptBuildPhase section */
 

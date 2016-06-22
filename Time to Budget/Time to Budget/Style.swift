@@ -15,7 +15,7 @@ public class Style {
     private static let tutorialOverlayColor = UIColor(red: 170/255, green: 170/255, blue: 170/255, alpha: 0.60)
     
     class func tutorialController(tut: CoachMarksController) {
-        tut.overlayBackgroundColor = self.tutorialOverlayColor
+        tut.overlayBackgroundColor = tutorialOverlayColor
         tut.allowOverlayTap = true
     }
     
@@ -26,29 +26,29 @@ public class Style {
     }
 
     class func viewController(vc: UITableViewController) {
-        vc.tableView.backgroundColor = self.grey
-        vc.tableView.separatorColor = self.seperatorGrey
+        vc.tableView.backgroundColor = grey
+        vc.tableView.separatorColor = seperatorGrey
         vc.tableView.separatorInset = UIEdgeInsets(top: 0, left: 25, bottom: 0, right: 0)
     }
 
     class func viewController(vc: UIViewController) {
-        vc.view.backgroundColor = self.grey
+        vc.view.backgroundColor = grey
     }
 
     class func viewController(vc: UIViewController, tableView: UITableView) {
-        vc.view.backgroundColor = self.grey
-        tableView.backgroundColor = self.grey
-        tableView.separatorColor = self.seperatorGrey
+        vc.view.backgroundColor = grey
+        tableView.backgroundColor = grey
+        tableView.separatorColor = seperatorGrey
         tableView.separatorInset = UIEdgeInsets(top: 0, left: 25, bottom: 0, right: 0)
         tableView.indicatorStyle = UIScrollViewIndicatorStyle.White
     }
 
     class func label(label: UILabel) {
-        label.textColor = self.textColor
+        label.textColor = textColor
     }
 
     class func button(button: UIButton) {
-        button.backgroundColor = self.blue
+        button.backgroundColor = blue
         button.alpha = 0.90
         button.opaque = false
         
@@ -57,13 +57,13 @@ public class Style {
     }
 
     class func picker(pickerData: Int) -> NSAttributedString {
-        let attributes: [String: AnyObject]? = [NSForegroundColorAttributeName: self.textColor]
+        let attributes: [String: AnyObject]? = [NSForegroundColorAttributeName: textColor]
         let attributedString = NSAttributedString(string: "\(pickerData)", attributes: attributes)
         return attributedString
     }
     
     class func picker(picker: UIDatePicker) {
-        picker.setValue(self.textColor, forKeyPath: "textColor")
+        picker.setValue(textColor, forKeyPath: "textColor")
         picker.datePickerMode = UIDatePickerMode.CountDownTimer
         picker.datePickerMode = UIDatePickerMode.Date
     }
@@ -75,12 +75,12 @@ public class Style {
         cell.remainingTimeBar.layer.masksToBounds = true
         cell.remainingTimeBarOutline.layer.borderWidth = 1.0
         
-        cell.backgroundColor = self.grey
-        cell.customContentView.backgroundColor = self.grey
+        cell.backgroundColor = grey
+        cell.customContentView.backgroundColor = grey
         cell.customContentView.alpha = 0.90
         cell.customContentView.opaque = false
-        cell.sectionNameLabel.textColor = self.textColor
-        self.categoryTimeRemainingBar(cell)
+        cell.sectionNameLabel.textColor = textColor
+        categoryTimeRemainingBar(cell)
         
         return cell
     }
@@ -93,11 +93,11 @@ public class Style {
         view.remainingTimeBar.layer.masksToBounds = true
         view.remainingTimeBarOutline.layer.borderWidth = 1.0
         
-        view.customContentView.backgroundColor = self.grey
+        view.customContentView.backgroundColor = grey
         view.customContentView.alpha = 0.90
         view.customContentView.opaque = false
-        view.sectionNameLabel.textColor = self.textColor
-        self.categoryTimeRemainingBar(view)
+        view.sectionNameLabel.textColor = textColor
+        categoryTimeRemainingBar(view)
         
         return view
     }
@@ -105,8 +105,8 @@ public class Style {
     class func task(cell: DetailCell) -> DetailCell {
         cell.backgroundColor = UIColor.clearColor()
         cell.customContentView.backgroundColor = UIColor.clearColor()
-        cell.title.textColor = self.textColor
-        self.taskTimeRemainingLabel(cell, task: cell.task!, editor: cell.editor!)
+        cell.title.textColor = textColor
+        taskTimeRemainingLabel(cell, task: cell.task!, editor: cell.editor!)
         
         return cell
     }
@@ -114,25 +114,25 @@ public class Style {
     class func task(cell: SubtitleDetailCell) -> SubtitleDetailCell {
         cell.backgroundColor = UIColor.clearColor()
         cell.customContentView.backgroundColor = UIColor.clearColor()
-        cell.title.textColor = self.textColor
-        cell.subtitle.textColor = self.textColor
-        self.taskTimeRemainingLabel(cell, task: cell.task!, editor: cell.editor!)
+        cell.title.textColor = textColor
+        cell.subtitle.textColor = textColor
+        taskTimeRemainingLabel(cell, task: cell.task!, editor: cell.editor!)
         
         return cell
     }
 
     class func record(cell: DetailCell) -> DetailCell {
-        cell.title.textColor = self.textColor
-        cell.detail.textColor = self.detailColor
+        cell.title.textColor = textColor
+        cell.detail.textColor = detailColor
         cell.backgroundColor = UIColor.clearColor()
         
         return cell
     }
 
     class func record(cell: SubtitleDetailCell) -> SubtitleDetailCell {
-        cell.title.textColor = self.textColor
-        cell.subtitle.textColor = self.textColor
-        cell.detail.textColor = self.detailColor
+        cell.title.textColor = textColor
+        cell.subtitle.textColor = textColor
+        cell.detail.textColor = detailColor
         cell.backgroundColor = UIColor.clearColor()
         
         return cell
@@ -140,14 +140,14 @@ public class Style {
 
     class func basicHeader(view: CategoryView) -> CategoryView {
         // View background settings
-        view.customContentView.backgroundColor = self.grey
+        view.customContentView.backgroundColor = grey
         view.customContentView.alpha = 0.90
         view.customContentView.opaque = false
         
         // Section Bar Colors
-        view.sectionNameLabel.textColor = self.textColor
-        view.remainingTimeBar.backgroundColor = self.blue
-        view.remainingTimeBarOutline.layer.borderColor = self.blue.CGColor
+        view.sectionNameLabel.textColor = textColor
+        view.remainingTimeBar.backgroundColor = blue
+        view.remainingTimeBarOutline.layer.borderColor = blue.CGColor
         
         // Section Bar Rounding
         view.remainingTimeBarOutline.layer.cornerRadius = 60/8
@@ -163,8 +163,8 @@ public class Style {
     class func detailCell(cell: DetailCell) -> DetailCell {
         cell.backgroundColor = UIColor.clearColor()
         cell.customContentView.backgroundColor = UIColor.clearColor()
-        cell.title.textColor = self.textColor
-        cell.detail.textColor = self.detailColor
+        cell.title.textColor = textColor
+        cell.detail.textColor = detailColor
         
         return cell
     }
@@ -183,23 +183,23 @@ public class Style {
     }
 
     private class func categoryTimeRemainingBar(cell: CategoryCell) -> CategoryCell {
-        cell.remainingTimeLabel.textColor = self.textColor
+        cell.remainingTimeLabel.textColor = textColor
         
         if cell.category!.totalTimeRemaining == cell.category!.totalTimeBudgeted {
-            cell.remainingTimeBar.backgroundColor = self.blue
-            cell.remainingTimeBarOutline.layer.borderColor = self.blue.CGColor
+            cell.remainingTimeBar.backgroundColor = blue
+            cell.remainingTimeBarOutline.layer.borderColor = blue.CGColor
             cell.remainingTimeBar.layer.mask = nil
         } else {
             var barRatio: CGFloat!
             
             if cell.category!.totalTimeRemaining >= 0 {
                 barRatio = CGFloat(cell.category!.totalTimeRemaining/cell.category!.totalTimeBudgeted)
-                cell.remainingTimeBar.backgroundColor = self.blue
-                cell.remainingTimeBarOutline.layer.borderColor = self.blue.CGColor
+                cell.remainingTimeBar.backgroundColor = blue
+                cell.remainingTimeBarOutline.layer.borderColor = blue.CGColor
             } else if cell.category!.totalTimeRemaining < 0 {
                 barRatio = CGFloat(cell.category!.totalTimeRemaining/cell.category!.totalTimeBudgeted) * -1.0
-                cell.remainingTimeBar.backgroundColor = self.yellow
-                cell.remainingTimeBarOutline.layer.borderColor = self.yellow.CGColor
+                cell.remainingTimeBar.backgroundColor = yellow
+                cell.remainingTimeBarOutline.layer.borderColor = yellow.CGColor
             }
             
             let newWidth = cell.remainingTimeBar.frame.size.width * barRatio
@@ -219,32 +219,32 @@ public class Style {
     }
 
     private class func categoryTimeRemainingBar(view: CategoryView) -> CategoryView {
-        view.remainingTimeLabel.textColor = self.textColor
+        view.remainingTimeLabel.textColor = textColor
         
         if view.editor! {
-            view.remainingTimeBar.backgroundColor = self.blue
-            view.remainingTimeBarOutline.layer.borderColor = self.blue.CGColor
+            view.remainingTimeBar.backgroundColor = blue
+            view.remainingTimeBarOutline.layer.borderColor = blue.CGColor
             view.remainingTimeBar.layer.mask = nil
         } else {
             if view.category!.totalTimeRemaining == view.category!.totalTimeBudgeted {
-                view.remainingTimeBar.backgroundColor = self.blue
-                view.remainingTimeBarOutline.layer.borderColor = self.blue.CGColor
+                view.remainingTimeBar.backgroundColor = blue
+                view.remainingTimeBarOutline.layer.borderColor = blue.CGColor
                 view.remainingTimeBar.layer.mask = nil
             } else {
                 var barRatio: CGFloat!
                 
                 if view.category!.totalTimeRemaining >= 0 && view.category!.totalTimeBudgeted > 0 {
                     barRatio = CGFloat(view.category!.totalTimeRemaining/view.category!.totalTimeBudgeted)
-                    view.remainingTimeBar.backgroundColor = self.blue
-                    view.remainingTimeBarOutline.layer.borderColor = self.blue.CGColor
+                    view.remainingTimeBar.backgroundColor = blue
+                    view.remainingTimeBarOutline.layer.borderColor = blue.CGColor
                 } else if view.category!.totalTimeRemaining < 0 && view.category!.totalTimeBudgeted > 0 {
                     barRatio = CGFloat(view.category!.totalTimeRemaining/view.category!.totalTimeBudgeted) * -1
-                    view.remainingTimeBar.backgroundColor = self.yellow
-                    view.remainingTimeBarOutline.layer.borderColor = self.yellow.CGColor
+                    view.remainingTimeBar.backgroundColor = yellow
+                    view.remainingTimeBarOutline.layer.borderColor = yellow.CGColor
                 } else {
                     barRatio = CGFloat(1)
-                    view.remainingTimeBar.backgroundColor = self.yellow
-                    view.remainingTimeBarOutline.layer.borderColor = self.yellow.CGColor
+                    view.remainingTimeBar.backgroundColor = yellow
+                    view.remainingTimeBarOutline.layer.borderColor = yellow.CGColor
                 }
                 
                 let newWidth = view.remainingTimeBar.frame.size.width * barRatio
@@ -267,14 +267,14 @@ public class Style {
     private class func taskTimeRemainingLabel(cell: DetailCell, task: Task, editor: Bool) -> DetailCell {
         
         if editor {
-            cell.detail.textColor = self.detailColor
+            cell.detail.textColor = detailColor
         } else {
             if task.timeRemaining > 0.0 {
-                cell.detail.textColor = self.blue
+                cell.detail.textColor = blue
             } else if task.timeRemaining < 0.0 {
-                cell.detail.textColor = self.yellow
+                cell.detail.textColor = yellow
             } else {
-                cell.detail.textColor = self.textColor
+                cell.detail.textColor = textColor
             }
         }
         
@@ -284,14 +284,14 @@ public class Style {
     private class func taskTimeRemainingLabel(cell: SubtitleDetailCell, task: Task, editor: Bool) -> SubtitleDetailCell {
         
         if editor {
-            cell.detail.textColor = self.detailColor
+            cell.detail.textColor = detailColor
         } else {
             if task.timeRemaining > 0.0 {
-                cell.detail.textColor = self.blue
+                cell.detail.textColor = blue
             } else if task.timeRemaining < 0.0 {
-                cell.detail.textColor = self.yellow
+                cell.detail.textColor = yellow
             } else {
-                cell.detail.textColor = self.textColor
+                cell.detail.textColor = textColor
             }
         }
         

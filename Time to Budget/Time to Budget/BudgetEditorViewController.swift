@@ -14,69 +14,63 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
     var realm: Realm!
     var currentBudget: Budget!
     var grabbedTask: Task?
-    var notificationToken: NotificationToken!
 
     // ==================== View Controller Methods ====================
     override func viewDidLoad() {
         super.viewDidLoad()
         // Tutorial setup and setting up points of interest
         tutorialController.dataSource = self
-        Style.tutorialController(self.tutorialController)
-        Tutorial.budgetEditorPOI[1] = self.navigationController?.navigationBar
-        Tutorial.budgetEditorPOI[2] = self.navigationController?.navigationBar
-        Tutorial.budgetEditorPOI[3] = self.navigationController?.navigationBar
+        Style.tutorialController(tutorialController)
+        Tutorial.budgetEditorPOI[1] = navigationController?.navigationBar
+        Tutorial.budgetEditorPOI[2] = navigationController?.navigationBar
+        Tutorial.budgetEditorPOI[3] = navigationController?.navigationBar
         
         // Retrieve database
-        self.realm = Database.getRealm()
+        realm = Database.getRealm()
         
         // Retrieve and register the nib files for tableView elements.
         let catViewNib = UINib(nibName: "CategoryView", bundle: nil)
         let detailNib = UINib(nibName: "DetailCell", bundle: nil)
         let subtitleNib = UINib(nibName: "SubtitleDetailCell", bundle: nil)
-        self.tableView.registerNib(catViewNib, forHeaderFooterViewReuseIdentifier: "CategoryView")
-        self.tableView.registerNib(detailNib, forCellReuseIdentifier: "DetailCell")
-        self.tableView.registerNib(subtitleNib, forCellReuseIdentifier: "SubtitleDetailCell")
+        tableView.registerNib(catViewNib, forHeaderFooterViewReuseIdentifier: "CategoryView")
+        tableView.registerNib(detailNib, forCellReuseIdentifier: "DetailCell")
+        tableView.registerNib(subtitleNib, forCellReuseIdentifier: "SubtitleDetailCell")
         
         // Generate and subscribe a long press gesture recognizer for dragging and dropping tableView elements.
         let longpress = UILongPressGestureRecognizer(target: self, action: #selector(BudgetEditorViewController.longPressGestureRecognized(_:)))
         tableView.addGestureRecognizer(longpress)
 
         // Apply app style to the controller and tableView
-        let nav = self.navigationController?.navigationBar
+        let nav = navigationController?.navigationBar
         Style.navbar(nav!)
-        Style.viewController(self, tableView: self.tableView)
+        Style.viewController(self, tableView: tableView)
         
         // Retrieve the current budget from the database
-        self.currentBudget = Database.budgetSafetyNet()
-        
-        // Register realm notification block to update the tableView on database changes
-        notificationToken = realm.addNotificationBlock { note, realm in
-            self.currentBudget = Database.budgetSafetyNet()
-            self.updateTimeRemaining()
-        }
+        currentBudget = Database.getBudget()
 
         // Reload tableView data and update the current budgetable time remaining label
-        self.tableView.reloadData()
-        self.updateTimeRemaining()
+        tableView.reloadData()
+        updateTimeRemaining()
     }
     
     override func viewWillAppear(animated: Bool) {
         // Retrieve up-to-date budget and apply to tableView
-        self.currentBudget = Database.budgetSafetyNet()
-        self.tableView.reloadData()
+        currentBudget = Database.getBudget()
+        tableView.reloadData()
+        updateTimeRemaining()
     }
     
     override func viewDidAppear(animated: Bool) {
         if Tutorial.shouldRun(budgetEditor: true) {
-            self.tutorialController.startOn(self)
+            tutorialController.startOn(self)
         }
     }
     
     override func viewDidLayoutSubviews() {
         // Setup tutorial points of interest.
-        Tutorial.budgetEditorPOI[0] = self.navigationController?.navigationBar
-        Tutorial.budgetEditorPOI[4] = (self.navigationItem.leftBarButtonItem?.valueForKey("view") as? UIView)
-        Tutorial.budgetEditorPOI[5] = (self.navigationItem.rightBarButtonItem?.valueForKey("view") as? UIView)
+        Tutorial.budgetEditorPOI[0] = navigationController?.navigationBar
+        Tutorial.budgetEditorPOI[4] = (navigationItem.leftBarButtonItem?.valueForKey("view") as? UIView)
+        Tutorial.budgetEditorPOI[5] = (navigationItem.rightBarButtonItem?.valueForKey("view") as? UIView)
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -88,7 +82,7 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
             
             if !addTaskDialog {
                 // Pass the selected task into the Task Editor View for editing.
-                let indexPath = self.tableView.indexPathForSelectedRow!
+                let indexPath = tableView.indexPathForSelectedRow!
                 let selectedTask = currentBudget.categories[indexPath.section].tasks[indexPath.row]
                 taskEditorVC.currentTask = selectedTask
                 taskEditorVC.editTask = true
@@ -198,7 +192,7 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
                 Path.initialIndexPath = indexPath
                 // Retrieve the cell, Task, and cell snapshot.
                 let cell = tableView.cellForRowAtIndexPath(indexPath!) as UITableViewCell!
-                self.grabbedTask = currentBudget.categories[indexPath!.section].tasks[indexPath!.row]
+                grabbedTask = currentBudget.categories[indexPath!.section].tasks[indexPath!.row]
                 My.cellSnapshot  = snapshotOfCell(cell)
                 // Set snapshot cell location and make visible
                 var center = cell.center
@@ -229,12 +223,12 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
 
             if (indexPath != nil) && (indexPath != Path.initialIndexPath) {
                 // Update the location of the 'grabbed' task in the database.
-                if let unwrappedTask = self.grabbedTask {
-                    let targetCategory = self.currentBudget.categories[indexPath!.section]
+                if let unwrappedTask = grabbedTask {
+                    let targetCategory = currentBudget.categories[indexPath!.section]
                     if targetCategory.name != unwrappedTask.parent.name {
-                        Database.moveTask(task: self.grabbedTask!, targetCategory: targetCategory, index: indexPath!.row)
+                        Database.moveTask(task: grabbedTask!, targetCategory: targetCategory, index: indexPath!.row)
                     } else {
-                        Database.moveTask(task: self.grabbedTask!, index: indexPath!.row)
+                        Database.moveTask(task: grabbedTask!, index: indexPath!.row)
                     }
                 }
                 // Animate the movement of the cell and the surrounding cells.
@@ -245,7 +239,7 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
         // Called when the cell is let go
         default:
             // Unhide the cell that was underneith of the snapshot.
-            self.grabbedTask = nil
+            grabbedTask = nil
             let cell = tableView.cellForRowAtIndexPath(Path.initialIndexPath!) as UITableViewCell!
             cell.hidden = false
             cell.alpha = 0.0
@@ -302,8 +296,8 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
 
         // Clean and apply time to navigation bar title.
         newTime.cleanTime()
-        self.totalTime = newTime
-        self.navigationItem.title = self.totalTime.toString()
+        totalTime = newTime
+        navigationItem.title = totalTime.toString()
     }
 
 }

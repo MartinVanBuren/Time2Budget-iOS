@@ -13,16 +13,16 @@ class BudgetHistoryRecordViewController: UITableViewController {
         
         // Retrieve and register the nib files for tableView elements.
         let detailNib = UINib(nibName: "DetailCell", bundle: nil)
-        self.tableView.registerNib(detailNib, forCellReuseIdentifier: "DetailCell")
+        tableView.registerNib(detailNib, forCellReuseIdentifier: "DetailCell")
         
         // Apple the Time to Budget theme to this view and navigation bar.
-        let nav = self.navigationController!.navigationBar
+        let nav = navigationController!.navigationBar
         Style.navbar(nav)
         Style.viewController(self)
     }
     
     override func viewWillAppear(animated: Bool) {
-        self.tableView.reloadData()
+        tableView.reloadData()
     }
 
     // ==================== UITableViewDataSource Methods ====================
@@ -41,7 +41,7 @@ class BudgetHistoryRecordViewController: UITableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         switch indexPath.row {
         case 0:
-            let cell = Factory.prepareAddRecordTaskCell(tableView: tableView, currentTask: self.currentTask)
+            let cell = Factory.prepareAddRecordTaskCell(tableView: tableView, currentTask: currentTask)
             cell.accessoryType = UITableViewCellAccessoryType.None
             cell.userInteractionEnabled = false
             return cell

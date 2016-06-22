@@ -8,10 +8,10 @@ public class Clock: Object {
     public dynamic var finalTime: Double = 0.0
 
     internal func clockInOut() {
-        if self.clockedIn {
-            self.clockedIn = false
+        if clockedIn {
+            clockedIn = false
             let currentTime = NSDate.timeIntervalSinceReferenceDate()
-            var elapsedTime = currentTime - self.startTime
+            var elapsedTime = currentTime - startTime
 
             let hours = Int((elapsedTime / 60.0) / 60.0)
             elapsedTime -= ((NSTimeInterval(hours) * 60) * 60)
@@ -35,10 +35,10 @@ public class Clock: Object {
                 minutes = 0.0
             }
             
-            self.finalTime = (Double(hours) + minutes)
+            finalTime = (Double(hours) + minutes)
         } else {
-            self.clockedIn = true
-            self.startTime = NSDate.timeIntervalSinceReferenceDate()
+            clockedIn = true
+            startTime = NSDate.timeIntervalSinceReferenceDate()
         }
     }
     

@@ -12,7 +12,7 @@ public class Record: Object {
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "MMMM dd, yyyy"
         
-        return dateFormatter.stringFromDate(self.date)
+        return dateFormatter.stringFromDate(date)
     }
     
 }

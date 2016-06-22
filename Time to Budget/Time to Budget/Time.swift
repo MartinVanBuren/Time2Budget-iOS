@@ -14,38 +14,38 @@ public class Time {
         set(newTime)
     }
     public init(newHours: Int, newMinutes: Int) {
-        self.hours = newHours
-        self.minutes = newMinutes
+        hours = newHours
+        minutes = newMinutes
     }
 
     public func cleanTime() {
         
-        if (self.hours >= 0) {
-            while (self.minutes >= 60) {
-                self.hours += 1
-                self.minutes -= 60
+        if (hours >= 0) {
+            while (minutes >= 60) {
+                hours += 1
+                minutes -= 60
             }
 
-            while (self.minutes < 0) {
-                self.hours -= 1
-                self.minutes += 60
+            while (minutes < 0) {
+                hours -= 1
+                minutes += 60
             }
-        } else if (self.hours < 0) {
-            while (self.minutes >= 60) {
-                self.hours -= 1
-                self.minutes -= 60
+        } else if (hours < 0) {
+            while (minutes >= 60) {
+                hours -= 1
+                minutes -= 60
             }
             
-            while (self.minutes < 0) {
-                self.hours += 1
-                self.minutes += 60
+            while (minutes < 0) {
+                hours += 1
+                minutes += 60
             }
         }
         
-        if self.hours < 0 {
-            self.isNegative = true
-        } else if self.hours > 0 {
-            self.isNegative = false
+        if hours < 0 {
+            isNegative = true
+        } else if hours > 0 {
+            isNegative = false
         }
     }
 
@@ -74,13 +74,13 @@ public class Time {
             tempMins = 0.0
         }
         
-        self.hours = Int(round(tempHrs))
-        self.minutes = Int(round(tempMins))
+        hours = Int(round(tempHrs))
+        minutes = Int(round(tempMins))
         
         cleanTime()
         
         if newTime < 0 {
-            self.isNegative = true
+            isNegative = true
         }
     }
 
@@ -88,7 +88,7 @@ public class Time {
         
         var tempMin: Double!
         
-        switch self.minutes {
+        switch minutes {
         case 15:
             tempMin = 0.25
         case 30:
@@ -101,23 +101,23 @@ public class Time {
         
         var finalDouble: Double!
         
-        if self.isNegative {
-            finalDouble = (Double(self.hours) - tempMin)
+        if isNegative {
+            finalDouble = (Double(hours) - tempMin)
         } else {
-            finalDouble = (Double(self.hours) + tempMin)
+            finalDouble = (Double(hours) + tempMin)
         }
         
         return (finalDouble)
     }
     
     public func toString() -> String {
-        self.cleanTime()
+        cleanTime()
         
         if minutes == 0 && hours != 0 {
             return "\(hours):00"
         }
         else if minutes != 0 && hours == 0 {
-            if self.isNegative {
+            if isNegative {
                 return "-00:\(minutes)"
             } else {
                 return "00:\(minutes)"

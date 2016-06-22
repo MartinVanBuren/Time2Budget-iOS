@@ -21,36 +21,36 @@ class TaskEditorViewController: UIViewController, UITableViewDataSource, UITable
         super.viewDidLoad()
         
         // Apply Time to Budget theme to this view, navbar, and buttons.
-        let nav = self.navigationController!.navigationBar
+        let nav = navigationController!.navigationBar
         Style.navbar(nav)
-        Style.viewController(self, tableView: self.tableView)
-        Style.button(self.saveTaskButton)
+        Style.viewController(self, tableView: tableView)
+        Style.button(saveTaskButton)
         
         // Register nibs for Cell/Headers.
         let nib = UINib(nibName: "DetailCell", bundle: nil)
-        self.tableView.registerNib(nib, forCellReuseIdentifier: "DetailCell")
+        tableView.registerNib(nib, forCellReuseIdentifier: "DetailCell")
         
         // Set Nav bar title based on whether the user is editing or adding a task.
         if editTask {
-            self.navigationItem.title = "Edit \(currentTask!.name)"
+            navigationItem.title = "Edit \(currentTask!.name)"
         } else {
-            self.navigationItem.title = "Add Task"
+            navigationItem.title = "Add Task"
         }
 
         // Apply the previous task information if editing.
         if let unwrappedTask = currentTask {
-            self.taskName = unwrappedTask.name
-            self.taskCategory = unwrappedTask.parent.name
-            self.taskTime = unwrappedTask.timeBudgeted
+            taskName = unwrappedTask.name
+            taskCategory = unwrappedTask.parent.name
+            taskTime = unwrappedTask.timeBudgeted
             
             if unwrappedTask.memo != "" {
-                self.taskMemo = unwrappedTask.memo
+                taskMemo = unwrappedTask.memo
             }
         }
     }
     
     override func viewWillAppear(animated: Bool) {
-        self.tableView.reloadData()
+        tableView.reloadData()
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -77,17 +77,17 @@ class TaskEditorViewController: UIViewController, UITableViewDataSource, UITable
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         switch indexPath.row {
         case 0:
-            let preparedCell = Factory.prepareNameTextfieldCell(tableView: self.tableView, name: self.taskName)
+            let preparedCell = Factory.prepareNameTextfieldCell(tableView: tableView, name: taskName)
             preparedCell.textField.delegate = self
             return preparedCell
         case 1:
-            let preparedCell = Factory.prepareMemoTextfieldCell(tableView: self.tableView, memo: self.taskMemo)
+            let preparedCell = Factory.prepareMemoTextfieldCell(tableView: tableView, memo: taskMemo)
             preparedCell.textField.delegate = self
             return preparedCell
         case 2:
-            return Factory.prepareAddTaskCategoryCell(tableView: self.tableView, categoryName: self.taskCategory)
+            return Factory.prepareAddTaskCategoryCell(tableView: tableView, categoryName: taskCategory)
         default:
-            return Factory.prepareAddTaskTimeCell(tableView: self.tableView, time: self.taskTime)
+            return Factory.prepareAddTaskTimeCell(tableView: tableView, time: taskTime)
         }
     }
     
@@ -108,63 +108,63 @@ class TaskEditorViewController: UIViewController, UITableViewDataSource, UITable
     
     //==================== Protocol Methods ====================
     func writeCategoryBack(cat: Category) {
-        self.taskCategory = cat.name
+        taskCategory = cat.name
     }
     
     //==================== UITextFieldDelegate Methods ====================
     func textFieldShouldReturn(textField: UITextField) -> Bool {
-        self.view.endEditing(true)
+        view.endEditing(true)
         return true
     }
     
     //==================== IBAction Methods ====================
     @IBAction func taskNameTextfieldChanged(sender: UITextField) {
         if sender.text == "" {
-            self.taskName = nil
+            taskName = nil
         } else {
-            self.taskName = sender.text
+            taskName = sender.text
         }
     }
     
     @IBAction func taskMemoTextfieldChanged(sender: UITextField) {
         if sender.text == "" {
-            self.taskMemo = nil
+            taskMemo = nil
         } else {
-            self.taskMemo = sender.text
+            taskMemo = sender.text
         }
     }
     
     @IBAction func cancelButtonPressed(sender: UIBarButtonItem) {
-        self.dismissViewControllerAnimated(true, completion: {})
+        dismissViewControllerAnimated(true, completion: {})
     }
     
     @IBAction func saveButtonPressed(sender: UIButton) {
         // Verify task.memo is no nil
-        if self.taskMemo == nil {
-            self.taskMemo = ""
+        if taskMemo == nil {
+            taskMemo = ""
         }
         
         // Verify that a task name has been given.
-        if let unwrappedName = self.taskName {
+        if let unwrappedName = taskName {
             // Verify that a category has been selected.
-            if let unwrappedCategory = self.taskCategory {
+            if let unwrappedCategory = taskCategory {
                 // Verify that a time has been selected.
-                if let unwrappedTime = self.taskTime {
+                if let unwrappedTime = taskTime {
                     // Determine whether to edit a task or add a new one.
-                    if self.editTask {
+                    if editTask {
                         // Verify a previous task is available.
                         if let unwrappedTask = currentTask {
                             // Update the previous task in the database and return to previous view.
-                            Database.updateTask(task: unwrappedTask, name: unwrappedName, memo: self.taskMemo, time: unwrappedTime, categoryName: unwrappedCategory)
-                            self.dismissViewControllerAnimated(true, completion: {})
+                            Database.updateTask(task: unwrappedTask, name: unwrappedName, memo: taskMemo, time: unwrappedTime, categoryName: unwrappedCategory)
+                            dismissViewControllerAnimated(true, completion: {})
                         } else {
                             // Alert user that there was an error accessing the previous task.
                             Factory.displayAlert(viewController: self, title: "Error: Task Missing", message: "Task missing while in edit mode. D':")
                         }
                     } else {
                         // Add a new task to the database and return to previous view.
-                        Database.addTask(name: unwrappedName, memo: self.taskMemo, time: unwrappedTime, categoryName: unwrappedCategory)
-                        self.dismissViewControllerAnimated(true, completion: {})
+                        Database.addTask(name: unwrappedName, memo: taskMemo, time: unwrappedTime, categoryName: unwrappedCategory)
+                        dismissViewControllerAnimated(true, completion: {})
                     }
                 }
             } else {

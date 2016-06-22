@@ -11,15 +11,15 @@ class RecordEditorDatePickerViewController: UIViewController {
         super.viewDidLoad()
 
         Style.viewController(self)
-        Style.button(self.doneButton)
-        Style.picker(self.datePicker)
+        Style.button(doneButton)
+        Style.picker(datePicker)
         
-        self.datePicker.setDate(self.recordEditorVC.date, animated: true)
+        datePicker.setDate(recordEditorVC.date, animated: true)
     }
 
     @IBAction func saveButtonPressed(sender: UIButton) {
-        recordEditorVC.date = self.datePicked
-        self.navigationController?.popViewControllerAnimated(true)
+        recordEditorVC.date = datePicked
+        navigationController?.popViewControllerAnimated(true)
     }
     
     @IBAction func datePickerChanged(sender: UIDatePicker) {

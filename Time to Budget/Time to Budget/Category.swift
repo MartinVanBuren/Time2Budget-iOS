@@ -11,8 +11,8 @@ public class Category: Object {
     
     // ==================== Methods ====================
     public func calcTime() {
-        self.totalTimeRemaining = 0.0
-        self.totalTimeBudgeted = 0.0
+        totalTimeRemaining = 0.0
+        totalTimeBudgeted = 0.0
         
         for task in tasks {
             totalTimeRemaining += task.timeRemaining

@@ -36,7 +36,7 @@ class WelcomeButtonsController: UIViewController {
         // Load and display the main app.
         let storyboard = UIStoryboard(name: "iPhone", bundle: nil)
         let mainView = storyboard.instantiateViewControllerWithIdentifier("MainTabBarController")
-        self.presentViewController(mainView, animated: true, completion: nil)
+        presentViewController(mainView, animated: true, completion: nil)
     }
     
     @IBAction func runTutorialButtonPressed(sender: UIButton) {
@@ -49,7 +49,7 @@ class WelcomeButtonsController: UIViewController {
         // Load and display the main app.
         let storyboard = UIStoryboard(name: "iPhone", bundle: nil)
         let mainView = storyboard.instantiateViewControllerWithIdentifier("MainTabBarController")
-        self.presentViewController(mainView, animated: true, completion: nil)
+        presentViewController(mainView, animated: true, completion: nil)
     }
     
 }

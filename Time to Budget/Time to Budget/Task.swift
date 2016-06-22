@@ -13,16 +13,16 @@ public class Task: Object {
     public let records = List<Record>()
 
     public func calcTime() {
-        self.totalTimeSpent = 0.0
-        self.timeRemaining = 0.0
+        totalTimeSpent = 0.0
+        timeRemaining = 0.0
         
         for record in records {
             totalTimeSpent += record.timeSpent
         }
         
-        self.timeRemaining = (self.timeBudgeted - self.totalTimeSpent)
+        timeRemaining = (timeBudgeted - totalTimeSpent)
         
-        self.parent.calcTime()
+        parent.calcTime()
     }
     
 }

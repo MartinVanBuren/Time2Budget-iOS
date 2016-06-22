@@ -22,22 +22,22 @@ class RecordEditorViewController: UIViewController, UITableViewDataSource, UITab
         
         // Register Nibs for Cells/Header Views
         let detailNib = UINib(nibName: "DetailCell", bundle: nil)
-        self.tableView.registerNib(detailNib, forCellReuseIdentifier: "DetailCell")
+        tableView.registerNib(detailNib, forCellReuseIdentifier: "DetailCell")
         
         // Apply Time to Budget theme to view, nav bar, and buttons.
-        let nav = self.navigationController!.navigationBar
+        let nav = navigationController!.navigationBar
         Style.navbar(nav)
-        Style.viewController(self, tableView: self.tableView)
-        Style.button(self.saveRecordButton)
+        Style.viewController(self, tableView: tableView)
+        Style.button(saveRecordButton)
         
         // Apply the record information if any was passed into the view.
-        if let unwrappedRecord = self.currentRecord {
-            self.timeSpent = Time(newTime: unwrappedRecord.timeSpent)
-            self.date = unwrappedRecord.date
-            self.navigationItem.title = "Edit Record"
+        if let unwrappedRecord = currentRecord {
+            timeSpent = Time(newTime: unwrappedRecord.timeSpent)
+            date = unwrappedRecord.date
+            navigationItem.title = "Edit Record"
             
             if unwrappedRecord.note != "" {
-                self.memo = unwrappedRecord.note
+                memo = unwrappedRecord.note
             }
         }
     }
@@ -65,8 +65,8 @@ class RecordEditorViewController: UIViewController, UITableViewDataSource, UITab
     // =============== Protocol Methods ===============
     func writeTaskBack(task: Task) {
         // Retrieve Task back from the Record Editor Task Selector View.
-        self.currentTask = task
-        self.tableView.reloadData()
+        currentTask = task
+        tableView.reloadData()
     }
     
     // ==================== UITableViewDataSource Methods ====================
@@ -82,13 +82,13 @@ class RecordEditorViewController: UIViewController, UITableViewDataSource, UITab
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         switch indexPath.row {
         case 0:
-            return Factory.prepareAddRecordTaskCell(tableView: tableView, currentTask: self.currentTask)
+            return Factory.prepareAddRecordTaskCell(tableView: tableView, currentTask: currentTask)
         case 1:
-            return Factory.prepareAddRecordTimeCell(tableView: tableView, timeSpent: self.timeSpent)
+            return Factory.prepareAddRecordTimeCell(tableView: tableView, timeSpent: timeSpent)
         case 2:
-            return Factory.prepareAddRecordDateCell(tableView: tableView, date: self.date)
+            return Factory.prepareAddRecordDateCell(tableView: tableView, date: date)
         default:
-            let preparedCell = Factory.prepareMemoTextfieldCell(tableView: tableView, memo: self.memo)
+            let preparedCell = Factory.prepareMemoTextfieldCell(tableView: tableView, memo: memo)
             preparedCell.textField.delegate = self
             return preparedCell
         }
@@ -121,48 +121,48 @@ class RecordEditorViewController: UIViewController, UITableViewDataSource, UITab
     // ==================== UITextFieldDelegate Methods ====================
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         // Close keyboard when finished editing.
-        self.view.endEditing(true)
+        view.endEditing(true)
         return true
     }
     
     // ==================== IBAction Methods ====================
     @IBAction func cancelButtonPressed(sender: UIBarButtonItem) {
         // Return to previous view.
-        self.dismissViewControllerAnimated(true, completion: nil)
+        dismissViewControllerAnimated(true, completion: nil)
     }
     
     @IBAction func memoTextFieldChanged(sender: UITextField) {
         // Update memo property as textfield is updated.
-        self.memo = sender.text!
+        memo = sender.text!
     }
     
     @IBAction func saveRecordButtonPressed(sender: UIButton) {
-        // Verify that self.memo is not nil.
-        if self.memo == nil {
-            self.memo = ""
+        // Verify that memo is not nil.
+        if memo == nil {
+            memo = ""
         }
         
         // Verify that a task is selected.
-        if let unwrappedTask = self.currentTask {
+        if let unwrappedTask = currentTask {
             // Verify that an amount of time has been selected.
-            if let unwrappedTime = self.timeSpent {
+            if let unwrappedTime = timeSpent {
                 // Verify that the amount selected is not zero.
                 if unwrappedTime.toDouble() != 0.0 {
                     // Check if a record is being edited or if a new one is being added.
-                    if self.editRecord {
+                    if editRecord {
                         // Verify that the previous record exists.
-                        if let unwrappedRecord = self.currentRecord {
+                        if let unwrappedRecord = currentRecord {
                             // Update previous record in the database and return to previous view.
-                            Database.updateRecord(record: unwrappedRecord, task: unwrappedTask, note: self.memo, timeSpent: unwrappedTime.toDouble(), date: self.date)
-                            self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
+                            Database.updateRecord(record: unwrappedRecord, task: unwrappedTask, note: memo, timeSpent: unwrappedTime.toDouble(), date: date)
+                            navigationController?.dismissViewControllerAnimated(true, completion: nil)
                         } else {
                             // Display alert
                             Factory.displayAlert(viewController: self, title: "Error: Record Missing", message: "Record missing while in edit mode. D':")
                         }
                     } else {
                         // Add the new record to the database and return to previous view.
-                        Database.addRecord(parentTask: unwrappedTask, note: self.memo, timeSpent: unwrappedTime.toDouble(), date: self.date)
-                        self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
+                        Database.addRecord(parentTask: unwrappedTask, note: memo, timeSpent: unwrappedTime.toDouble(), date: date)
+                        navigationController?.dismissViewControllerAnimated(true, completion: nil)
                     }
                 } else {
                     // Alert user that they can't select 00:00 time.

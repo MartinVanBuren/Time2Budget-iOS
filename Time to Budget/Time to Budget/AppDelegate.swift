@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         // Create a new budget if needed.
-        Database.budgetSafetyNet()
+        Database.getBudget()
         
         // Change initial view controller based on the showWelcome bool
         self.window = UIWindow(frame: UIScreen.mainScreen().bounds)

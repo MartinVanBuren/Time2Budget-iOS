@@ -14,7 +14,6 @@ class TaskEditorCategorySelectorViewController: UIViewController, UITableViewDat
     // ========== Realm Properties ==========
     var realm: Realm!
     var currentBudget: Budget!
-    var notificationToken: NotificationToken!
     
     // ==================== View Controller Methods ====================
     override func viewDidLoad() {
@@ -22,46 +21,40 @@ class TaskEditorCategorySelectorViewController: UIViewController, UITableViewDat
         
         // Setup tutorial controller
         tutorialController.dataSource = self
-        Style.tutorialController(self.tutorialController)
+        Style.tutorialController(tutorialController)
         
         // Register nibs for Cells/Headers
         let catCellNib = UINib(nibName: "CategoryCell", bundle: nil)
-        self.tableView.registerNib(catCellNib, forCellReuseIdentifier: "CategoryCell")
+        tableView.registerNib(catCellNib, forCellReuseIdentifier: "CategoryCell")
         
         // Apply Time to Budget theme to this view and table view.
-        Style.viewController(self, tableView: self.tableView)
+        Style.viewController(self, tableView: tableView)
         
         // Retrieve database and current budget.
-        self.realm = Database.getRealm()
-        self.currentBudget = Database.budgetSafetyNet()
+        realm = Database.getRealm()
+        currentBudget = Database.getBudget()
         
-        // Create realm notification token to update this table view on databse changes.
-        notificationToken = realm.addNotificationBlock { notification, realm in
-            self.currentBudget = realm.objects(Budget).filter("isCurrent = true").first!
-            self.tableView.reloadData()
-        }
-        
-        self.tableView.reloadData()
+        tableView.reloadData()
     }
     
     override func viewDidAppear(animated: Bool) {
         if Tutorial.shouldRun(addTaskView: true) {
-            self.tutorialController.startOn(self)
+            tutorialController.startOn(self)
         }
     }
     
     override func viewDidLayoutSubviews() {
         // Adjust table view content insets
-        self.automaticallyAdjustsScrollViewInsets = false
-        self.tableView.contentInset = UIEdgeInsetsMake(self.topLayoutGuide.length, 0, 54, 0)
-        if self.tableView.indexPathsForVisibleRows?.count != 0 {
-            self.tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), atScrollPosition: UITableViewScrollPosition.Top, animated: false)
+        automaticallyAdjustsScrollViewInsets = false
+        tableView.contentInset = UIEdgeInsetsMake(topLayoutGuide.length, 0, 54, 0)
+        if tableView.indexPathsForVisibleRows?.count != 0 {
+            tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), atScrollPosition: UITableViewScrollPosition.Top, animated: false)
         }
         
         // Setup tutorial points of interest
-        self.tableView.reloadData()
-        Tutorial.addTaskPOI[0] = self.navigationController?.navigationBar
-        Tutorial.addTaskPOI[1] = (self.navigationItem.rightBarButtonItem!.valueForKey("view") as? UIView)
+        tableView.reloadData()
+        Tutorial.addTaskPOI[0] = navigationController?.navigationBar
+        Tutorial.addTaskPOI[1] = (navigationItem.rightBarButtonItem!.valueForKey("view") as? UIView)
     }
     
     // ==================== UITableViewDataSource Methods ====================
@@ -74,11 +67,11 @@ class TaskEditorCategorySelectorViewController: UIViewController, UITableViewDat
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return Int(self.currentBudget.categories.count)
+        return Int(currentBudget.categories.count)
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let catCell = Factory.prepareCategoryCell(tableView: self.tableView, categoryList: self.currentBudget.categories, section: indexPath.row)
+        let catCell = Factory.prepareCategoryCell(tableView: tableView, categoryList: currentBudget.categories, section: indexPath.row)
         
         if indexPath.section == 0 && indexPath.row == 0 {
             Tutorial.addTaskPOI[0] = catCell
@@ -94,8 +87,8 @@ class TaskEditorCategorySelectorViewController: UIViewController, UITableViewDat
     // ==================== UITableViewDelegate Methods ====================
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         // Pass the category selected back to the Task Editor view and then return to previous view.
-        self.delegate?.writeCategoryBack(currentBudget.categories[indexPath.row])
-        self.navigationController?.popViewControllerAnimated(true)
+        delegate?.writeCategoryBack(currentBudget.categories[indexPath.row])
+        navigationController?.popViewControllerAnimated(true)
     }
     
     // ==================== IBAction Methods ====================

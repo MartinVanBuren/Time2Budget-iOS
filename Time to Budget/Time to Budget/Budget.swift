@@ -17,12 +17,12 @@ public class Budget: Object {
         let normDt = calendar.dateFromComponents(dc)
         let shift = dc.weekday - calendar.firstWeekday
         
-        self.startDate = normDt!.dateByAddingTimeInterval(daySec(shift*(0-1)))
-        self.endDate = normDt!.dateByAddingTimeInterval(daySec((shift*(0-1))+7))
+        startDate = normDt!.dateByAddingTimeInterval(daySec(shift*(0-1)))
+        endDate = normDt!.dateByAddingTimeInterval(daySec((shift*(0-1))+7))
         // Remove 1 day from the endDate.
         let endDateStr = calendar.dateByAddingUnit(NSCalendarUnit.Day, value: -1, toDate: endDate, options: [])
-        self.name = "\(dateToString(startDate)) - \(dateToString(endDateStr!))"
-        self.isCurrent = true
+        name = "\(dateToString(startDate)) - \(dateToString(endDateStr!))"
+        isCurrent = true
     }
     
     public func checkPassedEndDate() -> Bool {

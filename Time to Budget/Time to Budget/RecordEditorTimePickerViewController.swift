@@ -18,8 +18,8 @@ class RecordEditorTimePickerViewController: UIViewController, UIPickerViewDataSo
         super.viewDidLoad()
         
         Style.viewController(self)
-        Style.button(self.doneButton)
-        Style.label(self.colonLabel)
+        Style.button(doneButton)
+        Style.label(colonLabel)
 
         // Time Picker Setup
         timePicker.dataSource = self
@@ -74,9 +74,9 @@ class RecordEditorTimePickerViewController: UIViewController, UIPickerViewDataSo
     
     // ==================== IBAction Methods ====================
     @IBAction func saveButtonPressed(sender: UIButton) {
-        recordEditorVC.timeSpent = self.timePicked
+        recordEditorVC.timeSpent = timePicked
         
-        self.navigationController?.popViewControllerAnimated(true)
+        navigationController?.popViewControllerAnimated(true)
     }
     
     // ==================== Helper Methods ====================
@@ -101,9 +101,9 @@ class RecordEditorTimePickerViewController: UIViewController, UIPickerViewDataSo
     
     func labelForHours() {
         let lblText = "Hours"
-        let lblWidth = self.timePicker.frame.size.width / CGFloat(self.timePicker.numberOfComponents)
-        let lblXPos = self.timePicker.frame.origin.x
-        let lblYPos = self.timePicker.frame.origin.y
+        let lblWidth = timePicker.frame.size.width / CGFloat(timePicker.numberOfComponents)
+        let lblXPos = timePicker.frame.origin.x
+        let lblYPos = timePicker.frame.origin.y
         
         let hrsLabel = UILabel()
         hrsLabel.frame = CGRect(x: lblXPos, y: lblYPos, width: lblWidth, height: 20)
@@ -112,14 +112,14 @@ class RecordEditorTimePickerViewController: UIViewController, UIPickerViewDataSo
         
         Style.label(hrsLabel)
         
-        self.view.addSubview(hrsLabel)
+        view.addSubview(hrsLabel)
     }
     
     func labelForMinutes() {
         let lblText = "Minutes"
-        let lblWidth = self.timePicker.frame.size.width / CGFloat(self.timePicker.numberOfComponents)
-        let lblXPos = self.timePicker.frame.origin.x + lblWidth
-        let lblYPos = self.timePicker.frame.origin.y
+        let lblWidth = timePicker.frame.size.width / CGFloat(timePicker.numberOfComponents)
+        let lblXPos = timePicker.frame.origin.x + lblWidth
+        let lblYPos = timePicker.frame.origin.y
         
         let minsLabel = UILabel(frame: CGRect(x: lblXPos, y: lblYPos, width: lblWidth, height: 20))
         minsLabel.text = lblText
@@ -127,7 +127,7 @@ class RecordEditorTimePickerViewController: UIViewController, UIPickerViewDataSo
         
         Style.label(minsLabel)
         
-        self.view.addSubview(minsLabel)
+        view.addSubview(minsLabel)
     }
     
 }

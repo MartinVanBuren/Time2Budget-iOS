@@ -9,15 +9,15 @@ class WelcomeViewController: UIPageViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.currentIndex = 0
+        currentIndex = 0
         dataSource = self
         delegate = self
-        self.backgroundColors.append(UIColor(red: 102/255, green: 204/255, blue: 255/255, alpha: 1.0))
-        self.backgroundColors.append(UIColor(red: 111/255, green: 177/255, blue: 222/255, alpha: 1.0))
-        self.backgroundColors.append(UIColor(red: 113/255, green: 152/255, blue: 189/255, alpha: 1.0))
-        self.backgroundColors.append(UIColor(red: 108/255, green: 130/255, blue: 156/255, alpha: 1.0))
-        self.backgroundColors.append(UIColor(red: 97/255, green: 107/255, blue: 123/255, alpha: 1.0))
-        self.backgroundColors.append(UIColor(red: 80/255, green: 83/255, blue: 90/255, alpha: 1.0))
+        backgroundColors.append(UIColor(red: 102/255, green: 204/255, blue: 255/255, alpha: 1.0))
+        backgroundColors.append(UIColor(red: 111/255, green: 177/255, blue: 222/255, alpha: 1.0))
+        backgroundColors.append(UIColor(red: 113/255, green: 152/255, blue: 189/255, alpha: 1.0))
+        backgroundColors.append(UIColor(red: 108/255, green: 130/255, blue: 156/255, alpha: 1.0))
+        backgroundColors.append(UIColor(red: 97/255, green: 107/255, blue: 123/255, alpha: 1.0))
+        backgroundColors.append(UIColor(red: 80/255, green: 83/255, blue: 90/255, alpha: 1.0))
         
         let storyboard = UIStoryboard(name: "iPhone", bundle: nil)
         
@@ -34,7 +34,7 @@ class WelcomeViewController: UIPageViewController {
                 completion: nil)
         }
         
-        self.view.backgroundColor = self.backgroundColors[currentIndex]
+        view.backgroundColor = backgroundColors[currentIndex]
     }
     
     override func viewDidLayoutSubviews() {
@@ -115,7 +115,7 @@ extension WelcomeViewController: UIPageViewControllerDelegate {
     
     func pageViewController(pageViewController: UIPageViewController, willTransitionToViewControllers pendingViewControllers: [UIViewController]) {
         let viewControllerIndex = orderedViewControllers.indexOf(pendingViewControllers.first!)
-        self.nextIndex = viewControllerIndex
+        nextIndex = viewControllerIndex
     }
     
     func pageViewController(pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {

@@ -20,48 +20,48 @@ class RecordEditorTaskSelectorViewController: UIViewController, UITableViewDataS
         super.viewDidLoad()
         
         // Setup Tutorial controller
-        self.tutorialController.dataSource = self
-        Style.tutorialController(self.tutorialController)
+        tutorialController.dataSource = self
+        Style.tutorialController(tutorialController)
         
         // Register Nibs for Cells/Header Views
         let catViewNib = UINib(nibName: "CategoryView", bundle: nil)
         let detailNib = UINib(nibName: "DetailCell", bundle: nil)
         let subtitleNib = UINib(nibName: "SubtitleDetailCell", bundle: nil)
-        self.tableView.registerNib(catViewNib, forHeaderFooterViewReuseIdentifier: "CategoryView")
-        self.tableView.registerNib(detailNib, forCellReuseIdentifier: "DetailCell")
-        self.tableView.registerNib(subtitleNib, forCellReuseIdentifier: "SubtitleDetailCell")
+        tableView.registerNib(catViewNib, forHeaderFooterViewReuseIdentifier: "CategoryView")
+        tableView.registerNib(detailNib, forCellReuseIdentifier: "DetailCell")
+        tableView.registerNib(subtitleNib, forCellReuseIdentifier: "SubtitleDetailCell")
         
         // Apply Time to Bduget theme to this view.
-        Style.viewController(self, tableView: self.tableView)
+        Style.viewController(self, tableView: tableView)
         
         // Retrieve database and current budget.
-        self.realm = Database.getRealm()
-        self.currentBudget = Database.budgetSafetyNet()
+        realm = Database.getRealm()
+        currentBudget = Database.getBudget()
     }
     
     override func viewWillAppear(animated: Bool) {
-        self.currentBudget = Database.budgetSafetyNet()
-        self.tableView.reloadData()
+        currentBudget = Database.getBudget()
+        tableView.reloadData()
     }
     
     override func viewDidAppear(animated: Bool) {
         if Tutorial.shouldRun(addRecordView: true) {
-            self.tutorialController.startOn(self)
+            tutorialController.startOn(self)
         }
     }
     
     override func viewDidLayoutSubviews() {
         // Adjust table view insets
-        self.automaticallyAdjustsScrollViewInsets = false
-        self.tableView.contentInset = UIEdgeInsetsMake(self.topLayoutGuide.length, 0, 54, 0)
-        if self.tableView.indexPathsForVisibleRows?.count != 0 {
-            self.tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), atScrollPosition: UITableViewScrollPosition.Top, animated: false)
+        automaticallyAdjustsScrollViewInsets = false
+        tableView.contentInset = UIEdgeInsetsMake(topLayoutGuide.length, 0, 54, 0)
+        if tableView.indexPathsForVisibleRows?.count != 0 {
+            tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), atScrollPosition: UITableViewScrollPosition.Top, animated: false)
         }
         
         // Setup Tutorial points of interest
-        self.tableView.reloadData()
-        Tutorial.addRecordPOI[0] = self.navigationController?.navigationBar
-        Tutorial.addRecordPOI[1] = (self.navigationItem.rightBarButtonItem!.valueForKey("view") as? UIView)
+        tableView.reloadData()
+        Tutorial.addRecordPOI[0] = navigationController?.navigationBar
+        Tutorial.addRecordPOI[1] = (navigationItem.rightBarButtonItem!.valueForKey("view") as? UIView)
     }
     
     // ==================== UITableViewDataSource Methods ====================
@@ -96,8 +96,8 @@ class RecordEditorTaskSelectorViewController: UIViewController, UITableViewDataS
         // Pass the selected task back to the Record Editor and return to that view.
         let currentTask = currentBudget.categories[indexPath.section].tasks[indexPath.row]
         print("RecordEditorTaskSelector->currentTask.name", currentTask.name)
-        self.delegate?.writeTaskBack(currentTask)
-        self.navigationController?.popViewControllerAnimated(true)
+        delegate?.writeTaskBack(currentTask)
+        navigationController?.popViewControllerAnimated(true)
     }
     
     // ==================== IBAction Methods ====================

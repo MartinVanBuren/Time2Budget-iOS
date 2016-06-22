@@ -14,8 +14,8 @@ class BudgetHistoryRecordsViewController: UITableViewController {
         // Retrieve and register the nib files for tableView elements.
         let detailNib = UINib(nibName: "DetailCell", bundle: nil)
         let subtitleNib = UINib(nibName: "SubtitleDetailCell", bundle: nil)
-        self.tableView.registerNib(detailNib, forCellReuseIdentifier: "DetailCell")
-        self.tableView.registerNib(subtitleNib, forCellReuseIdentifier: "SubtitleDetailCell")
+        tableView.registerNib(detailNib, forCellReuseIdentifier: "DetailCell")
+        tableView.registerNib(subtitleNib, forCellReuseIdentifier: "SubtitleDetailCell")
         
         // Apply the Time to Budget theme to this view.
         Style.viewController(self)
@@ -25,18 +25,18 @@ class BudgetHistoryRecordsViewController: UITableViewController {
         // Retrieve up-to-date record information and display it to the table view
         let recordsResults = currentTask?.records.sorted("date", ascending: false)
         for rec in recordsResults! {
-            self.recordsList.append(rec)
+            recordsList.append(rec)
         }
-        self.tableView.reloadData()
+        tableView.reloadData()
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        let indexPath = self.tableView.indexPathForSelectedRow!
+        let indexPath = tableView.indexPathForSelectedRow!
         
         if segue.identifier == "showHistoryRecord" {
             let historyRecordVC = segue.destinationViewController as? BudgetHistoryRecordViewController
-            historyRecordVC?.currentRecord = self.recordsList[indexPath.row]
-            historyRecordVC?.currentTask = self.currentTask!
+            historyRecordVC?.currentRecord = recordsList[indexPath.row]
+            historyRecordVC?.currentTask = currentTask!
         }
     }
 
@@ -54,7 +54,7 @@ class BudgetHistoryRecordsViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        return Factory.prepareRecordCell(tableView: self.tableView, recordList: recordsList, indexPath: indexPath)
+        return Factory.prepareRecordCell(tableView: tableView, recordList: recordsList, indexPath: indexPath)
     }
     
     // ========================= UITableViewDelegate Methods =========================

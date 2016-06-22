@@ -75,7 +75,7 @@ public class Database {
         addRecord(parentTask: task, note: "Did some work today.", timeSpent: 5.0, date: NSDate())
     }
     
-    public class func budgetSafetyNet() -> Budget {
+    public class func getBudget() -> Budget {
         let realm = Database.getRealm()
         let budgetList = realm.objects(Budget).filter("isCurrent = true")
         
@@ -92,7 +92,7 @@ public class Database {
         
         let currentBudgetCount = realm.objects(Budget).filter("isCurrent = true").count
         
-        if self.debugEnabled {
+        if debugEnabled {
             print("newBudget->currentBudgetCount: ", currentBudgetCount)
         }
         
@@ -125,7 +125,7 @@ public class Database {
             }
         }
         
-        if self.debugEnabled {
+        if debugEnabled {
             let budgets = realm.objects(Budget)
             let currentBudgets = budgets.filter("isCurrent = true")
             
@@ -201,13 +201,13 @@ public class Database {
                 currentBudget.categories.append(newCategory)
             }
             
-            if self.debugEnabled {
+            if debugEnabled {
                 let testCategory = realm.objects(Category).filter("name = '\(name)'").first!
                 print("addCategory->testCategory.name: ", testCategory.name)
             }
             
         } else {
-            if self.debugEnabled {
+            if debugEnabled {
                 print("Category Name Taken")
             }
         }
@@ -252,7 +252,7 @@ public class Database {
             currentCategory.name = newCategoryName
         }
         
-        if self.debugEnabled {
+        if debugEnabled {
             let testCategory = realm.objects(Category).filter("name = '\(newCategoryName)'").first!
             print("updateCategory->newCategory.name: ", testCategory.name)
         }
@@ -294,7 +294,7 @@ public class Database {
             newCategory.calcTime()
         }
         
-        if self.debugEnabled {
+        if debugEnabled {
             let testTask = realm.objects(Task).filter("name = '\(task.name)'").first!
             print("moveTask->testTask.name: ", testTask.name)
             print("moveTask->testTask.memo: ", testTask.memo)
@@ -314,7 +314,7 @@ public class Database {
             taskCategory.tasks.move(from: oldIndex, to: index)
         }
         
-        if self.debugEnabled {
+        if debugEnabled {
             print("Task moved from index: ", oldIndex, " to: ", index)
         }
         
@@ -334,7 +334,7 @@ public class Database {
             targetCategory.calcTime()
         }
         
-        if self.debugEnabled {
+        if debugEnabled {
             print("Task moved from category: ", oldCategory.name, " to: ", targetCategory.name, " at index: ", index)
         }
         
@@ -353,7 +353,7 @@ public class Database {
                 task.parent.calcTime()
             }
             
-            if self.debugEnabled {
+            if debugEnabled {
                 let testTask = realm.objects(Task).filter("name = '\(name)'").first!
                 print("moveTask->testTask.name: ", testTask.name)
                 print("moveTask->testTask.memo: ", testTask.memo)
@@ -407,7 +407,7 @@ public class Database {
             parentTask.calcTime()
         }
         
-        if self.debugEnabled {
+        if debugEnabled {
             let testRecord = realm.objects(Task).filter("name = '\(parentTask.name)'").first!.records.filter("note = '\(note)'").first!
             print("addRecord->testRecord.note", testRecord.note)
             print("addRecord->testRecord.timeSpent", testRecord.timeSpent)
@@ -429,7 +429,7 @@ public class Database {
             newTask.calcTime()
         }
         
-        if self.debugEnabled {
+        if debugEnabled {
             print("addRecord->testRecord.note", record.note)
             print("addRecord->testRecord.timeSpent", record.timeSpent)
             print("addRecord->testRecord.date", record.date)
@@ -462,7 +462,7 @@ public class Database {
         if record.parent.name != task.name {
             Database.moveRecord(record: record, newTask: task)
         }
-        if self.debugEnabled {
+        if debugEnabled {
             print("addRecord->testRecord.note", record.note)
             print("addRecord->testRecord.timeSpent", record.timeSpent)
             print("addRecord->testRecord.date", record.date)

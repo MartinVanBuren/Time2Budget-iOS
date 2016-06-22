@@ -19,7 +19,7 @@ class TaskEditorTimePickerViewController: UIViewController, UIPickerViewDataSour
 
         // Apply the Time to Budget theme to this view.
         Style.viewController(self)
-        Style.button(self.doneButton)
+        Style.button(doneButton)
         Style.label(colonLabel)
         
         // Apply previous time if any to the UIPicker.
@@ -73,8 +73,8 @@ class TaskEditorTimePickerViewController: UIViewController, UIPickerViewDataSour
     
     //==================== IBAction Methods ====================
     @IBAction func doneButtonPressed(sender: UIButton) {
-        taskEditorVC.taskTime = self.timePicked.toDouble()
-        self.navigationController?.popViewControllerAnimated(true)
+        taskEditorVC.taskTime = timePicked.toDouble()
+        navigationController?.popViewControllerAnimated(true)
     }
     
     //==================== Helper Methods ====================
@@ -99,9 +99,9 @@ class TaskEditorTimePickerViewController: UIViewController, UIPickerViewDataSour
     
     func labelForHours() {
         let lblText = "Hours"
-        let lblWidth = self.timePicker.frame.size.width / CGFloat(self.timePicker.numberOfComponents)
-        let lblXPos = self.timePicker.frame.origin.x
-        let lblYPos = self.timePicker.frame.origin.y
+        let lblWidth = timePicker.frame.size.width / CGFloat(timePicker.numberOfComponents)
+        let lblXPos = timePicker.frame.origin.x
+        let lblYPos = timePicker.frame.origin.y
         
         let hrsLabel = UILabel()
         hrsLabel.frame = CGRect(x: lblXPos, y: lblYPos, width: lblWidth, height: 20)
@@ -110,14 +110,14 @@ class TaskEditorTimePickerViewController: UIViewController, UIPickerViewDataSour
         
         Style.label(hrsLabel)
         
-        self.view.addSubview(hrsLabel)
+        view.addSubview(hrsLabel)
     }
     
     func labelForMinutes() {
         let lblText = "Minutes"
-        let lblWidth = self.timePicker.frame.size.width / CGFloat(self.timePicker.numberOfComponents)
-        let lblXPos = self.timePicker.frame.origin.x + lblWidth
-        let lblYPos = self.timePicker.frame.origin.y
+        let lblWidth = timePicker.frame.size.width / CGFloat(timePicker.numberOfComponents)
+        let lblXPos = timePicker.frame.origin.x + lblWidth
+        let lblYPos = timePicker.frame.origin.y
         
         let minsLabel = UILabel(frame: CGRect(x: lblXPos, y: lblYPos, width: lblWidth, height: 20))
         minsLabel.text = lblText
@@ -125,7 +125,7 @@ class TaskEditorTimePickerViewController: UIViewController, UIPickerViewDataSour
         
         Style.label(minsLabel)
         
-        self.view.addSubview(minsLabel)
+        view.addSubview(minsLabel)
     }
     
 }

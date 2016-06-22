@@ -9,14 +9,14 @@ class SettingsViewController: UITableViewController {
         
         // Register Nib files for tableView Cells/Headers.
         let catViewNib = UINib(nibName: "CategoryView", bundle: nil)
-        self.tableView.registerNib(catViewNib, forHeaderFooterViewReuseIdentifier: "CategoryView")
+        tableView.registerNib(catViewNib, forHeaderFooterViewReuseIdentifier: "CategoryView")
         
         // Applies the Time to Budget theme to the navbar and view controller.
-        let nav = self.navigationController!.navigationBar
+        let nav = navigationController!.navigationBar
         Style.navbar(nav)
         Style.viewController(self)
         
-        self.navigationItem.title = "Settings"
+        navigationItem.title = "Settings"
     }
     
     // ==================== UITableViewDataSource Methods ====================
@@ -44,11 +44,11 @@ class SettingsViewController: UITableViewController {
     override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         switch section {
         case 2:
-            return Factory.prepareBasicHeader(tableView: self.tableView, titleText: "Database")
+            return Factory.prepareBasicHeader(tableView: tableView, titleText: "Database")
         case 1:
-            return Factory.prepareBasicHeader(tableView: self.tableView, titleText: "Application")
+            return Factory.prepareBasicHeader(tableView: tableView, titleText: "Application")
         case 0:
-            return Factory.prepareBasicHeader(tableView: self.tableView, titleText: "About")
+            return Factory.prepareBasicHeader(tableView: tableView, titleText: "About")
         default:
             return UIView()
         }
@@ -59,35 +59,35 @@ class SettingsViewController: UITableViewController {
         case 1:
             switch indexPath.row {
             case 0:
-                return Factory.prepareBasicCell(tableView: self.tableView, titleText: "Enable Tutorial")
+                return Factory.prepareBasicCell(tableView: tableView, titleText: "Enable Tutorial")
             case 1:
-                return Factory.prepareBasicCell(tableView: self.tableView, titleText: "Enable Welcome Screen")
+                return Factory.prepareBasicCell(tableView: tableView, titleText: "Enable Welcome Screen")
             case 2:
-                return Factory.prepareBasicCell(tableView: self.tableView, titleText: "System Settings")
+                return Factory.prepareBasicCell(tableView: tableView, titleText: "System Settings")
             default:
                 return UITableViewCell()
             }
         case 0:
             switch indexPath.row {
             case 0:
-                return Factory.prepareBasicCell(tableView: self.tableView, titleText: "Info")
+                return Factory.prepareBasicCell(tableView: tableView, titleText: "Info")
             case 1:
-                return Factory.prepareBasicCell(tableView: self.tableView, titleText: "Feedback")
+                return Factory.prepareBasicCell(tableView: tableView, titleText: "Feedback")
             case 2:
-                return Factory.prepareBasicCell(tableView: self.tableView, titleText: "Blog")
+                return Factory.prepareBasicCell(tableView: tableView, titleText: "Blog")
             case 3:
-                return Factory.prepareBasicCell(tableView: self.tableView, titleText: "Privacy Policy")
+                return Factory.prepareBasicCell(tableView: tableView, titleText: "Privacy Policy")
             default:
                 return UITableViewCell()
             }
         case 2:
             switch indexPath.row {
             case 0:
-                return Factory.prepareBasicCell(tableView: self.tableView, titleText: "Archive Budget")
+                return Factory.prepareBasicCell(tableView: tableView, titleText: "Archive Budget")
             case 1:
-                return Factory.prepareBasicCell(tableView: self.tableView, titleText: "Clear Budget History")
+                return Factory.prepareBasicCell(tableView: tableView, titleText: "Clear Budget History")
             case 2:
-                return Factory.prepareBasicCell(tableView: self.tableView, titleText: "Reset All to Default Budget")
+                return Factory.prepareBasicCell(tableView: tableView, titleText: "Reset All to Default Budget")
             default:
                 return UITableViewCell()
             }
@@ -161,7 +161,7 @@ class SettingsViewController: UITableViewController {
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
         
-        self.presentViewController(alert, animated: true, completion: {})
+        presentViewController(alert, animated: true, completion: {})
     }
 
     func displayResetHistoryAlert() {
@@ -175,7 +175,7 @@ class SettingsViewController: UITableViewController {
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
         
-        self.presentViewController(alert, animated: true, completion: {})
+        presentViewController(alert, animated: true, completion: {})
     }
 
     func displayArchiveBudgetAlert() {
@@ -185,7 +185,7 @@ class SettingsViewController: UITableViewController {
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
         
-        self.presentViewController(alert, animated: true, completion: {})
+        presentViewController(alert, animated: true, completion: {})
     }
     
 }

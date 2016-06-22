@@ -37,35 +37,35 @@ public class Tutorial {
         if budgetView {
             if settings.objectForKey("showTutorialBudgetView") != nil {
                 if settings.boolForKey("showTutorialBudgetView") {
-                    self.didRun(budgetView: true)
+                    didRun(budgetView: true)
                     return true
                 }
             }
         } else if budgetEditor {
             if settings.objectForKey("showTutorialBudgetEditor") != nil {
                 if settings.boolForKey("showTutorialBudgetEditor") {
-                    self.didRun(budgetEditor: true)
+                    didRun(budgetEditor: true)
                     return true
                 }
             }
         } else if recordsView {
             if (settings.objectForKey("showTutorialRecordsView") != nil) {
                 if settings.boolForKey("showTutorialRecordsView") {
-                    self.didRun(recordsView: true)
+                    didRun(recordsView: true)
                     return true
                 }
             }
         } else if addRecordView {
             if (settings.objectForKey("showTutorialAddRecordView") != nil) {
                 if settings.boolForKey("showTutorialAddRecordView") {
-                    self.didRun(addRecordView: true)
+                    didRun(addRecordView: true)
                     return true
                 }
             }
         } else if addTaskView {
             if (settings.objectForKey("showTutorialAddTaskView") != nil) {
                 if settings.boolForKey("showTutorialAddTaskView") {
-                    self.didRun(addTaskView: true)
+                    didRun(addTaskView: true)
                     return true
                 }
             }
