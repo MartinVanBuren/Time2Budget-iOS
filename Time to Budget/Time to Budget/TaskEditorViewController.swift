@@ -5,39 +5,44 @@ class TaskEditorViewController: UIViewController, UITableViewDataSource, UITable
     //========== View Properties ==========
     var budgetEditorViewController: BudgetEditorViewController!
     var currentTask: Task?
-    var returning: Bool? = false
-    var editTask: Bool = false
+    var returning = false
+    var editTask = false
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var saveTaskButton: UIButton!
     
     //========== Task Properties ==========
     var taskName: String?
-    var taskMemo: String!
+    var taskMemo = ""
     var taskCategory: String?
-    var taskTime: Double = 0.0
+    var taskTime = 0.0
     
     //==================== View Controller Methods ====================
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Apply Time to Budget theme to this view, navbar, and buttons.
+        applyStyling()
+        registerNibs()
+        populateFields()
+    }
+    
+    func applyStyling() {
         let nav = navigationController!.navigationBar
         Style.navbar(nav)
         Style.viewController(self, tableView: tableView)
         Style.button(saveTaskButton)
         
-        // Register nibs for Cell/Headers.
-        let nib = UINib(nibName: "DetailCell", bundle: nil)
-        tableView.registerNib(nib, forCellReuseIdentifier: "DetailCell")
-        
-        // Set Nav bar title based on whether the user is editing or adding a task.
         if editTask {
             navigationItem.title = "Edit \(currentTask!.name)"
         } else {
             navigationItem.title = "Add Task"
         }
-
-        // Apply the previous task information if editing.
+    }
+    
+    func registerNibs() {
+        let nib = UINib(nibName: "DetailCell", bundle: nil)
+        tableView.registerNib(nib, forCellReuseIdentifier: "DetailCell")
+    }
+    
+    func populateFields() {
         if let unwrappedTask = currentTask {
             taskName = unwrappedTask.name
             taskCategory = unwrappedTask.parent.name
@@ -55,11 +60,12 @@ class TaskEditorViewController: UIViewController, UITableViewDataSource, UITable
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if (segue.identifier == "showTaskEditorTimePickerView") {
-            // Pass self into target view.
+
             let timePickerVC = segue.destinationViewController as? TaskEditorTimePickerViewController
             timePickerVC?.taskEditorVC = self
+            
         } else if (segue.identifier == "showTaskEditorCategorySelectorView") {
-            // Pass self into target view.
+
             let categorySelectorVC = segue.destinationViewController as? TaskEditorCategorySelectorViewController
             categorySelectorVC?.delegate = self
         }
@@ -140,9 +146,7 @@ class TaskEditorViewController: UIViewController, UITableViewDataSource, UITable
         if taskInfoIsValid() { submitTask() }
     }
     
-    func submitTask() {
-        if taskMemo == nil { taskMemo = "" }
-        
+    func submitTask() {        
         if editTask {
             updateTask()
         } else {

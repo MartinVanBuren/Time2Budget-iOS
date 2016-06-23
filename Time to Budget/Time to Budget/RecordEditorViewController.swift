@@ -6,31 +6,37 @@ class RecordEditorViewController: UIViewController, UITableViewDataSource, UITab
     // ============ View Properties ============
     @IBOutlet weak var saveRecordButton: UIButton!
     @IBOutlet weak var tableView: UITableView!
-    var editRecord: Bool = false
-    var returning: Bool? = false
+    var editRecord = false
+    var returning = false
     
     //============ Record Properties ============
     var currentTask: Task?
     var currentRecord: Record?
-    var timeSpent: Double = 0.0
-    var date: NSDate = NSDate()
-    var memo: String!
+    var timeSpent = 0.0
+    var date = NSDate()
+    var memo = ""
     
     // ===================== View Controller Methods =====================
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Register Nibs for Cells/Header Views
+        applyStyling()
+        registerNibs()
+        populateFields()
+    }
+    
+    func registerNibs() {
         let detailNib = UINib(nibName: "DetailCell", bundle: nil)
         tableView.registerNib(detailNib, forCellReuseIdentifier: "DetailCell")
-        
-        // Apply Time to Budget theme to view, nav bar, and buttons.
+    }
+    
+    func applyStyling() {
         let nav = navigationController!.navigationBar
         Style.navbar(nav)
         Style.viewController(self, tableView: tableView)
         Style.button(saveRecordButton)
-        
-        // Apply the record information if any was passed into the view.
+    }
+    
+    func populateFields() {
         if let unwrappedRecord = currentRecord {
             timeSpent = unwrappedRecord.timeSpent
             date = unwrappedRecord.date
@@ -122,19 +128,16 @@ class RecordEditorViewController: UIViewController, UITableViewDataSource, UITab
     
     // ==================== UITextFieldDelegate Methods ====================
     func textFieldShouldReturn(textField: UITextField) -> Bool {
-        // Close keyboard when finished editing.
         view.endEditing(true)
         return true
     }
     
     // ==================== IBAction Methods ====================
     @IBAction func cancelButtonPressed(sender: UIBarButtonItem) {
-        // Return to previous view.
         dismissViewControllerAnimated(true, completion: nil)
     }
     
     @IBAction func memoTextFieldChanged(sender: UITextField) {
-        // Update memo property as textfield is updated.
         memo = sender.text!
     }
     
@@ -144,8 +147,6 @@ class RecordEditorViewController: UIViewController, UITableViewDataSource, UITab
     }
     
     func submitRecord() {
-        if memo == nil { memo = "" }
-        
         if editRecord {
             updateRecord()
         } else {

@@ -58,7 +58,7 @@ class BudgetHistoryRecordViewController: UITableViewController {
             cell.userInteractionEnabled = false
             return cell
         default:
-            let cell = cellFactory.prepareMemoTextfieldCell(tableView: tableView, memo: currentRecord?.note)
+            let cell = cellFactory.prepareMemoTextfieldCell(tableView: tableView, memo: currentRecord!.note)
             cell.textField.placeholder = "No Memo"
             cell.userInteractionEnabled = false
             return cell

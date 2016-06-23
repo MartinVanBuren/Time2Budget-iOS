@@ -204,13 +204,13 @@ class CellFactory {
         
     }
     
-    func prepareMemoTextfieldCell(tableView tableView: UITableView, memo: String?) -> MemoTextfieldCell {
+    func prepareMemoTextfieldCell(tableView tableView: UITableView, memo: String) -> MemoTextfieldCell {
         
         if let preparedCell = tableView.dequeueReusableCellWithIdentifier("MemoTextfieldCell") as? MemoTextfieldCell {
-            if let unwrappedMemo = memo {
-                preparedCell.textField.text = unwrappedMemo
-            } else {
+            if memo == "" {
                 preparedCell.textField.placeholder = "Description (Optional)"
+            } else {
+                preparedCell.textField.text = memo
             }
             
             preparedCell.selectionStyle = .None

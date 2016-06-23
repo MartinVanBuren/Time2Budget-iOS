@@ -18,43 +18,47 @@ class BudgetEditorViewController: UIViewController, UITableViewDataSource, UITab
     // ==================== View Controller Methods ====================
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Tutorial setup and setting up points of interest
-        tutorialController.dataSource = self
-        Style.tutorialController(tutorialController)
-        Tutorial.budgetEditorPOI[1] = navigationController?.navigationBar
-        Tutorial.budgetEditorPOI[2] = navigationController?.navigationBar
-        Tutorial.budgetEditorPOI[3] = navigationController?.navigationBar
+        initializeTutorial()
+        registerNibs()
+        registerLongPressToDrag()
+        applyStyling()
         
-        // Retrieve database
         realm = Database.getRealm()
-        
-        // Retrieve and register the nib files for tableView elements.
+        currentBudget = Database.getBudget()
+
+        tableView.reloadData()
+        updateTimeRemaining()
+    }
+    
+    func registerLongPressToDrag() {
+        let longpress = UILongPressGestureRecognizer(target: self, action: #selector(BudgetEditorViewController.longPressGestureRecognized(_:)))
+        tableView.addGestureRecognizer(longpress)
+    }
+    
+    func applyStyling() {
+        let nav = navigationController?.navigationBar
+        Style.navbar(nav!)
+        Style.viewController(self, tableView: tableView)
+    }
+    
+    func registerNibs() {
         let catViewNib = UINib(nibName: "CategoryView", bundle: nil)
         let detailNib = UINib(nibName: "DetailCell", bundle: nil)
         let subtitleNib = UINib(nibName: "SubtitleDetailCell", bundle: nil)
         tableView.registerNib(catViewNib, forHeaderFooterViewReuseIdentifier: "CategoryView")
         tableView.registerNib(detailNib, forCellReuseIdentifier: "DetailCell")
         tableView.registerNib(subtitleNib, forCellReuseIdentifier: "SubtitleDetailCell")
-        
-        // Generate and subscribe a long press gesture recognizer for dragging and dropping tableView elements.
-        let longpress = UILongPressGestureRecognizer(target: self, action: #selector(BudgetEditorViewController.longPressGestureRecognized(_:)))
-        tableView.addGestureRecognizer(longpress)
-
-        // Apply app style to the controller and tableView
-        let nav = navigationController?.navigationBar
-        Style.navbar(nav!)
-        Style.viewController(self, tableView: tableView)
-        
-        // Retrieve the current budget from the database
-        currentBudget = Database.getBudget()
-
-        // Reload tableView data and update the current budgetable time remaining label
-        tableView.reloadData()
-        updateTimeRemaining()
+    }
+    
+    func initializeTutorial() {
+        tutorialController.dataSource = self
+        Style.tutorialController(tutorialController)
+        Tutorial.budgetEditorPOI[1] = navigationController?.navigationBar
+        Tutorial.budgetEditorPOI[2] = navigationController?.navigationBar
+        Tutorial.budgetEditorPOI[3] = navigationController?.navigationBar
     }
     
     override func viewWillAppear(animated: Bool) {
-        // Retrieve up-to-date budget and apply to tableView
         currentBudget = Database.getBudget()
         tableView.reloadData()
         updateTimeRemaining()

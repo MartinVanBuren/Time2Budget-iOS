@@ -95,7 +95,6 @@ class RecordEditorTaskSelectorViewController: UIViewController, UITableViewDataS
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         // Pass the selected task back to the Record Editor and return to that view.
         let currentTask = currentBudget.categories[indexPath.section].tasks[indexPath.row]
-        print("RecordEditorTaskSelector->currentTask.name", currentTask.name)
         delegate?.writeTaskBack(currentTask)
         navigationController?.popViewControllerAnimated(true)
     }

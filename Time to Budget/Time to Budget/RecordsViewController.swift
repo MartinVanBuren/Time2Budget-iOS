@@ -64,20 +64,13 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
         // Set nav bar title to the current task name
         navigationItem.title = currentTask!.name
         
-        // Retrieve and filter current records by date.
-        let recordResults = currentTask!.records.sorted("date", ascending: false)
-        recordList = List<Record>()
-        for rec in recordResults {
-            recordList.append(rec)
-        }
-        
         // Set nav bar prompt to the current task memo if any
         if currentTask!.memo != "" {
             navigationItem.prompt = currentTask!.memo
             promptEnabled = true
         }
         
-        tableView.reloadData()
+        reloadRecords()
         
         // Prepare timer if clocked in
         if currentTask!.clock!.clockedIn {
@@ -90,6 +83,16 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
         if returning && currentTask!.memo == "" {
             fixInsetSegue()
         }
+    }
+    
+    func reloadRecords() {
+        let recordResults = currentTask!.records.sorted("date", ascending: false)
+        recordList = List<Record>()
+        for rec in recordResults {
+            recordList.append(rec)
+        }
+        
+        tableView.reloadData()
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -127,7 +130,9 @@ class RecordsViewController: UIViewController, UITableViewDataSource, UITableVie
             } else {
                 // Pass the current task and the time spent from the clock button if any.
                 recordEditorVC?.currentTask = currentTask
-                recordEditorVC?.timeSpent = finalClockTime!.toDouble()
+                if finalClockTime != nil {
+                    recordEditorVC?.timeSpent = finalClockTime!.toDouble()
+                }
             }
         }
     }

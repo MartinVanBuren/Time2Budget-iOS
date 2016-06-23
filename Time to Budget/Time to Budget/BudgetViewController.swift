@@ -21,32 +21,34 @@ class BudgetViewController: UIViewController, UITableViewDataSource, UITableView
     // ============ View Controller Functions ============
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Setting up tutorial controller
+        registerNibs()
+        applyStyling()
+        
+        realm = Database.getRealm()
+        currentBudget = Database.getBudget()
+        
+        registerPromptTap()
+    }
+    
+    func initializeTutorial() {
         tutorialController.dataSource = self
         Style.tutorialController(tutorialController)
-        
-        // Fetch Database
-        realm = Database.getRealm()
-        
-        // Register Nibs for Cells/Header Views
+    }
+    
+    func applyStyling() {
+        let nav = navigationController!.navigationBar
+        Style.navbar(nav)
+        Style.viewController(self, tableView: tableView)
+        Style.button(clockButton)
+    }
+    
+    func registerNibs() {
         let catViewNib = UINib(nibName: "CategoryView", bundle: nil)
         let detailNib = UINib(nibName: "DetailCell", bundle: nil)
         let subtitleNib = UINib(nibName: "SubtitleDetailCell", bundle: nil)
         tableView.registerNib(catViewNib, forHeaderFooterViewReuseIdentifier: "CategoryView")
         tableView.registerNib(detailNib, forCellReuseIdentifier: "DetailCell")
         tableView.registerNib(subtitleNib, forCellReuseIdentifier: "SubtitleDetailCell")
-        
-        // Apply Time to Budget theme to view
-        let nav = navigationController!.navigationBar
-        Style.navbar(nav)
-        Style.viewController(self, tableView: tableView)
-        Style.button(clockButton)
-        
-        // Retrieve current budget
-        currentBudget = Database.getBudget()
-        
-        // Register a tap gesture for the navigation bar to display the current budget name.
-        registerPromptTap()
     }
     
     override func viewWillAppear(animated: Bool) {
