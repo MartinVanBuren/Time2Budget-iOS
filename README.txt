@@ -22,4 +22,4 @@ You can report bugs using the bitbucket issue tracking tool found [here](https:/
 
 Copyright
 -------------
-Copyright (C) 2014 Arrken Software, LLC. All rights reserved.
+Copyright (C) 2014 Robert Kennedy. All rights reserved.
