@@ -4,4 +4,4 @@ Time to Budget is an iOS application used for time management.
 
 Copyright
 -------------
-Copyright (C) 2014 Arrken Software, LLC. All rights reserved.
+Copyright (C) 2014 Robert Kennedy. All rights reserved.
